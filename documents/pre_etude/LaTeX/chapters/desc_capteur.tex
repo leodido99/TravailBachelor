@@ -51,7 +51,7 @@ Pour le capteur de ce projet, les deux solutions existent sur le marché, cepend
 
 Dans les deux cas, l’utilisation par le microcontrôleur est semblable, la sonde sera connectée sur une entrée digitale et elle émettra une impulsion à chaque fois qu’un battement sera détecté. Il suffit donc de compter le nombre d’impulsion et de mesurer le temps pendant lesquels elles ont eu lieu pour pouvoir déterminer la fréquence cardiaque en BPM (Battement par minute).
 
-La formule suivante permet de calculer le rythme cardiaque~$rc$ en battement par minutes (BPM).
+La formule~\ref{eqn:rythme_card} permet de calculer le rythme cardiaque~$rc$ en battement par minutes (BPM).
 
 \begin{equation}\label{eqn:rythme_card}
 rc = \frac{60 * n}{t}
@@ -68,5 +68,207 @@ Les battements du cœur peuvent être détecté grâce à une sangle pectorale m
 \label{fig:cardiofreq}
 \end{figure}
 
+\section{Cadence de pas}
 
+Le nombre de pas effectué pendant un certain temps, c’est-à-dire la cadence, est une information intéressante pour les coureurs. Tout un tas de facteur peuvent l’influencer, comme le poids, la taille ou la longueur des jambes. Les coureurs amateurs se trouvent en général dans la tranche de 160 à 170 pas par minute alors que des coureurs d’élites à 180 ou même 200 pas par minute lorsqu’ils sont au maximum de leur vitesse. La cadence permet de juger de la bonne posture d’un coureur, plus les pas seront cours et plus la cadence sera élevée. 
 
+De manière générale, en course à pied la préférence est portée sur les petits pas, d’une part car c’est uniquement lorsque le coureur touche le sol qu’il peut donner une impulsion vers l’avant, ce qui lui permet d’aller plus vite, et d’autre part car le fait de faire des grands pas augmente le risque de blessure, le pied a tendance à taper plus fort sur le sol. Une cadence plus élevée permet d’améliorer la position où le pied touche le sol, idéalement cela devrait être directement en dessous du centre de gravité ou lieu de plus en avant.
+
+Afin de déterminer la cadence de pas, un module accéléromètre est utilisé. Ce type de composant permet de mesurer l’accélération linéaire soit en \SI{}{\m\per\square\s} ou en g sur un ou plusieurs axes, en général les axes X, Y et Z. Plusieurs interfaces de communication existent pour ce type de composant, analogique ou les niveaux sont transmis à travers des valeurs de voltage, digitale avec un bus I2C ou SPI ou alors grâce à une modulation de largeur d’impulsion (PWM). Pour ce projet une communication digitale de type I2C ou SPI sera privilégiée afin de simplifier la récupération des données de l’accéléromètre.
+
+Beaucoup d’application qui utilise ce composant existe, il permet par exemple de détecter l’orientation d’un téléphone portable (paysage ou portrait) ou de savoir si un objet est en mouvement. C’est également l’élément central des podomètres, qui permettent de compter le nombre de pas effectué, gadget qui est très à la mode en ce moment. C’est justement cette application qui sera utilisée dans le cadre du projet, il faudra compter le nombre de pas effectué par le coureur en un certain temps pour déterminer sa cadence.
+
+Afin de détecter quand la personne fera un pas, il est nécessaire de pouvoir détecter un pic d’accélération dans une ou plusieurs directions. Il faudra déterminer un pallier au-dessus duquel on considérera que l’intensité de l’accélération est suffisamment élevée pour la considérer comme un pas. Pour se faire il faudra que le programme lise les informations des différents axes de l’accéléromètre régulièrement et qu’il les analyse, ceci lui permettra de garder un compte du nombre de pas. Il faudra également mesurer le temps durant lequel les pas ont été comptés pour pouvoir calculer la cadence à un certain moment. 
+
+Au lieu que le programme fasse lui-même les acquisitions, certains accéléromètres peuvent être configuré pour déclencher une interruption lorsqu’un certain seuil est dépassé, cette méthode dépend entièrement du composant utilisé cependant dans la mesure du possible elle sera privilégiée car elle facilite le traitement de cette activité et évite une surcharge des opérations requises par le logiciel.
+
+De manière similaire au rythme cardiaque, la cadence de pas~$cp$ en pas par minute pourra être calculée avec la formule~\ref{eqn:cadence_pas}.
+
+\begin{equation}\label{eqn:cadence_pas}
+cp = \frac{60 * n}{t}
+\end{equation}
+
+Avec~$n$ le nombre de pas accumulé pendant un temps~$t$ en secondes.
+
+\section{Radio LoRa}
+
+La partie radio LoRa, c’est-à-dire la transformation des données en ondes radio est à la charge d’un composant spécifique. Il existe deux principaux types de composant, le premier intègre uniquement la couche physique LoRa, le deuxième en plus de cette couche propose également la couche protocolaire LoRaWAN. Comme expliqué dans ce document, dans le cadre du projet seule la couche radio LoRa sera employée, les composants intégrant la couche LoRaWAN offre toujours la possibilité d’utiliser uniquement la couche radio, il sera donc possible d’utiliser l’un ou l’autre de ses types de composant pour le projet.
+
+La majorité des modules radio LoRa existant sur le marché proposent en règle générale uniquement la gestion de la couche physique, cette partie étant la propriété de la société Semtech, les composants embarqués sont toujours les mêmes, soit le composant SX1272 ou le SX1276. Ils communiquent les deux avec le microcontrôleur au moyen d’un bus SPI.
+
+\section{Matériel}
+
+Ce chapitre décrit une série de composants qui pourront être utilisé dans l’assemblage final du capteur. La sélection des composants exacts utilisés pour le travail de Bachelor se fera au début de la phase de réalisation.
+
+Il est possible que certains de ses modules soit directement intégré au module microcontrôleur, il existe sur le marché des solutions qui en plus du microcontrôleur dispose également du module radio LoRa ou d’un GPS par exemple. Ce genre de configuration permet un gain de place et de temps car les composants sont montés sur un seul et même PCB.
+
+\subsection{Adafruit Feather}
+
+La société Adafruit a développée toute une suite de produits différents dont les Feather et les Featherwing. L’objectif des Feather est de proposer des cartes électroniques légères, de petite taille, pouvant être alimenté par batterie et proposant tout un panel de configuration et périphérique différents. Les Featherwing quant à elle sont des cartes d’extension qui vienne se ficher par-dessus un Feather et qui permette d’ajouter les fonctions additionnelles désirées.
+
+Dans cette gamme il existe plusieurs modules pouvant être utilisé pour le projet, le plus approprié est le Feather M0 with RFM95 LoRa Radio, le module intègre directement un microcontrôleur ainsi qu’un module radio LoRa couche physique. Il est également possible d’y brancher une batterie lithium-ion.
+
+\begin{figure}[htb]
+\centering 
+\includegraphics[width=0.4\columnwidth]{../images/adafruit-feather-m0-lora.jpg} 
+\caption[Adafruit Feather]{Feather M0 with RFM95 LoRa Radio - © Adafruit}
+\label{fig:ada_feather}
+\end{figure}
+
+Les caractéristiques du microcontrôleur sont résumées dans la table~\ref{tab:ada_feather_cara}.
+
+\begin{table}[htb]
+\caption[Adafruit Feather Caractéristiques]{Caractéristiques de la carte Adafruit Feather M0}
+\label{tab:ada_feather_cara}
+\centering
+\begin{tabular}{ l | l }
+\toprule
+Dimensions & 51mm x 23mm x 8mm \\
+\midrule
+Microcontrôleur & ATSAMD21G18 – ARM Cortex M0 \\
+\midrule
+Oscillateur & 48 Mhz \\
+\midrule
+Flash & 256 kB \\
+\midrule
+RAM & 32 kB \\
+\midrule
+LoRa & Semtech SX1272 \\
+\midrule
+Prix & 34.50 CHF\\
+\bottomrule 
+\end{tabular}
+\end{table}
+
+Pour la gestion du GPS, on pourra s’appuyer sur le Adafruit Ultimate GPS Featherwing illustré par la figure~\ref{fig:ada_featherwing_gps}, qui propose un module pouvant se fixer sur le module de base avec un composant de gestion de la position. Une connexion série UART sera utilisée pour récupérer les messages NMEA et ainsi pouvoir en extraire la position du module.
+
+\begin{figure}[htb]
+\centering 
+\includegraphics[width=0.4\columnwidth]{../images/adafruit-featherwing-ultimate-gps.jpg} 
+\caption[Adafruit Featherwing GPS]{Adafruit Ultimate GPS Featherwing - © Adafruit}
+\label{fig:ada_featherwing_gps}
+\end{figure}
+
+Afin de pouvoir compléter le système en utilisant les composants Adafruit, il faudra encore rajouter un accéléromètre ainsi qu’une sonde pour le rythme cardiaque.
+
+Enfin, en ce qui concerne la partie logiciel, quelques systèmes d’exploitation temps réel existe pour ce type de processeur ARM. Pour ce développement l’utilisation de Zephyr sera privilégiée, il propose toutes les fonctionnalités standard que l’on pourrait attendre de ce type de système d’exploitation et sa communauté est très active.
+
+\subsection{SODAQ One}
+
+La société Néerlandaise SODAQ propose un module nommé SODAQ One qui contient un microcontrôleur, le même que sur la solution Adafruit, un module LoRa, un accéléromètre ainsi qu’un module GPS sur le même PCB. Cette solution a l’avantage de contenir directement pratiquement tous les modules nécessaires au projet, reste la sonde de rythme cardiaque à intégrer. 
+
+Il est possible d’alimenter le SODAQ One avec une batterie lithium-ion, un petit panneau solaire est également proposé. Autre avantage de taille de cette carte est le fait qu’elle embarque le module LoRa de Microchip RN2483 qui propose la gestion de la couche physique LoRa ainsi que de la couche protocolaire LoRaWAN. Une interface série de type UART en utilisé pour envoyer des commandes à la puce de gestion du LoRa, elle permet aussi l’utilisation de la couche radio uniquement ou alors en consort avec la couche protocolaire. La figure~\ref{fig:sodaq_one} montre l'allure du module SODAQ One.
+
+\begin{figure}[htb]
+\centering 
+\includegraphics[width=0.4\columnwidth]{../images/sodaq-one-eu-rn2483-v3.jpg} 
+\caption[SODAQ One]{SODAQ One v3 - © SODAQ}
+\label{fig:sodaq_one}
+\end{figure}
+
+Les caractéristiques du microcontrôleur sont résumées dans la table~\ref{tab:sodaq_one_cara}.
+
+\begin{table}[htb]
+\caption[SODAQ One Caractéristiques]{Caractéristiques de la carte SODAQ One v3}
+\label{tab:sodaq_one_cara}
+\centering
+\begin{tabular}{ l | l }
+\toprule
+Dimensions & 45mm x 25mm \\
+\midrule
+Microcontrôleur & ATSAMD21G18 – ARM Cortex M0 \\
+\midrule
+Oscillateur & 48 Mhz \\
+\midrule
+Flash & 256 kB \\
+\midrule
+RAM & 32 kB \\
+\midrule
+LoRa & Microchip RN2483 \\
+\midrule
+GPS & uBlox EVA 8M \\
+\midrule
+Accéléromètre & STMicroelectronics LSM303AGR \\
+\midrule
+Prix & 114 CHF\\
+\bottomrule 
+\end{tabular}
+\end{table}
+
+C’est cette solution qui requiert le moins de travail de modification ou d’ajout pour pouvoir couvrir tous les aspects requis par le projet. Sa petite taille la rend également idéale pour l’utilisation pour ce travail de Bachelor.
+
+Puisque le microcontrôleur utilisé par ce capteur est le même que la solution Adafruit, en termes de logiciel le même système d’exploitation temps réel sera utilisé, c’est-à-dire Zephyr.
+
+\subsection{Multiconnect mDot}
+
+La société Multitech propose plusieurs modules de taille et de spécifications différentes, l’un d’eux est le mDot, un module de petite taille qui incorpore un microcontrôleur ainsi qu’un module radio LoRa. Il n’embarque pas d’autre module utile au projet cependant son avantage réside dans le fait qu’il donne la possibilité d’utiliser le système d’exploitation temps réel mBed qui offre toutes les fonctionnalités généralement proposées pour la gestion du temps réel comme la création de tâches, de sémaphores ou d’évènements. Cet environnement de développement est également composé d’une couche LoRaWAN logiciel permettant l’envoie de donnée à une passerelle.
+
+\begin{figure}[htb]
+\centering 
+\includegraphics[width=0.5\columnwidth]{../images/Multitech-mDot.png} 
+\caption[Multitech mDot]{Multitech mDot - © Multitech}
+\label{fig:multitech_mdot}
+\end{figure}
+
+Les caractéristiques du microcontrôleur sont résumées dans la table~\ref{tab:multitech_mdot_cara}.
+
+\begin{table}[htb]
+\caption[Multitech mDot Caractéristiques]{Caractéristiques de la carte Multitech mDot}
+\label{tab:multitech_mdot_cara}
+\centering
+\begin{tabular}{ l | l }
+\toprule
+Dimensions & 37.3mm x 25.5mm \\
+\midrule
+Microcontrôleur & STM32F411RET – ARM Cortex M4 \\
+\midrule
+Oscillateur & 96 Mhz \\
+\midrule
+Flash & 512 kB \\
+\midrule
+RAM & 128 kB \\
+\midrule
+LoRa & Semtech SX1272 \\
+\midrule
+Prix & 53 CHF\\
+\bottomrule 
+\end{tabular}
+\end{table}
+
+L’avantage principal de cette solution est que le module vient accompagner par une suite logicielle complète et bien documenté permettant le développement d’une application temps réel. Par contre il nécessite la mise en place d’une carte supplémentaire afin de pouvoir y placer tous les autres composants nécessaires, c’est-à-dire le module GPS, l’accéléromètre et la sonde de rythme cardiaque, ce qui rajoute une quantité de travaille non négligeable ainsi que des risques accrus de rencontrer des problèmes.
+
+\subsection{Comparatif des différents modules}
+
+Cette section vise à comparer les modules entre eux pour pouvoir évaluer les avantages et inconvénients de chacun d’entre eux, ce qui facilitera la sélection du module qui sera utilisé durant le travail de Bachelor.
+
+La table suivante résume les caractéristiques de chacun des modules présentés dans cette section.
+
+\begin{table}[tb]
+\caption[A floating table]{A floating table.}
+\label{tab:esempio}
+\centering
+\begin{tabular}{lcccccccc}
+\toprule
+Module & Prix & Microcontrôleur & Fréquence & Flash & RAM  \\ 
+\midrule
+Adafruit Feather M0	& 10 g	& STM32F411RET & 0 & 0 & 0 & \\
+SODAQ One	& 1 kg & STM32F411RET & 0 & 0 & 0 \\
+Multiconnect mDot & 53 CHF & STM32F411RET & 0 & 0 & 0 \\
+\bottomrule 
+\end{tabular}
+\end{table}
+
+\begin{table}[tb]
+\caption[A floating table]{A floating table.}
+\label{tab:esempio}
+\centering
+\begin{tabular}{lcccccccc}
+\toprule
+Module & Prix & Flash & RAM & LoRa & LoRaWAN & GPS & Accéléromètre & Rythme Cardiaque \\ 
+\midrule
+Adafruit Feather M0	& 10 g	& cheese & 0 & 0 & 0 & 0 & 0 & 0  \\
+SODAQ One	& 1 kg	& mice & 0 & 0 & 0 & 0 & 0 & 0  \\
+Multiconnect mDot	& 10 kg	& cats & 0 & 0 & 0 & 0 & 0 & 0  \\
+\bottomrule 
+\end{tabular}
+\end{table}
