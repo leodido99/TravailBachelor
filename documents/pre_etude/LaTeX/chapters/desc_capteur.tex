@@ -1,4 +1,4 @@
-\chapter{Description du capteur}
+\chapter{Description du capteur} \label{desc_capteur}
 
 Les informations relatives aux sportifs sont acquises par le biais du capteur. Il sera composé d’un assemblage de différents éléments déjà existants dans le commerce. On veillera à minimiser au maximum son poids ainsi que sa taille pour éviter de gêner le sportif durant sa course. Une fois assemblé, il sera placé dans une boîte étanche qui disposera d’un bracelet élastique ce qui permettra à l’athlète de le porter facilement. Enfin il doit également disposer de sa propre source d’énergie sous la forme d’une batterie, celle-ci doit lui conférer une autonomie assez grande pour pouvoir fonctionner durant l’entièreté d’une course.
 
@@ -149,9 +149,27 @@ Pour la gestion du GPS, on pourra s’appuyer sur le Adafruit Ultimate GPS Feath
 \label{fig:ada_featherwing_gps}
 \end{figure}
 
-Afin de pouvoir compléter le système en utilisant les composants Adafruit, il faudra encore rajouter un accéléromètre ainsi qu’une sonde pour le rythme cardiaque.
+En ce qui concerne la partie logiciel, quelques systèmes d’exploitation temps réel existe pour ce type de processeur ARM. Pour ce développement l’utilisation de Zephyr sera privilégiée, il propose toutes les fonctionnalités standard que l’on pourrait attendre de ce type de système d’exploitation et sa communauté est très active.
 
-Enfin, en ce qui concerne la partie logiciel, quelques systèmes d’exploitation temps réel existe pour ce type de processeur ARM. Pour ce développement l’utilisation de Zephyr sera privilégiée, il propose toutes les fonctionnalités standard que l’on pourrait attendre de ce type de système d’exploitation et sa communauté est très active.
+La table~\ref{tab:ada_feather_liste} propose une liste de l'ensemble des modules nécessaire pour l'assemblage du capteur.
+
+\begin{table}[htb]
+\caption[Adafruit Feather List]{Liste de module pour Adafruit Feather}
+\label{tab:ada_feather_liste}
+\centering
+\begin{tabular}{lcc}
+\toprule
+Module & Prix & Num. produit \\ 
+\midrule
+Adafruit Feather M0 & 34.05 CHF & ADAFRUIT-3178 \\
+Adafruit Heart Rate Start Pack & 65 CHF & ADAFRUIT-1077 \\
+Adafruit Triple-Axis Accelerometer & 8 CHF & ADAFRUIT-2019 \\
+Adafruit Ultimate GPS FeatherWing & 40 CHF & ADAFRUIT-3133 \\
+\midrule
+Prix Total & 147.50 CHF &  \\
+\bottomrule 
+\end{tabular}
+\end{table}
 
 \subsection{SODAQ One}
 
@@ -199,6 +217,24 @@ C’est cette solution qui requiert le moins de travail de modification ou d’a
 
 Puisque le microcontrôleur utilisé par ce capteur est le même que la solution Adafruit, en termes de logiciel le même système d’exploitation temps réel sera utilisé, c’est-à-dire Zephyr.
 
+La table~\ref{tab:sodaq_one_liste} propose une liste de l'ensemble des modules nécessaire pour l'assemblage du capteur.
+
+\begin{table}[htb]
+\caption[SODAQ One List]{Liste de module pour SODAQ One}
+\label{tab:sodaq_one_liste}
+\centering
+\begin{tabular}{lcc}
+\toprule
+Module & Prix & Num. produit \\ 
+\midrule
+SODAQ One v3 & 114 CHF & ONE-EU-RN2483-V3 \\
+Adafruit Heart Rate Start Pack & 65 CHF & ADAFRUIT-1077 \\
+\midrule
+Prix Total & 179 CHF &  \\
+\bottomrule 
+\end{tabular}
+\end{table}
+
 \subsection{Multiconnect mDot}
 
 La société Multitech propose plusieurs modules de taille et de spécifications différentes, l’un d’eux est le mDot, un module de petite taille qui incorpore un microcontrôleur ainsi qu’un module radio LoRa. Il n’embarque pas d’autre module utile au projet cependant son avantage réside dans le fait qu’il donne la possibilité d’utiliser le système d’exploitation temps réel mBed qui offre toutes les fonctionnalités généralement proposées pour la gestion du temps réel comme la création de tâches, de sémaphores ou d’évènements. Cet environnement de développement est également composé d’une couche LoRaWAN logiciel permettant l’envoie de donnée à une passerelle.
@@ -237,38 +273,64 @@ Prix & 53 CHF\\
 
 L’avantage principal de cette solution est que le module vient accompagner par une suite logicielle complète et bien documenté permettant le développement d’une application temps réel. Par contre il nécessite la mise en place d’une carte supplémentaire afin de pouvoir y placer tous les autres composants nécessaires, c’est-à-dire le module GPS, l’accéléromètre et la sonde de rythme cardiaque, ce qui rajoute une quantité de travaille non négligeable ainsi que des risques accrus de rencontrer des problèmes.
 
+La table~\ref{tab:mdot_liste} propose une liste de l'ensemble des modules nécessaire pour l'assemblage du capteur.
+
+\begin{table}[htb]
+\caption[Multitech mDot List]{Liste de module pour Multitech mDot}
+\label{tab:mdot_liste}
+\centering
+\begin{tabular}{lcc}
+\toprule
+Module & Prix & Num. produit \\ 
+\midrule
+Adafruit Feather M0 & 34.05 CHF & MTDOT-868-X1-SMA \\
+Adafruit Heart Rate Start Pack & 65 CHF & ADAFRUIT-1077 \\
+Adafruit Triple-Axis Accelerometer & 8 CHF & ADAFRUIT-2019 \\
+Adafruit Ultimate GPS Breakout & 40 CHF & ADAFRUIT-746 \\
+\midrule
+Prix Total & 166 CHF &  \\
+\bottomrule 
+\end{tabular}
+\end{table}
+
 \subsection{Comparatif des différents modules}
 
 Cette section vise à comparer les modules entre eux pour pouvoir évaluer les avantages et inconvénients de chacun d’entre eux, ce qui facilitera la sélection du module qui sera utilisé durant le travail de Bachelor.
 
 La table suivante résume les caractéristiques de chacun des modules présentés dans cette section.
 
-\begin{table}[tb]
-\caption[A floating table]{A floating table.}
-\label{tab:esempio}
+\begin{table}[htb]
+\caption[Comparatif Microcontroleur]{Comparatif des caractéristiques des modules}
+\label{tab:comparatif_micro}
 \centering
 \begin{tabular}{lcccccccc}
 \toprule
 Module & Prix & Microcontrôleur & Fréquence & Flash & RAM  \\ 
 \midrule
-Adafruit Feather M0	& 10 g	& STM32F411RET & 0 & 0 & 0 & \\
-SODAQ One	& 1 kg & STM32F411RET & 0 & 0 & 0 \\
-Multiconnect mDot & 53 CHF & STM32F411RET & 0 & 0 & 0 \\
+Adafruit Feather M0	& 34.50 CHF	& ATSAMD21G18 & 48 Mhz & 256 kB & 32 kB & \\
+SODAQ One	& 114 CHF & ATSAMD21G18 & 48 Mhz & 256 kB & 32 kB \\
+Multiconnect mDot & 53 CHF & STM32F411RET & 96 Mhz & 512 kB & 128 kB \\
 \bottomrule 
 \end{tabular}
 \end{table}
 
-\begin{table}[tb]
-\caption[A floating table]{A floating table.}
-\label{tab:esempio}
+\begin{table}[htb]
+\caption[Comparatif Module]{Comparatif des différents modules nécessaire}
+\label{tab:comparatif_modules}
 \centering
 \begin{tabular}{lcccccccc}
 \toprule
-Module & Prix & Flash & RAM & LoRa & LoRaWAN & GPS & Accéléromètre & Rythme Cardiaque \\ 
+Module & LoRa & LoRaWAN & GPS & Accéléromètre & Rythme Cardiaque \\ 
 \midrule
-Adafruit Feather M0	& 10 g	& cheese & 0 & 0 & 0 & 0 & 0 & 0  \\
-SODAQ One	& 1 kg	& mice & 0 & 0 & 0 & 0 & 0 & 0  \\
-Multiconnect mDot	& 10 kg	& cats & 0 & 0 & 0 & 0 & 0 & 0  \\
+Adafruit Feather M0	& SX1272	& Librairie tierce & x & x & x  \\
+SODAQ One	& RN2483	& RN2483 & \checkmark & \checkmark & x \\
+Multiconnect mDot & SX1272 & Librarie mDot & x & x & x \\
 \bottomrule 
 \end{tabular}
 \end{table}
+
+Si l’on analyse le contenu des tableaux, on remarque que le module SODAQ One se détache des deux autres solutions. Il propose déjà deux des trois fonctionnalités demandées par le projet, le GPS et l’accéléromètre, reste le rythme cardiaque à intégrer qui ne requiert à priori qu’une simple ligne I/O. De plus ce module propose une solution LoRa intéressante grâce à la puce RN2483 produite par Microchip commandé par un lien série UART, ce qui rend la gestion de la communication et l’envoie de donnée plus simple.
+
+Le module mDot de la société Multitech représente une solution intermédiaire avec plus de flexibilité dans le choix des composants utilisé, de base elle ne propose aucun des modules requis pour le projet. Son avantage principal réside dans le fait que le module est fourni avec une suite logicielle complète comprenant un système d’exploitation temps réel, mBed, ainsi que plusieurs librairies pour la gestion des communications. Pour cette solution un travail plus substantiel sera nécessaire pour ajouter les modules nécessaires au projet.
+
+Finalement la solution Adafruit Feather représente une somme de travail conséquente, il faudra prévoir l’ajout d’un accéléromètre ainsi que d’une sonde pour le rythme cardiaque. L’avantage principal de cette solution est son prix bas ainsi que la possibilité de ficher le module GPS par-dessus le module de base ce qui permet un gain en termes de place ce qui est intéressant dans une optique de minimiser la taille du capteur.
