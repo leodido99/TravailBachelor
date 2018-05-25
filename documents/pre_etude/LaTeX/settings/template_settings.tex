@@ -1,0 +1,73 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Template Settings
+%
+% Author: Léonard Bise
+% Date: 25.05.2018
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\documentclass[11pt,a4paper, openany]{memoir}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{times}
+\usepackage[french]{babel}
+\usepackage{titlesec} % For chapter formatting
+\usepackage{tikz}
+\usepackage{fancyhdr}
+\usepackage{graphicx} % includegraphics
+\graphicspath{ {images/} }
+\usepackage[
+breaklinks=true,colorlinks=true,
+linkcolor=black,urlcolor=black,citecolor=black,
+bookmarks=true,bookmarksopenlevel=2]{hyperref}  % Links color in pdf
+\usepackage{bookmark} % Creates bookmarks in pdf files
+\usepackage[
+  top=2.5cm,
+  bottom=2.5cm,
+  left=2.5cm,
+  right=2.5cm,
+  headsep=3pt,
+  footskip=30pt,
+  headheight=46pt,
+  asymmetric
+]{geometry}
+
+% Header
+\pagestyle{fancy}
+\fancypagestyle{main}{%
+  \lhead{\includegraphics[scale=0.5]{HEIG-VD}}
+  \rhead{\sffamily Travail de Bachelor - Pré-étude\\Bise Léonard\\Informatique Embarquée (ISEC)}
+  \rfoot{Page \thepage}
+  \cfoot{}
+}
+\fancypagestyle{plain}{%
+  \lhead{\includegraphics[scale=0.5]{HEIG-VD}}
+  \rhead{\sffamily Travail de Bachelor - Pré-étude\\Bise Léonard\\Informatique Embarquée (ISEC)}
+    \rfoot{Page \thepage}
+      \cfoot{}
+}
+
+% Modifie la section chapitre
+\titleformat{\chapter}
+  {\sffamily\LARGE\bfseries}{\thechapter}{1em}{}
+% spacing: how to read {12pt plus 4pt minus 2pt}
+%           12pt is what we would like the spacing to be
+%           plus 4pt means that TeX can stretch it by at most 4pt
+%           minus 2pt means that TeX can shrink it by at most 2pt
+%       This is one example of the concept of, 'glue', in TeX
+\titlespacing*{\chapter}{0pt}{3.5ex plus 1ex minus .2ex}{2.3ex plus .2ex}
+% Sets sections to sans serif
+\setsecheadstyle{\LARGE\bfseries\sffamily}
+\setsubsecheadstyle{\Large\bfseries\sffamily}
+\setsubsubsecheadstyle{\large\bfseries\sffamily}
+\setparaheadstyle{\large\bfseries\sffamily}
+\setsubparaheadstyle{\large\bfseries\sffamily}
+
+% Paragraph spacing
+\setlength{\parskip}{\baselineskip}
+\setlength{\parindent}{0pt}%
+
+% Units
+\usepackage{siunitx}
+\sisetup{load-configurations = abbreviations}
+
