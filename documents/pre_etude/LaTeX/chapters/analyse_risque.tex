@@ -1,0 +1,22 @@
+\chapter{Analyse de risque}
+
+La table~\ref{tab:analyse_risque} détails les risques liés au développement du projet de travail de Bachelor. Chaque risque est décrit, une probabilité qu’il se déclenche et une gravité s’il se déclenche sont mentionné. De plus la criticité est déterminée, elle définit l’impact sur le projet dans le cas où le risque se déclencherait. Une ou plusieurs mesures qui peuvent être mise en place pour réduire la probabilité que le risque se réalise sont également mentionnés dans le cas où cela est possible.
+
+Les probabilités et les gravités sont notés de 1 Faible à 10 Haute. La criticité est la multiplication de la probabibilité que le risque se déclenche avec la gravité.
+
+\begin{longtable}{p{4cm}cccp{4.5cm}}
+\caption[Analyse de risque]{Analyse de risque} \\
+\toprule
+Description & Probabilité & Gravité & Criticité & Mesure de prévention \\
+\midrule
+Mauvaise compréhension des activités & 1 & 10 & 10 & \begin{itemize} \item Bien définir le cahier des charges \item Validation du cahier des charges par l’école \end{itemize}  \\
+Objectifs trop ambitieux, manque de temps & 5 & 5 & 25 & \begin{itemize} \item Bonne définition du cadre du projet \item Discussions avec le conseiller \end{itemize}  \\
+Capteur incompatible avec la passerelle & 1 & 10 & 10 & \begin{itemize} \item Recherche sur internet de système compatible \item Demande de renseignements à des experts (Monsieur Tognolini et son équipe HEIG-VD) \end{itemize}  \\
+Débit de transfert LoRa trop faible pour projet à grande échelle & 7 & 8 & 56 & \begin{itemize} \item Analyse de la quantité de donnée produite par le capteur \end{itemize}  \\
+Nouvelles technologies utilisées & 10 & 2 & 20 & \begin{itemize} \item Recherches approfondies pour s’approprier ces nouvelles technologies \item Demande de renseignements à des experts (Monsieur Tognolini et son équipe HEIG-VD) \end{itemize}  \\
+Maladie & 2 & 8 & 16 & \\
+Retard de livraison du matériel & 4 & 5 & 20 & \begin{itemize} \item Trouver des fournisseurs en Suisse \item Commander les composants dès que possible  \end{itemize}  \\
+Livraisons tardives (Affiche, résumé, mémoire) & 1 & 10 & 10 & \begin{itemize} \item Définition d’un planning précis \item Contrôle de l’évolution du planning durant la phase de développement \item Anticipation des livraisons  \end{itemize}  \\
+\bottomrule 
+\label{tab:analyse_risque}
+\end{longtable}

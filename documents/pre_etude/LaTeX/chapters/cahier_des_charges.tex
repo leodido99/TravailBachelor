@@ -1,0 +1,63 @@
+\chapter{Cahier des Charges}
+
+Cette section détail le cahier des charges à appliquer pour le travail de Bachelor. Il liste les fonctionnalités qui seront nécessaire à chaque élément afin que le système dans son ensemble puisse fonctionner.
+
+\begin{tabular}{llp{10cm}}
+\toprule
+Famille & Numéro & Description \\
+\midrule
+\multicolumn{2}{l}{\textbf{Capteur}} \\
+ & 1.1 & Permet l’acquisition de la position GPS (Longitude et latitude) \\
+ & 1.2 & Permet la mesure du rythme cardiaque de la personne portant le capteur en battement par minute\\
+ & 1.3 & Équipé d’un accéléromètre permettant de compter le nombre de pas par minute \\
+ & 1.4 & La fréquence d’acquisition des différents paramètres se fait à une fréquence de 2Hz \\
+ & 1.5 & Utilise la couche radio LoRa sur la bande de fréquence 868 Mhz pour transmettre les données acquises \\
+ & 1.6 & Codage du programme en langage C/C++ \\
+ & 1.7 & Poids maximal de 200g \\
+ & 1.8 & Le capteur doit être capable de transmettre les données à une passerelle situé jusqu’à 5 km de distance en espace libre \\
+ & 1.9 & Alimenté par une batterie avec une autonomie de 10h \\
+ & 1.10 & Placé dans un boîtier étanche munis d’une sangle afin d’être porté sur le bras du coureur \\
+\bottomrule
+\end{tabular}
+
+\begin{tabular}{llp{10cm}}
+\toprule
+Famille & Numéro & Description \\
+\midrule
+\multicolumn{2}{l}{\textbf{Passerelle}} \\
+ & 2.1 & La passerelle héberge une base de données accessible par le réseau qui permet de stocker toutes les informations relatives aux courses \\
+ & 2.2 & La base de données est de type PostgreSQL \\
+ & 2.3 & La passerelle utilise la couche radio LoRa sur la bande de fréquence 868 Mhz pour la réception des données acquises \\
+ & 2.4 & Une application serveur de paquet, traite les paquets reçus afin d’en extraire les données des coureurs\\
+ & 2.5 & L’application serveur de paquet reçoit les paquets UDP au moyen d’un socket  \\
+ & 2.6 & L’application serveur de paquet est codée en C++ \\
+ & 2.7 & L’application serveur de paquet fait la gestion du protocole (Format des données reçu, génération des acquittements…) \\
+ & 2.8 & L’application serveur de paquet, stock les données des coureurs extraites des paquets dans la base de données hébergée sur la passerelle \\
+ & 2.9 & La passerelle est connectée au réseau au moyen du WiFi ou d’un cable Ethernet \\
+\bottomrule
+\end{tabular}
+
+\begin{tabular}{llp{10cm}}
+\toprule
+Famille & Numéro & Description \\
+\midrule
+\multicolumn{2}{l}{\textbf{Application Mobile}} \\
+ & 3.1 & Application mobile exécutée sur le système d’exploitation Android \\
+ & 3.2 & Un menu permet de sélectionner parmi les deux modes de fonctionnement, visualisation ou administration. \\
+ & 3.3 & Permet la visualisation d’une course choisie par l’utilisateur (Mode visualisation) \\
+ & 3.3.1 & Le mode visualisation permet de sélectionner une course en cours ou une course déjà terminée \\
+ & 3.3.2 & Si l’utilisateur sélectionne une course déjà terminé, l’application mobile rejouera la course comme elle s’est passée en temps réel \\
+ & 3.3.3 & En mode visualisation, l’application affiche une carte avec le parcours de la course dessiné \\
+ & 3.3.4 & En mode visualisation, l’application affiche la position des coureurs sur la carte au moyen d’un point par coureur \\
+ & 3.3.5 & En mode visualisation, l’application vérifie régulièrement si de nouvelles positions sont disponibles dans la base de données et les mets à jour si c’est le cas \\
+ & 3.3.6 & En mode visualisation, l’application permet à l’utilisateur de sélectionner des coureurs favoris \\
+ & 3.3.7 & En mode visualisation, l’application affiche les informations détaillées des coureurs favoris \\
+ & 3.3.8 & En mode visualisation, les points désignant les coureurs favoris auront chacun une couleur distincte afin de pouvoir les remarquer plus facilement sur la carte \\
+ & 3.4 & Permet l’administration des courses (Mode administration) \\
+ & 3.4.1 & En mode administration, un menu permet de choisir parmi les différentes options possibles \\
+ & 3.4.2 & En mode administration, l’utilisateur peut créer une nouvelle course et rentrer les informations relatives (Nom, date, lieu, points GPS désignant le parcours de la course). L’application se chargera de créer la course dans la base de données \\
+ & 3.4.3 & En mode administration, l’utilisateur peut modifier une course qu’il a déjà créée \\ 
+ & 3.4.4 & En mode administration, une fois une course créée, l’utilisateur pourra créer les coureurs qui y participeront et entrer les informations relative (Nom, prénom, nationalité, numéro de dossard, numéro de capteur associé) \\
+ & 3.4.5 & En mode administration, une fois une course créée, l’utilisateur peut signaler le début et la fin de la course \\
+\bottomrule
+\end{tabular}
