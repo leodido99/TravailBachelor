@@ -29,21 +29,50 @@ Le planning se base sur les heures de travail suivantes.
 
 Suivant l’avancement du travail de Bachelor il me sera possible d’augmenter les heures de travail le Samedi et le Dimanche afin de pouvoir compléter le projet dans le temps imparti. 
 
-\newpage
-\KOMAoptions{paper=landscape,pagesize}
-\recalctypearea
+%\newpage
+%\KOMAoptions{paper=landscape,pagesize}
+%\recalctypearea
 
+%\afterpage{
+\newpage
+
+\paperwidth=\pdfpageheight
+\paperheight=\pdfpagewidth
+\pdfpageheight=\paperheight
+\pdfpagewidth=\paperwidth
+\headwidth=\textheight
+\begingroup 
+\vsize=\textwidth
+\hsize=\textheight
 \section{Diagramme de Gantt}
 
-Le diagramme de Gantt~\ref{tab:planning} décrit le planning du projet pour la période de développement et réalisation.
+Le diagramme de Gantt~\ref{fig:planning} décrit le planning du projet pour la période de développement et réalisation.
 
-\begin{figure}[htb]
-\centering 
-\includegraphics[width=1\columnwidth]{../../planning/gantt_planning.png} 
+\begin{figure}[h]
+\centering
+\includegraphics[scale=0.45]{../../planning/gantt_planning.png}
 \caption[Planning - Diagramme de Gantt]{Planning - Diagramme de Gantt}
 \label{fig:planning}
 \end{figure}
-
+\endgroup
 \newpage
-\KOMAoptions{paper=portrait,pagesize}
-\recalctypearea
+\paperwidth=\pdfpageheight
+\paperheight=\pdfpagewidth
+\pdfpageheight=\paperheight
+\pdfpagewidth=\paperwidth
+\headwidth=\textwidth
+
+%}
+
+%Le diagramme de Gantt~\ref{fig:planning} décrit le planning du projet pour la période de développement et réalisation.
+%
+%\begin{figure}[htb]
+%\centering 
+%\includegraphics[width=1\columnwidth]{../../planning/gantt_planning.png} 
+%\caption[Planning - Diagramme de Gantt]{Planning - Diagramme de Gantt}
+%\label{fig:planning}
+%\end{figure}
+
+%\newpage
+%\KOMAoptions{paper=portrait,pagesize}
+%\recalctypearea
