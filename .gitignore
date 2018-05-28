@@ -16,3 +16,7 @@
 *.toc
 
 *.bib
+
+*.dvi
+
+*.synctex(busy)

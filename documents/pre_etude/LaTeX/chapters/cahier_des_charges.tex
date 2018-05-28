@@ -2,7 +2,8 @@
 
 Cette section détail le cahier des charges à appliquer pour le travail de Bachelor. Il liste les fonctionnalités qui seront nécessaire à chaque élément afin que le système dans son ensemble puisse fonctionner.
 
-\begin{tabular}{llp{10cm}}
+\begin{longtable}{llp{10cm}}
+\caption[Cahier des Charges détaillé]{Cahier des Charges détaillé} \\
 \toprule
 Famille & Numéro & Description \\
 \midrule
@@ -18,12 +19,6 @@ Famille & Numéro & Description \\
  & 1.9 & Alimenté par une batterie avec une autonomie de 10h \\
  & 1.10 & Placé dans un boîtier étanche munis d’une sangle afin d’être porté sur le bras du coureur \\
 \bottomrule
-\end{tabular}
-
-\begin{tabular}{llp{10cm}}
-\toprule
-Famille & Numéro & Description \\
-\midrule
 \multicolumn{2}{l}{\textbf{Passerelle}} \\
  & 2.1 & La passerelle héberge une base de données accessible par le réseau qui permet de stocker toutes les informations relatives aux courses \\
  & 2.2 & La base de données est de type PostgreSQL \\
@@ -34,14 +29,8 @@ Famille & Numéro & Description \\
  & 2.7 & L’application serveur de paquet fait la gestion du protocole (Format des données reçu, génération des acquittements…) \\
  & 2.8 & L’application serveur de paquet, stock les données des coureurs extraites des paquets dans la base de données hébergée sur la passerelle \\
  & 2.9 & La passerelle est connectée au réseau au moyen du WiFi ou d’un cable Ethernet \\
-\bottomrule
-\end{tabular}
-
-\begin{tabular}{llp{10cm}}
-\toprule
-Famille & Numéro & Description \\
-\midrule
-\multicolumn{2}{l}{\textbf{Application Mobile}} \\
+ \bottomrule
+ \multicolumn{2}{l}{\textbf{Application Mobile}} \\
  & 3.1 & Application mobile exécutée sur le système d’exploitation Android \\
  & 3.2 & Un menu permet de sélectionner parmi les deux modes de fonctionnement, visualisation ou administration. \\
  & 3.3 & Permet la visualisation d’une course choisie par l’utilisateur (Mode visualisation) \\
@@ -60,4 +49,4 @@ Famille & Numéro & Description \\
  & 3.4.4 & En mode administration, une fois une course créée, l’utilisateur pourra créer les coureurs qui y participeront et entrer les informations relative (Nom, prénom, nationalité, numéro de dossard, numéro de capteur associé) \\
  & 3.4.5 & En mode administration, une fois une course créée, l’utilisateur peut signaler le début et la fin de la course \\
 \bottomrule
-\end{tabular}
+\end{longtable}
