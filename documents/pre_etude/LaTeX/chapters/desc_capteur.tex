@@ -2,7 +2,11 @@
 
 Les informations relatives aux sportifs sont acquises par le biais du capteur. Il sera composé d’un assemblage de différents éléments déjà existants dans le commerce. On veillera à minimiser au maximum son poids ainsi que sa taille pour éviter de gêner le sportif durant sa course. Une fois assemblé, il sera placé dans une boîte étanche qui disposera d’un bracelet élastique ce qui permettra à l’athlète de le porter facilement. Enfin il doit également disposer de sa propre source d’énergie sous la forme d’une batterie, celle-ci doit lui conférer une autonomie assez grande pour pouvoir fonctionner durant l’entièreté d’une course.
 
-Trois types de données différentes seront récupérées, la position GPS du coureur (longitude/latitude), son rythme cardiaque en battement par minute ainsi que la cadence de ses pas en pas par minute. Régulièrement le capteur va effectuer les acquisitions, puis il va traiter les données et créer un paquet de données. Une fois que le paquet est prêt à être transmis, le capteur utilise son module de transmission LoRa pour les envoyer à la passerelle. Quand ce processus est terminé, le capteur se met en attente jusqu’au début du cycle suivant et recommence le processus. Ce processus est illustré par la figure ~\ref{fig:proc_capteur}.
+Trois types de données différentes seront récupérées, la position GPS du coureur (longitude/latitude), son rythme cardiaque en battement par minute ainsi que la cadence de ses pas en pas par minute. Régulièrement le capteur va effectuer les acquisitions nécessaires, puis il va traiter les données et créer un paquet de données. Une fois que le paquet est prêt à être transmis, le capteur utilise son module de transmission LoRa pour les envoyer à la passerelle. 
+
+Le capteur se base sur un système d'exploitation temps réel qui lui permet de définir plusieurs tâches différentes exécutés en parallèle, chacune responsable d'une opération spécifique. La tâche principale sera responsable, à intervalles réguliers, de paquetiser et d'envoyer les données qui auront été acquises durant une période donnée. Une autre tâche sera en charge de la récupération et de l'extraction de la position GPS depuis un message NMEA. Enfin une tâche sera dédiée au comptage du nombre de pas et une autre au comptage du nombre de battement du cœur.
+
+De manière générale, le processus du capteur est illustré par la figure ~\ref{fig:proc_capteur}.
 
 \begin{figure}[htb]
 \centering 
@@ -38,7 +42,7 @@ Le composant peut être directement placé sous l’antenne ou alors il existe �
 
 \begin{figure}[htb]
 \centering 
-\includegraphics[width=0.6\columnwidth]{../images/active-gps-antenna-large.jpg} 
+\includegraphics[width=0.5\columnwidth]{../images/active-gps-antenna-large.jpg} 
 \caption[Antenne GPS]{Antenne GPS - © SODAQ}
 \label{fig:antenne_gps}
 \end{figure}
@@ -63,7 +67,7 @@ Les battements du cœur peuvent être détecté grâce à une sangle pectorale m
 
 \begin{figure}[htb]
 \centering 
-\includegraphics[width=0.6\columnwidth]{../images/garmin-heart-rate.jpg} 
+\includegraphics[width=0.35\columnwidth]{../images/garmin-heart-rate.jpg} 
 \caption[Sangle Pectorale]{Sangle pectorale - © Garmin}
 \label{fig:cardiofreq}
 \end{figure}
@@ -149,7 +153,7 @@ Pour la gestion du GPS, on pourra s’appuyer sur le Adafruit Ultimate GPS Feath
 \label{fig:ada_featherwing_gps}
 \end{figure}
 
-En ce qui concerne la partie logiciel, quelques systèmes d’exploitation temps réel existe pour ce type de processeur ARM. Pour ce développement l’utilisation de Zephyr sera privilégiée, il propose toutes les fonctionnalités standard que l’on pourrait attendre de ce type de système d’exploitation et sa communauté est très active.
+En ce qui concerne la partie logiciel, quelques systèmes d’exploitation temps réel existe pour ce type de processeur ARM. Pour ce développement l’utilisation de Zephyr sera privilégiée car il propose toutes les fonctionnalités standard que l’on pourrait attendre de ce type de système d’exploitation, une configuration de la carte Adafruit Feather existe déjà et sa communauté est très active.
 
 La table~\ref{tab:ada_feather_liste} propose une liste de l'ensemble des modules nécessaire pour l'assemblage du capteur.
 
@@ -296,8 +300,6 @@ Prix Total & 166 CHF &  \\
 \subsection{Comparatif des différents modules}
 
 Cette section vise à comparer les modules entre eux pour pouvoir évaluer les avantages et inconvénients de chacun d’entre eux, ce qui facilitera la sélection du module qui sera utilisé durant le travail de Bachelor.
-
-La table suivante résume les caractéristiques de chacun des modules présentés dans cette section.
 
 \begin{table}[htb]
 \caption[Comparatif Microcontroleur]{Comparatif des caractéristiques des modules}
