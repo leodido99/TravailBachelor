@@ -27,6 +27,9 @@ bookmarks=true,bookmarksopenlevel=2]{hyperref}  % Links color in pdf
 \usepackage{bookmark} % Creates bookmarks in pdf files
 \usepackage[final]{pdfpages}
 
+% Force figures to be placed in their section
+\usepackage[section]{placeins}
+
 \usepackage{listings}
 \lstset{language=[LaTeX]Tex,tabsize=4, basicstyle=\scriptsize\ttfamily, showstringspaces=false, numbers=left, numberstyle=\tiny, numbersep=10pt, breaklines=true, breakautoindent=true, breakindent=10pt}
 
@@ -63,7 +66,7 @@ bookmarks=true,bookmarksopenlevel=2]{hyperref}  % Links color in pdf
 \setlength{\textheight}{700pt}
 \setlength{\footskip}{25pt}
 \setlength{\textwidth}{430pt}
-\setlength{\headheight}{46pt} 
+\setlength{\headheight}{46pt}
 
 \usepackage{afterpage}
 \usepackage{pdflscape}

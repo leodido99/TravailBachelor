@@ -21,7 +21,7 @@ La figure~\ref{fig:archi_passerelle} montre l'architecture de la passerelle ains
 
 \section{Types de passerelle}
 
-Les passerelles sont divisées en deux groupes, multi canaux (multi channel) et simple canaux (single channel). Les simples canaux sont des passerelles qui se basent sur les mêmes composants LoRa radio que les modules LoRa utilisé pour les nœuds. Puisque ces composants sont destinés aux end-devices ils ne sont capables de gérer qu’un seul canal en réception à la fois, cela vient du fait que la réception qui est prévu uniquement pour les paquets d’acquittements provenant des passerelles, sont toujours envoyé sur le même canal que le paquet envoyé par le nœud, il n’y a donc pas besoin de pouvoir faire de la réception sur plus d’un canal.
+Les passerelles sont divisées en deux groupes, multi canaux (multi channel) et simple canal (single channel). Les simples canal sont des passerelles qui se basent sur les mêmes composants LoRa radio que les modules LoRa utilisé pour les nœuds. Puisque ces composants sont destinés aux end-devices ils ne sont capables de gérer qu’un seul canal en réception à la fois, cela vient du fait que la réception qui est prévu uniquement pour les paquets d’acquittements provenant des passerelles, sont toujours envoyé sur le même canal que le paquet envoyé par le nœud, il n’y a donc pas besoin de pouvoir faire de la réception sur plus d’un canal.
 
 L’utilisation d’une passerelle simple canal implique la sélection d’une seule bande de fréquence sur laquelle les paquets de données seront transmis, il faudra veiller à configurer le concentrateur de la passerelle pour qu’il écoute sur cette même fréquence.
 
@@ -38,14 +38,14 @@ L’élément de base pour la passerelle est un ordinateur de traitement de type
 Dans le cadre du projet, il faudra installer une distribution Linux sur le Raspberry Pi pour y faire tourner les éléments suivants :
 
 \begin{itemize}
-\item Le packet forwarder qui sera en charge de la récupération des paquets LoRa et de leur envoie vers le processus server sous forme de paquet UDP
-\item Le server de paquets LoRa qui traitera les données reçues du packet forwarder afin d’extraire les informations relatives au coureur (Position, rythme cardiaque et cadence) pour ensuite les écrire dans une base de données. Le serveur de paquet sera également responsable de la gestion, s’il y en a, du protocole de communication spécialement développé pour ce projet.
-\item Le serveur de base de données
+\item Le packet forwarder qui sera en charge de la récupération des paquets LoRa et de leur envoie vers le processus serveur sous forme de paquet UDP
+\item Le serveur de paquets LoRa qui traitera les données reçues du packet forwarder afin d’extraire les informations relatives au coureur (Position, rythme cardiaque et cadence) pour ensuite les écrire dans une base de données. Le serveur de paquet sera également responsable de la gestion, s’il y en a, du protocole de communication spécialement développé pour ce projet.
+\item Le système de gestion de base de données
 \end{itemize}
 
 \begin{figure}[htb]
 \centering 
-\includegraphics[width=0.8\columnwidth]{../images/RaspberryPi.jpg} 
+\includegraphics[width=0.5\columnwidth]{../images/RaspberryPi.jpg} 
 \caption[Raspberry Pi]{Raspberry Pi - © Raspberry Pi Foundation}
 \label{fig:rpi}
 \end{figure}
@@ -112,9 +112,9 @@ L’avantage de la solution Dragino LoRa Hat est principalement son coût peu é
 
 \subsection {IMST iC880A}
 
-L’iC880A est un concentrateur capable de fonctionner en mode multi canaux. Il peut recevoir des paquets utilisant des facteurs d’étalement différents sur 8 canaux différents au maximum, le tout en parallèle. Un de ses avantages principaux est qu’il est capable de gérer différents étalements et largeur de bandes ce qui rend possible l’utilisation de l’adaptative data rate (ADR) proposé par le protocole LoRaWAN et qui permet au serveur réseau d’adapter le taux de transferts des nœuds de manière dynamique et ainsi rendre le réseau plus performant. Dans la mesure ou le projet ne va utiliser que la couche radio LoRa, cet argument n’entre donc pas en ligne de compte.
+L’iC880A est un concentrateur capable de fonctionner en mode multi canaux. Il peut recevoir des paquets utilisant des facteurs d’étalement différents sur 8 canaux au maximum, le tout en parallèle. Un de ses avantages principaux est qu’il est capable de gérer différents étalements et largeur de bandes ce qui rend possible l’utilisation de l’adaptative data rate (ADR) proposé par le protocole LoRaWAN et qui permet au serveur réseau d’adapter le taux de transferts des nœuds de manière dynamique et ainsi rendre le réseau plus performant. Dans la mesure ou le projet ne va utiliser que la couche radio LoRa, cet argument n’entre donc pas en ligne de compte, cependant dans les réflexions amenées pour le développement d'un produit ce module pourrait se rendre intéressant.
 
-De manière similaire au Dragino LoRa Hat, ce concentrateur travail conjointement avec un ordinateur de traitement, le Raspberry Pi par exemple qui traitera les paquets LoRa qui sont reçus.
+De manière similaire au Dragino LoRa Hat, ce concentrateur travail conjointement avec un ordinateur de traitement, le Raspberry Pi par exemple qui traitera les paquets LoRa qui sont reçus et transférés par le packet forwarder.
 
 \begin{figure}[htb]
 \centering 
@@ -142,4 +142,4 @@ Prix & 142 CHF \\
 \end{tabular}
 \end{table}
 
-Le principal avantage de cette passerelle est le fait qu’elle propose une solution multi canal, avec la gestion de 8 canaux en parallèle il devient donc possible de gérer plusieurs communications avec différents nœuds à la fois.
+Le principal avantage de cette passerelle est le fait qu’elle propose une solution multi canal, avec la gestion de 8 canaux en parallèle il devient donc possible de gérer plusieurs communications avec différents nœuds à la fois. On notera cependant son prix très élevé comparé à une solution simple canal.
