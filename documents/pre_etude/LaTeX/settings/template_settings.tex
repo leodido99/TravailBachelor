@@ -5,9 +5,8 @@
 % Date: 25.05.2018
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-%\documentclass[11pt,a4paper, openany]{memoir}
-\documentclass[a4paper,11pt,fleqn, oneside]{book}
+% Book Recto-Verso A4 Fonts 11pt
+\documentclass[a4paper,11pt,fleqn, twoside]{book}
 
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
@@ -15,7 +14,7 @@
 
 \usepackage{booktabs}
 \usepackage{longtable}
-\usepackage[paper=portrait,pagesize]{typearea}
+
 \usepackage{tikz}
 \usepackage{fancyhdr}
 \usepackage{graphicx} % includegraphics
@@ -31,9 +30,16 @@ bookmarks=true,bookmarksopenlevel=2]{hyperref}  % Links color in pdf
 % Force figures to be placed in their section
 \usepackage[section]{placeins}
 
+% Include source code
+%\begin{lstlisting}
+%Put your code here.
+%\end{lstlisting}
+% OR
+%\lstinputlisting{source_filename.py}
 \usepackage{listings}
 \lstset{language=[LaTeX]Tex,tabsize=4, basicstyle=\scriptsize\ttfamily, showstringspaces=false, numbers=left, numberstyle=\tiny, numbersep=10pt, breaklines=true, breakautoindent=true, breakindent=10pt}
 
+% Alter \cleardoublepage
 \makeatletter
 \def\cleardoublepage{\clearpage\if@twoside \ifodd\c@page\else
     \hbox{}
@@ -69,42 +75,31 @@ bookmarks=true,bookmarksopenlevel=2]{hyperref}  % Links color in pdf
 \setlength{\textwidth}{430pt}
 \setlength{\headheight}{46pt}
 
+% Distance between floats on the top or the bottom and the text
 \setlength{\textfloatsep}{10pt plus 1.0pt minus 2.0pt}
 
-\usepackage{afterpage}
+% Display landscape pages in the proper orientation in pdf viewers
 \usepackage{pdflscape}
 
-\usepackage{setspace} % increase interline spacing slightly
+% Increase interline spacing slightly
+\usepackage{setspace}
 \setstretch{1.1}
 
+% To align all floating figures/tables etc... to the top margin
 \makeatletter
-\setlength{\@fptop}{0pt}  % for aligning all floating figures/tables etc... to the top margin
+\setlength{\@fptop}{0pt} 
 \makeatother
 
+% Spacing after/before sections
 \usepackage{titlesec}
-%\titlespacing*{\chapter}{0pt}{5pt}{*0}
 \titlespacing*{\chapter}{0pt}{-30pt}{5pt}
 \titlespacing*{\section}{0pt}{5pt}{5pt}
-%\titlespacing*{\section}{0pt}{3.5ex plus 1ex minus .2ex}{2.3ex plus .2ex}
 \titlespacing*{\subsection}{0pt}{5pt}{5pt}
-%\titlespacing*{\subsection}{0pt}{3.5ex plus 1ex minus .2ex}{2.3ex plus .2ex}
 \titlespacing*{\subsubsection}{0pt}{5pt}{5pt}
-%\titlespacing*{\subsubsection}{0pt}{3.5ex plus 1ex minus .2ex}{2.3ex plus .2ex}
-%\titlespacing*{\section}{0pt}{13.2pt}{*0}  % 13.2pt is line spacing for a text with 11pt font size
-%\titlespacing*{\subsection}{0pt}{13.2pt}{*0}
-%\titlespacing*{\subsubsection}{0pt}{13.2pt}{*0}
 
-% Modifie la section chapitre
+% Modifies chapters display
 \titleformat{\chapter}
   {\LARGE\bfseries}{\thechapter}{10pt}{}
-
-% Fancy Headers
-\fancyhead{}
-
-% Header
-\fancyhead[L]{\includegraphics[scale=0.5]{HEIG-VD}}
-\fancyhead[C]{}
-\fancyhead[R]{Travail de Bachelor - Pré-étude\\Bise Léonard\\Informatique Embarquée (ISEC)}
 
 % Use fancy pagestyle on chapter pages
 \makeatletter
@@ -119,9 +114,9 @@ bookmarks=true,bookmarksopenlevel=2]{hyperref}  % Links color in pdf
 \setlength{\parskip}{\baselineskip}
 \setlength{\parindent}{0pt}%
 
-% Units
+% SI Units
 \usepackage{siunitx}
 \sisetup{load-configurations = abbreviations}
 
-% Define a checkmark
+% Define a checkmark symbol
 \def\checkmark{\tikz\fill[scale=0.4](0,.35) -- (.25,0) -- (1,.7) -- (.25,.15) -- cycle;} 
