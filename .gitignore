@@ -18,3 +18,7 @@
 *.dvi
 
 *.synctex(busy)
+
+*.dropbox
+
+*.ini
