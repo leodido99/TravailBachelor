@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">RaceTracker</string>
+    <string name="mainmenu_viewer">Regarder une course</string>
+    <string name="mainmenu_management">Gérer les courses</string>
+    <string name="managemenu_create_race">Créer une nouvelle course</string>
+    <string name="option_configure">Options</string>
+</resources>

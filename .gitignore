@@ -22,3 +22,18 @@
 *.dropbox
 
 *.ini
+
+*.iml
+
+.gradle
+
+.externalNativeBuild
+
+.DS_Store
+
+src/RaceTracker/local.properties
+src/RaceTracker/.idea/libraries
+src/RaceTracker/.idea/modules.xml
+src/RaceTracker/.idea/workspace.xml
+src/RaceTracker/build
+src/RaceTracker/captures
