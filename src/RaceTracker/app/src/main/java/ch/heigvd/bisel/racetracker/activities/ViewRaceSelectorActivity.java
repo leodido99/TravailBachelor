@@ -1,7 +1,9 @@
-package ch.heigvd.bisel.racetracker;
+package ch.heigvd.bisel.racetracker.activities;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+
+import ch.heigvd.bisel.racetracker.R;
 
 public class ViewRaceSelectorActivity extends AppCompatActivity {
 

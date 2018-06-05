@@ -4,4 +4,13 @@
     <string name="mainmenu_management">Gérer les courses</string>
     <string name="managemenu_create_race">Créer une nouvelle course</string>
     <string name="option_configure">Options</string>
+    <string name="title_activity_settings">Settings</string>
+
+    <!-- Strings related to Settings -->
+
+    <!-- General settings -->
+    <string name="pref_header_general">General</string>
+
+    <string name="pref_server_address">Server address</string>
+    <string name="pref_default_server_address">192.168.10.0</string>
 </resources>

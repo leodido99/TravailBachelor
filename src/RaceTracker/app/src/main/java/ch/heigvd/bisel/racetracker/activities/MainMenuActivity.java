@@ -1,13 +1,15 @@
-package ch.heigvd.bisel.racetracker;
+package ch.heigvd.bisel.racetracker.activities;
 
 import android.content.Intent;
+import android.preference.PreferenceActivity;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewManager;
+
+import ch.heigvd.bisel.racetracker.R;
 
 public class MainMenuActivity extends AppCompatActivity {
 
@@ -29,7 +31,7 @@ public class MainMenuActivity extends AppCompatActivity {
         // Handle item selection
         switch (item.getItemId()) {
             case R.id.configure:
-                goToOptions();
+                goToSettings();
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
@@ -61,10 +63,12 @@ public class MainMenuActivity extends AppCompatActivity {
     }
 
     /**
-     * go to options
+     * go to settings
      */
-    public void goToOptions() {
-        Intent intent = new Intent(this, OptionsActivity.class);
+    public void goToSettings() {
+        Intent intent = new Intent(this, SettingsActivity.class);
+        intent.putExtra(PreferenceActivity.EXTRA_SHOW_FRAGMENT, SettingsActivity.GeneralPreferenceFragment.class.getName());
+        intent.putExtra(PreferenceActivity.EXTRA_NO_HEADERS,true);
         /*EditText editText = (EditText) findViewById(R.id.editText);
         String message = editText.getText().toString();
         intent.putExtra(EXTRA_MESSAGE, message);*/

@@ -1,13 +1,15 @@
-package ch.heigvd.bisel.racetracker;
+package ch.heigvd.bisel.racetracker.activities;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
-public class OptionsActivity extends AppCompatActivity {
+import ch.heigvd.bisel.racetracker.R;
+
+public class ViewRaceActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_options);
+        setContentView(R.layout.activity_view_race);
     }
 }

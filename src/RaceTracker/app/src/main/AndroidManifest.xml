@@ -9,7 +9,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".MainMenuActivity">
+        <activity android:name=".activities.MainMenuActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -17,34 +17,44 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".ViewRaceActivity"
-            android:parentActivityName=".MainMenuActivity">
+            android:name=".activities.ViewRaceActivity"
+            android:parentActivityName=".activities.MainMenuActivity">
 
             <!-- The meta-data tag is required if you support API level 15 and lower -->
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".MainMenuActivity" />
+                android:value=".activities.MainMenuActivity" />
         </activity>
         <activity
-            android:name=".ManageRaceActivity"
-            android:parentActivityName=".MainMenuActivity">
+            android:name=".activities.ManageRaceActivity"
+            android:parentActivityName=".activities.MainMenuActivity">
 
             <!-- The meta-data tag is required if you support API level 15 and lower -->
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".MainMenuActivity" />
+                android:value=".activities.MainMenuActivity" />
         </activity>
         <activity
-            android:name=".ViewRaceSelectorActivity"
-            android:parentActivityName=".MainMenuActivity">
+            android:name=".activities.ViewRaceSelectorActivity"
+            android:parentActivityName=".activities.MainMenuActivity">
 
             <!-- The meta-data tag is required if you support API level 15 and lower -->
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".MainMenuActivity" />
+                android:value=".activities.MainMenuActivity" />
         </activity>
-        <activity android:name=".ManageRaceSelectorActivity" />
-        <activity android:name=".OptionsActivity"></activity>
+        <activity
+            android:name=".activities.ManageRaceSelectorActivity"
+            android:parentActivityName=".activities.MainMenuActivity">
+
+            <!-- The meta-data tag is required if you support API level 15 and lower -->
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".activities.MainMenuActivity" />
+        </activity>
+        <activity
+            android:name=".activities.SettingsActivity"
+            android:label="@string/title_activity_settings"></activity>
     </application>
 
 </manifest>
