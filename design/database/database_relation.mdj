@@ -147,7 +147,7 @@
 									"referenceTo": {
 										"$ref": "AAAAAAFj0/ufKd9CQN8="
 									},
-									"nullable": false,
+									"nullable": true,
 									"unique": false
 								},
 								{
@@ -940,7 +940,7 @@
 									"containerExtending": false,
 									"left": 104,
 									"top": 421,
-									"width": 278.4853515625,
+									"width": 290.75537109375,
 									"height": 13,
 									"autoResize": false,
 									"underline": false,
@@ -979,7 +979,7 @@
 											"containerExtending": false,
 											"left": 109,
 											"top": 444,
-											"width": 268.4853515625,
+											"width": 280.75537109375,
 											"height": 13,
 											"autoResize": false
 										},
@@ -1003,7 +1003,7 @@
 											"containerExtending": false,
 											"left": 109,
 											"top": 459,
-											"width": 268.4853515625,
+											"width": 280.75537109375,
 											"height": 13,
 											"autoResize": false
 										},
@@ -1027,7 +1027,7 @@
 											"containerExtending": false,
 											"left": 109,
 											"top": 474,
-											"width": 268.4853515625,
+											"width": 280.75537109375,
 											"height": 13,
 											"autoResize": false
 										},
@@ -1051,7 +1051,7 @@
 											"containerExtending": false,
 											"left": 109,
 											"top": 489,
-											"width": 268.4853515625,
+											"width": 280.75537109375,
 											"height": 13,
 											"autoResize": false
 										},
@@ -1075,7 +1075,7 @@
 											"containerExtending": false,
 											"left": 109,
 											"top": 504,
-											"width": 268.4853515625,
+											"width": 280.75537109375,
 											"height": 13,
 											"autoResize": false
 										}
@@ -1091,7 +1091,7 @@
 									"containerExtending": false,
 									"left": 104,
 									"top": 439,
-									"width": 278.4853515625,
+									"width": 290.75537109375,
 									"height": 83,
 									"autoResize": false
 								}
@@ -1107,7 +1107,7 @@
 							"containerExtending": false,
 							"left": 104,
 							"top": 416,
-							"width": 278.4853515625,
+							"width": 290.75537109375,
 							"height": 106,
 							"autoResize": false,
 							"nameLabel": {
@@ -1736,7 +1736,7 @@
 									"showShadow": true,
 									"containerChangeable": false,
 									"containerExtending": false,
-									"left": 406,
+									"left": 419,
 									"top": 451,
 									"width": 0,
 									"height": 13,
@@ -1800,7 +1800,7 @@
 								"$ref": "AAAAAAFjzu16qflijoA="
 							},
 							"lineStyle": 2,
-							"points": "381:472;592:472;592:384",
+							"points": "394:472;592:472;592:384",
 							"nameLabel": {
 								"$ref": "AAAAAAFjz07DgvrftkU="
 							},
