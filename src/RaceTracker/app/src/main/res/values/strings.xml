@@ -9,8 +9,8 @@
     <!-- Strings related to Settings -->
 
     <!-- General settings -->
-    <string name="pref_header_general">General</string>
+    <string name="pref_header_general">Général</string>
 
-    <string name="pref_server_address">Server address</string>
+    <string name="pref_server_address">Adresse serveur</string>
     <string name="pref_default_server_address">192.168.10.0</string>
 </resources>
