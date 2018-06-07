@@ -16,6 +16,7 @@
     <string name="managemenu_modify_race">Modifier une course</string>
     <string name="managemenu_new_competitor">Ajouter un participant</string>
     <string name="create_new_race_default">Nom de la course</string>
-    <string name="createnewrace_set_date">Choisir la date</string>
-    <string name="createnewrace_set_time">Choisir l\'heure de départ</string>
+    <string name="createnewrace_set_date">Date</string>
+    <string name="createnewrace_set_time">Heure de départ</string>
+    <string name="createnewrace_set_name">Nom de la course</string>
 </resources>
