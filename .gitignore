@@ -37,3 +37,5 @@ src/RaceTracker/.idea/modules.xml
 src/RaceTracker/.idea/workspace.xml
 src/RaceTracker/build
 src/RaceTracker/captures
+
+src/RaceSensor/build
