@@ -8,8 +8,7 @@
          location permissions for the 'MyLocation' functionality. 
     -->
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
-
-    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:allowBackup="true"
@@ -77,6 +76,8 @@
             android:value="@string/google_maps_key" />
 
         <uses-library android:name="com.google.android.maps" />
+
+        <activity android:name=".activities.RaceLocationPickerActivity" />
     </application>
 
 </manifest>

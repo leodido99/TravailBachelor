@@ -19,4 +19,9 @@
     <string name="createnewrace_set_date">Date</string>
     <string name="createnewrace_set_time">Heure de départ</string>
     <string name="createnewrace_set_name">Nom de la course</string>
+    <string name="title_activity_maps">Map</string>
+    <string name="createnewrace_set_location">Emplacement</string>
+    <string name="createnewrace_create">Créer</string>
+    <string name="createnewrace_pick_location">Séléctionner l\'emplacement</string>
+    <string name="createnewrace_set_course">Parcours</string>
 </resources>
