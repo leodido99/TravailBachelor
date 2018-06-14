@@ -18,7 +18,7 @@
 OUTNAME=race_app_server.out
 
 # Add the relative folder where the source files are stored
-SRCPATHS=.
+SRCPATHS=./src
 
 # Add compilation flags
 CFLAGS=
