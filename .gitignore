@@ -31,6 +31,8 @@
 
 .DS_Store
 
+*.o
+
 src/RaceTracker/local.properties
 src/RaceTracker/.idea/libraries
 src/RaceTracker/.idea/modules.xml
