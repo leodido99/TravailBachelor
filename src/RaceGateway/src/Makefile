@@ -18,7 +18,7 @@
 OUTNAME=race_app_server.out
 
 # Add the relative folder where the source files are stored
-SRCPATHS=./src
+SRCPATHS=./src ./src/rapidjson
 
 # Add compilation flags
 CFLAGS=
