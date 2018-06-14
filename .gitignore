@@ -33,6 +33,11 @@
 
 *.o
 
+.metadata
+.classpath
+.settings/
+.cproject
+
 src/RaceTracker/local.properties
 src/RaceTracker/.idea/libraries
 src/RaceTracker/.idea/modules.xml
