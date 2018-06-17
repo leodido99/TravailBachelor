@@ -16,7 +16,8 @@ typedef enum { PUSH_DATA,		  //!< PUSH_DATA
 			   PULL_DATA,         //!< PULL_DATA
 			   PULL_ACK,          //!< PULL_ACK
 			   PULL_RESP,         //!< PULL_RESP
-			   TX_ACK             //!< TX_ACK
+			   TX_ACK,             //!< TX_ACK
+			   UNKNOWN_TYPE
 }lora_udp_pkt_types;
 
 class lora_udp_pkt {
@@ -41,7 +42,7 @@ lora_udp_pkt_types get_pkt_type();
 /**
  * Returns a rapidjson Document instance containing the packet info as described by the LoRa packet forwarder UDP protocol
  */
-rapidjson::Document get_rapidjson_doc();
+rapidjson::Document* get_rapidjson_doc();
     
 /**
  * Returns the protocol version
@@ -62,7 +63,8 @@ private:
     int protocol_version;
     uint16_t random_token;
     uint64_t gateway_mac_addr;
-    rapidjson::Document rapidjson_doc;
+    rapidjson::Document* rapidjson_doc;
+    lora_udp_pkt_types packet_type;
 };
 
 #endif //_LORA_UDP_PKT_H

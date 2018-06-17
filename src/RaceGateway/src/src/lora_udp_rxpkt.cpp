@@ -17,7 +17,7 @@
  * @param doc
  * @return void
  */
-lora_udp_rxpkt::lora_udp_rxpkt(rapidjson::Document doc) {
+lora_udp_rxpkt::lora_udp_rxpkt(rapidjson::Document* doc) {
     return;
 }
 

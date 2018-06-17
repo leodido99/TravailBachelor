@@ -17,7 +17,7 @@ public:
  * Builds a UDP rxpkt from a rapidjson Document instance
  * @param doc
  */
-lora_udp_rxpkt(rapidjson::Document doc);
+lora_udp_rxpkt(rapidjson::Document* doc);
     
 /**
  * Returns the time of the packet reception
