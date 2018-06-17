@@ -46,7 +46,7 @@ INC+=
 # for several programs, you can specify the path to them
 # below.
 MAKEFILE_FILES=./makefiles/
-#include $(MAKEFILE_FILES)MakefileRPI1.cfg
+include $(MAKEFILE_FILES)MakefileC++11.cfg
 include $(MAKEFILE_FILES)Makefile.inc
 
 # Variables related to copy to SDCARD

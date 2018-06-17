@@ -5,14 +5,30 @@
  */
 
 #include <string>
+#include <thread>
+#include <cstdint>
 
-using namespace std;
+/**
+ * Level of logging
+ */
+typedef enum {
+	INFO, /*!< Information always printed */
+	DEBUG /*!< Debug information are only printed in verbose mode */
+}log_levels;
 
+/**
+ * Class handling the race application server
+ * It listens on the provided port for UDP packets
+ * which are sent by the packet forwarder. Once received, the packet is
+ * processed and the encapsulated data is extracted and pushed to the database
+ */
 class race_app_server {
 	private:
 		int listen_port;
 		int listen_socket;
 		bool verbose;
+		bool is_thread_running;
+		std::thread* listening_thread;
 
 		/**
 		 * Setup and connect to the port to listen for incoming packets
@@ -24,8 +40,20 @@ class race_app_server {
 		 * If the verbose flag is false nothing is printed
 		 * @param msg Message to print
 		 */
-		void log(string msg);
+		void log(log_levels level, std::string msg);
 
+		/**
+		 * Listen on the port for new data
+		 * When new data is received it will process it
+		 */
+		void listen();
+
+		/**
+		 * Process an UDP datagram sent by the packet forwarder
+		 * @param data Buffer containing the data
+		 * @param size Size of the data
+		 */
+		void process_datagram(uint8_t* data, int size);
 	public:
 		/**
 		 * Create a new instance of the class
@@ -36,7 +64,7 @@ class race_app_server {
 		 * Loads a configuration file
 		 * @param configfile Path to the configuration file
 		 */
-		void load_configuration(string configfile);
+		void load_configuration(std::string configfile);
 	
 		/**
 		 * Prints the class configuration
@@ -49,6 +77,11 @@ class race_app_server {
 		 * the packet forwarder and place the data in the database.
 		 */
 		void start();
+
+		/**
+		 * Stops the application server
+		 */
+		void stop();
 
 		/**
 		 * Set the verbosity

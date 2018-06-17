@@ -14,12 +14,6 @@
 #include <arpa/inet.h>
 #include <unistd.h>
 
-using namespace std;
-
-#define LGBUF 100	
-#define SERVEUR_HOST "127.0.0.1"
-#define SERVEUR_PORT 65535
-
 int main(int argc, char **argv) {
 	race_app_server myAppServer;
 
@@ -31,39 +25,25 @@ int main(int argc, char **argv) {
 	if (getcwd(cwd, sizeof(cwd)) != NULL)
 		fprintf(stdout, "Current working dir: %s\n", cwd);
 
-	/* Load configuration */
-	myAppServer.load_configuration("global_conf.json");
+	try {
+		/* Load configuration */
+		myAppServer.load_configuration("global_conf.json");
+	} catch(std::runtime_error &err) {
+		std::cout << "Problem when loading configuration: " << err.what() << std::endl;
+		exit(EXIT_FAILURE);
+	}
+
 	/* Print configuration */
 	myAppServer.print_configuration();
+	/* Set verbose TODO From arguments */
+	myAppServer.set_verbose(true);
 
-
-
-//
-//	int sockfd, res;
-//
-//
-//
-//
-//
-//
-//
-//	sockfd = socket(AF_INET, SOCK_STREAM, 0);
-//	if (sockfd < 0) {
-//		perror("ERROR opening socket");
-//		exit(EXIT_FAILURE);
-//	}
-//
-//	struct sockaddr_in name;
-//	name.sin_family= AF_INET;
-//	name.sin_addr.s_addr = inet_addr(SERVEUR_HOST); /*0x7f000001*/
-//	name.sin_port = SERVEUR_PORT;
-//
-//	res = connect(sockfd, (struct sockaddr *) &name, sizeof(name));
-//	if (res < 0) {
-//		perror("ERROR Cannot connect to socket");
-//		exit(EXIT_FAILURE);
-//	}
-
-
-	return 0;
+	try {
+		/* Start application server */
+		myAppServer.start();
+	} catch(std::runtime_error &err) {
+		std::cout << "Application server error: " << err.what() << std::endl;
+		exit(EXIT_FAILURE);
+	}
+	return EXIT_SUCCESS;
 }
