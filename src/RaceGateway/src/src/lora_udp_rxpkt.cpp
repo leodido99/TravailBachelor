@@ -22,13 +22,12 @@
  */
 lora_udp_rxpkt::lora_udp_rxpkt(rapidjson::Document* doc) {
 
-	std::cout << doc->GetString() << std::endl;
-
+	//std::cout << doc->GetString() << std::endl;
 	//const rapidjson::Value& rxpkt = (*doc)["rxpkt"];
 	//assert(rxpkt.IsArray());
 	for (rapidjson::Value::ConstMemberIterator itr = doc->MemberBegin(); itr !=  doc->MemberEnd(); ++itr) {
 		std::string objectType(itr->name.GetString());
-		std::cout << objectType << std::endl;
+		std::cout << "Member: " << objectType << std::endl;
 		if (objectType.compare("time") == 0) {
 			this->time = itr->value.GetString();
 		} else if (objectType.compare("tmms") == 0) {
