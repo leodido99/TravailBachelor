@@ -83,9 +83,9 @@ void race_app_server::process_datagram(uint8_t* data, int size) {
 	lora_udp_pkt new_pkt;
 	new_pkt.parse(data, size);
 	this->log(INFO, new_pkt.get_string());
-	if (new_pkt.get_pkt_type() == PUSH_DATA && new_pkt.get_json_obj_name() == "rxpkt") {
+	if (new_pkt.get_pkt_type() == PUSH_DATA && new_pkt.get_json_obj_name() == "rxpk") {
 		lora_udp_rxpkt new_rxpkt(new_pkt.get_rapidjson_doc());
-		std::cout << &new_rxpkt << std::endl;
+		std::cout << new_rxpkt << std::endl;
 	}
 
 

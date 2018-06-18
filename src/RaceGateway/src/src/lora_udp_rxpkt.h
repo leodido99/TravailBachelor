@@ -110,6 +110,14 @@ std::string get_data() const;
  * Returns the decoded packet data as  a vector of bytes
  */
 std::vector<char> get_decoded_data() const;
+
+/**
+ * Insertion operator
+ * @param strm
+ * @param a
+ * @return
+ */
+friend std::ostream& operator<<(std::ostream &strm, const lora_udp_rxpkt &a);
 };
 
 #endif //_LORA_UDP_RXPKT_H
