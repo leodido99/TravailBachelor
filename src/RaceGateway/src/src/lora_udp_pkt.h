@@ -12,14 +12,15 @@
 /**
  * The different types of packets used by the LoRa packet forwarder UDP protocol
  */
-typedef enum { PUSH_DATA,		  //!< PUSH_DATA
-			   PUSH_ACK,          //!< PUSH_ACK
-			   PULL_DATA,         //!< PULL_DATA
-			   PULL_ACK,          //!< PULL_ACK
-			   PULL_RESP,         //!< PULL_RESP
-			   TX_ACK,             //!< TX_ACK
-			   UNKNOWN_TYPE
-}lora_udp_pkt_types;
+enum lora_udp_pkt_types {
+	PUSH_DATA,		  //!< PUSH_DATA
+	PUSH_ACK,          //!< PUSH_ACK
+	PULL_DATA,         //!< PULL_DATA
+	PULL_ACK,          //!< PULL_ACK
+	PULL_RESP,         //!< PULL_RESP
+	TX_ACK,             //!< TX_ACK
+	UNKNOWN_TYPE
+};
 
 /**
  * Names associated with lora_udp_pkt_types
@@ -33,7 +34,7 @@ private:
     uint64_t gateway_mac_addr;
     rapidjson::Document* rapidjson_doc;
     lora_udp_pkt_types packet_type;
-
+    std::string json_obj;
 public: 
     
 /**
@@ -71,6 +72,12 @@ uint64_t get_gateway_mac_addr();
  * Returns the packet random token
  */
 uint16_t get_random_token();
+
+/**
+ * Returns the main json object name
+ * @return
+ */
+std::string get_json_obj_name();
 
 /**
  * Returns a string representing the class instance

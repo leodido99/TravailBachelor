@@ -38,6 +38,7 @@ lora_udp_pkt::lora_udp_pkt() {
 	this->gateway_mac_addr = 0;
 	this->rapidjson_doc = NULL;
 	this->packet_type = UNKNOWN_TYPE;
+	this->json_obj = "unknown";
 }
 
 /**
@@ -51,10 +52,12 @@ void lora_udp_pkt::parse(uint8_t* data, int size) {
 		std::memcpy(&this->random_token, &data[1], sizeof(this->random_token));
 		this->packet_type = static_cast<lora_udp_pkt_types>(data[3]);
 		std::memcpy(&this->gateway_mac_addr, &data[4], LORA_UDP_PKT_GATEWAY_ADDR_SIZE);
-		rapidjson::StringStream s((char *)(&data[4 + LORA_UDP_PKT_GATEWAY_ADDR_SIZE]));
-
-
-
+		rapidjson::StringStream packet_stream((char *)(&data[4 + LORA_UDP_PKT_GATEWAY_ADDR_SIZE]));
+		this->rapidjson_doc = new rapidjson::Document();
+		this->rapidjson_doc->ParseStream(packet_stream);
+	    /* Iterate on all members of the json file */
+		rapidjson::Value::ConstMemberIterator fileIt = this->rapidjson_doc->MemberBegin();
+		this->json_obj = fileIt->name.GetString();
 	} else {
 		throw std::runtime_error("Not enough data (actual=" + std::to_string(size) + " minimum=" + std::to_string(LORA_UDP_PKT_MIN_SIZE) + ")");
 	}
@@ -102,11 +105,19 @@ uint16_t lora_udp_pkt::get_random_token() {
 }
 
 /**
+ * Returns the main json object name
+ * @return
+ */
+std::string lora_udp_pkt::get_json_obj_name() {
+	return this->json_obj;
+}
+
+/**
  * Returns a string representing the class instance
  * @return
  */
 std::string lora_udp_pkt::get_string() {
-	return lora_udp_pkt_names[this->packet_type] + " protocol version=" + std::to_string(this->protocol_version) + " gateway id=" + std::to_string(this->gateway_mac_addr) + " random token=" + std::to_string(this->random_token);
+	return lora_udp_pkt_names[this->packet_type] + " protocol version=" + std::to_string(this->protocol_version) + " gateway id=" + std::to_string(this->gateway_mac_addr) + " random token=" + std::to_string(this->random_token) + " json object name=" + this->json_obj;
 }
 
 std::ostream& operator<<(std::ostream &strm, const lora_udp_pkt &a) {

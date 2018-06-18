@@ -5,6 +5,8 @@
 
 #include "lora_udp_rxpkt.h"
 
+#include <rapidjson/document.h>
+
 /**
  * lora_udp_rxpkt implementation
  * 
@@ -34,12 +36,21 @@ lora_udp_rxpkt::lora_udp_rxpkt(rapidjson::Document* doc) {
 		std::string data;
 		std::vector<char> decoded_data;*/
 
+    /* Iterate on all members of the json file */
+    for (rapidjson::Value::ConstMemberIterator fileIt = doc->MemberBegin(); fileIt != doc->MemberEnd(); ++fileIt) {
+        /* Get member name */
+    	std::string objectType(fileIt->name.GetString());
+        if (objectType.compare("rxpkt") == 0) {
+
+
+
+    	}
 
 
 
 
 
-    return;
+    }
 }
 
 /**
