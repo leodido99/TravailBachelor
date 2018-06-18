@@ -24,6 +24,11 @@
 #define LORA_UDP_PKT_GATEWAY_ADDR_SIZE (sizeof(uint8_t) * 8)
 
 /**
+ * Names associated with lora_udp_pkt_types
+ */
+std::string lora_udp_pkt_names[7] = { "PUSH_DATA", "PUSH_ACK", "PULL_DATA", "PULL_ACK", "PULL_RESP", "TX_ACK", "UNKNOWN_TYPE" };
+
+/**
  * Creates a new lora_udp_pkt instance
  * @return void
  */

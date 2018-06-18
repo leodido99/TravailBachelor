@@ -6,6 +6,7 @@
 #define _LORA_UDP_PKT_H
 
 #include <cstdint>
+#include <string>
 #include <rapidjson/document.h>
 
 /**
@@ -23,7 +24,7 @@ typedef enum { PUSH_DATA,		  //!< PUSH_DATA
 /**
  * Names associated with lora_udp_pkt_types
  */
-std::string lora_udp_pkt_names[7] = { "PUSH_DATA", "PUSH_ACK", "PULL_DATA", "PULL_ACK", "PULL_RESP", "TX_ACK", "UNKNOWN_TYPE" };
+extern std::string lora_udp_pkt_names[];
 
 class lora_udp_pkt {
 public: 
