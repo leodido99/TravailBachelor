@@ -33,7 +33,7 @@ race_app_server::race_app_server() {
 	this->listen_socket = -1;
 	this->listening_thread = NULL;
 	this->verbose = false;
-	this->is_thread_running = false;
+	this->is_thread_running = true;
 }
 
 void race_app_server::load_configuration(std::string configfile) {
