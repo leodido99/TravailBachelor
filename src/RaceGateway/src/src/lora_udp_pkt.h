@@ -41,7 +41,12 @@ public:
  * Creates a new lora_udp_pkt instance
  */
 lora_udp_pkt();
-    
+
+/**
+ * Destructor
+ */
+~lora_udp_pkt();
+
 /**
  * @param uint8_t* data
  * @param int size

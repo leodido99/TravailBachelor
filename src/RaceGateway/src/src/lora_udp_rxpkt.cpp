@@ -15,7 +15,6 @@
  * Class representing a LoRa UDP protocol rxpkt
  */
 
-
 /**
  * Builds a UDP rxpkt from a rapidjson Document instance
  * @param doc
@@ -63,7 +62,7 @@ lora_udp_rxpkt::lora_udp_rxpkt(rapidjson::Document* doc) {
  * Returns the time of the packet reception
  * @return string
  */
-std::string lora_udp_rxpkt::get_time() {
+std::string lora_udp_rxpkt::get_time() const {
     return this->time;
 }
 
@@ -71,7 +70,7 @@ std::string lora_udp_rxpkt::get_time() {
  * Returns the GPS time of pkt RX, number of milliseconds since 06.Jan.1980
  * @return unsigned int
  */
-unsigned int lora_udp_rxpkt::get_tmms() {
+unsigned int lora_udp_rxpkt::get_tmms() const {
     return this->tmms;
 }
 
@@ -79,7 +78,7 @@ unsigned int lora_udp_rxpkt::get_tmms() {
  * Returns Internal timestamp of "RX finished" event (32b unsigned)
  * @return unsigned int
  */
-unsigned int lora_udp_rxpkt::get_tmst() {
+unsigned int lora_udp_rxpkt::get_tmst() const {
     return this->tmst;
 }
 
@@ -87,7 +86,7 @@ unsigned int lora_udp_rxpkt::get_tmst() {
  * Returns RX central frequency in MHz (unsigned float, Hz precision)
  * @return float
  */
-float lora_udp_rxpkt::get_freq() {
+float lora_udp_rxpkt::get_freq() const {
     return this->freq;
 }
 
@@ -95,7 +94,7 @@ float lora_udp_rxpkt::get_freq() {
  * Returns the concentrator "IF" channel used for RX (unsigned integer)
  * @return unsigned int
  */
-unsigned int lora_udp_rxpkt::get_chan() {
+unsigned int lora_udp_rxpkt::get_chan() const {
     return this->chan;
 }
 
@@ -103,7 +102,7 @@ unsigned int lora_udp_rxpkt::get_chan() {
  * Returns the concentrator "RF chain" used for RX (unsigned integer)
  * @return unsigned int
  */
-unsigned int lora_udp_rxpkt::get_rf_chain() {
+unsigned int lora_udp_rxpkt::get_rf_chain() const {
     return this->rf_chain;
 }
 
@@ -111,7 +110,7 @@ unsigned int lora_udp_rxpkt::get_rf_chain() {
  * Returns CRC status: 1 = OK, -1 = fail, 0 = no CRC
  * @return int
  */
-int lora_udp_rxpkt::get_stat() {
+int lora_udp_rxpkt::get_stat() const {
     return this->stat;
 }
 
@@ -119,7 +118,7 @@ int lora_udp_rxpkt::get_stat() {
  * Returns the modulation identifier "LORA" or "FSK"
  * @return string
  */
-std::string lora_udp_rxpkt::get_modu() {
+std::string lora_udp_rxpkt::get_modu() const {
     return this->modu;
 }
 
@@ -127,7 +126,7 @@ std::string lora_udp_rxpkt::get_modu() {
  * Returns LoRa datarate identifier (eg. SF12BW500) or FSK datarate (unsigned, in bits per second) depending on the packet modulation
  * @return string
  */
-std::string lora_udp_rxpkt::get_datr() {
+std::string lora_udp_rxpkt::get_datr() const {
     return this->datr;
 }
 
@@ -135,7 +134,7 @@ std::string lora_udp_rxpkt::get_datr() {
  * Returns the LoRa ECC coding rate identifier
  * @return string
  */
-std::string lora_udp_rxpkt::get_codr() {
+std::string lora_udp_rxpkt::get_codr() const {
     return this->codr;
 }
 
@@ -143,7 +142,7 @@ std::string lora_udp_rxpkt::get_codr() {
  * Returns the RSSI in dBm (signed integer, 1 dB precision)
  * @return int
  */
-int lora_udp_rxpkt::get_RSSI() {
+int lora_udp_rxpkt::get_RSSI() const {
     return this->RSSI;
 }
 
@@ -151,7 +150,7 @@ int lora_udp_rxpkt::get_RSSI() {
  * Returns the Lora SNR ratio in dB (signed float, 0.1 dB precision)
  * @return float
  */
-float lora_udp_rxpkt::get_lsnr() {
+float lora_udp_rxpkt::get_lsnr() const {
     return this->lsnr;
 }
 
@@ -159,7 +158,7 @@ float lora_udp_rxpkt::get_lsnr() {
  * Returns the RF packet payload size in bytes (unsigned integer)
  * @return unsigned int
  */
-unsigned int lora_udp_rxpkt::get_size() {
+unsigned int lora_udp_rxpkt::get_size() const {
     return this->size;
 }
 
@@ -167,7 +166,7 @@ unsigned int lora_udp_rxpkt::get_size() {
  * Returns the Base64 encoded RF packet payload, padded
  * @return string
  */
-std::string lora_udp_rxpkt::get_data() {
+std::string lora_udp_rxpkt::get_data() const {
     return this->data;
 }
 
@@ -175,6 +174,11 @@ std::string lora_udp_rxpkt::get_data() {
  * Returns the decoded packet data as  a vector of bytes
  * @return vector<char>
  */
-std::vector<char> lora_udp_rxpkt::get_decoded_data() {
+std::vector<char> lora_udp_rxpkt::get_decoded_data() const {
     return this->decoded_data;
+}
+
+std::ostream& operator<<(std::ostream &strm, const lora_udp_rxpkt &a) {
+	// "decoded data=" << a.get_decoded_data() <<
+	return strm << "lora_udp_rxpkt(" << "time=" << a.get_time() << " tmms=" << a.get_tmms() << " tmst=" << a.get_tmst() << "freq=" << a.get_freq() << " chan=" << a.get_chan() << "rf_chain=" << a.get_rf_chain() << " stat=" << a.get_stat() << " modu=" << a.get_modu() << " datr=" << a.get_datr() << " codr=" << a.get_codr() << " RSSI=" << a.get_RSSI() << " lsnr=" << a.get_lsnr() << " size=" << a.get_size() << "data=" << a.get_data() << ")";
 }

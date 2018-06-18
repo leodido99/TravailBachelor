@@ -42,6 +42,15 @@ lora_udp_pkt::lora_udp_pkt() {
 }
 
 /**
+ * Destructor
+ */
+lora_udp_pkt::~lora_udp_pkt() {
+	if (this->rapidjson_doc != NULL) {
+		delete(this->rapidjson_doc);
+	}
+}
+
+/**
  * @param uint8_t* data
  * @param int size
  * @return void
