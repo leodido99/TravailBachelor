@@ -5,6 +5,8 @@
 
 #include "lora_udp_rxpkt.h"
 
+#include <iostream>
+
 #include <rapidjson/document.h>
 
 /**
@@ -20,37 +22,41 @@
  * @return void
  */
 lora_udp_rxpkt::lora_udp_rxpkt(rapidjson::Document* doc) {
-	/*std::string time;
-		unsigned int tmms;
-		unsigned int tmst;
-		float freq;
-		unsigned int chan;
-		unsigned int rf_chain;
-		int stat;
-		std::string modu;
-		std::string datr;
-		std::string codr;
-		int RSSI;
-		float lsnr;
-		int size;
-		std::string data;
-		std::vector<char> decoded_data;*/
-
-    /* Iterate on all members of the json file */
-    for (rapidjson::Value::ConstMemberIterator fileIt = doc->MemberBegin(); fileIt != doc->MemberEnd(); ++fileIt) {
-        /* Get member name */
-    	std::string objectType(fileIt->name.GetString());
-        if (objectType.compare("rxpkt") == 0) {
-
-
-
-    	}
-
-
-
-
-
-    }
+	const rapidjson::Value& rxpkt = (*doc)["rxpkt"];
+	assert(rxpkt.IsArray());
+	for (rapidjson::Value::ConstMemberIterator itr = doc->MemberBegin(); itr !=  doc->MemberEnd(); ++itr) {
+		std::string objectType(itr->name.GetString());
+		std::cout << objectType << std::endl;
+		if (objectType.compare("time") == 0) {
+			this->time = itr->value.GetString();
+		} else if (objectType.compare("tmms") == 0) {
+			this->tmms = itr->value.GetUint();
+		} else if (objectType.compare("tmst") == 0) {
+			this->tmst = itr->value.GetUint();
+		} else if (objectType.compare("freq") == 0) {
+			this->freq = itr->value.GetDouble();
+		} else if (objectType.compare("chan") == 0) {
+			this->chan = itr->value.GetUint();
+		} else if (objectType.compare("rf_chain") == 0) {
+			this->rf_chain = itr->value.GetUint();
+		} else if (objectType.compare("stat") == 0) {
+			this->stat = itr->value.GetInt();
+		} else if (objectType.compare("modu") == 0) {
+			this->modu = itr->value.GetString();
+		} else if (objectType.compare("datr") == 0) {
+			this->datr = itr->value.GetString();
+		} else if (objectType.compare("codr") == 0) {
+			this->codr = itr->value.GetString();
+		} else if (objectType.compare("RSSI") == 0) {
+			this->RSSI = itr->value.GetInt();
+		} else if (objectType.compare("lsnr") == 0) {
+			this->lsnr = itr->value.GetDouble();
+		} else if (objectType.compare("size") == 0) {
+			this->size = itr->value.GetInt();
+		} else if (objectType.compare("data") == 0) {
+			this->data = itr->value.GetString();
+		}
+	}
 }
 
 /**
