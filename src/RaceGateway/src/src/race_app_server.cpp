@@ -82,21 +82,11 @@ void race_app_server::process_datagram(uint8_t* data, int size) {
 	 * */
 	lora_udp_pkt new_pkt;
 	new_pkt.parse(data, size);
-	switch(new_pkt.get_pkt_type()) {
-	case PUSH_DATA:
+	this->log(INFO, "Received " + lora_udp_pkt_names[new_pkt.get_pkt_type()]);
+	if (new_pkt.get_pkt_type() == PUSH_DATA) {
 		lora_udp_rxpkt new_rxpkt(new_pkt.get_rapidjson_doc());
-
-
-		break;
-	case PUSH_ACK:
-	case PULL_DATA:
-	case PULL_ACK:
-	case PULL_RESP:
-	case TX_ACK:
-	default:
-		throw std::runtime_error("Unsupported LoRa UDP packet type " + new_pkt.get_pkt_type());
-		break;
 	}
+
 
 
 

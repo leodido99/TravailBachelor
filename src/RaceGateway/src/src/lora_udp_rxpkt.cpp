@@ -18,6 +18,27 @@
  * @return void
  */
 lora_udp_rxpkt::lora_udp_rxpkt(rapidjson::Document* doc) {
+	/*std::string time;
+		unsigned int tmms;
+		unsigned int tmst;
+		float freq;
+		unsigned int chan;
+		unsigned int rf_chain;
+		int stat;
+		std::string modu;
+		std::string datr;
+		std::string codr;
+		int RSSI;
+		float lsnr;
+		int size;
+		std::string data;
+		std::vector<char> decoded_data;*/
+
+
+
+
+
+
     return;
 }
 
@@ -26,7 +47,7 @@ lora_udp_rxpkt::lora_udp_rxpkt(rapidjson::Document* doc) {
  * @return string
  */
 std::string lora_udp_rxpkt::get_time() {
-    return "";
+    return this->time;
 }
 
 /**
@@ -34,7 +55,7 @@ std::string lora_udp_rxpkt::get_time() {
  * @return unsigned int
  */
 unsigned int lora_udp_rxpkt::get_tmms() {
-    return null;
+    return this->tmms;
 }
 
 /**
@@ -42,7 +63,7 @@ unsigned int lora_udp_rxpkt::get_tmms() {
  * @return unsigned int
  */
 unsigned int lora_udp_rxpkt::get_tmst() {
-    return null;
+    return this->tmst;
 }
 
 /**
@@ -50,7 +71,7 @@ unsigned int lora_udp_rxpkt::get_tmst() {
  * @return float
  */
 float lora_udp_rxpkt::get_freq() {
-    return 0.0;
+    return this->freq;
 }
 
 /**
@@ -58,7 +79,7 @@ float lora_udp_rxpkt::get_freq() {
  * @return unsigned int
  */
 unsigned int lora_udp_rxpkt::get_chan() {
-    return null;
+    return this->chan;
 }
 
 /**
@@ -66,7 +87,7 @@ unsigned int lora_udp_rxpkt::get_chan() {
  * @return unsigned int
  */
 unsigned int lora_udp_rxpkt::get_rf_chain() {
-    return null;
+    return this->rf_chain;
 }
 
 /**
@@ -74,7 +95,7 @@ unsigned int lora_udp_rxpkt::get_rf_chain() {
  * @return int
  */
 int lora_udp_rxpkt::get_stat() {
-    return 0;
+    return this->stat;
 }
 
 /**
@@ -82,7 +103,7 @@ int lora_udp_rxpkt::get_stat() {
  * @return string
  */
 std::string lora_udp_rxpkt::get_modu() {
-    return "";
+    return this->modu;
 }
 
 /**
@@ -90,7 +111,7 @@ std::string lora_udp_rxpkt::get_modu() {
  * @return string
  */
 std::string lora_udp_rxpkt::get_datr() {
-    return "";
+    return this->datr;
 }
 
 /**
@@ -98,7 +119,7 @@ std::string lora_udp_rxpkt::get_datr() {
  * @return string
  */
 std::string lora_udp_rxpkt::get_codr() {
-    return "";
+    return this->codr;
 }
 
 /**
@@ -106,7 +127,7 @@ std::string lora_udp_rxpkt::get_codr() {
  * @return int
  */
 int lora_udp_rxpkt::get_RSSI() {
-    return 0;
+    return this->RSSI;
 }
 
 /**
@@ -114,7 +135,7 @@ int lora_udp_rxpkt::get_RSSI() {
  * @return float
  */
 float lora_udp_rxpkt::get_lsnr() {
-    return 0.0;
+    return this->lsnr;
 }
 
 /**
@@ -122,7 +143,7 @@ float lora_udp_rxpkt::get_lsnr() {
  * @return unsigned int
  */
 unsigned int lora_udp_rxpkt::get_size() {
-    return null;
+    return this->size;
 }
 
 /**
@@ -130,7 +151,7 @@ unsigned int lora_udp_rxpkt::get_size() {
  * @return string
  */
 std::string lora_udp_rxpkt::get_data() {
-    return "";
+    return this->data;
 }
 
 /**
@@ -138,5 +159,5 @@ std::string lora_udp_rxpkt::get_data() {
  * @return vector<char>
  */
 std::vector<char> lora_udp_rxpkt::get_decoded_data() {
-    return null;
+    return this->decoded_data;
 }

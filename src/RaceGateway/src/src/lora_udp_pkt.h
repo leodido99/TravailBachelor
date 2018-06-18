@@ -20,6 +20,11 @@ typedef enum { PUSH_DATA,		  //!< PUSH_DATA
 			   UNKNOWN_TYPE
 }lora_udp_pkt_types;
 
+/**
+ * Names associated with lora_udp_pkt_types
+ */
+std::string lora_udp_pkt_names[7] = { "PUSH_DATA", "PUSH_ACK", "PULL_DATA", "PULL_ACK", "PULL_RESP", "TX_ACK", "UNKNOWN_TYPE" };
+
 class lora_udp_pkt {
 public: 
     

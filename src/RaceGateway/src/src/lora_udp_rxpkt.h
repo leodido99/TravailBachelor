@@ -8,9 +8,26 @@
 
 #include <cstdint>
 #include <string>
+#include <vector>
 #include <rapidjson/document.h>
 
 class lora_udp_rxpkt {
+private:
+	std::string time;
+	unsigned int tmms;
+	unsigned int tmst;
+	float freq;
+	unsigned int chan;
+	unsigned int rf_chain;
+	int stat;
+	std::string modu;
+	std::string datr;
+	std::string codr;
+	int RSSI;
+	float lsnr;
+	int size;
+	std::string data;
+	std::vector<char> decoded_data;
 public: 
     
 /**
