@@ -100,3 +100,15 @@ uint64_t lora_udp_pkt::get_gateway_mac_addr() {
 uint16_t lora_udp_pkt::get_random_token() {
     return this->random_token;
 }
+
+/**
+ * Returns a string representing the class instance
+ * @return
+ */
+std::string lora_udp_pkt::get_string() {
+	return lora_udp_pkt_names[this->packet_type] + " protocol version=" + std::to_string(this->protocol_version) + " gateway id=" + std::to_string(this->gateway_mac_addr) + " random token=" + std::to_string(this->random_token);
+}
+
+std::ostream& operator<<(std::ostream &strm, const lora_udp_pkt &a) {
+  return strm;// << "A(" << a.i << ")";
+}

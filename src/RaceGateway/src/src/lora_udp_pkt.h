@@ -27,6 +27,13 @@ typedef enum { PUSH_DATA,		  //!< PUSH_DATA
 extern std::string lora_udp_pkt_names[];
 
 class lora_udp_pkt {
+private:
+    int protocol_version;
+    uint16_t random_token;
+    uint64_t gateway_mac_addr;
+    rapidjson::Document* rapidjson_doc;
+    lora_udp_pkt_types packet_type;
+
 public: 
     
 /**
@@ -65,12 +72,11 @@ uint64_t get_gateway_mac_addr();
  */
 uint16_t get_random_token();
 
-private: 
-    int protocol_version;
-    uint16_t random_token;
-    uint64_t gateway_mac_addr;
-    rapidjson::Document* rapidjson_doc;
-    lora_udp_pkt_types packet_type;
+/**
+ * Returns a string representing the class instance
+ * @return
+ */
+std::string get_string();
 };
 
 #endif //_LORA_UDP_PKT_H
