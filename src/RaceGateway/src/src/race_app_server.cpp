@@ -122,6 +122,7 @@ void race_app_server::start() {
 	this->connect_listen();
 	/* Create listening thread */
 	this->listening_thread = new std::thread(&race_app_server::listen, this);
+	this->listening_thread->join();
 }
 
 void race_app_server::log(log_levels level, std::string msg) {
