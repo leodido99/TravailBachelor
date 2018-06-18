@@ -46,3 +46,5 @@ src/RaceTracker/build
 src/RaceTracker/captures
 
 src/RaceSensor/build
+
+src/RaceGateway/src/out
