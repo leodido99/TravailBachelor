@@ -49,8 +49,8 @@ MAKEFILE_FILES=./makefiles/
 include $(MAKEFILE_FILES)MakefileC++11.cfg
 include $(MAKEFILE_FILES)Makefile.inc
 
-# Variables related to copy to SDCARD
-SDPATH=/Volumes/boot
+# Variables used to copy the executable to the Raspberry pi
+PI_ADDR=192.168.1.14
 
 # =============================================================================
 # BUILD TARGET
@@ -68,3 +68,6 @@ SDPATH=/Volumes/boot
 #  - framac-metrics: Create the metrics of the objects files (Alter params with FRAMACFLAGS)
 # =============================================================================
 all: list $(OUTDIR) $(SRCFILES) $(OUTFILE)
+
+install:
+	scp out/race_app_server.out pi@$(PI_ADDR):race_tracker_gateway/TravailBachelor/src/RaceGateway/src/out

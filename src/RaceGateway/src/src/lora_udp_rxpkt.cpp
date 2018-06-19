@@ -2,10 +2,10 @@
  * Project Untitled
  */
 
-
 #include "lora_udp_rxpkt.h"
 
 #include <iostream>
+#include <stdexcept>
 
 #include <rapidjson/document.h>
 
