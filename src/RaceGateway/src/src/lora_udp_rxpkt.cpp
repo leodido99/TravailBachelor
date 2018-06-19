@@ -25,6 +25,7 @@ lora_udp_rxpkt::lora_udp_rxpkt(rapidjson::Document* doc) {
 	//std::cout << doc->GetString() << std::endl;
 	//const rapidjson::Value& rxpkt = (*doc)["rxpkt"];
 	//assert(rxpkt.IsArray());
+	std::cout << "lora_udp_rxpkt" << std::endl;
 	for (rapidjson::Value::ConstMemberIterator itr = doc->MemberBegin(); itr !=  doc->MemberEnd(); ++itr) {
 		std::string objectType(itr->name.GetString());
 		std::cout << "Member: " << objectType << std::endl;
