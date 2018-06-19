@@ -9,6 +9,9 @@
 #include <string>
 
 #include <rapidjson/document.h>
+
+#include "logger.h"
+
 #include <rapidjson/stringbuffer.h>// debug
 #include <rapidjson/writer.h>//debug
 #include <iostream> //debug
@@ -59,16 +62,20 @@ lora_udp_pkt::~lora_udp_pkt() {
  * @return void
  */
 void lora_udp_pkt::parse(uint8_t* data, int size) {
+	log(logDEBUG4) << "lora_udp_pkt::parse";
 	if (size >= LORA_UDP_PKT_MIN_SIZE) {
 		this->protocol_version = data[0];
 		std::memcpy(&this->random_token, &data[1], sizeof(this->random_token));
 		this->packet_type = static_cast<lora_udp_pkt_types>(data[3]);
 		std::memcpy(&this->gateway_mac_addr, &data[4], LORA_UDP_PKT_GATEWAY_ADDR_SIZE);
+
+		log(logDEBUG4) << "lora_udp_pkt::parse: Parsing json";
 		rapidjson::StringStream packet_stream((char *)(&data[4 + LORA_UDP_PKT_GATEWAY_ADDR_SIZE]));
 		this->rapidjson_doc = new rapidjson::Document();
 		this->rapidjson_doc->ParseStream(packet_stream);
 		rapidjson::Value::ConstMemberIterator fileIt = this->rapidjson_doc->MemberBegin();
 		this->json_obj = fileIt->name.GetString();
+		log(logDEBUG4) << "lora_udp_pkt::parse: Finished parsing json: First member " << this->json_obj;
 
 		std::cout << "Dumping json" << std::endl;
 		rapidjson::StringBuffer buffer;

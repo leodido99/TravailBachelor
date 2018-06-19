@@ -14,6 +14,10 @@
 #include <arpa/inet.h>
 #include <unistd.h>
 
+#include "logger.h"
+/* Define logger level */
+loglevel_e loglevel = logDEBUG4;
+
 int main(int argc, char **argv) {
 	race_app_server myAppServer;
 
