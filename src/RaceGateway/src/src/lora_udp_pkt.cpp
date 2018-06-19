@@ -70,6 +70,11 @@ void lora_udp_pkt::parse(uint8_t* data, int size) {
 		std::memcpy(&this->gateway_mac_addr, &data[4], LORA_UDP_PKT_GATEWAY_ADDR_SIZE);
 
 		log(logDEBUG4) << "lora_udp_pkt::parse: Parsing json";
+		char json_str[65535];
+		std::memcpy(json_str, &data[4 + LORA_UDP_PKT_GATEWAY_ADDR_SIZE], size - 4 + LORA_UDP_PKT_GATEWAY_ADDR_SIZE);
+		std::string json_msg_str(json_str);
+		std::cout << "json_msg_str: " << json_msg_str;
+
 		rapidjson::StringStream packet_stream((char *)(&data[4 + LORA_UDP_PKT_GATEWAY_ADDR_SIZE]));
 		this->rapidjson_doc = new rapidjson::Document();
 		this->rapidjson_doc->ParseStream(packet_stream);
