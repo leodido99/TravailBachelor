@@ -69,5 +69,3 @@ PI_ADDR=192.168.1.14
 # =============================================================================
 all: list $(OUTDIR) $(SRCFILES) $(OUTFILE)
 
-install:
-	scp out/race_app_server.out pi@$(PI_ADDR):race_tracker_gateway/TravailBachelor/src/RaceGateway/src/out
