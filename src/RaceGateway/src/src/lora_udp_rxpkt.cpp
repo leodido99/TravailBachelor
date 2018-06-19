@@ -26,6 +26,19 @@ lora_udp_rxpkt::lora_udp_rxpkt(rapidjson::Document* doc) {
 	//const rapidjson::Value& rxpkt = (*doc)["rxpkt"];
 	//assert(rxpkt.IsArray());
 	std::cout << "lora_udp_rxpkt" << std::endl;
+
+	if (doc->HasMember("rxpkt")) {
+		if ((*doc)["rxpkt"].IsArray()) {
+			std::cout << "Membercount rxpkt=" << (*doc)["rxpkt"].MemberCount() << std::endl;
+
+
+		} else {
+			throw std::runtime_error("json member rxpkt is not an array");
+		}
+	} else {
+		throw std::runtime_error("json member rxpkt missing");
+	}
+
 	for (rapidjson::Value::ConstMemberIterator itr = doc->MemberBegin(); itr !=  doc->MemberEnd(); ++itr) {
 		std::string objectType(itr->name.GetString());
 		std::cout << "Member: " << objectType << std::endl;
