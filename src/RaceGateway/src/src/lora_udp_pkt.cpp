@@ -7,8 +7,11 @@
 #include <stdexcept>
 #include <cstdio>
 #include <string>
-#include <rapidjson/document.h>
 
+#include <rapidjson/document.h>
+#include <rapidjson/stringbuffer.h>// debug
+#include <rapidjson/writer.h>//debug
+#include <iostream> //debug
 /**
  * lora_udp_pkt implementation
  */
@@ -64,9 +67,15 @@ void lora_udp_pkt::parse(uint8_t* data, int size) {
 		rapidjson::StringStream packet_stream((char *)(&data[4 + LORA_UDP_PKT_GATEWAY_ADDR_SIZE]));
 		this->rapidjson_doc = new rapidjson::Document();
 		this->rapidjson_doc->ParseStream(packet_stream);
-	    /* Iterate on all members of the json file */
 		rapidjson::Value::ConstMemberIterator fileIt = this->rapidjson_doc->MemberBegin();
 		this->json_obj = fileIt->name.GetString();
+
+		std::cout << "Dumping json" << std::endl;
+		rapidjson::StringBuffer buffer;
+		buffer.Clear();
+		rapidjson::Writer<rapidjson::StringBuffer> writer(buffer);
+		this->rapidjson_doc->Accept(writer);
+		std::cout << "Doc: " << buffer.GetString() << std::endl;
 	} else {
 		throw std::runtime_error("Not enough data (actual=" + std::to_string(size) + " minimum=" + std::to_string(LORA_UDP_PKT_MIN_SIZE) + ")");
 	}
