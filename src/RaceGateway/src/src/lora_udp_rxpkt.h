@@ -35,6 +35,12 @@ public:
  * @param doc
  */
 lora_udp_rxpkt(rapidjson::Document* doc);
+
+/**
+ * Parse a json document representing a LoRa UDP rxpk packet
+ * @param doc
+ */
+void parse_json(rapidjson::Document* doc);
     
 /**
  * Returns the time of the packet reception

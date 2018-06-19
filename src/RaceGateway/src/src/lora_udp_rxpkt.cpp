@@ -29,9 +29,7 @@ lora_udp_rxpkt::lora_udp_rxpkt(rapidjson::Document* doc) {
 
 	if (doc->HasMember("rxpk")) {
 		if ((*doc)["rxpk"].IsArray()) {
-			std::cout << "Membercount rxpk=" << (*doc)["rxpk"].MemberCount() << std::endl;
-
-
+			this->parse_json(doc);
 		} else {
 			throw std::runtime_error("json member rxpk is not an array");
 		}
@@ -71,6 +69,26 @@ lora_udp_rxpkt::lora_udp_rxpkt(rapidjson::Document* doc) {
 		} else if (objectType.compare("data") == 0) {
 			this->data = itr->value.GetString();
 		}
+	}
+}
+
+/**
+ * Parse a json document representing a LoRa UDP rxpk packet
+ * @param doc
+ */
+void lora_udp_rxpkt::parse_json(rapidjson::Document* doc) {
+	/* Iterate over all members of the array */
+	for (rapidjson::SizeType i = 0; i < (*doc)["rxpk"].Size(); i++){
+        const rapidjson::Value& c = (*doc)["rxpk"][i];
+        for (rapidjson::Value::ConstMemberIterator iter = c.MemberBegin(); iter != c.MemberEnd(); ++iter){
+        	std::cout << "Member of array: " << iter->name.GetString() << std::endl;
+
+//        	printf("%s\t", iter->name.GetString());
+ //           printf("%s\t", iter->value.GetString());
+        }
+
+
+
 	}
 }
 
