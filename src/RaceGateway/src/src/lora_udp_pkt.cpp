@@ -15,6 +15,7 @@
 #include <rapidjson/stringbuffer.h>// debug
 #include <rapidjson/writer.h>//debug
 #include <iostream> //debug
+
 /**
  * lora_udp_pkt implementation
  */
@@ -28,6 +29,11 @@
  * Size of the gateway address
  */
 #define LORA_UDP_PKT_GATEWAY_ADDR_SIZE (sizeof(uint8_t) * 8)
+
+/**
+ * Size of the char buffer used to store the json string
+ */
+#define LORA_UDP_PKT_JSON_STR_BUFFER_SIZE 65536
 
 /**
  * Names associated with lora_udp_pkt_types
@@ -69,13 +75,14 @@ void lora_udp_pkt::parse(uint8_t* data, int size) {
 		this->packet_type = static_cast<lora_udp_pkt_types>(data[3]);
 		std::memcpy(&this->gateway_mac_addr, &data[4], LORA_UDP_PKT_GATEWAY_ADDR_SIZE);
 
-		log(logDEBUG4) << "lora_udp_pkt::parse: Parsing json";
-		char json_str[65535];
+		log(logDEBUG4) << "lora_udp_pkt::parse: Starting parsing of json";
+		char json_str[LORA_UDP_PKT_JSON_STR_BUFFER_SIZE];
+		/* Copy the json string from the data to an array */
 		std::memcpy(json_str, &data[4 + LORA_UDP_PKT_GATEWAY_ADDR_SIZE], size - 4 + LORA_UDP_PKT_GATEWAY_ADDR_SIZE);
-		std::string json_msg_str(json_str);
-		std::cout << "json_msg_str: " << json_msg_str;
-
-		rapidjson::StringStream packet_stream((char *)(&data[4 + LORA_UDP_PKT_GATEWAY_ADDR_SIZE]));
+		/* Create string using char array */
+		this->json_string = std::string(json_str);
+		log(logDEBUG4) << "lora_udp_pkt::parse: Parsing string " << this->json_string;
+		rapidjson::StringStream packet_stream(this->json_string.c_str());
 		this->rapidjson_doc = new rapidjson::Document();
 		this->rapidjson_doc->ParseStream(packet_stream);
 		rapidjson::Value::ConstMemberIterator fileIt = this->rapidjson_doc->MemberBegin();
@@ -140,6 +147,14 @@ uint16_t lora_udp_pkt::get_random_token() {
  */
 std::string lora_udp_pkt::get_json_obj_name() {
 	return this->json_obj;
+}
+
+/**
+ * Returns the complete json string
+ * @return
+ */
+std::string lora_udp_pkt::get_json_string() {
+	return this->json_string;
 }
 
 /**

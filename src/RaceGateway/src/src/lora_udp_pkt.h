@@ -32,8 +32,9 @@ private:
     int protocol_version;
     uint16_t random_token;
     uint64_t gateway_mac_addr;
-    rapidjson::Document* rapidjson_doc;
     lora_udp_pkt_types packet_type;
+    std::string json_string;
+    rapidjson::Document* rapidjson_doc;
     std::string json_obj;
 public: 
     
@@ -83,6 +84,12 @@ uint16_t get_random_token();
  * @return
  */
 std::string get_json_obj_name();
+
+/**
+ * Returns the complete json string
+ * @return
+ */
+std::string get_json_string();
 
 /**
  * Returns a string representing the class instance
