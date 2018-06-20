@@ -136,7 +136,7 @@ $(OUTFILE): $(OBJFILES)
 
 # Build c file
 $(OUTDIR)/%.o: %.c
-	$(CC) -c $(CFLAGS) $(INC) -o $@ $<
+	$(CXX) -c $(CFLAGS) $(INC) -o $@ $<
 
 # Build cpp file
 $(OUTDIR)/%.o: %.cpp
