@@ -37,10 +37,9 @@ public:
 
 	/**
 	 * Parse the push data provided
-	 * @param data
-	 * @param size
+	 * @param json_str
 	 */
-	void parse(uint8_t* data, int size);
+	void parse(std::string json_str);
 
 	/**
 	 * UTC time of pkt RX, us precision, ISO 8601 'compact' format

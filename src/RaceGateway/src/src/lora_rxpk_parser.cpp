@@ -8,11 +8,6 @@
 #include <iostream>
 
 /**
- * Size of the gateway address
- */
-#define LORA_PKT_GATEWAY_ADDR_SIZE (sizeof(uint8_t) * 8)
-
-/**
  * lora_push_data_parser implementation
  * 
  * LoRa packet forwarder PUSH_DATA parser. This class provides a way to parse packets sent by the packet forwarder.
@@ -45,7 +40,7 @@ lora_rxpk_parser::lora_rxpk_parser(int protocol_version) {
  * @param data
  * @param size
  */
-void lora_rxpk_parser::parse(uint8_t* data, int size) {
+void lora_rxpk_parser::parse(std::string json_str) {
 //	std::memcpy(&this->gateway_mac_addr, &data[4], LORA_UDP_PKT_GATEWAY_ADDR_SIZE);
 //	this->json_string = std::string((char *)&data[4 + LORA_UDP_PKT_GATEWAY_ADDR_SIZE]);
 //
@@ -182,6 +177,5 @@ std::vector<char> lora_rxpk_parser::get_decoded_data() const {
 }
 
 std::ostream& operator<<(std::ostream &strm, const lora_rxpk_parser &a) {
-	// "decoded data=" << a.get_decoded_data() <<
-	return strm << "lora_push_data_parser(" << "time=" << a.get_time() << " tmms=" << a.get_tmms() << " tmst=" << a.get_tmst() << "freq=" << a.get_freq() << " chan=" << a.get_chan() << "rf_chain=" << a.get_rf_chain() << " stat=" << a.get_stat() << " modu=" << a.get_modu() << " datr=" << a.get_datr() << " codr=" << a.get_codr() << " RSSI=" << a.get_RSSI() << " lsnr=" << a.get_lsnr() << " size=" << a.get_size() << "data=" << a.get_data() << ")";
+	return strm << "lora_rxpk_parser(" << "time=" << a.get_time() << " tmms=" << a.get_tmms() << " tmst=" << a.get_tmst() << " freq=" << a.get_freq() << " chan=" << a.get_chan() << " rf_chain=" << a.get_rf_chain() << " stat=" << a.get_stat() << " modu=" << a.get_modu() << " datr=" << a.get_datr() << " codr=" << a.get_codr() << " RSSI=" << a.get_RSSI() << " lsnr=" << a.get_lsnr() << " size=" << a.get_size() << " data=" << a.get_data() << ")";
 }

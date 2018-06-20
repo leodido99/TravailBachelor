@@ -25,8 +25,9 @@
 #include <arpa/inet.h>
 
 #include "lora_pkt_fwd_parser.h"
-#include "logger.h"
+#include "lora_push_data_parser.h"
 #include "lora_rxpk_parser.h"
+#include "logger.h"
 
 using namespace rapidjson;
 
@@ -82,20 +83,27 @@ void race_app_server::process_datagram(uint8_t* data, int size) {
 	/* This method processes the received UDP datagram from the packet forwarder
 	 * It only cares about rxpkt datagrams. Others are discarded
 	 * */
-	lora_pkt_fwd_parser new_pkt;
+	lora_pkt_fwd_parser packet;
 	/* Parse packet data */
-	new_pkt.parse(data, size);
-	log(logDEBUG4) << "race_app_server::process_datagram: New packet: " << new_pkt;
-	if (new_pkt.get_pkt_type() == PUSH_DATA) {
-
-
-
-
-
-		lora_rxpk_parser push_data(new_pkt.get_protocol_version());
-		/* Parse push data */
-		push_data.parse(new_pkt.get_pkt_data(), new_pkt.get_pkt_data_size());
+	packet.parse(data, size);
+	log(logDEBUG4) << "race_app_server::process_datagram: New packet: " << packet;
+	if (packet.get_pkt_type() == PUSH_DATA) {
+		lora_push_data_parser push_data;
+		/* Parse the PUSH_DATA */
+		push_data.parse(packet.get_pkt_data(), packet.get_pkt_data_size());
 		log(logDEBUG4) << "race_app_server::process_datagram: New PUSH_DATA: " << push_data;
+		if (push_data.get_data_type() == RXPK) {
+			lora_rxpk_parser rxpk_data(packet.get_protocol_version());
+			/* Parse push data */
+			rxpk_data.parse(push_data.get_json_string());
+			log(logDEBUG4) << "race_app_server::process_datagram: New RXPK: " << rxpk_data;
+
+
+		}
+
+
+
+
 	}
 
 
