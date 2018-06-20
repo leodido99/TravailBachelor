@@ -3,7 +3,9 @@
  */
 
 
-#include "lora_push_data_parser.h"
+#include "lora_rxpk_parser.h"
+
+#include <iostream>
 
 /**
  * Size of the gateway address
@@ -19,7 +21,7 @@
 /**
  * Constructor
  */
-lora_push_data_parser::lora_push_data_parser(int protocol_version) {
+lora_rxpk_parser::lora_rxpk_parser(int protocol_version) {
 	this->protocol_version = protocol_version;
 	this->time = "";
 	this->tmms = 0;
@@ -43,7 +45,7 @@ lora_push_data_parser::lora_push_data_parser(int protocol_version) {
  * @param data
  * @param size
  */
-void lora_push_data_parser::parse(uint8_t* data, int size) {
+void lora_rxpk_parser::parse(uint8_t* data, int size) {
 //	std::memcpy(&this->gateway_mac_addr, &data[4], LORA_UDP_PKT_GATEWAY_ADDR_SIZE);
 //	this->json_string = std::string((char *)&data[4 + LORA_UDP_PKT_GATEWAY_ADDR_SIZE]);
 //
@@ -63,7 +65,7 @@ void lora_push_data_parser::parse(uint8_t* data, int size) {
  * UTC time of pkt RX, us precision, ISO 8601 'compact' format
  * @return string
  */
-std::string lora_push_data_parser::get_time() {
+std::string lora_rxpk_parser::get_time() const {
     return this->time;
 }
 
@@ -71,7 +73,7 @@ std::string lora_push_data_parser::get_time() {
  * GPS time of pkt RX, number of milliseconds since 06.Jan.1980
  * @return unsigned int
  */
-unsigned int lora_push_data_parser::get_tmms() {
+unsigned int lora_rxpk_parser::get_tmms() const {
     return this->tmms;
 }
 
@@ -79,7 +81,7 @@ unsigned int lora_push_data_parser::get_tmms() {
  * Internal timestamp of "RX finished" event (32b unsigned)
  * @return unsigned int
  */
-unsigned int lora_push_data_parser::get_tmst() {
+unsigned int lora_rxpk_parser::get_tmst() const {
     return this->tmst;
 }
 
@@ -87,7 +89,7 @@ unsigned int lora_push_data_parser::get_tmst() {
  * RX central frequency in MHz (unsigned float, Hz precision)
  * @return float
  */
-float lora_push_data_parser::get_freq() {
+float lora_rxpk_parser::get_freq() const {
     return this->freq;
 }
 
@@ -95,7 +97,7 @@ float lora_push_data_parser::get_freq() {
  * Concentrator "IF" channel used for RX (unsigned integer)
  * @return unsigned int
  */
-unsigned int lora_push_data_parser::get_chan() {
+unsigned int lora_rxpk_parser::get_chan() const {
     return this->chan;
 }
 
@@ -103,7 +105,7 @@ unsigned int lora_push_data_parser::get_chan() {
  * Concentrator "RF chain" used for RX (unsigned integer)
  * @return unsigned int
  */
-unsigned int lora_push_data_parser::get_rf_chain() {
+unsigned int lora_rxpk_parser::get_rf_chain() const {
     return this->rf_chain;
 }
 
@@ -111,7 +113,7 @@ unsigned int lora_push_data_parser::get_rf_chain() {
  * CRC status: 1 = OK, -1 = fail, 0 = no CRC
  * @return int
  */
-int lora_push_data_parser::get_stat() {
+int lora_rxpk_parser::get_stat() const {
     return this->stat;
 }
 
@@ -119,7 +121,7 @@ int lora_push_data_parser::get_stat() {
  * Modulation identifier "LORA" or "FSK"
  * @return string
  */
-std::string lora_push_data_parser::get_modu() {
+std::string lora_rxpk_parser::get_modu() const {
     return this->modu;
 }
 
@@ -127,7 +129,7 @@ std::string lora_push_data_parser::get_modu() {
  * LoRa datarate identifier (eg. SF12BW500) or FSK datarate (unsigned, in bits per second)
  * @return string
  */
-std::string lora_push_data_parser::get_datr() {
+std::string lora_rxpk_parser::get_datr() const {
     return this->datr;
 }
 
@@ -135,7 +137,7 @@ std::string lora_push_data_parser::get_datr() {
  * LoRa ECC coding rate identifier
  * @return string
  */
-std::string lora_push_data_parser::get_codr() {
+std::string lora_rxpk_parser::get_codr() const {
     return this->codr;
 }
 
@@ -143,7 +145,7 @@ std::string lora_push_data_parser::get_codr() {
  * RSSI in dBm (signed integer, 1 dB precision)
  * @return int
  */
-int lora_push_data_parser::get_RSSI() {
+int lora_rxpk_parser::get_RSSI() const {
     return this->RSSI;
 }
 
@@ -151,7 +153,7 @@ int lora_push_data_parser::get_RSSI() {
  * Lora SNR ratio in dB (signed float, 0.1 dB precision)
  * @return float
  */
-float lora_push_data_parser::get_lsnr() {
+float lora_rxpk_parser::get_lsnr() const {
     return this->lsnr;
 }
 
@@ -159,7 +161,7 @@ float lora_push_data_parser::get_lsnr() {
  * RF packet payload size in bytes (unsigned integer)
  * @return unsigned int
  */
-unsigned int lora_push_data_parser::get_size() {
+unsigned int lora_rxpk_parser::get_size() const {
     return this->size;
 }
 
@@ -167,7 +169,7 @@ unsigned int lora_push_data_parser::get_size() {
  * Base64 encoded RF packet payload, padded
  * @return string
  */
-std::string lora_push_data_parser::get_data() {
+std::string lora_rxpk_parser::get_data() const {
     return this->data;
 }
 
@@ -175,6 +177,11 @@ std::string lora_push_data_parser::get_data() {
  * Decoded RF packet payload as a vector of bytes
  * @return vector<char>
  */
-std::vector<char> lora_push_data_parser::get_decoded_data() {
+std::vector<char> lora_rxpk_parser::get_decoded_data() const {
 	return this->decoded_data;
+}
+
+std::ostream& operator<<(std::ostream &strm, const lora_rxpk_parser &a) {
+	// "decoded data=" << a.get_decoded_data() <<
+	return strm << "lora_push_data_parser(" << "time=" << a.get_time() << " tmms=" << a.get_tmms() << " tmst=" << a.get_tmst() << "freq=" << a.get_freq() << " chan=" << a.get_chan() << "rf_chain=" << a.get_rf_chain() << " stat=" << a.get_stat() << " modu=" << a.get_modu() << " datr=" << a.get_datr() << " codr=" << a.get_codr() << " RSSI=" << a.get_RSSI() << " lsnr=" << a.get_lsnr() << " size=" << a.get_size() << "data=" << a.get_data() << ")";
 }

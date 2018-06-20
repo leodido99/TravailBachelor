@@ -9,14 +9,6 @@
 #include <cstdint>
 
 /**
- * Level of logging
- */
-typedef enum {
-	INFO, /*!< Information always printed */
-	DEBUG /*!< Debug information are only printed in verbose mode */
-}log_levels;
-
-/**
  * Class handling the race application server
  * It listens on the provided port for UDP packets
  * which are sent by the packet forwarder. Once received, the packet is
@@ -34,13 +26,6 @@ class race_app_server {
 		 * Setup and connect to the port to listen for incoming packets
 		 */
 		void connect_listen();
-
-		/**
-		 * Log a message to the console
-		 * If the verbose flag is false nothing is printed
-		 * @param msg Message to print
-		 */
-		void log(log_levels level, std::string msg);
 
 		/**
 		 * Listen on the port for new data

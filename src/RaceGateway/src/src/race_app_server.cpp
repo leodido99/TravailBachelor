@@ -14,6 +14,7 @@
 #include "race_app_server.h"
 
 #include <iostream>
+#include <stdexcept>
 
 #include <rapidjson/document.h>
 #include <rapidjson/filereadstream.h>
@@ -23,8 +24,9 @@
 #include <netdb.h>
 #include <arpa/inet.h>
 
-#include "lora_udp_pkt.h"
-#include "lora_udp_rxpkt.h"
+#include "lora_pkt_fwd_parser.h"
+#include "logger.h"
+#include "lora_rxpk_parser.h"
 
 using namespace rapidjson;
 
@@ -80,19 +82,36 @@ void race_app_server::process_datagram(uint8_t* data, int size) {
 	/* This method processes the received UDP datagram from the packet forwarder
 	 * It only cares about rxpkt datagrams. Others are discarded
 	 * */
-	lora_udp_pkt new_pkt;
+	lora_pkt_fwd_parser new_pkt;
+	/* Parse packet data */
 	new_pkt.parse(data, size);
-	this->log(INFO, new_pkt.get_string());
+	log(logDEBUG4) << "race_app_server::process_datagram: New packet: " << new_pkt;
 	if (new_pkt.get_pkt_type() == PUSH_DATA) {
-		if (new_pkt.get_json_obj_name() == "rxpk") {
-			lora_udp_rxpkt new_rxpkt;
-			new_rxpkt.parse_json(new_pkt.get_json_string());
-			std::cout << new_rxpkt << std::endl;
-		}
 
 
 
+
+
+		lora_rxpk_parser push_data(new_pkt.get_protocol_version());
+		/* Parse push data */
+		push_data.parse(new_pkt.get_pkt_data(), new_pkt.get_pkt_data_size());
+		log(logDEBUG4) << "race_app_server::process_datagram: New PUSH_DATA: " << push_data;
 	}
+
+
+//	lora_udp_pkt new_pkt;
+//	new_pkt.parse(data, size);
+//	this->log(INFO, new_pkt.get_string());
+//	if (new_pkt.get_pkt_type() == PUSH_DATA) {
+//		if (new_pkt.get_json_obj_name() == "rxpk") {
+//			lora_udp_rxpkt new_rxpkt;
+//			new_rxpkt.parse_json(new_pkt.get_json_string());
+//			std::cout << new_rxpkt << std::endl;
+//		}
+//
+//
+//
+//	}
 
 
 
@@ -107,7 +126,7 @@ void race_app_server::listen() {
     char host_name[64];
     char port_name[64];
 
-	this->log(INFO, "Start listening on port " + std::to_string(this->listen_port));
+	log(logINFO) << "race_app_server::listen: Start listening on port " << this->listen_port;
 
 	while(this->is_thread_running) {
 		nb_bytes = recvfrom(this->listen_socket, databuf, sizeof databuf, 0, (struct sockaddr *)&dist_addr, &addr_len);
@@ -117,7 +136,7 @@ void race_app_server::listen() {
 		}
 		if (this->verbose) {
 			getnameinfo((struct sockaddr *)&dist_addr, addr_len, host_name, sizeof host_name, port_name, sizeof port_name, NI_NUMERICHOST);
-			this->log(DEBUG, "Received " + std::to_string(nb_bytes) + " bytes from " + host_name + ":" + port_name);
+			log(logDEBUG4) << "race_app_server::listen: Received " << nb_bytes << " bytes from " << host_name << ":" << port_name;
 		}
 		/* Process data */
 		this->process_datagram(databuf, nb_bytes);
@@ -130,12 +149,6 @@ void race_app_server::start() {
 	/* Create listening thread */
 	this->listening_thread = new std::thread(&race_app_server::listen, this);
 	this->listening_thread->join();
-}
-
-void race_app_server::log(log_levels level, std::string msg) {
-	if (level == INFO || (level == DEBUG && this->verbose)) {
-		std::cout << msg << std::endl;
-	}
 }
 
 void race_app_server::set_verbose(bool verbose) {
@@ -163,7 +176,6 @@ void race_app_server::connect_listen() {
     }
     /* Iterate over all returned items */
     for (result=results; result!=NULL; result=result->ai_next) {
-    	this->log(DEBUG, "Create socket: Family: " + std::to_string(result->ai_family) + " Socket type: " + std::to_string(result->ai_socktype) + " Protocol: " + std::to_string(result->ai_protocol));
 		this->listen_socket = socket(result->ai_family, result->ai_socktype,result->ai_protocol);
 		if (this->listen_socket == -1) {
 			/* Socket creation failed, try next item */
@@ -173,12 +185,11 @@ void race_app_server::connect_listen() {
 			i = bind(this->listen_socket, result->ai_addr, result->ai_addrlen);
 			if (i == -1) {
 				/* bind failed, try next field */
-				this->log(DEBUG, "Binding socket to " + std::string(host_name) + ":" + std::string(port_name) + " failed");
+				log(logERROR) << "race_app_server::connect_listen: Binding socket to " << host_name << ":" << port_name << " FAILED!";
 				shutdown(this->listen_socket, SHUT_RDWR);
 				continue;
 			} else {
 				/* success, get out of loop */
-				this->log(INFO, "Binding socket to " + std::string(host_name) + ":" + std::string(port_name) + " success");
 				break;
 			}
 		}

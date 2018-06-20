@@ -7,7 +7,7 @@
 #define _LORA_PKT_FWD_PARSER_H
 
 #include <string>
-#include <stdint.h>
+#include <cstdint>
 
 /**
  * The different types of packets used by the LoRa packet forwarder UDP protocol
@@ -66,27 +66,32 @@ public:
 	/**
 	 * Returns the packet protocol version
 	 */
-	int get_protocol_version();
+	int get_protocol_version() const;
 
 	/**
 	 * Returns the packet random token
 	 */
-	uint16_t get_random_token();
+	uint16_t get_random_token() const;
 
 	/**
 	 * Returns the packet type
 	 */
-	lora_pkt_fwd_types get_pkt_type();
+	lora_pkt_fwd_types get_pkt_type() const;
 
 	/**
 	 * Returns the packet data without the common header (Protocol version, random token and packet type)
 	 */
-	uint8_t* get_pkt_data();
+	uint8_t* get_pkt_data() const;
 
 	/**
 	 * Returns the packet data size without the common header.
 	 */
-	int get_pkt_data_size();
+	int get_pkt_data_size() const;
+
+	/**
+	 * Friend insert operator to be able to print class to stream
+	 */
+	friend std::ostream& operator<<(std::ostream &strm, const lora_pkt_fwd_parser &a);
 };
 
 #endif //_LORA_PKT_FWD_PARSER_H
