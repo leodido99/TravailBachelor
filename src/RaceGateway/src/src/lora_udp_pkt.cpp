@@ -58,6 +58,7 @@ lora_udp_pkt::lora_udp_pkt() {
  */
 lora_udp_pkt::~lora_udp_pkt() {
 	if (this->rapidjson_doc != NULL) {
+		std::cout << "lora_udp_pkt destructor" << std::endl;
 		delete(this->rapidjson_doc);
 	}
 }
@@ -86,10 +87,12 @@ void lora_udp_pkt::parse(uint8_t* data, int size) {
 		log(logDEBUG4) << "lora_udp_pkt::parse: Parsing string " << this->json_string;
 		rapidjson::StringStream packet_stream(this->json_string.c_str());
 		this->rapidjson_doc = new rapidjson::Document();
+		std::cout << "ptr=" << this->rapidjson_doc << std::endl;
 		this->rapidjson_doc->ParseStream(packet_stream);
 		rapidjson::Value::ConstMemberIterator fileIt = this->rapidjson_doc->MemberBegin();
 		this->json_obj = fileIt->name.GetString();
 		log(logDEBUG4) << "lora_udp_pkt::parse: Finished parsing json: First member " << this->json_obj;
+		std::cout << "ptr=" << this->rapidjson_doc << std::endl;
 
 		std::cout << "Dumping json" << std::endl;
 		rapidjson::StringBuffer buffer;
@@ -97,6 +100,7 @@ void lora_udp_pkt::parse(uint8_t* data, int size) {
 		rapidjson::Writer<rapidjson::StringBuffer> writer(buffer);
 		this->rapidjson_doc->Accept(writer);
 		std::cout << "Doc: " << buffer.GetString() << std::endl;
+		std::cout << "ptr=" << this->rapidjson_doc << std::endl;
 	} else {
 		throw std::runtime_error("Not enough data (actual=" + std::to_string(size) + " minimum=" + std::to_string(LORA_UDP_PKT_MIN_SIZE) + ")");
 	}
