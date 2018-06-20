@@ -31,16 +31,15 @@ private:
 public: 
     
 /**
- * Builds a UDP rxpkt from a rapidjson Document instance
- * @param doc
+ * Constructor
  */
-lora_udp_rxpkt(rapidjson::Document* doc);
+lora_udp_rxpkt();
 
 /**
  * Parse a json document representing a LoRa UDP rxpk packet
- * @param doc
+ * @param json_str
  */
-void parse_json(rapidjson::Document* doc);
+void parse_json(std::string json_str);
     
 /**
  * Returns the time of the packet reception
@@ -118,7 +117,7 @@ std::string get_data() const;
 std::vector<char> get_decoded_data() const;
 
 /**
- * Insertion operator
+ * Insertion operator used to print class to stream
  * @param strm
  * @param a
  * @return

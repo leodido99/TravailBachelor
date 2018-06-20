@@ -9,6 +9,8 @@
 
 #include <rapidjson/document.h>
 
+#include "logger.h"
+
 /**
  * lora_udp_rxpkt implementation
  * 
@@ -20,71 +22,68 @@
  * @param doc
  * @return void
  */
-lora_udp_rxpkt::lora_udp_rxpkt(rapidjson::Document* doc) {
+lora_udp_rxpkt::lora_udp_rxpkt() {
 
-	//std::cout << doc->GetString() << std::endl;
-	//const rapidjson::Value& rxpkt = (*doc)["rxpkt"];
-	//assert(rxpkt.IsArray());
-	std::cout << "lora_udp_rxpkt" << std::endl;
+}
 
-	if (doc->HasMember("rxpk")) {
-		if ((*doc)["rxpk"].IsArray()) {
-			this->parse_json(doc);
-		} else {
+/**
+ * Parse a json document representing a LoRa UDP rxpk packet
+ * @param json_str
+ */
+void lora_udp_rxpkt::parse_json(std::string json_str) {
+	rapidjson::Document packet;
+
+	log(logDEBUG4) << "lora_udp_rxpkt::parse_json: Parsing with rapidjson: " << json_str;
+	/* Parse json string */
+	rapidjson::StringStream packet_stream(json_str.c_str());
+	packet.ParseStream(packet_stream);
+
+	/* Ensure that the main member is rxpk */
+	if (packet.HasMember("rxpk")) {
+		if (!packet["rxpk"].IsArray()) {
 			throw std::runtime_error("json member rxpk is not an array");
 		}
 	} else {
 		throw std::runtime_error("json member rxpk missing");
 	}
 
-	for (rapidjson::Value::ConstMemberIterator itr = doc->MemberBegin(); itr !=  doc->MemberEnd(); ++itr) {
-		std::string objectType(itr->name.GetString());
-		std::cout << "Member: " << objectType << std::endl;
-		if (objectType.compare("time") == 0) {
-			this->time = itr->value.GetString();
-		} else if (objectType.compare("tmms") == 0) {
-			this->tmms = itr->value.GetUint();
-		} else if (objectType.compare("tmst") == 0) {
-			this->tmst = itr->value.GetUint();
-		} else if (objectType.compare("freq") == 0) {
-			this->freq = itr->value.GetDouble();
-		} else if (objectType.compare("chan") == 0) {
-			this->chan = itr->value.GetUint();
-		} else if (objectType.compare("rf_chain") == 0) {
-			this->rf_chain = itr->value.GetUint();
-		} else if (objectType.compare("stat") == 0) {
-			this->stat = itr->value.GetInt();
-		} else if (objectType.compare("modu") == 0) {
-			this->modu = itr->value.GetString();
-		} else if (objectType.compare("datr") == 0) {
-			this->datr = itr->value.GetString();
-		} else if (objectType.compare("codr") == 0) {
-			this->codr = itr->value.GetString();
-		} else if (objectType.compare("RSSI") == 0) {
-			this->RSSI = itr->value.GetInt();
-		} else if (objectType.compare("lsnr") == 0) {
-			this->lsnr = itr->value.GetDouble();
-		} else if (objectType.compare("size") == 0) {
-			this->size = itr->value.GetInt();
-		} else if (objectType.compare("data") == 0) {
-			this->data = itr->value.GetString();
-		}
-	}
-}
-
-/**
- * Parse a json document representing a LoRa UDP rxpk packet
- * @param doc
- */
-void lora_udp_rxpkt::parse_json(rapidjson::Document* doc) {
 	/* Iterate over all members of the array */
-	for (rapidjson::SizeType i = 0; i < (*doc)["rxpk"].Size(); i++){
-        const rapidjson::Value& c = (*doc)["rxpk"][i];
+	for (rapidjson::SizeType i = 0; i < packet["rxpk"].Size(); i++){
+        const rapidjson::Value& c = packet["rxpk"][i];
         for (rapidjson::Value::ConstMemberIterator iter = c.MemberBegin(); iter != c.MemberEnd(); ++iter){
         	std::cout << "Member of array: " << iter->name.GetString() << std::endl;
 
-//        	printf("%s\t", iter->name.GetString());
- //           printf("%s\t", iter->value.GetString());
+
+
+    		/*if (iter->name.compare("time") == 0) {
+    			this->time = itr->value.GetString();
+    		} else if (objectType.compare("tmms") == 0) {
+    			this->tmms = itr->value.GetUint();
+    		} else if (objectType.compare("tmst") == 0) {
+    			this->tmst = itr->value.GetUint();
+    		} else if (objectType.compare("freq") == 0) {
+    			this->freq = itr->value.GetDouble();
+    		} else if (objectType.compare("chan") == 0) {
+    			this->chan = itr->value.GetUint();
+    		} else if (objectType.compare("rf_chain") == 0) {
+    			this->rf_chain = itr->value.GetUint();
+    		} else if (objectType.compare("stat") == 0) {
+    			this->stat = itr->value.GetInt();
+    		} else if (objectType.compare("modu") == 0) {
+    			this->modu = itr->value.GetString();
+    		} else if (objectType.compare("datr") == 0) {
+    			this->datr = itr->value.GetString();
+    		} else if (objectType.compare("codr") == 0) {
+    			this->codr = itr->value.GetString();
+    		} else if (objectType.compare("RSSI") == 0) {
+    			this->RSSI = itr->value.GetInt();
+    		} else if (objectType.compare("lsnr") == 0) {
+    			this->lsnr = itr->value.GetDouble();
+    		} else if (objectType.compare("size") == 0) {
+    			this->size = itr->value.GetInt();
+    		} else if (objectType.compare("data") == 0) {
+    			this->data = itr->value.GetString();
+    		}*/
         }
 
 

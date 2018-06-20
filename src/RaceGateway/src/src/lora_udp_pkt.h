@@ -34,12 +34,11 @@ private:
     uint64_t gateway_mac_addr;
     lora_udp_pkt_types packet_type;
     std::string json_string;
-    rapidjson::Document* rapidjson_doc;
     std::string json_obj;
 public: 
     
 /**
- * Creates a new lora_udp_pkt instance
+ * Constructor
  */
 lora_udp_pkt();
 
@@ -58,11 +57,6 @@ void parse(uint8_t* data, int size);
  * Returns the type of packet
  */
 lora_udp_pkt_types get_pkt_type();
-    
-/**
- * Returns a rapidjson Document instance containing the packet info as described by the LoRa packet forwarder UDP protocol
- */
-rapidjson::Document* get_rapidjson_doc();
     
 /**
  * Returns the protocol version
