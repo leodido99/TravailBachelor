@@ -76,7 +76,7 @@ void race_app_server::print_configuration() {
 	/* TODO Setup version */
 	std::cout << "Race Application Server version XX" << std::endl;
 	std::cout << "Configuration:" << std::endl;
-	std::cout << "Listen Port: " << listen_port << std::endl;
+	std::cout << "\tListen Port: " << listen_port << std::endl;
 }
 
 void race_app_server::process_datagram(uint8_t* data, int size) {
@@ -86,44 +86,21 @@ void race_app_server::process_datagram(uint8_t* data, int size) {
 	lora_pkt_fwd_parser packet;
 	/* Parse packet data */
 	packet.parse(data, size);
-	log(logDEBUG4) << "race_app_server::process_datagram: New packet: " << packet;
+	log(logDEBUG1) << "race_app_server::process_datagram: New packet: " << packet;
 	if (packet.get_pkt_type() == PUSH_DATA) {
 		lora_push_data_parser push_data;
 		/* Parse the PUSH_DATA */
 		push_data.parse(packet.get_pkt_data(), packet.get_pkt_data_size());
-		log(logDEBUG4) << "race_app_server::process_datagram: New PUSH_DATA: " << push_data;
+		log(logDEBUG1) << "race_app_server::process_datagram: New PUSH_DATA: " << push_data;
 		if (push_data.get_data_type() == RXPK) {
 			lora_rxpk_parser rxpk_data(packet.get_protocol_version());
 			/* Parse push data */
 			rxpk_data.parse(push_data.get_json_string());
-			log(logDEBUG4) << "race_app_server::process_datagram: New RXPK: " << rxpk_data;
+			log(logINFO) << "race_app_server::process_datagram: New RXPK: " << rxpk_data;
 
 
 		}
-
-
-
-
 	}
-
-
-//	lora_udp_pkt new_pkt;
-//	new_pkt.parse(data, size);
-//	this->log(INFO, new_pkt.get_string());
-//	if (new_pkt.get_pkt_type() == PUSH_DATA) {
-//		if (new_pkt.get_json_obj_name() == "rxpk") {
-//			lora_udp_rxpkt new_rxpkt;
-//			new_rxpkt.parse_json(new_pkt.get_json_string());
-//			std::cout << new_rxpkt << std::endl;
-//		}
-//
-//
-//
-//	}
-
-
-
-
 }
 
 void race_app_server::listen() {
@@ -144,7 +121,7 @@ void race_app_server::listen() {
 		}
 		if (this->verbose) {
 			getnameinfo((struct sockaddr *)&dist_addr, addr_len, host_name, sizeof host_name, port_name, sizeof port_name, NI_NUMERICHOST);
-			log(logDEBUG4) << "race_app_server::listen: Received " << nb_bytes << " bytes from " << host_name << ":" << port_name;
+			log(logDEBUG1) << "race_app_server::listen: Received " << nb_bytes << " bytes from " << host_name << ":" << port_name;
 		}
 		/* Process data */
 		this->process_datagram(databuf, nb_bytes);

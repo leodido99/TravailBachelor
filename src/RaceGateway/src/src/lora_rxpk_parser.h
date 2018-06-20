@@ -10,6 +10,8 @@
 #include <string>
 #include <vector>
 
+#include <rapidjson/document.h>
+
 class lora_rxpk_parser {
 private:
     std::string time;
@@ -26,8 +28,14 @@ private:
     float lsnr;
     unsigned int size;
     std::string data;
-    std::vector<char> decoded_data;
+    std::vector<unsigned char> decoded_data;
     int protocol_version;
+
+    /**
+     * Parse packet following version 1 of the protocol
+     * @param packet Packet to parse
+     */
+    void parse_prot_v1(rapidjson::Document* packet);
 public: 
     /**
      * Constructor
@@ -114,7 +122,13 @@ public:
 	/**
 	 * Decoded RF packet payload as a vector of bytes
 	 */
-	std::vector<char> get_decoded_data() const;
+	std::vector<unsigned char> get_decoded_data() const;
+
+	/**
+	 * Returns a string representing the decoded data
+	 * @return
+	 */
+	std::string get_decoded_data_string() const;
 
 	/**
 	 * Friend insertion operator to be able to print private members to stream

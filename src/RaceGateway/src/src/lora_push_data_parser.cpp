@@ -5,8 +5,12 @@
 
 #include "lora_push_data_parser.h"
 
+#include "logger.h"
+
 #include <iostream>
 #include <cstring>
+
+#include <rapidjson/document.h>
 
 /**
  * Size of the gateway address
@@ -38,28 +42,26 @@ lora_push_data_parser::lora_push_data_parser() {
  * @param size
  */
 void lora_push_data_parser::parse(uint8_t* data, int size) {
+	rapidjson::Document doc;
+
+	/* Extract parameters from data array */
 	std::memcpy(&this->gateway_mac_addr, data, LORA_PKT_GATEWAY_ADDR_SIZE);
+	/* Ensure string is zero terminated */
+	data[size] = '\0';
 	this->json_string = std::string((char *)&data[LORA_PKT_GATEWAY_ADDR_SIZE]);
 
-
-
-
-	//	std::memcpy(&this->gateway_mac_addr, &data[4], LORA_UDP_PKT_GATEWAY_ADDR_SIZE);
-	//
-	//
-	//
-	//	log(logDEBUG4) << "lora_udp_pkt::parse: Parsing with rapidjson: " << this->json_string;
-	//	rapidjson::StringStream packet_stream(this->json_string.c_str());
-	//	rapidjson::Document doc;
-	//	/* Parsing json */
-	//	doc.ParseStream(packet_stream);
-	//	/* Get main json member name which define what type of packet has been received */
-	//	rapidjson::Value::ConstMemberIterator fileIt = doc.MemberBegin();
-	//	this->json_obj = fileIt->name.GetString();
-	//	log(logDEBUG4) << "lora_udp_pkt::parse: Main json member name: " << this->json_obj;
-
-
-
+	log(logDEBUG4) << "lora_push_data_parser::parse: Parsing " << this->json_string;
+	rapidjson::StringStream packet_stream(this->json_string.c_str());
+	doc.ParseStream(packet_stream);
+	/* Get main json member name which define what type of packet has been received */
+	rapidjson::Value::ConstMemberIterator fileIt = doc.MemberBegin();
+	std::string member(fileIt->name.GetString());
+	if (member.compare("stat") == 0) {
+		this->data_type = STAT;
+	} else if (member.compare("rxpk") == 0) {
+		this->data_type = RXPK;
+	}
+	log(logDEBUG4) << "lora_push_data_parser::parse: Main json member name: " << lora_push_data_types_names[this->data_type];
 }
 
 /**

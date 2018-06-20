@@ -16,7 +16,8 @@
 
 #include "logger.h"
 /* Define logger level */
-loglevel_e loglevel = logDEBUG4;
+//loglevel_e loglevel = logDEBUG4;
+loglevel_e loglevel = logINFO;
 
 int main(int argc, char **argv) {
 	race_app_server myAppServer;

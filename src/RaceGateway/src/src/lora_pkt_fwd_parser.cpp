@@ -45,16 +45,16 @@ lora_pkt_fwd_parser::lora_pkt_fwd_parser() {
  */
 void lora_pkt_fwd_parser::parse(uint8_t* data, int size) {
 	if (size >= LORA_PKT_MIN_SIZE) {
-		log(logDEBUG4) << "lora_pkt_fwd_parser::parse: Extracting information from packet";
+		log(logDEBUG2) << "lora_pkt_fwd_parser::parse: Extracting information from packet";
 		/* Extract informations from the packet
 		 * This format is described in this file https://github.com/Lora-net/packet_forwarder/blob/master/PROTOCOL.TXT */
 		this->protocol_version = data[0];
 		std::memcpy(&this->random_token, &data[1], sizeof(this->random_token));
 		this->pkt_type = static_cast<lora_pkt_fwd_types>(data[3]);
 		/* Set pointer to beginning of the data */
-		this->pkt_data = &data[3];
+		this->pkt_data = &data[4];
 		/* Set data size */
-		this->pkt_data_size = size - sizeof(this->protocol_version) - sizeof(this->random_token) - sizeof(uint8_t);
+		this->pkt_data_size = size - sizeof(uint8_t) - sizeof(this->random_token) - sizeof(uint8_t);
 	} else {
 		throw std::runtime_error("Not enough data (actual=" + std::to_string(size) + " minimum=" + std::to_string(LORA_PKT_MIN_SIZE) + ")");
 	}
