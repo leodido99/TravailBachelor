@@ -16,6 +16,7 @@
 
 #include <iostream>
 #include <stdexcept>
+#include <iomanip>
 
 /**
  * The maximum size of a LoRa RF packet
@@ -260,9 +261,10 @@ std::vector<unsigned char> lora_rxpk_parser::get_decoded_data() const {
 std::string lora_rxpk_parser::get_decoded_data_string() const {
 	std::stringstream datastream;
 	for (std::vector<unsigned char>::const_iterator i = this->decoded_data.begin(); i != this->decoded_data.end(); ++i) {
-		datastream << std::hex << static_cast<unsigned>(*i);
+		datastream << std::hex << std::setfill('0') << std::setw(2) << static_cast<unsigned>(*i);
 	}
 	return datastream.str();
+	//setfill('0') << setw(5)
 }
 
 /**
