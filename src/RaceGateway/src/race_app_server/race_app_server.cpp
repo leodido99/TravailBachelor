@@ -45,6 +45,7 @@ race_app_server::race_app_server() {
 	this->listening_thread = NULL;
 	this->verbose = false;
 	this->is_thread_running = true;
+	this->rxpk_packet_handler = NULL;
 }
 
 void race_app_server::load_configuration(std::string configfile) {
@@ -105,8 +106,8 @@ void race_app_server::process_datagram(uint8_t* data, int size) {
 			/* Parse push data */
 			rxpk_data.parse(push_data.get_json_string());
 			log(logINFO) << "race_app_server::process_datagram: New RXPK: " << rxpk_data;
-
-
+			/* Handle rxpk */
+			this->handle_rxpk(rxpk_data);
 		}
 	}
 }
@@ -142,7 +143,6 @@ void race_app_server::start() {
 	this->connect_listen();
 	/* Create listening thread */
 	this->listening_thread = new std::thread(&race_app_server::listen, this);
-	//this->listening_thread->join();
 }
 
 void race_app_server::end_listen() {
@@ -150,9 +150,9 @@ void race_app_server::end_listen() {
 }
 
 void race_app_server::handle_rxpk(lora_rxpk_parser rxpk) {
-
-
-
+	if (this->rxpk_packet_handler != NULL) {
+		this->rxpk_packet_handler->handle(rxpk);
+	}
 }
 
 void race_app_server::set_verbose(bool verbose) {
@@ -210,4 +210,8 @@ void race_app_server::stop() {
 		this->is_thread_running = false;
 		this->listening_thread->join();
 	}
+}
+
+void race_app_server::set_rxpk_handler(rxpk_handler* rxpk_packet_handler) {
+	this->rxpk_packet_handler = rxpk_packet_handler;
 }

@@ -10,6 +10,7 @@
 
 #include "race_app_server.h"
 #include "shell.h"
+#include "test_mode_handler.h"
 
 #include <iostream>
 #include <sys/socket.h>
@@ -47,6 +48,8 @@ int main(int argc, char **argv) {
 	myAppServer.print_configuration();
 	/* Set verbose TODO From arguments */
 	myAppServer.set_verbose(true);
+	/* Test mode */
+	myAppServer.set_rxpk_handler(new test_mode_handler());
 
 	try {
 		/* Start application server */

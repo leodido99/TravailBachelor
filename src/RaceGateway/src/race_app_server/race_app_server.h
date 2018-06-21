@@ -24,6 +24,7 @@
 #include <cstdint>
 
 #include "lora_rxpk_parser.h"
+#include "rxpk_handler.h"
 
 /**
  * Class handling the race application server
@@ -38,6 +39,7 @@ class race_app_server {
 		bool verbose;
 		bool is_thread_running;
 		std::thread* listening_thread;
+		rxpk_handler* rxpk_packet_handler;
 
 		/**
 		 * Setup and connect to the port to listen for incoming packets
@@ -100,4 +102,10 @@ class race_app_server {
 		 * @param verbose true = verbose mode on; false = verbose mode off
 		 */
 		void set_verbose(bool verbose);
+
+		/**
+		 * Sets the rxpk packet handler
+		 * @param rxpk_packet_handler
+		 */
+		void set_rxpk_handler(rxpk_handler* rxpk_packet_handler);
 };
