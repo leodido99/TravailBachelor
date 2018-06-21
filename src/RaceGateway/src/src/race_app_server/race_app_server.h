@@ -23,6 +23,8 @@
 #include <thread>
 #include <cstdint>
 
+#include "lora_rxpk_parser.h"
+
 /**
  * Class handling the race application server
  * It listens on the provided port for UDP packets
@@ -54,10 +56,16 @@ class race_app_server {
 		 * @param size Size of the data
 		 */
 		void process_datagram(uint8_t* data, int size);
+
 		/**
 		 * Closes the socket
 		 */
 		void end_listen();
+
+		/**
+		 * Handles an rxpk packet
+		 */
+		void handle_rxpk(lora_rxpk_parser rxpk);
 	public:
 		/**
 		 * Create a new instance of the class

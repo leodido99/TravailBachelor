@@ -35,7 +35,6 @@
 
 #include "lora_pkt_fwd_parser.h"
 #include "lora_push_data_parser.h"
-#include "lora_rxpk_parser.h"
 #include "logger.h"
 
 using namespace rapidjson;
@@ -148,6 +147,12 @@ void race_app_server::start() {
 
 void race_app_server::end_listen() {
 	close(this->listen_socket);
+}
+
+void race_app_server::handle_rxpk(lora_rxpk_parser rxpk) {
+
+
+
 }
 
 void race_app_server::set_verbose(bool verbose) {
