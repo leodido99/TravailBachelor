@@ -1,7 +1,13 @@
 /**
- * Project Untitled
+ * @file lora_rxpk_parser.h
+ * @brief LoRa rxpk packet parser
+ *
+ * Parses rxpk packets produced by a LoRa packet forwarder which
+ * contains an RF packet sent by a node.
+ *
+ * @author Léonard Bise
+ * @date   Jul 9, 2018
  */
-
 
 #ifndef _LORA_RXPK_PARSER_H
 #define _LORA_RXPK_PARSER_H

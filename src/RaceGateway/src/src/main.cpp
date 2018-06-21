@@ -1,11 +1,15 @@
-/* File: main.cpp
- * Date: 
- * Author: Léonard Bise
- * Description: 
+/**
+ * @file main.c
+ * @brief Main file
+ *
+ * Entry point for the race_app_server application
+ *
+ * @author Léonard Bise
+ * @date   Jul 9, 2018
  */
 
 #include "race_app_server.h"
-
+#include "shell.h"
 
 #include <iostream>
 #include <sys/socket.h>
@@ -21,6 +25,7 @@ loglevel_e loglevel = logINFO;
 
 int main(int argc, char **argv) {
 	race_app_server myAppServer;
+	shell myShell;
 
 	/* TODO Check arguments for :
 	 * Config file
@@ -50,5 +55,6 @@ int main(int argc, char **argv) {
 		std::cout << "Application server error: " << err.what() << std::endl;
 		exit(EXIT_FAILURE);
 	}
+	myShell.start();
 	return EXIT_SUCCESS;
 }

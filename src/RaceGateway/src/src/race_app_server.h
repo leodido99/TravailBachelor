@@ -1,7 +1,22 @@
-/* File: race_app_server.h
- * Date: 
- * Author: Léonard Bise
- * Description: 
+/**
+ * @file race_app_server.h
+ * @brief Race Application Server
+ *
+ * The Race Application Server is the main class used for the reception of the packets
+ * produced by the race sensors. Packets are received on the LoRa receiver, a packet forwarder
+ * then creates a json and sends it through a socket as an udp datagram. This class
+ * listens on this socket, retrieves the udp packet, decodes it and extracts the json string
+ * using various classes. After the json string is extracted, the data inside is pushed to
+ * the database.
+ *
+ * Semtech's packet forwarder (https://github.com/Lora-net/packet_forwarder)
+ * was used as a base to develop this class, in particular the util_sink application.
+ *
+ * @hallard Single channel gateway (https://github.com/hallard/single_chan_pkt_fwd) implementation was also
+ * used as a base (in particular the rapidjson usage for the configuration)
+ *
+ * @author Léonard Bise
+ * @date   Jul 9, 2018
  */
 
 #include <string>
@@ -39,6 +54,10 @@ class race_app_server {
 		 * @param size Size of the data
 		 */
 		void process_datagram(uint8_t* data, int size);
+		/**
+		 * Closes the socket
+		 */
+		void end_listen();
 	public:
 		/**
 		 * Create a new instance of the class

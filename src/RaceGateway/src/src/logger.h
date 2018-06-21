@@ -1,11 +1,17 @@
-/*
- * logger.h
+/**
+ * @file logger.h
+ * @brief A way to log to the console
  *
- *  Created on: 19 Jun 2018
- *      Author: leonard.bise
+ * This class provides a way to easily log to the console
+ * any events happening during the execution. The user can
+ * specify severity for the log message and select up to which
+ * severity the message should be displayed
+ * Found at https://stackoverflow.com/questions/6168107/how-to-implement-a-good-debug-logging-feature-in-a-project
+ *
+ *
+ * @author Robert S. Barnes
+ * @date   May 29, 2011
  */
-
-/* Found at https://stackoverflow.com/questions/6168107/how-to-implement-a-good-debug-logging-feature-in-a-project */
 
 #ifndef _LOGGER_HPP_
 #define _LOGGER_HPP_

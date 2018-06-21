@@ -1,14 +1,22 @@
-/* File: race_app_server.cpp
- * Date: 
- * Author: Léonard Bise
- * Description: 
- * Implementation of the Race Application Server class
+/**
+ * @file race_app_server.cpp
+ * @brief Race Application Server
+ *
+ * The Race Application Server is the main class used for the reception of the packets
+ * produced by the race sensors. Packets are received on the LoRa receiver, a packet forwarder
+ * then creates a json and sends it through a socket as an udp datagram. This class
+ * listens on this socket, retrieves the udp packet, decodes it and extracts the json string
+ * using various classes. After the json string is extracted, the data inside is pushed to
+ * the database.
  *
  * Semtech's packet forwarder (https://github.com/Lora-net/packet_forwarder)
- * was used as a base to develop this application, in particular the util_sink application.
+ * was used as a base to develop this class, in particular the util_sink application.
  *
  * @hallard Single channel gateway (https://github.com/hallard/single_chan_pkt_fwd) implementation was also
  * used as a base (in particular the rapidjson usage for the configuration)
+ *
+ * @author Léonard Bise
+ * @date   Jul 9, 2018
  */
 
 #include "race_app_server.h"
@@ -23,6 +31,7 @@
 #include <sys/types.h>
 #include <netdb.h>
 #include <arpa/inet.h>
+#include <unistd.h>
 
 #include "lora_pkt_fwd_parser.h"
 #include "lora_push_data_parser.h"
@@ -126,6 +135,7 @@ void race_app_server::listen() {
 		/* Process data */
 		this->process_datagram(databuf, nb_bytes);
 	}
+	this->end_listen();
 }
 
 void race_app_server::start() {
@@ -133,7 +143,11 @@ void race_app_server::start() {
 	this->connect_listen();
 	/* Create listening thread */
 	this->listening_thread = new std::thread(&race_app_server::listen, this);
-	this->listening_thread->join();
+	//this->listening_thread->join();
+}
+
+void race_app_server::end_listen() {
+	close(this->listen_socket);
 }
 
 void race_app_server::set_verbose(bool verbose) {
@@ -187,6 +201,8 @@ void race_app_server::connect_listen() {
 }
 
 void race_app_server::stop() {
-	this->is_thread_running = false;
-	this->listening_thread->join();
+	if (this->is_thread_running) {
+		this->is_thread_running = false;
+		this->listening_thread->join();
+	}
 }

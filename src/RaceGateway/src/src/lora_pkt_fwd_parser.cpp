@@ -1,5 +1,11 @@
 /**
- * Project Untitled
+ * @file lora_pkt_fwd_parser.cpp
+ * @brief LoRa packet forwarder parser
+ *
+ * Parses packets produced by a LoRa packet forwarder.
+ *
+ * @author Léonard Bise
+ * @date   Jul 9, 2018
  */
 
 #include "lora_pkt_fwd_parser.h"
