@@ -1,7 +1,13 @@
 /**
- * Project Untitled
+ * @file lora_push_data_parser.cpp
+ * @brief LoRa PUSH_DATA packet forwarder parser
+ *
+ * Parses packets produced by a LoRa packet forwarder and which
+ * are of type PUSH_DATA.
+ *
+ * @author Léonard Bise
+ * @date   Jul 9, 2018
  */
-
 
 #include "lora_push_data_parser.h"
 
