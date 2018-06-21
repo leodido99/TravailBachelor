@@ -186,7 +186,7 @@ String conv32BitToHex(uint32_t val) {
     return valStr;
 }
 
-void send_pkt(uint32_t cnt) {
+void send_pkt(uint32_t cnt_val) {
   String cmd("radio tx ");  
   cmd += conv32BitToHex(0xDEADBEEF);
   cmd += conv32BitToHex(0x01010101);
@@ -196,8 +196,9 @@ void send_pkt(uint32_t cnt) {
   cmd += conv32BitToHex(0x05050505);
   cmd += conv32BitToHex(0x06060606);
   /* Add counter */  
-  cmd += conv32BitToHex(cnt);
+  cmd += conv32BitToHex(cnt_val);
   radio_tx(cmd);
+  debugSerial.println(cmd);
 }
 
 void loop() {
