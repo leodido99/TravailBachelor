@@ -33,6 +33,8 @@
 
 *.o
 
+*.out
+
 .metadata
 .classpath
 .settings/

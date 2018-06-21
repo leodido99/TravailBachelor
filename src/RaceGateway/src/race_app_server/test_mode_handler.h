@@ -13,12 +13,25 @@
 #include "rxpk_handler.h"
 
 class test_mode_handler: public rxpk_handler {
+private:
+	uint32_t cnt;
+	int nb_errors;
+	int nb_processed_bytes;
+
+	/**
+	 * Returns the next 32 bits from the data
+	 * @return
+	 */
+	uint32_t getNext32bits(std::vector<unsigned char>);
 public:
 	/**
 	 * Constructor
 	 */
 	test_mode_handler();
 
+	/**
+	 * Destructor
+	 */
 	~test_mode_handler();
 
 	/**
