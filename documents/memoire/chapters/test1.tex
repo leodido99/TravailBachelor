@@ -1,0 +1,38 @@
+\chapter{Test 1}
+
+Comme décrit dans la pré-étude, afin de valider la phase 1 du développement du projet, un test impliquant le capteur choisi ainsi que la passerelle est effectué afin de s'assurer que les deux éléments sont capable de remplir les tâches qui leurs sont attribuées pour le projet. Si le test est concluant alors la solution matérielle choisie peut être validée pour la suite du développement. Dans le cas contraire le matériel doit être changé afin de pouvoir garantir une solution adéquate.
+
+Ce test permet de valider deux éléments, premièrement il vise à vérifier la bon fonctionnement du capteur et de la passerelle dans les conditions finale d'utilisation, c'est à dire une réception adéquate des données envoyées par le capteur en extérieur et en mouvement. De plus ce test va également permettre de choisir la configuration initiale a utiliser pour la transmission des paquets LoRa, en particulier le facteur d'étalement ainsi que la puissance de transmission du signal de sortie à utiliser. On rappelle qu'un petit facteur d'étalement permettra un taux de transfert plus élevé sur une distance moindre, alors qu'un grand facteur permettra l'envoie de données à des distances accrues mais à un taux plus bas. En ce qui concerne la puissance de sortie, l'objectif est de trouver la valeur minimale qui permet une bonne réception des données à la distance prescrite par le cahier des charges, c'est à dire 5 km. Ceci permettra de garantir l'utilisation de la batterie pendant la durée requise de 10h.
+
+Pour pouvoir effectuer ce test les éléments suivants ont été réalisés.
+
+\begin{itemize}
+\item Mise en place et assemblage du matériel du capteur et de la passerelle
+\item Développement d'un programme de test pour le capteur
+\item Installation et configuration du packet forwarder de la passerelle
+\item Développement d'une partie du serveur d'application de la passerelle
+\end{itemize}
+
+Afin de pouvoir s'assurer de la bonne réception des données le capteur, à intervalles réguliers, va envoyer un paquet de données à destination de la passerelle. Le format ainsi que le contenu du paquet envoyé par le capteur est décrit dans la figure~\ref{fig:test1_paquet}.
+
+\begin{figure}[htb]
+\centering 
+\includegraphics[width=1\columnwidth]{test1_packet_format} 
+\caption{Format du paquet test1}
+\label{fig:test1_paquet}
+\end{figure}
+
+Un programme de test, utilisant le système de développement Arduino IDE proposant un framework pour les cartes Arduino est réalisé. Son comportement est très simple, il se contente d'envoyer un paquet de données LoRa puis d'attendre un certain temps, au terme duquel le cycle recommence. Le paquet envoyé par le capteur commence par deux valeurs fixes suivi de la latitude/longitude du capteur au moment de l'envoie du paquet et pour terminer la valeur du compteur. Cela permettra à la passerelle de détecter quand un paquet est perdu et ainsi garder des statistiques afin de pouvoir jauger la qualité de la transmission.
+
+Du côté de la passerelle, le packet forwarder, logiciel repris depuis internet, est configuré et mis en œuvre. Il récupére les paquets LoRa reçu et les transmets par le biais d'un paquet UDP. Une partie du serveur d'application est développée qui permet à la passerelle de récupérer les paquets LoRa émit par le packet forwarder et d'en analyser le contenu. A chaque paquet reçu la passerelle s'assure que la valeur du compteur est bien celle attendu, si ce n'est pas le cas cela signifie qu'un ou plusieurs paquets ont été perdu. Cette partie du serveur d'application servira de base pour le développement final de l'application.
+
+\section{Scénarios}
+
+Deux scénarios distinct sont réalisé en utilisant le système expliquer dans la section précédente. Ils sont décrit en détails dans les paragraphes suivants.
+
+\subsection{Test statique}
+
+
+
+
+

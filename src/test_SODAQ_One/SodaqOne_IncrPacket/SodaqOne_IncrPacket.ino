@@ -1,10 +1,11 @@
 /*
    Test program for the SODAQ One
-   Sends a packet every seconds with an incrementing counter inside
+   Sends a packet at regular interval with an incrementing counter inside and the GPS position
 
 */
 
 #include "Arduino.h"
+#include <Sodaq_UBlox_GPS.h>
 
 #if defined(ARDUINO_AVR_SODAQ_MBILI)
 #define debugSerial Serial
@@ -25,9 +26,20 @@
 /* Application Configuration */
 uint32_t cnt = 0;
 unsigned long last_time = 0;
+unsigned long last_fix = 0;
+bool found_fix = false;
+
+/* Timeout on GPS fix */
+#define GPS_FIX_TIMEOUT (900 * 1000)
+
+/* Timeout on GPS fix during main loop */
+#define GPS_FIX_TIMEOUT_LOOP (4 * 1000)
+
+/* Time between two GPS fix */
+#define GPS_DELAY (10 * 1000)
 
 /* Time between two packets in ms */
-#define PKT_DELAY 5000
+#define PKT_DELAY (15 * 1000)
 
 /* Time to wait between two commands */
 #define CMD_DELAY 15
@@ -163,8 +175,35 @@ void setup() {
 
   print_configuration();
 
+  /* Setup GPS */
+  sodaq_gps.init(GPS_ENABLE);
+
+  /* Try to find GPS fix */
+  found_fix = find_fix(GPS_FIX_TIMEOUT);
+  
   debugSerial.println("Ready to receive commands!");
   last_time = millis() - PKT_DELAY;
+  last_fix = millis() - GPS_DELAY;
+}
+
+bool find_fix(int timeout_ms) {
+  bool fix;
+  fix = sodaq_gps.scan(true, timeout_ms);
+  if (fix) {
+    debugSerial.println("GPS fix FOUND");
+  } else {
+    debugSerial.println("GPS fix TIMEOUT (" + String(timeout_ms) + String("ms") + String(")"));
+  }
+  return fix;
+}
+
+void flash_led(int pin) {
+    for (size_t i = 0; i < 2; ++i) {
+        delay(100);
+        digitalWrite(pin, LOW);
+        delay(100);
+        digitalWrite(pin, HIGH);
+    }
 }
 
 String convByteToHex(uint8_t val) {
@@ -177,28 +216,52 @@ String convByteToHex(uint8_t val) {
   return valStr;
 }
 
+String convBytesToHex(uint8_t* val, int size) {
+  String valStr;
+  for(int i = (size-1); i >= 0; i--) {
+      valStr += convByteToHex(val[i]);
+  }
+  return valStr;
+}
+
 String conv32BitToHex(uint32_t val) {
     String valStr;
-    uint8_t* mybyte = (uint8_t*)&val;
-    for(int i = 3; i >= 0; i--) {
-      valStr += convByteToHex(mybyte[i]);
-    }
-    return valStr;
+    uint8_t* mybytes = (uint8_t*)&val;
+    return convBytesToHex(mybytes, sizeof(val));
+}
+
+String conv64BitToHex(uint64_t val) {
+    String valStr;
+    uint8_t* mybytes = (uint8_t*)&val;
+    return convBytesToHex(mybytes, sizeof(val));
+}
+
+String construct_pkt_str(uint32_t cnt_val, double lat, double lon) {
+  String pkt_payload;
+  uint64_t* p_dbl;
+  /* Fixed values */
+  pkt_payload += conv32BitToHex(0xFEEDDEAD);
+  pkt_payload += conv32BitToHex(0xACABFACE);
+  /* Latitude */
+  p_dbl = (uint64_t*)&lat;
+  pkt_payload += conv64BitToHex(*p_dbl);
+  /* Longitude */
+  p_dbl = (uint64_t*)&lon;
+  pkt_payload += conv64BitToHex(*p_dbl);
+  /* Add counter */  
+  pkt_payload += conv32BitToHex(cnt_val);
+  return pkt_payload;
 }
 
 void send_pkt(uint32_t cnt_val) {
-  String cmd("radio tx ");  
-  cmd += conv32BitToHex(0xDEADBEEF);
-  cmd += conv32BitToHex(0x01010101);
-  cmd += conv32BitToHex(0x02020202);
-  cmd += conv32BitToHex(0x03030303);
-  cmd += conv32BitToHex(0x04040404);
-  cmd += conv32BitToHex(0x05050505);
-  cmd += conv32BitToHex(0x06060606);
-  /* Add counter */  
-  cmd += conv32BitToHex(cnt_val);
+  String cmd("radio tx ");
+  /* Update GPS info */  
+  double lat = sodaq_gps.getLat();
+  double lon = sodaq_gps.getLon();
+  /* Construct packet */
+  cmd += construct_pkt_str(cnt_val, lat, lon);
   radio_tx(cmd);
-  debugSerial.println(cmd);
+  debugSerial.println("cnt=" + cnt_val + String(" lat=") + String(lat) + String(" lon =") + String(lon) + String(" found_fix=") + String(found_fix));
 }
 
 void loop() {
@@ -225,5 +288,16 @@ void loop() {
     send_pkt(cnt);
     cnt++;
     last_time = millis();
+  }
+
+  if (millis() - last_fix >= GPS_DELAY) {
+    found_fix = find_fix(GPS_FIX_TIMEOUT_LOOP);
+    last_fix = millis();
+  }
+
+  if (found_fix) {
+    flash_led(LED_GREEN);
+  } else {
+    flash_led(LED_RED);
   }
 }
