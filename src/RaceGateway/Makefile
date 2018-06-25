@@ -46,7 +46,11 @@ INC+=
 # for several programs, you can specify the path to them
 # below.
 MAKEFILE_FILES=./makefiles/
+ifeq ($(TARGET),rpi)
+include $(MAKEFILE_FILES)MakefileRPi.cfg
+else
 include $(MAKEFILE_FILES)MakefileC++11.cfg
+endif
 include $(MAKEFILE_FILES)Makefile.inc
 
 # Variables used to copy the executable to the Raspberry pi
