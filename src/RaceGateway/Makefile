@@ -18,7 +18,7 @@
 OUTNAME=race_app_server.out
 
 # Add the relative folder where the source files are stored
-SRCPATHS=./src ./src/rapidjson ./src/lora_pkt ./src/race_app_server ./src/shell
+SRCPATHS=./src ./src/rapidjson ./src/lora_pkt ./src/race_app_server ./src/shell ./src/shell/commands ./src/tools
 
 # Add compilation flags
 CFLAGS=
