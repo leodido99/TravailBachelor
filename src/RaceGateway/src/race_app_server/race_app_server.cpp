@@ -108,6 +108,7 @@ void race_app_server::process_datagram(uint8_t* data, int size) {
 			log(logINFO) << "race_app_server::process_datagram: New RXPK: " << rxpk_data;
 			/* Handle rxpk */
 			this->handle_rxpk(rxpk_data);
+			log(logINFO) << "race_app_server::process_datagram: Handled packet: " << this->rxpk_packet_handler->print();
 		}
 	}
 }
@@ -151,7 +152,8 @@ void race_app_server::end_listen() {
 
 void race_app_server::handle_rxpk(lora_rxpk_parser rxpk) {
 	if (this->rxpk_packet_handler != NULL) {
-		this->rxpk_packet_handler->handle(rxpk);
+		lora_rxpk_parser* cpy = new lora_rxpk_parser(rxpk);
+		this->rxpk_packet_handler->handle(cpy);
 	}
 }
 
@@ -209,6 +211,7 @@ void race_app_server::stop() {
 	if (this->is_thread_running) {
 		this->is_thread_running = false;
 		this->listening_thread->join();
+		delete(this->listening_thread);
 	}
 }
 

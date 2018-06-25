@@ -8,36 +8,104 @@
  * @date   Jun 21, 2018
  */
 #include "test_mode_handler.h"
+
+#include "vector_reader.h"
+#include "logger.h"
+#include "test_mode_record.h"
+
 #include <iostream>
+#include <stdexcept>
+
+#define TEST_MODE_FIX_VAL1 0xFEEDDEAD
+#define TEST_MODE_FIX_VAL2 0xACABFACE
 
 test_mode_handler::test_mode_handler() {
-	this->cnt = 0;
+	this->exp_cnt = 0;
 	this->nb_errors = 0;
-	this->nb_processed_bytes = 0;
+	this->tot_pkt = 0;
+	this->nb_discarded = 0;
+	this->init = false;
 }
 
 test_mode_handler::~test_mode_handler() {
 }
 
-uint32_t test_mode_handler::getNext32bits(std::vector<unsigned char> data) {
-	uint32_t result = 0;
-	result |= static_cast<uint32_t>(data[this->nb_processed_bytes]) << 24;
-	result |= static_cast<uint32_t>(data[this->nb_processed_bytes+1]) << 16;
-	result |= static_cast<uint32_t>(data[this->nb_processed_bytes+2]) << 8;
-	result |= static_cast<uint32_t>(data[this->nb_processed_bytes+3]);
-	this->nb_processed_bytes += 4;
-	return result;
+void test_mode_handler::handle(lora_rxpk_parser* rxpk) {
+	vector_reader myreader(rxpk->get_decoded_data());
+	double lat, lon;
+	uint32_t cnt;
+	std::string status("OK");
+
+	if (myreader.get_next_32bits() == TEST_MODE_FIX_VAL1 && myreader.get_next_32bits() == TEST_MODE_FIX_VAL2) {
+		/* Extract lat/lon + counter */
+		lat = myreader.get_next_64bits();
+		lon = myreader.get_next_64bits();
+		cnt = myreader.get_next_32bits();
+		if (!this->init) {
+			this->init = true;
+			this->exp_cnt = cnt + 1;
+		} else {
+			if (cnt != this->exp_cnt) {
+				this->nb_errors++;
+				status = "NOK";
+			}
+			this->exp_cnt = cnt + 1;
+		}
+		/* Save data point */
+		this->positions.push_back(new test_mode_record(std::string("Packet #") + std::to_string(this->tot_pkt), lat, lon, cnt, rxpk));
+		this->tot_pkt++;
+		log(logDEBUG1) << "test_mode_handler::handle: status=" << status << " cnt=" << cnt << " expcnt=" << this->exp_cnt << " tot_pkt=" << this->tot_pkt << " lat=" << lat << " lon=" << lon;
+	} else {
+		this->nb_discarded++;
+	}
 }
 
-void test_mode_handler::handle(lora_rxpk_parser rxpk) {
-	std::cout << "I handle this: " << rxpk << std::endl;
-	this->nb_processed_bytes = 0;
-	std::cout << "data0: " << std::hex << this->getNext32bits(rxpk.get_decoded_data()) << std::endl;
-	std::cout << "data1: " << std::hex << this->getNext32bits(rxpk.get_decoded_data()) << std::endl;
-	std::cout << "data2: " << std::hex << this->getNext32bits(rxpk.get_decoded_data()) << std::endl;
-	std::cout << "data3: " << std::hex << this->getNext32bits(rxpk.get_decoded_data()) << std::endl;
-	std::cout << "data4: " << std::hex << this->getNext32bits(rxpk.get_decoded_data()) << std::endl;
-	std::cout << "data5: " << std::hex << this->getNext32bits(rxpk.get_decoded_data()) << std::endl;
-	std::cout << "data6: " << std::hex << this->getNext32bits(rxpk.get_decoded_data()) << std::endl;
-	std::cout << "data7: " << std::hex << this->getNext32bits(rxpk.get_decoded_data()) << std::endl;
+double test_mode_handler::get_percent_error() const {
+	return (double)this->nb_errors/this->tot_pkt;
+}
+
+std::string test_mode_handler::print() {
+	std::stringstream mystr;
+	mystr << "test_mode_handler(exp_cnt=" << this->exp_cnt << " total packet=" << this->tot_pkt << " nb errors=" << this->nb_errors << " percent error=" << this->get_percent_error() << " nb discarded=" << this->nb_discarded << ")";
+	return mystr.str();
+}
+
+void test_mode_handler::reset() {
+	this->init = false;
+	this->exp_cnt = 0;
+	this->nb_discarded = 0;
+	this->nb_errors = 0;
+	this->tot_pkt = 0;
+	this->positions.clear();
+}
+
+void test_mode_handler::dump_positions(std::ofstream& file) {
+	if (file.is_open()) {
+		// Header https://mymaps.us/
+		// mymaps.us file << "lat,lng,name,color,note" << std::endl;
+		// http://www.gpsvisualizer.com/map_input?form=googleearth
+		// name,desc,latitude,longitude
+		file << "# " << *this << std::endl;
+		file << "name,desc,latitude,longitude" << std::endl;
+		for (std::list<test_mode_record*>::iterator it=this->positions.begin(); it != this->positions.end(); ++it) {
+			std::cout << ">> pos:" << (*it)->get_line() << std::endl;
+			file << (*it)->get_line() << std::endl;
+		}
+	} else {
+		throw std::runtime_error("File is not open!:");
+	}
+}
+
+/**
+ * Insertion operator used to print class content
+ * @param strm
+ * @param a
+ * @return
+ */
+std::ostream& operator<<(std::ostream &strm, const test_mode_handler &a) {
+	return strm << "test_mode_handler(exp_cnt=" << a.exp_cnt << " total packet=" << a.tot_pkt << " nb errors=" << a.nb_errors << " percent error=" << a.get_percent_error() << " nb discarded=" << a.nb_discarded << ")";
+}
+
+int test_mode_handler::get_nb_positions() {
+	return this->positions.size();
 }

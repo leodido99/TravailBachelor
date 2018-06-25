@@ -9,8 +9,10 @@
  */
 
 #include "race_app_server.h"
-#include "shell.h"
 #include "test_mode_handler.h"
+
+#include "shell.h"
+#include "test_mode_cmd.h"
 
 #include <iostream>
 #include <sys/socket.h>
@@ -49,7 +51,8 @@ int main(int argc, char **argv) {
 	/* Set verbose TODO From arguments */
 	myAppServer.set_verbose(true);
 	/* Test mode */
-	myAppServer.set_rxpk_handler(new test_mode_handler());
+	test_mode_handler* test_handler = new test_mode_handler();
+	myAppServer.set_rxpk_handler(test_handler);
 
 	try {
 		/* Start application server */
@@ -58,6 +61,11 @@ int main(int argc, char **argv) {
 		std::cout << "Application server error: " << err.what() << std::endl;
 		exit(EXIT_FAILURE);
 	}
+	/* Configure shell */
+	test_mode_cmd* test_cmd = new test_mode_cmd(test_handler);
+	myShell.add_cmd(test_cmd);
+
+	/* Start shell */
 	myShell.start();
 	return EXIT_SUCCESS;
 }

@@ -51,6 +51,24 @@ lora_rxpk_parser::lora_rxpk_parser(int protocol_version) {
 	this->decoded_data.clear();
 }
 
+lora_rxpk_parser::lora_rxpk_parser(const lora_rxpk_parser& pkt) {
+	this->protocol_version = pkt.get_protocol_version();
+	this->time = std::string(pkt.get_time());
+	this->tmms = pkt.get_tmms();
+	this->tmst = pkt.get_tmst();
+	this->RSSI = pkt.get_RSSI();
+	this->chan = pkt.get_chan();
+	this->codr = std::string(pkt.get_codr());
+	this->data = std::string(pkt.get_data());
+	this->datr = std::string(pkt.get_datr());
+	this->freq = pkt.get_freq();
+	this->lsnr = pkt.get_lsnr();
+	this->modu = std::string(pkt.get_modu());
+	this->size = pkt.get_size();
+	this->stat = pkt.get_stat();
+	this->rf_chain = pkt.get_rf_chain();
+	this->decoded_data = std::vector<unsigned char>(pkt.get_decoded_data());
+}
 
 
 /**
@@ -250,7 +268,7 @@ std::string lora_rxpk_parser::get_data() const {
  * Decoded RF packet payload as a vector of bytes
  * @return vector<char>
  */
-std::vector<unsigned char> lora_rxpk_parser::get_decoded_data() const {
+const std::vector<unsigned char>& lora_rxpk_parser::get_decoded_data() const {
 	return this->decoded_data;
 }
 
@@ -264,7 +282,14 @@ std::string lora_rxpk_parser::get_decoded_data_string() const {
 		datastream << std::hex << std::setfill('0') << std::setw(2) << static_cast<unsigned>(*i);
 	}
 	return datastream.str();
-	//setfill('0') << setw(5)
+}
+
+/**
+ * Returns the protocol version
+ * @return
+ */
+int lora_rxpk_parser::get_protocol_version() const {
+	return this->protocol_version;
 }
 
 /**

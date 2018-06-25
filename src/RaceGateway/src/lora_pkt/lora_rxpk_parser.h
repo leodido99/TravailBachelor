@@ -50,6 +50,12 @@ public:
 	lora_rxpk_parser(int protocol_version);
 
 	/**
+	 * Copy constructor
+	 * @param pkt
+	 */
+	lora_rxpk_parser(const lora_rxpk_parser& pkt);
+
+	/**
 	 * Parse the push data provided
 	 * @param json_str
 	 */
@@ -126,9 +132,15 @@ public:
 	std::string get_data() const;
 
 	/**
+	 * Returns the protocol version
+	 * @return
+	 */
+	int get_protocol_version() const;
+
+	/**
 	 * Decoded RF packet payload as a vector of bytes
 	 */
-	std::vector<unsigned char> get_decoded_data() const;
+	const std::vector<unsigned char>& get_decoded_data() const;
 
 	/**
 	 * Returns a string representing the decoded data
