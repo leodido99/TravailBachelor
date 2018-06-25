@@ -29,6 +29,9 @@ unsigned long last_time = 0;
 unsigned long last_fix = 0;
 bool found_fix = false;
 
+/* Perform GPS fix */
+#define GPS_ENABLE_FIX 0
+
 /* Timeout on GPS fix */
 #define GPS_FIX_TIMEOUT (900 * 1000)
 
@@ -147,6 +150,10 @@ void setup() {
   delay(100);
 #endif
 
+  pinMode(LED_RED, OUTPUT);
+  pinMode(LED_GREEN, OUTPUT);
+  pinMode(LED_BLUE, OUTPUT);
+
   while ((!debugSerial) && (millis() < 10000)) {
     // wait 10 seconds for serial monitor
   }
@@ -188,13 +195,44 @@ void setup() {
 
 bool find_fix(int timeout_ms) {
   bool fix;
-  fix = sodaq_gps.scan(true, timeout_ms);
-  if (fix) {
-    debugSerial.println("GPS fix FOUND");
+  if (GPS_ENABLE_FIX) {
+    debugSerial.println("GPS fix starting...");
+    fix = sodaq_gps.scan(true, timeout_ms);
+    if (fix) {
+      debugSerial.println("GPS fix FOUND");
+    } else {
+      debugSerial.println("GPS fix TIMEOUT (" + String(timeout_ms) + String("ms") + String(")"));
+    }   
   } else {
-    debugSerial.println("GPS fix TIMEOUT (" + String(timeout_ms) + String("ms") + String(")"));
+    fix = false;
   }
   return fix;
+}
+
+void RED() {
+  digitalWrite(LED_RED, LOW);
+  digitalWrite(LED_GREEN, HIGH);
+  digitalWrite(LED_BLUE, HIGH);
+}
+
+void GREEN() {
+  digitalWrite(LED_RED, HIGH);
+  digitalWrite(LED_GREEN, LOW);
+  digitalWrite(LED_BLUE, HIGH);
+}
+
+void BLUE() {
+  digitalWrite(LED_RED, HIGH);
+  digitalWrite(LED_GREEN, HIGH);
+  digitalWrite(LED_BLUE, LOW);
+}
+
+void enable_led(int pin, bool enable) {
+  if (enable) {
+    digitalWrite(pin, LOW);
+  } else {
+    digitalWrite(pin, HIGH); 
+  }
 }
 
 void flash_led(int pin) {
@@ -261,7 +299,7 @@ void send_pkt(uint32_t cnt_val) {
   /* Construct packet */
   cmd += construct_pkt_str(cnt_val, lat, lon);
   radio_tx(cmd);
-  debugSerial.println("cnt=" + cnt_val + String(" lat=") + String(lat) + String(" lon =") + String(lon) + String(" found_fix=") + String(found_fix));
+  debugSerial.println(String("cnt=") + String(cnt_val) + String(" lat=") + String(lat) + String(" lon =") + String(lon) + String(" found_fix=") + String(found_fix));
 }
 
 void loop() {
@@ -296,8 +334,10 @@ void loop() {
   }
 
   if (found_fix) {
-    flash_led(LED_GREEN);
+    //flash_led(LED_GREEN);
+    GREEN();
   } else {
-    flash_led(LED_RED);
+    //flash_led(LED_RED);
+    RED();
   }
 }
