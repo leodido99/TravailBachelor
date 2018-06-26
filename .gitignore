@@ -39,6 +39,7 @@
 .classpath
 .settings/
 .cproject
+build
 
 src/RaceTracker/local.properties
 src/RaceTracker/.idea/libraries
