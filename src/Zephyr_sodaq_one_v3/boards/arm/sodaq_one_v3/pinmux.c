@@ -10,15 +10,17 @@
 static int board_pinmux_init(struct device *dev)
 {
 	struct device *muxa = device_get_binding(CONFIG_PINMUX_SAM0_A_LABEL);
-#if CONFIG_SPI_SAM0_SERCOM4_BASE_ADDRESS
 	struct device *muxb = device_get_binding(CONFIG_PINMUX_SAM0_B_LABEL);
+#if CONFIG_SPI_SAM0_SERCOM4_BASE_ADDRESS
+	//struct device *muxb = device_get_binding(CONFIG_PINMUX_SAM0_B_LABEL);
 #endif
 	ARG_UNUSED(dev);
 
 #if CONFIG_UART_SAM0_SERCOM0_BASE_ADDRESS
 	/* SERCOM0 on RX=PA11/pad 3, TX=PA10/pad 2 */
-	pinmux_pin_set(muxa, 11, PINMUX_FUNC_C);
-	pinmux_pin_set(muxa, 10, PINMUX_FUNC_C);
+	//pinmux_pin_set(muxa, 11, PINMUX_FUNC_C);
+	//pinmux_pin_set(muxa, 10, PINMUX_FUNC_C);
+#error Pin mapping is not configured
 #endif
 
 #if CONFIG_UART_SAM0_SERCOM1_BASE_ADDRESS
@@ -34,7 +36,9 @@ static int board_pinmux_init(struct device *dev)
 #error Pin mapping is not configured
 #endif
 #if CONFIG_UART_SAM0_SERCOM5_BASE_ADDRESS
-#error Pin mapping is not configured
+	/* SERCOM5 on RX=PB3/pad 1, TX=PB2/pad 0 */
+	pinmux_pin_set(muxb, 2, PINMUX_FUNC_C);
+	pinmux_pin_set(muxb, 3, PINMUX_FUNC_C);
 #endif
 
 #if CONFIG_SPI_SAM0_SERCOM4_BASE_ADDRESS
