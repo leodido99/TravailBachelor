@@ -20,6 +20,12 @@
 	};
 };
 
+&sercom2 {
+	status = "ok";
+	compatible = "atmel,sam0-uart";
+	current-speed = <115200>;
+};
+
 &sercom5 {
 	status = "ok";
 	compatible = "atmel,sam0-uart";
