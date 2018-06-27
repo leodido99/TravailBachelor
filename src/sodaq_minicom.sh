@@ -1,1 +1,1 @@
-gnome-terminal -- minicom -D /dev/ttyACM0 -o
+gnome-terminal -- minicom -D /dev/ttyUSB0 -o
