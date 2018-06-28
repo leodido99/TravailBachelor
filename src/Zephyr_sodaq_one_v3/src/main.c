@@ -15,6 +15,32 @@
 
 #include "RN2483_lora.h"
 
+#define LORA_SPREADING_FACTOR "radio set sf sf7"
+/* Power Output */
+/*
+  Pwr dBm mA
+  ----------------
+  -3 -4.0 17.3
+  -2 -2.9 18.0
+  -1 -1.9 18.7
+  0 -1.7 20.2
+  1 -0.6 21.2
+  2 0.4 22.3
+  3 1.4 23.5
+  4 2.5 24.7
+  5 3.6 26.1
+  6 4.7 27.5
+  7 5.8 28.8
+  8 6.9 30.0
+  9 8.1 31.2
+  10 9.3 32.4
+  11 10.4 33.7
+  12 11.6 35.1
+  13 12.5 36.5
+  14 13.5 38.0
+  15 14.1 38.9 */
+#define LORA_POWER "radio set pwr 1"
+
 static int idx = 0;
 static const char *sys_ver = "sys get ver\r\n";
 
@@ -122,10 +148,22 @@ void main(void)
 	} else {
 		printk("LoRa initialized\n");
 	}
-
-
-
-
+	/* Setup the RN2483 for radio */
+	/* Pause mac layer */
+	if (rn2483_lora_cmd("mac pause\r\n")) {
+		printk("Couldn't mac pause\n");
+	}
+	rn2483_lora_wait_for_any_reply();
+	/* Set spreading factor */
+	if (rn2483_lora_cmd(LORA_SPREADING_FACTOR)) {
+		printk("Couldn't set spreading factor\n");
+	}
+	rn2483_lora_wait_for_reply("ok");
+	/* Set power output */
+	if (rn2483_lora_cmd(LORA_POWER)) {
+		printk("Couldn't set power output\n");
+	}
+	rn2483_lora_wait_for_reply("ok");
 
 
 
