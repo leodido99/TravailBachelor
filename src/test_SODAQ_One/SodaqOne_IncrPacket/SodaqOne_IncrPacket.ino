@@ -13,6 +13,7 @@
 
 #elif defined(ARDUINO_SODAQ_AUTONOMO) || defined(ARDUINO_SODAQ_ONE) || defined(ARDUINO_SODAQ_ONE_BETA)
 #define debugSerial SerialUSB
+//#define debugSerial Serial
 #define loraSerial Serial1
 
 #elif defined(ARDUINO_SODAQ_EXPLORER)
@@ -163,6 +164,11 @@ void setup() {
 
   debugSerial.println("Configuring LoRa Radio");
   String cmd;
+  /* Version */
+  cmd = String("sys get ver");
+  debugSerial.println("System version: " + cmd);
+  debugSerial.println(set_cmd(cmd));
+  
   /* Stop MAC layer */
   cmd = String("mac pause");
   debugSerial.println("Stop MAC Layer: " + cmd);
