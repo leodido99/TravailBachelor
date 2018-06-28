@@ -16,8 +16,8 @@ static int board_pinmux_init(struct device *dev)
 
 #if CONFIG_UART_SAM0_SERCOM2_BASE_ADDRESS
 	/* SERCOM2 LoRa UART on RX=PA13/pad 1, TX=PA12/pad 0 */
-	pinmux_pin_set(muxa, 12, PINMUX_FUNC_D);
-	pinmux_pin_set(muxa, 13, PINMUX_FUNC_D);
+	pinmux_pin_set(muxa, 12, PINMUX_FUNC_C);
+	pinmux_pin_set(muxa, 13, PINMUX_FUNC_C);
 #endif
 
 #if CONFIG_UART_SAM0_SERCOM5_BASE_ADDRESS
@@ -42,9 +42,9 @@ static int board_pinmux_init(struct device *dev)
 #if CONFIG_SPI_SAM0_SERCOM4_BASE_ADDRESS
 	/* SPI SERCOM2 on MISO=PA8/pad 0, MOSI=PA10/pad 2, SCK=PA11/pad 3 */
 	/* TODO */
-	pinmux_pin_set(muxa, 8, PINMUX_FUNC_D);
+	/*pinmux_pin_set(muxa, 8, PINMUX_FUNC_D);
 	pinmux_pin_set(muxa, 10, PINMUX_FUNC_D);
-	pinmux_pin_set(muxa, 11, PINMUX_FUNC_D);
+	pinmux_pin_set(muxa, 11, PINMUX_FUNC_D);*/
 #endif
 
 #if CONFIG_SPI_SAM0_SERCOM0_BASE_ADDRESS

@@ -10,6 +10,8 @@
 #ifndef SRC_RN2483_LORA_H_
 #define SRC_RN2483_LORA_H_
 
+#include <zephyr.h>
+
 #define RN2483_LORA_SUCCESS 0
 #define RN2483_LORA_BINDING_FAILED -1
 
@@ -26,6 +28,10 @@ int rn2483_lora_init(const char *device_name);
  */
 int rn2483_lora_reset();
 
-
+/**
+ * Send data through LoRa radio
+ * @return
+ */
+int rn2483_lora_radio_tx(u8_t* data, u32_t size);
 
 #endif /* SRC_RN2483_LORA_H_ */
