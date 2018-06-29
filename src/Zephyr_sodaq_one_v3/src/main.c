@@ -129,6 +129,7 @@ void main(void)
 	u32_t baudrate, bytes_read;
 	int ret;
 	unsigned char recvChar, sentChar;
+	u8_t data_buf[20] = { 0x00, 0x01, 0x02, 0x03, 0x04 };
 
 	printk("Hello World! %s\n", CONFIG_ARCH);
 
@@ -165,8 +166,8 @@ void main(void)
 	}
 	rn2483_lora_wait_for_reply("ok");
 
-
-
+	rn2483_lora_radio_tx(data_buf, 5);
+	rn2483_lora_wait_for_reply("radio_tx_ok");
 
 
 

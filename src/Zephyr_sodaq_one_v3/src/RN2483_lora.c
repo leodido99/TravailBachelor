@@ -11,6 +11,7 @@
 #include "RN2483_lora.h"
 
 #include <string.h>
+#include <stdio.h>
 
 #include <device.h>
 #include <board.h>
@@ -27,9 +28,19 @@
 #define RN2483_LORA_RESET_PORT LORA_RESET_GPIO_PORT
 #define RN2483_LORA_RESET_PIN LORA_RESET_GPIO_PIN
 
-#define RN2483_LORA_MAC_PAUSE_CMD "mac pause\r\n"
-#define RN2483_LORA_RADIO_SET_SF_CMD "radio set sf sf7\r\n"
-#define RN2483_LORA_RADIO_SET_PWR_CMD "radio set sf"
+/**
+ * Command to transmit radio
+ */
+#define RN2483_LORA_RADIO_TX_CMD "radio tx "
+/**
+ * Size of the command to transmit radio (nb chars)
+ */
+#define RN2483_LORA_RADIO_TX_CMD_SIZE 9
+
+/**
+ * Maximum payload size
+ */
+#define RN2483_LORA_MAX_PAYLOAD_SIZE 222
 
 /**
  * LoRa UART device
@@ -119,7 +130,7 @@ void rn2483_lora_thread(void) {
 			//printk("c=\"%c\"(%d)", cmd_buf[cmd_idx], cmd_buf[cmd_idx]);
 			if (sent == '\n') {
 				new_cmd_rdy = false;
-				DBG_PRINTK("%s: Message sent: %s\n", __func__, cmd_buf);
+				DBG_PRINTK("%s: TX: %s\n", __func__, cmd_buf);
 			}
 			cmd_idx++;
 		}
@@ -147,15 +158,17 @@ int rn2483_lora_cmd(char* cmd) {
 }
 
 void rn2483_lora_wait_for_any_reply() {
-	wait_for_buf[0] = '\0';
-	wait_for = true;
-	while(wait_for) {
-		k_sleep(200);
+	if (!wait_for) {
+		wait_for_buf[0] = '\0';
+		wait_for = true;
+		while(wait_for) {
+			k_sleep(200);
+		}
 	}
 }
 
 void rn2483_lora_wait_for_reply(char* reply) {
-	if (strlen(reply) <= (BUFF_SIZE - 2)) {
+	if (!wait_for && strlen(reply) <= (BUFF_SIZE - 2)) {
 		strcpy(wait_for_buf, reply);
 		wait_for_buf[strlen(wait_for_buf)] = '\r';
 		wait_for_buf[strlen(wait_for_buf)+1] = '\0';
@@ -225,7 +238,29 @@ int rn2483_lora_reset() {
 }
 
 int rn2483_lora_radio_tx(u8_t* data, u32_t size) {
+	char cmd_buf[BUFF_SIZE];
+	char tmp[3];
+	int i;
 
+	if (!new_cmd_rdy) {
+		if (size <= RN2483_LORA_MAX_PAYLOAD_SIZE) {
+			strcpy(cmd_buf, RN2483_LORA_RADIO_TX_CMD);
+			for(i = 0; i < size; i++) {
+				snprintf(tmp, 3, "%02X", data[i]);
+				strcat(cmd_buf, tmp);
+			}
+			printk("cmd: %s\n", cmd_buf);
+			/* Send command */
+			return rn2483_lora_cmd(cmd_buf);
+		} else {
+			DBG_PRINTK("%s: Command too long %d (max %d)\n", __func__, size, RN2483_LORA_MAX_PAYLOAD_SIZE);
+			return RN2483_LORA_CMD_TOO_LONG;
+		}
+	} else {
+		DBG_PRINTK("%s: Module busy\n", __func__);
+		return RN2483_LORA_BUSY;
+	}
+	return RN2483_LORA_SUCCESS;
 }
 
 K_THREAD_DEFINE(rn2483_lora_thread_id, STACKSIZE, rn2483_lora_thread, NULL, NULL, NULL, PRIORITY, 0, K_NO_WAIT);
