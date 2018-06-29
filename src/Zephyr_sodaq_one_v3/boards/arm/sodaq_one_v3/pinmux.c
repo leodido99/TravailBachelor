@@ -39,17 +39,14 @@ static int board_pinmux_init(struct device *dev)
 #error Pin mapping is not configured
 #endif
 
-#if CONFIG_SPI_SAM0_SERCOM4_BASE_ADDRESS
-	/* SPI SERCOM2 on MISO=PA8/pad 0, MOSI=PA10/pad 2, SCK=PA11/pad 3 */
-	/* TODO */
-	/*pinmux_pin_set(muxa, 8, PINMUX_FUNC_D);
-	pinmux_pin_set(muxa, 10, PINMUX_FUNC_D);
-	pinmux_pin_set(muxa, 11, PINMUX_FUNC_D);*/
+#if CONFIG_SPI_SAM0_SERCOM0_BASE_ADDRESS
+	/* SPI SERCOM0 on MISO=PA8/pad 0, SS=PA9/pad 1, MOSI=PA10/pad 2, SCK=PA11/pad 3 */
+	pinmux_pin_set(muxa, 8, PINMUX_FUNC_C);
+	pinmux_pin_set(muxa, 9, PINMUX_FUNC_C);
+	pinmux_pin_set(muxa, 10, PINMUX_FUNC_C);
+	pinmux_pin_set(muxa, 11, PINMUX_FUNC_C);
 #endif
 
-#if CONFIG_SPI_SAM0_SERCOM0_BASE_ADDRESS
-#error Pin mapping is not configured
-#endif
 #if CONFIG_SPI_SAM0_SERCOM1_BASE_ADDRESS
 #error Pin mapping is not configured
 #endif
@@ -57,6 +54,9 @@ static int board_pinmux_init(struct device *dev)
 #error Pin mapping is not configured
 #endif
 #if CONFIG_SPI_SAM0_SERCOM3_BASE_ADDRESS
+#error Pin mapping is not configured
+#endif
+#if CONFIG_SPI_SAM0_SERCOM4_BASE_ADDRESS
 #error Pin mapping is not configured
 #endif
 #if CONFIG_SPI_SAM0_SERCOM5_BASE_ADDRESS
@@ -68,6 +68,10 @@ static int board_pinmux_init(struct device *dev)
 	pinmux_pin_set(muxa, 25, PINMUX_FUNC_G);
 	pinmux_pin_set(muxa, 24, PINMUX_FUNC_G);
 #endif
+
+	/* I2C SERCOM3 on SDA=PA22/pad 0 SCL=PA23/pad 1
+	 * uBlox EVA 8M and LSM303AGR on I2C */
+
 
 	return 0;
 }

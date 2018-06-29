@@ -10,6 +10,8 @@
 
 #include "RN2483_lora.h"
 
+#include "debug.h"
+
 #include <string.h>
 #include <stdio.h>
 
@@ -20,10 +22,11 @@
 #include <misc/printk.h>
 #include <kernel.h>
 
-#define DBG_PRINTK(f_, ...) printk((f_), __VA_ARGS__)
+#define DBG_PRINTK(fmt, ...) \
+            do { if (DEBUG) printk(fmt, __VA_ARGS__); } while (0)
 
 /**
- * Pins used for the reset of the module
+ * Pin used for the reset of the module
  */
 #define RN2483_LORA_RESET_PORT LORA_RESET_GPIO_PORT
 #define RN2483_LORA_RESET_PIN LORA_RESET_GPIO_PIN
@@ -75,9 +78,9 @@ static void rn2483_lora_irq_handler(struct device *dev) {
 
 	uart_irq_update(dev);
 
-	if (uart_irq_tx_ready(dev)) {
-
-	}
+	/* TODO IRQ on TX seem to spin forever */
+	/*if (uart_irq_tx_ready(dev)) {
+	}*/
 
 	if (uart_irq_rx_ready(dev)) {
 		/* Data is available for reading */
@@ -89,9 +92,7 @@ static void rn2483_lora_irq_handler(struct device *dev) {
 				rx_data_buf[rx_data_buf_idx + bytes_read - 1] = '\0';
 			}
 			rx_data_buf_idx += bytes_read;
-			//printk("%s", &rx_data_buf[rx_data_buf_idx]);
 		}
-		//printk("\n");
 	}
 }
 
@@ -100,10 +101,6 @@ void rn2483_lora_thread(void) {
 
 	while(1) {
 		if (rx_data_rdy) {
-			/* setup for new reading */
-			rx_data_rdy = false;
-			rx_data_buf_idx = 0;
-
 			if (!ready_to_send) {
 				/* Before being able to send anything, we need
 				 * to wait for the sys version from the RN2483 */
@@ -121,13 +118,16 @@ void rn2483_lora_thread(void) {
 					}
 				}
 			}
+			/* setup for new reading */
+			rx_data_rdy = false;
+			rx_data_buf_idx = 0;
+
 			DBG_PRINTK("%s: RX: %s\n", __func__, rx_data_buf);
 		}
 
 		if (ready_to_send && new_cmd_rdy) {
 			/* Send command by polling */
 			sent = uart_poll_out(lora_uart, cmd_buf[cmd_idx]);
-			//printk("c=\"%c\"(%d)", cmd_buf[cmd_idx], cmd_buf[cmd_idx]);
 			if (sent == '\n') {
 				new_cmd_rdy = false;
 				DBG_PRINTK("%s: TX: %s\n", __func__, cmd_buf);
@@ -249,7 +249,6 @@ int rn2483_lora_radio_tx(u8_t* data, u32_t size) {
 				snprintf(tmp, 3, "%02X", data[i]);
 				strcat(cmd_buf, tmp);
 			}
-			printk("cmd: %s\n", cmd_buf);
 			/* Send command */
 			return rn2483_lora_cmd(cmd_buf);
 		} else {
