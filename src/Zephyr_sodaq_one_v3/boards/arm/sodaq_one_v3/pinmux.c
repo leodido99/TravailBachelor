@@ -71,7 +71,8 @@ static int board_pinmux_init(struct device *dev)
 
 	/* I2C SERCOM3 on SDA=PA22/pad 0 SCL=PA23/pad 1
 	 * uBlox EVA 8M and LSM303AGR on I2C */
-
+	pinmux_pin_set(muxa, 22, PINMUX_FUNC_C);
+	pinmux_pin_set(muxa, 23, PINMUX_FUNC_C);
 
 	return 0;
 }

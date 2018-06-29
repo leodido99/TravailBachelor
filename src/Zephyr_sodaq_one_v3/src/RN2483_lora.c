@@ -50,26 +50,51 @@
  */
 static struct device *lora_uart;
 
-/* size of stack area used by each thread */
+/**
+ * Thread stack size
+ */
 #define STACKSIZE 1024
 
-/* scheduling priority used by each thread */
+/**
+ * Thread priority
+ */
 #define PRIORITY 7
 
-/* Buffer size */
+/**
+ *  Buffer size
+ */
 #define BUFF_SIZE 256
 
+/**
+ * RX Data Buffer
+ */
 u32_t rx_data_buf_idx = 0;
 u8_t rx_data_buf[BUFF_SIZE];
 
+/**
+ * RX data is ready
+ */
 static volatile bool rx_data_rdy = false;
 
+/**
+ * Ready to send (i.e. received system ver at beginning)
+ */
 static volatile bool ready_to_send = false;
 
+/**
+ * New command is ready to be sent
+ */
 static volatile bool new_cmd_rdy = false;
+
+/**
+ * Command index and buffer
+ */
 u32_t cmd_idx = 0;
 u8_t cmd_buf[BUFF_SIZE];
 
+/**
+ * Wait for buffer
+ */
 static volatile bool wait_for = false;
 char wait_for_buf[BUFF_SIZE];
 
@@ -198,6 +223,7 @@ int rn2483_lora_init(const char *device_name) {
 	/* Bind to LoRa UART */
 	lora_uart = device_get_binding(device_name);
 	if (!lora_uart) {
+		DBG_PRINTK("%s: Couldn't bind LoRa UART device\n", __func__);
 		return RN2483_LORA_BINDING_FAILED;
 	}
 	/* Configure interrupt handler */
@@ -219,7 +245,7 @@ int rn2483_lora_reset() {
 	/* Reset LoRa module */
 	lora_reset = device_get_binding(RN2483_LORA_RESET_PORT);
 	if (!lora_reset) {
-		//printk("Couldn't get LoRa reset IO\n");
+		DBG_PRINTK("%s: Couldn't bind LoRa Reset device\n", __func__);
 		return RN2483_LORA_BINDING_FAILED;
 	}
 	/* Set pin direction */
