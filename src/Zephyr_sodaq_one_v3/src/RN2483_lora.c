@@ -22,9 +22,6 @@
 #include <misc/printk.h>
 #include <kernel.h>
 
-#define DBG_PRINTK(fmt, ...) \
-            do { if (DEBUG) printk(fmt, __VA_ARGS__); } while (0)
-
 /**
  * Pin used for the reset of the module
  */

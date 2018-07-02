@@ -12,3 +12,4 @@ project(NONE)
 # Application source files
 target_sources(app PRIVATE src/main.c)
 target_sources(app PRIVATE src/RN2483_lora.c)
+target_sources(app PRIVATE src/LSM303AGR.c)

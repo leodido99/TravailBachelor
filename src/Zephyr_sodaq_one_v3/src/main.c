@@ -14,6 +14,7 @@
 #include <string.h>
 
 #include "RN2483_lora.h"
+#include "LSM303AGR.h"
 
 #define LORA_SPREADING_FACTOR "radio set sf sf7"
 #define LORA_POWER "radio set pwr 1"
@@ -37,7 +38,7 @@ void main(void)
 	gpio_pin_write(led1, LED1_GPIO_PIN, 1);
 	gpio_pin_write(led2, LED2_GPIO_PIN, 1);
 
-	if (rn2483_lora_init(ATMEL_SAM0_UART_42001000_LABEL)) {
+	if (rn2483_lora_init(CONFIG_UART_SAM0_SERCOM2_LABEL)) {
 		printk("Couldn't initialize LoRa\n");
 	} else {
 		printk("LoRa initialized\n");
@@ -69,6 +70,10 @@ void main(void)
 	data_buf[4] = 0x09;
 	rn2483_lora_radio_tx(data_buf, 5);
 	rn2483_lora_wait_for_reply("radio_tx_ok");
+
+	lsm303agr_init(CONFIG_I2C_SAM0_SERCOM3_LABEL);
+	printk("End Conf\n");
+	printk("LSM303AGR Accelerometer Device ID: %X\n", lsm303agr_accel_get_device_id());
 
 	while(1) {
 		//printk("Hello World! %s\n", CONFIG_ARCH);
