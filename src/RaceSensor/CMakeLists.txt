@@ -1,7 +1,7 @@
 # Create following http://docs.zephyrproject.org/application/application.html
 
 # Board used
-set(BOARD adafruit_feather_m0_basic_proto)
+set(BOARD sodaq_one_v3)
 
 # Include zephyr
 include($ENV{ZEPHYR_BASE}/cmake/app/boilerplate.cmake NO_POLICY_SCOPE)
