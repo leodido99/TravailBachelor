@@ -38,6 +38,7 @@ void main(void)
 	gpio_pin_write(led1, LED1_GPIO_PIN, 1);
 	gpio_pin_write(led2, LED2_GPIO_PIN, 1);
 
+#if 0
 	if (rn2483_lora_init(CONFIG_UART_SAM0_SERCOM2_LABEL)) {
 		printk("Couldn't initialize LoRa\n");
 	} else {
@@ -70,10 +71,12 @@ void main(void)
 	data_buf[4] = 0x09;
 	rn2483_lora_radio_tx(data_buf, 5);
 	rn2483_lora_wait_for_reply("radio_tx_ok");
+#endif
 
 	lsm303agr_init(CONFIG_I2C_SAM0_SERCOM3_LABEL);
-	printk("End Conf\n");
 	printk("LSM303AGR Accelerometer Device ID: %X\n", lsm303agr_accel_get_device_id());
+	printk("LSM303AGR Magnetometer Device ID: %X\n", lsm303agr_mag_get_device_id());
+	lsm303agr_accel_enable(LSM303AGR_NORMAL_MODE, LSM303AGR_HIGH_RES_100HZ, false, (LSM303AGR_Z_AXIS | LSM303AGR_Y_AXIS | LSM303AGR_X_AXIS));
 
 	while(1) {
 		//printk("Hello World! %s\n", CONFIG_ARCH);
