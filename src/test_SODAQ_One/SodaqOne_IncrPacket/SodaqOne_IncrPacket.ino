@@ -31,7 +31,7 @@ unsigned long last_fix = 0;
 bool found_fix = false;
 
 /* Perform GPS fix */
-#define GPS_ENABLE_FIX 0
+#define GPS_ENABLE_FIX 1
 
 /* Timeout on GPS fix */
 #define GPS_FIX_TIMEOUT (900 * 1000)
