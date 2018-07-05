@@ -297,15 +297,8 @@ static bool process_data(uint8_t data) {
 }
 
 static void process_msg(ubloxeva8m_ubx_msg* msg) {
-#ifdef DEBUG
-	print_msg("process_msg: ", msg);
-#endif
-
 	for(int i = 0; i < wait_for.nb; i++) {
 		if (wait_for.class_ids[i] == msg->class_id && wait_for.message_ids[i] == msg->message_id) {
-#ifdef DEBUG
-			print_msg("Waited for", msg);
-#endif
 			if (wait_for.msg_recv != NULL) {
 				memcpy(wait_for.msg_recv, msg, sizeof(msg));
 			}
@@ -438,7 +431,6 @@ static int configure_protocol() {
 	if (status) {
 		return status;
 	}
-	printk("Config: Mode=0x%X, inProtoMask=0x%X, outProtoMask=0x%X\n", msg.mode, msg.inProtoMask, msg.outProtoMask);
 
 	/* Enable only UBX as output protocol */
 	msg.outProtoMask = UBLOXEVA8M_CFG_PRT_OUTPROTOMASK_UBX_MASK;
