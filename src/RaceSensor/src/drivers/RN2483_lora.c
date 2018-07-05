@@ -50,12 +50,12 @@ static struct device *lora_uart;
 /**
  * Thread stack size
  */
-#define STACKSIZE 1024
+#define RN2483_LORA_STACKSIZE 1024
 
 /**
  * Thread priority
  */
-#define PRIORITY 7
+#define RN2483_LORA_PRIORITY 7
 
 /**
  *  Buffer size
@@ -285,4 +285,4 @@ int rn2483_lora_radio_tx(u8_t* data, u32_t size) {
 	return RN2483_LORA_SUCCESS;
 }
 
-K_THREAD_DEFINE(rn2483_lora_thread_id, STACKSIZE, rn2483_lora_thread, NULL, NULL, NULL, PRIORITY, 0, K_NO_WAIT);
+K_THREAD_DEFINE(rn2483_lora_thread_id, RN2483_LORA_STACKSIZE, rn2483_lora_thread, NULL, NULL, NULL, RN2483_LORA_PRIORITY, 0, K_NO_WAIT);
