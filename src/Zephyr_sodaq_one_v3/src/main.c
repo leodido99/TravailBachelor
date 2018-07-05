@@ -40,6 +40,8 @@ void main(void)
 	static struct device *led0, *led1, *led2;
 	int ret;
 	u8_t data_buf[20] = { 0x00, 0x01, 0x02, 0x03, 0x04 };
+	lsm303agr_status_t accel_status;
+	int16_t accel[3];
 
 	printk("Hello World! %s\n", CONFIG_ARCH);
 
@@ -90,19 +92,40 @@ void main(void)
 #endif
 
 	ubloxeva8m_init(CONFIG_I2C_SAM0_SERCOM3_LABEL);
+	/* Configure message handler */
 	ubloxeva8m_set_callback(gps_msg_handler);
 	if (ubloxeva8m_start()) {
 		printk("Couldn't start UBLOXEVA8M\n");
 	}
+	/* Change dynamic model */
+	if (ubloxeva8m_set_dynamic_model(UBLOXEVA8M_DYNMODEL_AUTOMOTIVE)) {
+		printk("Couldn't set dynamic model\n");
+	}
 
-
-
-
-	/*lsm303agr_init(CONFIG_I2C_SAM0_SERCOM3_LABEL);
+	lsm303agr_init(CONFIG_I2C_SAM0_SERCOM3_LABEL);
 	printk("LSM303AGR Accelerometer Device ID: %X\n", lsm303agr_accel_get_device_id());
 	printk("LSM303AGR Magnetometer Device ID: %X\n", lsm303agr_mag_get_device_id());
-	lsm303agr_accel_enable(LSM303AGR_NORMAL_MODE, LSM303AGR_HIGH_RES_100HZ, false, (LSM303AGR_Z_AXIS | LSM303AGR_Y_AXIS | LSM303AGR_X_AXIS));
-*/
+	if (lsm303agr_accel_enable(LSM303AGR_NORMAL_MODE, LSM303AGR_HIGH_RES_100HZ, false, (LSM303AGR_Z_AXIS | LSM303AGR_Y_AXIS | LSM303AGR_X_AXIS))) {
+		printk("Couldn't enable accelerometer\n");
+	}
+	if (lsm303agr_accel_set_scale(LSM303AGR_8G)) {
+		printk("Couldn't set accelerometer scale\n");
+	}
+	if (lsm303agr_get_status(&accel_status)) {
+		printk("Couldn't read status");
+	}
+	printk("Acelerometer status: Overrun (all=%d x=%d y=%d z=%d) Data Available (all=%d x=%d y=%d =z%d)\n", accel_status.z_y_x_overrun, accel_status.x_overrun, accel_status.y_overrun, accel_status.z_overrun, accel_status.z_y_x_available, accel_status.x_available, accel_status.y_available, accel_status.z_available);
+	if (lsm303agr_get_x_acceleration(&accel[0])) {
+		printk("Couldn't read acceleration");
+	}
+	if (lsm303agr_get_y_acceleration(&accel[1])) {
+		printk("Couldn't read acceleration");
+	}
+	if (lsm303agr_get_z_acceleration(&accel[2])) {
+		printk("Couldn't read acceleration");
+	}
+	printk("Acceleration x=%d y=%d z=%d\n", accel[0], accel[1], accel[2]);
+
 	while(1) {
 		//printk("Hello World! %s\n", CONFIG_ARCH);
 		gpio_pin_write(led2, LED2_GPIO_PIN, 1);

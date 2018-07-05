@@ -46,8 +46,41 @@
 #define LSM303AGR_ACCEL_CFG_YEN_POS 1
 #define LSM303AGR_ACCEL_CFG_XEN_POS 0
 
+#define LSM303AGR_ACCEL_CFG3_ADDR 0x22
+
 #define LSM303AGR_ACCEL_CFG4_ADDR 0x23
 #define LSM303AGR_ACCEL_CFG4_HR_POS 3
+#define LSM303AGR_ACCEL_CFG4_FS_POS 4
+
+#define LSM303AGR_ACCEL_INT1_CFG_ADDR 0x30
+#define LSM303AGR_ACCEL_INT1_CFG_AOI_POS 7
+#define LSM303AGR_ACCEL_INT1_CFG_6D_POS 6
+#define LSM303AGR_ACCEL_INT1_CFG_Z_HIGH_POS 5
+#define LSM303AGR_ACCEL_INT1_CFG_Z_LOW_POS 4
+#define LSM303AGR_ACCEL_INT1_CFG_Y_HIGH_POS 3
+#define LSM303AGR_ACCEL_INT1_CFG_Y_LOW_POS 2
+#define LSM303AGR_ACCEL_INT1_CFG_X_HIGH_POS 1
+#define LSM303AGR_ACCEL_INT1_CFG_X_LOW_POS 0
+
+#define LSM303AGR_ACCEL_STATUS_ADDR 0x27
+#define LSM303AGR_ACCEL_STATUS_ZYXOR_POS 7
+#define LSM303AGR_ACCEL_STATUS_ZOR_POS 6
+#define LSM303AGR_ACCEL_STATUS_YOR_POS 5
+#define LSM303AGR_ACCEL_STATUS_XOR_POS 4
+#define LSM303AGR_ACCEL_STATUS_ZYXDA_POS 3
+#define LSM303AGR_ACCEL_STATUS_ZDA_POS 2
+#define LSM303AGR_ACCEL_STATUS_YDA_POS 1
+#define LSM303AGR_ACCEL_STATUS_XDA_POS 0
+
+#define LSM303AGR_ACCEL_OUT_X_L_ADDR 0x28
+#define LSM303AGR_ACCEL_OUT_X_H_ADDR 0x29
+
+#define LSM303AGR_ACCEL_OUT_Y_L_ADDR 0x2A
+#define LSM303AGR_ACCEL_OUT_Y_H_ADDR 0x2B
+
+#define LSM303AGR_ACCEL_OUT_Z_L_ADDR 0x2C
+#define LSM303AGR_ACCEL_OUT_Z_H_ADDR 0x2D
+
 
 /* Magnetometer */
 #define LSM303AGR_MAG_WHO_AM_I_REG_ADDR 0x4F
@@ -113,6 +146,139 @@ int lsm303agr_accel_enable(lsm303agr_modes_t mode, lsm303agr_datarate_modes_t da
 			DBG_PRINTK("%s: Register access failed\n", __func__);
 			return LSM303AGR_REG_ACCESS_FAILED;
 		}
+	} else {
+		DBG_PRINTK("%s: I2C bus not initialized\n", __func__);
+		return LSM303AGR_NOT_INITIALIZED;
+	}
+	return LSM303AGR_SUCCESS;
+}
+
+int lsm303agr_accel_set_scale(lsm303agr_scales_t scale) {
+	uint8_t reg = 0;
+	if (lsm303agr_priv.i2c_dev) {
+		reg = scale << LSM303AGR_ACCEL_CFG4_FS_POS;
+		if (i2c_reg_update_byte(lsm303agr_priv.i2c_dev, LSM303AGR_ACCEL_ADDR, LSM303AGR_ACCEL_CFG4_ADDR, (1 << LSM303AGR_ACCEL_CFG4_FS_POS), reg)) {
+			DBG_PRINTK("%s: Register access failed\n", __func__);
+			return LSM303AGR_REG_ACCESS_FAILED;
+		}
+	} else {
+		DBG_PRINTK("%s: I2C bus not initialized\n", __func__);
+		return LSM303AGR_NOT_INITIALIZED;
+	}
+	return LSM303AGR_SUCCESS;
+}
+
+int lsm303agr_enable_interrupt(lsm303agr_interrupts_t interrupt) {
+	uint8_t reg = 0;
+
+	if (lsm303agr_priv.i2c_dev) {
+		reg = interrupt;
+		if (i2c_reg_write_byte(lsm303agr_priv.i2c_dev, LSM303AGR_ACCEL_ADDR, LSM303AGR_ACCEL_CFG3_ADDR, reg)) {
+			DBG_PRINTK("%s: Register access failed\n", __func__);
+			return LSM303AGR_REG_ACCESS_FAILED;
+		}
+	} else {
+		DBG_PRINTK("%s: I2C bus not initialized\n", __func__);
+		return LSM303AGR_NOT_INITIALIZED;
+	}
+	return LSM303AGR_SUCCESS;
+}
+
+int lsm303agr_configure_interrupt1(lsm303agr_interrupt_modes_t interrupt_mode, uint8_t interrupt_directions) {
+	uint8_t reg = 0;
+
+	if (lsm303agr_priv.i2c_dev) {
+		reg = (interrupt_mode << LSM303AGR_ACCEL_INT1_CFG_6D_POS) | (interrupt_directions & 0x3F);
+		if (i2c_reg_write_byte(lsm303agr_priv.i2c_dev, LSM303AGR_ACCEL_ADDR, LSM303AGR_ACCEL_INT1_CFG_ADDR, reg)) {
+			DBG_PRINTK("%s: Register access failed\n", __func__);
+			return LSM303AGR_REG_ACCESS_FAILED;
+		}
+	} else {
+		DBG_PRINTK("%s: I2C bus not initialized\n", __func__);
+		return LSM303AGR_NOT_INITIALIZED;
+	}
+	return LSM303AGR_SUCCESS;
+}
+
+int lsm303agr_get_z_acceleration(int16_t* acceleration) {
+	uint8_t reg = 0;
+
+	if (lsm303agr_priv.i2c_dev) {
+		if (i2c_reg_read_byte(lsm303agr_priv.i2c_dev, LSM303AGR_ACCEL_ADDR, LSM303AGR_ACCEL_OUT_Z_H_ADDR, &reg)) {
+			DBG_PRINTK("%s: Register access failed\n", __func__);
+			return LSM303AGR_REG_ACCESS_FAILED;
+		}
+		*acceleration = reg << 8;
+		if (i2c_reg_read_byte(lsm303agr_priv.i2c_dev, LSM303AGR_ACCEL_ADDR, LSM303AGR_ACCEL_OUT_Z_L_ADDR, &reg)) {
+			DBG_PRINTK("%s: Register access failed\n", __func__);
+			return LSM303AGR_REG_ACCESS_FAILED;
+		}
+		*acceleration = reg;
+	} else {
+		DBG_PRINTK("%s: I2C bus not initialized\n", __func__);
+		return LSM303AGR_NOT_INITIALIZED;
+	}
+	return LSM303AGR_SUCCESS;
+}
+
+int lsm303agr_get_y_acceleration(int16_t* acceleration) {
+	uint8_t reg = 0;
+
+	if (lsm303agr_priv.i2c_dev) {
+		if (i2c_reg_read_byte(lsm303agr_priv.i2c_dev, LSM303AGR_ACCEL_ADDR, LSM303AGR_ACCEL_OUT_Y_H_ADDR, &reg)) {
+			DBG_PRINTK("%s: Register access failed\n", __func__);
+			return LSM303AGR_REG_ACCESS_FAILED;
+		}
+		*acceleration = reg << 8;
+		if (i2c_reg_read_byte(lsm303agr_priv.i2c_dev, LSM303AGR_ACCEL_ADDR, LSM303AGR_ACCEL_OUT_Y_L_ADDR, &reg)) {
+			DBG_PRINTK("%s: Register access failed\n", __func__);
+			return LSM303AGR_REG_ACCESS_FAILED;
+		}
+		*acceleration = reg;
+	} else {
+		DBG_PRINTK("%s: I2C bus not initialized\n", __func__);
+		return LSM303AGR_NOT_INITIALIZED;
+	}
+	return LSM303AGR_SUCCESS;
+}
+
+int lsm303agr_get_x_acceleration(int16_t* acceleration) {
+	uint8_t reg = 0;
+
+	if (lsm303agr_priv.i2c_dev) {
+		if (i2c_reg_read_byte(lsm303agr_priv.i2c_dev, LSM303AGR_ACCEL_ADDR, LSM303AGR_ACCEL_OUT_X_H_ADDR, &reg)) {
+			DBG_PRINTK("%s: Register access failed\n", __func__);
+			return LSM303AGR_REG_ACCESS_FAILED;
+		}
+		*acceleration = reg << 8;
+		if (i2c_reg_read_byte(lsm303agr_priv.i2c_dev, LSM303AGR_ACCEL_ADDR, LSM303AGR_ACCEL_OUT_X_L_ADDR, &reg)) {
+			DBG_PRINTK("%s: Register access failed\n", __func__);
+			return LSM303AGR_REG_ACCESS_FAILED;
+		}
+		*acceleration = reg;
+	} else {
+		DBG_PRINTK("%s: I2C bus not initialized\n", __func__);
+		return LSM303AGR_NOT_INITIALIZED;
+	}
+	return LSM303AGR_SUCCESS;
+}
+
+int lsm303agr_get_status(lsm303agr_status_t* status) {
+	uint8_t reg = 0;
+
+	if (lsm303agr_priv.i2c_dev) {
+		if (i2c_reg_read_byte(lsm303agr_priv.i2c_dev, LSM303AGR_ACCEL_ADDR, LSM303AGR_ACCEL_STATUS_ADDR, &reg)) {
+			DBG_PRINTK("%s: Register access failed\n", __func__);
+			return LSM303AGR_REG_ACCESS_FAILED;
+		}
+		status->z_y_x_overrun = (reg & (1 << LSM303AGR_ACCEL_STATUS_ZYXOR_POS)) ? true : false;
+		status->z_overrun = (reg & (1 << LSM303AGR_ACCEL_STATUS_ZOR_POS)) ? true : false;
+		status->y_overrun = (reg & (1 << LSM303AGR_ACCEL_STATUS_YOR_POS)) ? true : false;
+		status->x_overrun = (reg & (1 << LSM303AGR_ACCEL_STATUS_XOR_POS)) ? true : false;
+		status->z_y_x_available = (reg & (1 << LSM303AGR_ACCEL_STATUS_ZYXDA_POS)) ? true : false;
+		status->z_available = (reg & (1 << LSM303AGR_ACCEL_STATUS_ZDA_POS)) ? true : false;
+		status->y_available = (reg & (1 << LSM303AGR_ACCEL_STATUS_YDA_POS)) ? true : false;
+		status->x_available = (reg & (1 << LSM303AGR_ACCEL_STATUS_XDA_POS)) ? true : false;
 	} else {
 		DBG_PRINTK("%s: I2C bus not initialized\n", __func__);
 		return LSM303AGR_NOT_INITIALIZED;
