@@ -13,12 +13,27 @@
 #include <stdio.h>
 #include <string.h>
 
+#include "debug.h"
 #include "RN2483_lora.h"
 #include "LSM303AGR.h"
 #include "UBloxEVA8M.h"
 
 #define LORA_SPREADING_FACTOR "radio set sf sf7"
 #define LORA_POWER "radio set pwr 1"
+
+#ifdef DEBUG
+static void print_nav_pvt_msg(char *txt, ubloxeva8m_nav_pvt_t* msg);
+#endif
+
+void gps_msg_handler(ubloxeva8m_ubx_msg* msg) {
+	ubloxeva8m_nav_pvt_t pvt_msg;
+
+	if (msg->class_id == UBLOXEVA8M_CLASS_NAV && msg->message_id == UBLOXEVA8M_MSG_NAV_PVT) {
+		memcpy(&pvt_msg, msg->payload, msg->length);
+		print_nav_pvt_msg("UBX-NAV-PVT: ", &pvt_msg);
+	}
+
+}
 
 void main(void)
 {
@@ -75,6 +90,7 @@ void main(void)
 #endif
 
 	ubloxeva8m_init(CONFIG_I2C_SAM0_SERCOM3_LABEL);
+	ubloxeva8m_set_callback(gps_msg_handler);
 	if (ubloxeva8m_start()) {
 		printk("Couldn't start UBLOXEVA8M\n");
 	}
@@ -100,3 +116,9 @@ void main(void)
 		k_sleep(200);
 	}
 }
+
+#ifdef DEBUG
+static void print_nav_pvt_msg(char *txt, ubloxeva8m_nav_pvt_t* msg) {
+	DBG_PRINTK("UBX-NAV-PVT: %d.%d.%d %02d:%02d:%02d validity=%d fixType=%d numSV=%d lat=%d lon=%d \n", msg->day, msg->month, msg->year, msg->hour, msg->minute, msg->seconds, msg->valid, msg->fixType, msg->numSV, msg->lat, msg->lon);
+}
+#endif

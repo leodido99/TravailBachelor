@@ -11,6 +11,7 @@
 #define SRC_UBLOXEVA8M_H_
 
 #include <zephyr.h>
+#include "UBloxEVA8M_protocol.h"
 
 #define UBLOXEVA8M_SUCCESS 0
 #define UBLOXEVA8M_BINDING_FAILED -1
@@ -21,6 +22,29 @@
 #define UBLOXEVA8M_NOT_ANSWERING -6
 #define UBLOXEVA8M_NULL_POINTER -7
 #define UBLOXEVA8M_NACK -8
+
+/**
+ * Size of a message payload
+ */
+#define UBLOXEVA8M_MSG_PAYLOAD_BUFFER_SIZE 128
+
+/**
+ * Structure used to store a decoded message
+ */
+typedef struct __attribute__((packed,aligned(1))) {
+	uint8_t class_id;
+	uint8_t message_id;
+	uint16_t length;
+	uint8_t payload[UBLOXEVA8M_MSG_PAYLOAD_BUFFER_SIZE];
+	uint16_t checksum;
+	uint16_t stored_length;
+} ubloxeva8m_ubx_msg;
+
+/**
+ * Type used for the callbacks
+ * @param msg Message received
+ */
+typedef void (*ubloxeva8m_msg_callback)(ubloxeva8m_ubx_msg* msg);
 
 /**
  * Initialze the UBlox EVA 8M module
@@ -52,5 +76,10 @@ int ubloxeva8m_start();
  * @return
  */
 bool ubloxeva8m_is_alive();
+
+/**
+ * Sets a callback function on message received
+ */
+void ubloxeva8m_set_callback(ubloxeva8m_msg_callback handler);
 
 #endif /* SRC_UBLOXEVA8M_H_ */

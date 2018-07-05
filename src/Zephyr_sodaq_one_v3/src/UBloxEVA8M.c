@@ -89,11 +89,6 @@ static ubloxeva8m_priv_t ubloxeva8m_priv;
 #define UBLOXEVA8M_STATE_CSUM_B 8
 
 /**
- * Size of a message payload
- */
-#define UBLOXEVA8M_MSG_PAYLOAD_BUFFER_SIZE 128
-
-/**
  * Size of a message
  */
 #define UBLOXEVA8M_MSG_BUFFER_SIZE (4 + UBLOXEVA8M_MSG_PAYLOAD_BUFFER_SIZE + 2)
@@ -134,21 +129,14 @@ static ubloxeva8m_priv_t ubloxeva8m_priv;
 static uint8_t current_state = 0;
 
 /**
- * Structure used to store a decoded message
- */
-typedef struct __attribute__((packed,aligned(1))) {
-	uint8_t class_id;
-	uint8_t message_id;
-	uint16_t length;
-	uint8_t payload[UBLOXEVA8M_MSG_PAYLOAD_BUFFER_SIZE];
-	uint16_t checksum;
-	uint16_t stored_length;
-} ubloxeva8m_ubx_msg;
-
-/**
  * Current UBX message being processed
  */
 static ubloxeva8m_ubx_msg current_msg;
+
+/**
+ * Callback function
+ */
+static ubloxeva8m_msg_callback msg_handler = NULL;
 
 /* Forward declarations */
 #ifdef DEBUG
@@ -284,6 +272,15 @@ static bool process_data(uint8_t data) {
 	return ret;
 }
 
+static void process_msg(ubloxeva8m_ubx_msg* msg) {
+#ifdef DEBUG
+	print_msg("process_msg: ", msg);
+#endif
+	if (msg_handler) {
+		msg_handler(msg);
+	}
+}
+
 static bool wait_for_messages(uint8_t* class_id, uint8_t* message_id, int nb) {
 	uint16_t nb_byte, csum;
 	uint8_t data;
@@ -376,7 +373,7 @@ static int send_msg(uint8_t class_id, uint8_t message_id, uint8_t* payload, uint
 	return UBLOXEVA8M_SUCCESS;
 }
 
-static int get_protocol_configuration(ubloxeva8m_port_configuration_ddc_t* msg) {
+static int get_protocol_configuration(ubloxeva8m_cfg_prt_t* msg) {
 	int status;
 
 	if (msg == NULL) {
@@ -407,7 +404,7 @@ static int get_protocol_configuration(ubloxeva8m_port_configuration_ddc_t* msg) 
 
 static int configure_protocol() {
 	int status;
-	ubloxeva8m_port_configuration_ddc_t msg;
+	ubloxeva8m_cfg_prt_t msg;
 
 	/* Read current configuration from device */
 	status = get_protocol_configuration(&msg);
@@ -436,7 +433,7 @@ static int configure_protocol() {
 
 static int configure_msg_rates(uint8_t class_id, uint8_t message_id, uint8_t rate) {
 	int status;
-	ubloxeva8m_set_msg_rate_t msg;
+	ubloxeva8m_cfg_msg_t msg;
 
 	msg.msgClass = class_id;
 	msg.msgID = message_id;
@@ -482,13 +479,11 @@ void ubloxeva8m_thread(void) {
 		if (ubloxeva8m_priv.is_thread_running) {
 			nb_byte = get_nb_available_data();
 			if (nb_byte > 0) {
+				/* Read a byte from the device stream */
 				data = read_stream_byte();
-				//DBG_PRINTK("%s: Read byte 0x%X\n", __func__, data);
 				if (process_data(data)) {
 					/* Message complete */
-#ifdef DEBUG
-					print_msg("Thread: ", &current_msg);
-#endif
+					process_msg(&current_msg);
 				}
 			}
 		}
@@ -602,6 +597,10 @@ int ubloxeva8m_start() {
 	ubloxeva8m_priv.is_thread_running = true;
 
 	return UBLOXEVA8M_SUCCESS;
+}
+
+void ubloxeva8m_set_callback(ubloxeva8m_msg_callback handler) {
+	msg_handler = handler;
 }
 
 /* Thread definition for the UBlox EVA 8M module */
