@@ -50,12 +50,17 @@ static struct device *lora_uart;
 /**
  * Thread stack size
  */
-#define STACKSIZE 1024
+#define RN2483_LORA_STACKSIZE 1024
 
 /**
  * Thread priority
  */
-#define PRIORITY 7
+#define RN2483_LORA_PRIORITY 7
+
+/**
+ * Amount of time the thread sleeps after each iterations
+ */
+#define RN2483_LORA_THREAD_SLEEP_MS 100
 
 /**
  *  Buffer size
@@ -121,6 +126,8 @@ static void rn2483_lora_irq_handler(struct device *dev) {
 void rn2483_lora_thread(void) {
 	char sent;
 
+	printk("%s\n", __func__);
+
 	while(1) {
 		if (rx_data_rdy) {
 			if (!ready_to_send) {
@@ -157,6 +164,7 @@ void rn2483_lora_thread(void) {
 			cmd_idx++;
 		}
 		/* TODO uart_err_check */
+		k_sleep(RN2483_LORA_THREAD_SLEEP_MS);
 	}
 }
 
@@ -285,4 +293,5 @@ int rn2483_lora_radio_tx(u8_t* data, u32_t size) {
 	return RN2483_LORA_SUCCESS;
 }
 
-K_THREAD_DEFINE(rn2483_lora_thread_id, STACKSIZE, rn2483_lora_thread, NULL, NULL, NULL, PRIORITY, 0, K_NO_WAIT);
+/* Thread definition for the RN2483 LoRa module */
+K_THREAD_DEFINE(rn2483_lora_thread_id, RN2483_LORA_STACKSIZE, rn2483_lora_thread, NULL, NULL, NULL, RN2483_LORA_PRIORITY, 0, K_NO_WAIT);

@@ -62,7 +62,7 @@ static lsm303agr_priv_t lsm303agr_priv;
 
 int lsm303agr_init(const char *device_name) {
 	lsm303agr_priv.i2c_dev = device_get_binding(device_name);
-	u32_t i2c_cfg = I2C_SPEED_SET(I2C_SPEED_STANDARD) | I2C_MODE_MASTER;
+	u32_t i2c_cfg = I2C_SPEED_SET(I2C_SPEED_FAST) | I2C_MODE_MASTER;
 
 	if (!lsm303agr_priv.i2c_dev) {
 		DBG_PRINTK("%s: Binding to i2c failed\n", __func__);

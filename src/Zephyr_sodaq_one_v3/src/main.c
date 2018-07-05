@@ -15,6 +15,7 @@
 
 #include "RN2483_lora.h"
 #include "LSM303AGR.h"
+#include "UBloxEVA8M.h"
 
 #define LORA_SPREADING_FACTOR "radio set sf sf7"
 #define LORA_POWER "radio set pwr 1"
@@ -73,11 +74,19 @@ void main(void)
 	rn2483_lora_wait_for_reply("radio_tx_ok");
 #endif
 
-	lsm303agr_init(CONFIG_I2C_SAM0_SERCOM3_LABEL);
+	ubloxeva8m_init(CONFIG_I2C_SAM0_SERCOM3_LABEL);
+	if (ubloxeva8m_start()) {
+		printk("Couldn't start UBLOXEVA8M\n");
+	}
+
+
+
+
+	/*lsm303agr_init(CONFIG_I2C_SAM0_SERCOM3_LABEL);
 	printk("LSM303AGR Accelerometer Device ID: %X\n", lsm303agr_accel_get_device_id());
 	printk("LSM303AGR Magnetometer Device ID: %X\n", lsm303agr_mag_get_device_id());
 	lsm303agr_accel_enable(LSM303AGR_NORMAL_MODE, LSM303AGR_HIGH_RES_100HZ, false, (LSM303AGR_Z_AXIS | LSM303AGR_Y_AXIS | LSM303AGR_X_AXIS));
-
+*/
 	while(1) {
 		//printk("Hello World! %s\n", CONFIG_ARCH);
 		gpio_pin_write(led2, LED2_GPIO_PIN, 1);
