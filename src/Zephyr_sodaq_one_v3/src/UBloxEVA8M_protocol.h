@@ -81,6 +81,7 @@ typedef struct __attribute__((packed,aligned(1))) {
 /* UBLOXEVA8M_CLASS_CFG */
 #define UBLOXEVA8M_MSG_CFG_PRT 0x00
 #define UBLOXEVA8M_MSG_CFG_MSG 0x01
+#define UBLOXEVA8M_MSG_CFG_NAV5 0x24
 
 /**
  * UBX-CFG-PRT
@@ -97,6 +98,11 @@ typedef struct __attribute__((packed,aligned(1))) {
     uint16_t    reserved5;
 } ubloxeva8m_cfg_prt_t;
 
+/* ubloxeva8m_cfg_prt_t - outProtoMask */
+#define UBLOXEVA8M_CFG_PRT_OUTPROTOMASK_UBX_MASK (1 << 0)
+#define UBLOXEVA8M_CFG_PRT_OUTPROTOMASK_NMEA_MASK (1 << 1)
+#define UBLOXEVA8M_CFG_PRT_OUTPROTOMASK_RTCM3_MASK (1 << 5)
+
 /**
  * UBX-CFG-MSG
  */
@@ -106,11 +112,42 @@ typedef struct __attribute__((packed,aligned(1))) {
 	uint8_t rate;
 } ubloxeva8m_cfg_msg_t;
 
-/* ubloxeva8m_port_configuration_ddc_t - outProtoMask */
-#define UBLOXEVA8M_CFG_PRT_OUTPROTOMASK_UBX_MASK (1 << 0)
-#define UBLOXEVA8M_CFG_PRT_OUTPROTOMASK_NMEA_MASK (1 << 1)
-#define UBLOXEVA8M_CFG_PRT_OUTPROTOMASK_RTCM3_MASK (1 << 5)
+/**
+ * UBX-CFG-NAV5
+ */
+typedef struct __attribute__((packed,aligned(1))) {
+	uint16_t mask;
+	uint8_t dynModel;
+	uint8_t fixMode;
+	int32_t fixedAlt;
+	uint32_t fixedAltVar;
+	int8_t minElev;
+	uint8_t drLimit;
+	uint16_t pDop;
+	uint16_t tDop;
+	uint16_t pAcc;
+	uint16_t tAcc;
+	uint8_t staticHoldThresh;
+	uint8_t dgnssTimeout;
+	uint8_t cnoThreshNumSVs;
+	uint8_t cnoThresh;
+	uint8_t reserved1[2];
+	uint16_t staticHoldMaxDist;
+	uint8_t utcStandard;
+	uint8_t reserved2[5];
+} ubloxeva8m_cfg_nav5_t;
 
+/* ubloxeva8m_cfg_nav5_t - mask */
+#define UBLOXEVA8M_CFG_NAV5_MASK_DYN_MASK (1 << 0)
+#define UBLOXEVA8M_CFG_NAV5_MASK_MINEL_MASK (1 << 1)
+#define UBLOXEVA8M_CFG_NAV5_MASK_POSFIXMODE_MASK (1 << 2)
+#define UBLOXEVA8M_CFG_NAV5_MASK_DRLIM_MASK (1 << 3)
+#define UBLOXEVA8M_CFG_NAV5_MASK_POSMASK_MASK (1 << 4)
+#define UBLOXEVA8M_CFG_NAV5_MASK_TIMEMASK_MASK (1 << 5)
+#define UBLOXEVA8M_CFG_NAV5_MASK_STATICHOLDMASK_MASK (1 << 6)
+#define UBLOXEVA8M_CFG_NAV5_MASK_DGPSMASK_MASK (1 << 7)
+#define UBLOXEVA8M_CFG_NAV5_MASK_CNOTHRESHOLD_MASK (1 << 8)
+#define UBLOXEVA8M_CFG_NAV5_MASK_UTC_MASK (1 << 10)
 
 
 #endif /* SRC_UBLOXEVA8M_PROTOCOL_H_ */

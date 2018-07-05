@@ -291,13 +291,12 @@ static bool wait_for_messages(uint8_t* class_id, uint8_t* message_id, int nb) {
 		if (nb_byte > 0) {
 			data = read_stream_byte();
 			if (process_data(data)) {
+#ifdef DEBUG
+				print_msg("Waited for", &current_msg);
+#endif
 				/* Verify checksum */
 				csum = calc_csum((uint8_t*)&current_msg, current_msg.length + UBLOXEVA8M_CLASS_ID_SIZE + UBLOXEVA8M_MSG_ID_SIZE + UBLOXEVA8M_LENGTH_SIZE);
 				if (csum == current_msg.checksum) {
-#ifdef DEBUG
-					/* Message complete */
-					print_msg("Waited for ", &current_msg);
-#endif
 					for (int i = 0; i < nb; i++) {
 						if (current_msg.class_id == class_id[i] && current_msg.message_id == message_id[i]) {
 							found = true;
@@ -601,6 +600,27 @@ int ubloxeva8m_start() {
 
 void ubloxeva8m_set_callback(ubloxeva8m_msg_callback handler) {
 	msg_handler = handler;
+}
+
+int ubloxeva8m_set_dynamic_model(ubloxeva8m_dynamic_models dyn_model) {
+	ubloxeva8m_cfg_nav5_t msg;
+	int status;
+
+	msg.mask = UBLOXEVA8M_CFG_NAV5_MASK_DYN_MASK;
+	msg.dynModel = dyn_model;
+
+	status = send_msg(UBLOXEVA8M_CLASS_CFG, UBLOXEVA8M_MSG_CFG_NAV5, (uint8_t*)&msg, sizeof(msg));
+	if (status) {
+		return status;
+	}
+
+	/* Wait for Acknowledgment */
+	if (!wait_for_ack()) {
+		DBG_PRINTK("%s: Module returned NACK\n", __func__);
+		return UBLOXEVA8M_NACK;
+	}
+
+	return UBLOXEVA8M_SUCCESS;
 }
 
 /* Thread definition for the UBlox EVA 8M module */

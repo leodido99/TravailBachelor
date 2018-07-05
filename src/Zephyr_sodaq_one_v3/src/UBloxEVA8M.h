@@ -41,6 +41,21 @@ typedef struct __attribute__((packed,aligned(1))) {
 } ubloxeva8m_ubx_msg;
 
 /**
+ * The dynamic models that can be configured
+ */
+typedef enum {
+	UBLOXEVA8M_DYNMODEL_PORTABLE,
+	UBLOXEVA8M_DYNMODEL_STATIONARY = 2,
+	UBLOXEVA8M_DYNMODEL_PEDESTRIAN,
+	UBLOXEVA8M_DYNMODEL_AUTOMOTIVE,
+	UBLOXEVA8M_DYNMODEL_AT_SEA,
+	UBLOXEVA8M_DYNMODEL_AIRBORNE_1G,
+	UBLOXEVA8M_DYNMODEL_AIRBORNE_2G,
+	UBLOXEVA8M_DYNMODEL_AIRBORNE_4G,
+	UBLOXEVA8M_DYNMODEL_WRIST
+} ubloxeva8m_dynamic_models;
+
+/**
  * Type used for the callbacks
  * @param msg Message received
  */
@@ -81,5 +96,12 @@ bool ubloxeva8m_is_alive();
  * Sets a callback function on message received
  */
 void ubloxeva8m_set_callback(ubloxeva8m_msg_callback handler);
+
+/**
+ * Sets the dynamic model to be used by the module
+ * @param dyn_model
+ * @return
+ */
+int ubloxeva8m_set_dynamic_model(ubloxeva8m_dynamic_models dyn_model);
 
 #endif /* SRC_UBLOXEVA8M_H_ */
