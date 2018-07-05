@@ -143,6 +143,30 @@ static ubloxeva8m_msg_callback msg_handler = NULL;
 static void print_msg(char* txt, ubloxeva8m_ubx_msg* msg);
 #endif
 
+#define UBLOXEVA8M_NB_CLASS_IDS 4
+#define UBLOXEVA8M_NB_MSG_IDS 4
+
+typedef struct {
+	uint8_t class_ids[UBLOXEVA8M_NB_CLASS_IDS];
+	uint8_t message_ids[UBLOXEVA8M_NB_MSG_IDS];
+	int nb;
+	ubloxeva8m_ubx_msg* msg_recv;
+} ubloxeva8m_wait_for_t;
+
+static ubloxeva8m_wait_for_t wait_for;
+
+/**
+ * Define semaphore used for wait for mechanism
+ */
+K_SEM_DEFINE(sem_wait_for, 0, 1);
+
+typedef struct {
+	uint8_t msg[UBLOXEVA8M_MSG_BUFFER_SIZE];
+	int length;
+} ubloxeva8m_send_msg_t;
+
+static ubloxeva8m_send_msg_t msg_to_send;
+
 static uint16_t calc_csum(uint8_t* data, uint16_t length) {
 	uint8_t csum_a = 0, csum_b = 0;
 	for(int i = 0; i < length; i++) {
@@ -161,12 +185,12 @@ static uint16_t get_nb_available_data() {
 		return 0;
 	}
 	if (i2c_reg_read_byte(ubloxeva8m_priv.i2c_dev, UBLOXEVA8M_ADDR, UBLOXEVA8M_NB_BYTES_STREAM_ADDR, &tmp)) {
-		DBG_PRINTK("%s: Register access failed\n", __func__);
+		DBG_PRINTK("%s: Register #1 access failed\n", __func__);
 		return 0;
 	}
 	reg = tmp << 8;
 	if (i2c_reg_read_byte(ubloxeva8m_priv.i2c_dev, UBLOXEVA8M_ADDR, UBLOXEVA8M_NB_BYTES_STREAM_ADDR + 1, &tmp)) {
-		DBG_PRINTK("%s: Register access failed\n", __func__);
+		DBG_PRINTK("%s: Register #2 access failed\n", __func__);
 		return 0;
 	}
 	reg |= tmp;
@@ -276,46 +300,43 @@ static void process_msg(ubloxeva8m_ubx_msg* msg) {
 #ifdef DEBUG
 	print_msg("process_msg: ", msg);
 #endif
+
+	for(int i = 0; i < wait_for.nb; i++) {
+		if (wait_for.class_ids[i] == msg->class_id && wait_for.message_ids[i] == msg->message_id) {
+#ifdef DEBUG
+			print_msg("Waited for", msg);
+#endif
+			if (wait_for.msg_recv != NULL) {
+				memcpy(wait_for.msg_recv, msg, sizeof(msg));
+			}
+			wait_for.nb = 0;
+			k_sem_give(&sem_wait_for);
+			break;
+		}
+	}
 	if (msg_handler) {
 		msg_handler(msg);
 	}
 }
 
-static bool wait_for_messages(uint8_t* class_id, uint8_t* message_id, int nb) {
-	uint16_t nb_byte, csum;
-	uint8_t data;
-	bool found = false;
-
-	while(!found) {
-		nb_byte = get_nb_available_data();
-		if (nb_byte > 0) {
-			data = read_stream_byte();
-			if (process_data(data)) {
-#ifdef DEBUG
-				print_msg("Waited for", &current_msg);
-#endif
-				/* Verify checksum */
-				csum = calc_csum((uint8_t*)&current_msg, current_msg.length + UBLOXEVA8M_CLASS_ID_SIZE + UBLOXEVA8M_MSG_ID_SIZE + UBLOXEVA8M_LENGTH_SIZE);
-				if (csum == current_msg.checksum) {
-					for (int i = 0; i < nb; i++) {
-						if (current_msg.class_id == class_id[i] && current_msg.message_id == message_id[i]) {
-							found = true;
-							break;
-						}
-					}
-				} else {
-					/* Checksum error! */
-					DBG_PRINTK("%s: Packet checksum error (Expected 0x%X Actual 0x%X)\n", __func__, csum, current_msg.checksum);
-					return false;
-				}
-			}
-		}
+static bool wait_for_messages(uint8_t* class_id, uint8_t* message_id, int nb, ubloxeva8m_ubx_msg* msg_recv) {
+	if (wait_for.nb > 0) {
+		DBG_PRINTK("%s: Already waiting!\n", __func__);
+		return false;
 	}
+	wait_for.nb = nb;
+	wait_for.msg_recv = msg_recv;
+	for(int i = 0; i < wait_for.nb; i++) {
+		wait_for.class_ids[i] = class_id[i];
+		wait_for.message_ids[i] = message_id[i];
+	}
+	/* Wait for message */
+	k_sem_take(&sem_wait_for, K_FOREVER);
 	return true;
 }
 
-static bool wait_for_message(uint8_t class_id, uint8_t message_id) {
-	return wait_for_messages(&class_id, &message_id, 1);
+static bool wait_for_message(uint8_t class_id, uint8_t message_id, ubloxeva8m_ubx_msg* msg_recv) {
+	return wait_for_messages(&class_id, &message_id, 1, msg_recv);
 }
 
 /**
@@ -325,12 +346,13 @@ static bool wait_for_message(uint8_t class_id, uint8_t message_id) {
 static bool wait_for_ack() {
 	uint8_t class_ids[2] = { UBLOXEVA8M_CLASS_ACK, UBLOXEVA8M_CLASS_ACK };
 	uint8_t message_ids[2] = { UBLOXEVA8M_MSG_ACK_ACK, UBLOXEVA8M_MSG_ACK_NAK };
+	ubloxeva8m_ubx_msg msg_recv;
 
-	if (wait_for_messages(class_ids, message_ids, 2)) {
-		if (current_msg.class_id == UBLOXEVA8M_CLASS_ACK && current_msg.message_id == UBLOXEVA8M_MSG_ACK_ACK) {
+	if (wait_for_messages(class_ids, message_ids, 2, &msg_recv)) {
+		if (msg_recv.class_id == UBLOXEVA8M_CLASS_ACK && msg_recv.message_id == UBLOXEVA8M_MSG_ACK_ACK) {
 			return true;
 		}
-		if (current_msg.class_id == UBLOXEVA8M_CLASS_ACK && current_msg.message_id == UBLOXEVA8M_MSG_ACK_NAK) {
+		if (msg_recv.class_id == UBLOXEVA8M_CLASS_ACK && msg_recv.message_id == UBLOXEVA8M_MSG_ACK_NAK) {
 			return false;
 		}
 	}
@@ -338,37 +360,34 @@ static bool wait_for_ack() {
 }
 
 static int send_msg(uint8_t class_id, uint8_t message_id, uint8_t* payload, uint16_t length) {
-	uint8_t msg_buf[UBLOXEVA8M_MSG_BUFFER_SIZE];
 	uint16_t csum;
 
+	if (msg_to_send.length > 0) {
+		DBG_PRINTK("%s: I2C Busy\n", __func__);
+		return UBLOXEVA8M_BUSY;
+	}
 	/* Create message */
-	msg_buf[0] = UBLOXEVA8M_SYNCH_CHAR_1;
-	msg_buf[1] = UBLOXEVA8M_SYNCH_CHAR_2;
-	msg_buf[2] = class_id;
-	msg_buf[3] = message_id;
+	msg_to_send.msg[0] = UBLOXEVA8M_SYNCH_CHAR_1;
+	msg_to_send.msg[1] = UBLOXEVA8M_SYNCH_CHAR_2;
+	msg_to_send.msg[2] = class_id;
+	msg_to_send.msg[3] = message_id;
 	/* Little endian */
 	/* 0x0102 */
-	msg_buf[4] = length & 0xFF;
-	msg_buf[5] = length >> 8;
+	msg_to_send.msg[4] = length & 0xFF;
+	msg_to_send.msg[5] = length >> 8;
 	/* Copy payload */
-	memcpy(&msg_buf[6], payload, length);
-	csum = calc_csum(&msg_buf[2], length + 4);
-	msg_buf[6 + length] = csum >> 8;
-	msg_buf[6 + 1 + length] = csum & 0xFF;
-
+	memcpy(&msg_to_send.msg[6], payload, length);
+	csum = calc_csum(&msg_to_send.msg[2], length + 4);
+	msg_to_send.msg[6 + length] = csum >> 8;
+	msg_to_send.msg[6 + 1 + length] = csum & 0xFF;
 #ifdef DEBUG
 	DBG_PRINTK("%s: Sending: ", __func__);
 	for(int i = 0; i < (length + UBLOXEVA8M_MSG_PARAM_SIZE); i++) {
-		DBG_PRINTK("%02X", msg_buf[i]);
+		DBG_PRINTK("%02X", msg_to_send.msg[i]);
 	}
 	DBG_PRINTK("\n");
 #endif
-
-	/* Send message over i2c */
-	if (i2c_write(ubloxeva8m_priv.i2c_dev, msg_buf, length + UBLOXEVA8M_MSG_PARAM_SIZE, UBLOXEVA8M_ADDR)) {
-		DBG_PRINTK("%s: I2C access failed\n", __func__);
-		return UBLOXEVA8M_I2C_ACCESS_FAILED;
-	}
+	msg_to_send.length = length + UBLOXEVA8M_MSG_PARAM_SIZE;
 	return UBLOXEVA8M_SUCCESS;
 }
 
@@ -387,7 +406,7 @@ static int get_protocol_configuration(ubloxeva8m_cfg_prt_t* msg) {
 	}
 
 	/* Wait for device answer containing the payload */
-	wait_for_message(UBLOXEVA8M_CLASS_CFG, UBLOXEVA8M_MSG_CFG_PRT);
+	wait_for_message(UBLOXEVA8M_CLASS_CFG, UBLOXEVA8M_MSG_CFG_PRT, NULL);
 
 	/* Wait for Acknowledgment */
 	if (!wait_for_ack()) {
@@ -399,6 +418,15 @@ static int get_protocol_configuration(ubloxeva8m_cfg_prt_t* msg) {
 	memcpy(msg, &current_msg.payload, current_msg.length);
 
 	return UBLOXEVA8M_SUCCESS;
+}
+
+static void flush_stream() {
+	uint16_t nb_byte;
+	uint8_t data;
+	nb_byte = get_nb_available_data();
+	for(int i = 0; i < nb_byte; i++) {
+		data = read_stream_byte();
+	}
 }
 
 static int configure_protocol() {
@@ -459,15 +487,6 @@ static bool is_data_available() {
 	return false;
 }
 
-static void flush_stream() {
-	uint16_t nb_byte;
-	uint8_t data;
-	nb_byte = get_nb_available_data();
-	for(int i = 0; i < nb_byte; i++) {
-		data = read_stream_byte();
-	}
-}
-
 void ubloxeva8m_thread(void) {
 	uint16_t nb_byte;
 	uint8_t data;
@@ -478,12 +497,22 @@ void ubloxeva8m_thread(void) {
 		if (ubloxeva8m_priv.is_thread_running) {
 			nb_byte = get_nb_available_data();
 			if (nb_byte > 0) {
-				/* Read a byte from the device stream */
-				data = read_stream_byte();
-				if (process_data(data)) {
-					/* Message complete */
-					process_msg(&current_msg);
+				for(int i = 0; i < nb_byte; i++) {
+					/* Read a byte from the device stream */
+					data = read_stream_byte();
+					if (process_data(data)) {
+						/* Message complete */
+						process_msg(&current_msg);
+					}
 				}
+			}
+			/* Check if new command to send */
+			if (msg_to_send.length > 0) {
+				/* Send message over i2c */
+				if (i2c_write(ubloxeva8m_priv.i2c_dev, msg_to_send.msg, msg_to_send.length, UBLOXEVA8M_ADDR)) {
+					DBG_PRINTK("%s: I2C access failed\n", __func__);
+				}
+				msg_to_send.length = 0;
 			}
 		}
 		k_sleep(UBLOXEVA8M_THREAD_SLEEP_MS);
@@ -505,6 +534,7 @@ int ubloxeva8m_init(const char *device_name) {
 
 	current_state = 0;
 	ubloxeva8m_priv.is_thread_running = false;
+	wait_for.nb = 0;
 
 	/* Configure I2C Device */
 	if (!ubloxeva8m_priv.i2c_dev) {
@@ -580,6 +610,9 @@ int ubloxeva8m_start() {
 	/* Flush the stream */
 	flush_stream();
 
+	/* Start thread */
+	ubloxeva8m_priv.is_thread_running = true;
+
 	/* Configure protocol */
 	status = configure_protocol();
 	if (status != UBLOXEVA8M_SUCCESS) {
@@ -591,9 +624,6 @@ int ubloxeva8m_start() {
 	if (status != UBLOXEVA8M_SUCCESS) {
 		return status;
 	}
-
-	/* Start thread */
-	ubloxeva8m_priv.is_thread_running = true;
 
 	return UBLOXEVA8M_SUCCESS;
 }

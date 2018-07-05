@@ -22,6 +22,7 @@
 #define UBLOXEVA8M_NOT_ANSWERING -6
 #define UBLOXEVA8M_NULL_POINTER -7
 #define UBLOXEVA8M_NACK -8
+#define UBLOXEVA8M_BUSY -9
 
 /**
  * Size of a message payload
