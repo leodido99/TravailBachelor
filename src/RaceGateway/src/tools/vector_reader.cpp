@@ -10,6 +10,7 @@
 #include "vector_reader.h"
 
 #include <stdexcept>
+#include <cstring>
 
 vector_reader::vector_reader(const std::vector<unsigned char>& data) : data(data) {
 	this->curr_pos = 0;
@@ -63,6 +64,24 @@ uint64_t vector_reader::get_next_64bits() {
 	return result;
 }
 
+double vector_reader::get_next_double() {
+	double result = 0;
+	uint64_t tmp = this->get_next_64bits();
+	memcpy(&result, &tmp, sizeof(uint64_t));
+	return result;
+}
+
 int vector_reader::get_size_left() {
 	return this->data.size() - this->curr_pos;
+}
+
+uint8_t vector_reader::get_next_8bits() {
+	uint8_t result = 0;
+	if ((unsigned)this->get_size_left() >= sizeof(uint8_t)) {
+		result = data[this->curr_pos];
+		this->curr_pos += sizeof(uint8_t);
+	} else {
+		throw std::runtime_error("Not enough data");
+	}
+	return result;
 }

@@ -32,14 +32,17 @@ test_mode_handler::~test_mode_handler() {
 
 void test_mode_handler::handle(lora_rxpk_parser* rxpk) {
 	vector_reader myreader(rxpk->get_decoded_data());
-	double lat, lon;
+	double lat, lon, hdop;
+	uint8_t nb_sv;
 	uint32_t cnt;
 	std::string status("OK");
 
 	if (myreader.get_next_32bits() == TEST_MODE_FIX_VAL1 && myreader.get_next_32bits() == TEST_MODE_FIX_VAL2) {
 		/* Extract lat/lon + counter */
-		lat = myreader.get_next_64bits();
-		lon = myreader.get_next_64bits();
+		lat = myreader.get_next_double();
+		lon = myreader.get_next_double();
+		nb_sv = myreader.get_next_8bits();
+		hdop = myreader.get_next_double();
 		cnt = myreader.get_next_32bits();
 		if (!this->init) {
 			this->init = true;
@@ -52,9 +55,9 @@ void test_mode_handler::handle(lora_rxpk_parser* rxpk) {
 			this->exp_cnt = cnt + 1;
 		}
 		/* Save data point */
-		this->positions.push_back(new test_mode_record(std::string("Packet #") + std::to_string(this->tot_pkt), lat, lon, cnt, rxpk));
+		this->positions.push_back(new test_mode_record(std::string("Packet #") + std::to_string(this->tot_pkt), lat, lon, hdop, nb_sv, cnt, rxpk));
 		this->tot_pkt++;
-		log(logDEBUG1) << "test_mode_handler::handle: status=" << status << " cnt=" << cnt << " expcnt=" << this->exp_cnt << " tot_pkt=" << this->tot_pkt << " lat=" << lat << " lon=" << lon;
+		log(logINFO) << "test_mode_handler::handle: status=" << status << " cnt=" << cnt << " expcnt=" << this->exp_cnt << " tot_pkt=" << this->tot_pkt << " lat=" << lat << " lon=" << lon << " hdop=" << hdop << " nb_sv=" << unsigned(nb_sv);
 	} else {
 		this->nb_discarded++;
 	}

@@ -17,11 +17,13 @@ class test_mode_record {
 private:
     double lat;
     double lon;
+    double hdop;
+    uint8_t nb_sv;
     int cnt;
     lora_rxpk_parser* pkt;
     std::string name;
 public:
-	test_mode_record(std::string name, double lat, double lon, uint32_t cnt, lora_rxpk_parser* pkt);
+	test_mode_record(std::string name, double lat, double lon, double hdop, uint8_t nb_sv, uint32_t cnt, lora_rxpk_parser* pkt);
 	virtual ~test_mode_record();
 	std::string get_line();
 };

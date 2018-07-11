@@ -43,7 +43,7 @@ bool found_fix = false;
 #define GPS_DELAY (10 * 1000)
 
 /* Time between two packets in ms */
-#define PKT_DELAY (15 * 1000)
+#define PKT_DELAY (10 * 1000)
 
 /* Time to wait between two commands */
 #define CMD_DELAY 15
@@ -280,7 +280,7 @@ String conv64BitToHex(uint64_t val) {
     return convBytesToHex(mybytes, sizeof(val));
 }
 
-String construct_pkt_str(uint32_t cnt_val, double lat, double lon) {
+String construct_pkt_str(uint32_t cnt_val, double lat, double lon, uint8_t nb_sv, double hdop) {
   String pkt_payload;
   uint64_t* p_dbl;
   /* Fixed values */
@@ -292,6 +292,11 @@ String construct_pkt_str(uint32_t cnt_val, double lat, double lon) {
   /* Longitude */
   p_dbl = (uint64_t*)&lon;
   pkt_payload += conv64BitToHex(*p_dbl);
+  /* Nb Satellites */
+  pkt_payload += convByteToHex(nb_sv);
+  /* Horizontal Dilution of precision */
+  p_dbl = (uint64_t*)&hdop;
+  pkt_payload += conv64BitToHex(*p_dbl);
   /* Add counter */  
   pkt_payload += conv32BitToHex(cnt_val);
   return pkt_payload;
@@ -302,10 +307,12 @@ void send_pkt(uint32_t cnt_val) {
   /* Update GPS info */  
   double lat = sodaq_gps.getLat();
   double lon = sodaq_gps.getLon();
+  double hdop = sodaq_gps.getHDOP();
+  uint8_t nb_sv = sodaq_gps.getNumberOfSatellites();
   /* Construct packet */
-  cmd += construct_pkt_str(cnt_val, lat, lon);
+  cmd += construct_pkt_str(cnt_val, lat, lon, nb_sv, hdop);
   radio_tx(cmd);
-  debugSerial.println(String("cnt=") + String(cnt_val) + String(" lat=") + String(lat) + String(" lon =") + String(lon) + String(" found_fix=") + String(found_fix));
+  debugSerial.println(String("cnt=") + String(cnt_val) + String(" lat=") + String(lat) + String(" lon=") + String(lon) + String(" hdop=") + String(hdop) + String(" nb_sv=") + String(nb_sv) + String(" found_fix=") + String(found_fix));
 }
 
 void loop() {

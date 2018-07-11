@@ -35,6 +35,12 @@ public:
 	void reset();
 
 	/**
+	 * Read the next 8 bits
+	 * @return
+	 */
+	uint8_t get_next_8bits();
+
+	/**
 	 * Read the next 16 bits
 	 * @return
 	 */
@@ -51,6 +57,12 @@ public:
 	 * @return
 	 */
 	uint64_t get_next_64bits();
+
+	/**
+	 * Read the next double
+	 * @return
+	 */
+	double get_next_double();
 };
 
 #endif /* SRC_TOOLS_VECTOR_READER_H_ */
