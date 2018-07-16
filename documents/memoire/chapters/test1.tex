@@ -22,17 +22,22 @@ Afin de pouvoir s'assurer de la bonne réception des données le capteur, à int
 \label{fig:test1_paquet}
 \end{figure}
 
-Un programme de test, utilisant le système de développement Arduino IDE proposant un framework pour les cartes Arduino est réalisé. Son comportement est très simple, il se contente d'envoyer un paquet de données LoRa puis d'attendre un certain temps, au terme duquel le cycle recommence. Le paquet envoyé par le capteur commence par deux valeurs fixes suivi de la latitude/longitude du capteur au moment de l'envoie du paquet et pour terminer la valeur du compteur. Cela permettra à la passerelle de détecter quand un paquet est perdu et ainsi garder des statistiques afin de pouvoir jauger la qualité de la transmission.
+Un programme de test, utilisant le système de développement Arduino IDE proposant un framework pour les cartes Arduino est réalisé. Son comportement est très simple, il se contente d'envoyer un paquet de données LoRa puis d'attendre un certain temps, au terme duquel le cycle recommence. Le paquet envoyé par le capteur commence par deux valeurs fixes suivi de la latitude/longitude du capteur au moment de l'envoie du paquet. Ces deux éléments sont suivis du HDOP, ou Horizontal Dilution of Precision, qui exprime le degré de précision de la position GPS. Pour terminer, la valeur du compteur est ajouté au paquet ce qui permettra à la passerelle de détecter quand un paquet est perdu et ainsi garder des statistiques afin de pouvoir jauger la qualité de la transmission.
 
-Du côté de la passerelle, le packet forwarder, logiciel repris depuis internet, est configuré et mis en œuvre. Il récupére les paquets LoRa reçu et les transmets par le biais d'un paquet UDP. Une partie du serveur d'application est développée qui permet à la passerelle de récupérer les paquets LoRa émit par le packet forwarder et d'en analyser le contenu. A chaque paquet reçu la passerelle s'assure que la valeur du compteur est bien celle attendu, si ce n'est pas le cas cela signifie qu'un ou plusieurs paquets ont été perdu. Cette partie du serveur d'application servira de base pour le développement final de l'application.
+Du côté de la passerelle, le packet forwarder, logiciel repris depuis internet, est configuré et mis en œuvre. Il récupère les paquets LoRa reçu et les transmets par le biais d'un paquet UDP. Une partie du serveur d'application est développée qui permet à la passerelle de récupérer les paquets LoRa émit par le packet forwarder et d'en analyser le contenu. A chaque paquet reçu la passerelle s'assure que le paquet est en provenance du capteur en vérifiant la valeur des deux marqueurs de début, ensuite la valeur du compteur est vérifiée pour s'assurer que c'est bien celle attendue, si ce n'est pas le cas cela signifie qu'un ou plusieurs paquets ont été perdus. Cette partie du serveur d'application servira de base pour le développement final de l'application. Au moyen d'un shell implémenté dans le serveur de paquet, il est possible à tout moment de sauver le contenu des paquets reçu jusqu'ici dans un fichier, cela permet ensuite d'en extraire les positions GPS afin de les afficher dans un logiciel comme Google Earth par exemple.
 
 \section{Scénarios}
 
-Deux scénarios distinct sont réalisé en utilisant le système expliquer dans la section précédente. Ils sont décrit en détails dans les paragraphes suivants.
+Deux scénarios distinct sont réalisés en utilisant le système expliqué dans la section précédente. Ils seront effectués deux fois chacun, une fois avec la valeur d'étalement de spectre (spreading factor) avec la plus petite valeur et une fois avec la plus grande valeur, cela permettra de jauger quelle configuration sera nécessaire pour la version finale du capteur.
 
-\subsection{Test statique}
+\subsection{Test piste}
 
 
+
+
+
+
+\subsection{Test distance}
 
 
 
