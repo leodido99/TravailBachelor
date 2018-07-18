@@ -1,4 +1,4 @@
-\chapter{Test 1}
+\chapter{Test Phase 1}
 
 Comme décrit dans la pré-étude, afin de valider la phase 1 du développement du projet, un test impliquant le capteur choisi ainsi que la passerelle est effectué afin de s'assurer que les deux éléments sont capable de remplir les tâches qui leurs sont attribuées pour le projet. Si le test est concluant alors la solution matérielle choisie peut être validée pour la suite du développement. Dans le cas contraire le matériel doit être changé afin de pouvoir garantir une solution adéquate.
 
@@ -30,14 +30,30 @@ Du côté de la passerelle, le packet forwarder, logiciel repris depuis internet
 
 Deux scénarios distinct sont réalisés en utilisant le système expliqué dans la section précédente. Ils seront effectués deux fois chacun, une fois avec la valeur d'étalement de spectre (spreading factor) avec la plus petite valeur et une fois avec la plus grande valeur, cela permettra de jauger quelle configuration sera nécessaire pour la version finale du capteur.
 
-\subsection{Test piste}
+Le premier test est le test sur piste", il consiste à prendre le capteur et ensuite de marcher le long du parcours d'une piste d'athlétisme. L'objectif de ce test est de voir si dans des conditions proches de l'utilisation finale pour le projet les données sont reçues correctement et de pouvoir également juger de la configuration finale que le système devra utiliser.
+
+Le deuxième test est appellé test de distance, l'objectif et de pouvoir évaluer la distance maximum de fonctionnement jusqu'à laquelle les paquets sont bien reçus. Pour se faire, le capteur sera déplacé sur une ligne droite jusqu'à un point fixé puis il sera ensuite retourné au point de départ.
+
+\subsection{Résultats}
+
+Les résultats des tests décrit dans cette section on été réalisés à la place d'arme de Planeyse à Neuchâtel le 13 Juillet 2018. Cette endroit dispose de grandes surfaces plane et également d'une piste proposant des conditions très proche d'une piste d'athlétisme. C'est donc un endroit idéal réunissant les besoins nécessaire.
+
+\begin{table}[htb]
+\caption[Résultats de phase de test 1]{Résultats de phase de test 1}
+\label{tab:resultat_test_1}
+\centering
+\begin{tabular}{ l | l }
+\toprule
+Test Piste & Planeyse 13.07.2018  \\
+\midrule
+Microcontrôleur & ATSAMD21G18 – ARM Cortex M0 \\
+\bottomrule 
+\end{tabular}
+\end{table}
 
 
 
 
-
-
-\subsection{Test distance}
 
 
 
