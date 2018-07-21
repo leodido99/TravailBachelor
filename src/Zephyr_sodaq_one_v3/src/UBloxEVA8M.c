@@ -11,6 +11,9 @@
 #include "UBloxEVA8M.h"
 
 #include "debug.h"
+
+#define DEBUG DEBUG_UBLOXEVA8M
+
 #include "UBloxEVA8M_protocol.h"
 
 #include <i2c.h>
@@ -483,7 +486,7 @@ void ubloxeva8m_thread(void) {
 	uint16_t nb_byte;
 	uint8_t data;
 
-	printk("%s\n", __func__);
+	DBG_PRINTK("%s: Enter thread\n", __func__);
 
 	while(1) {
 		if (ubloxeva8m_priv.is_thread_running) {

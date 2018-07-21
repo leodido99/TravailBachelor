@@ -10,7 +10,9 @@
 #ifndef SRC_DEBUG_H_
 #define SRC_DEBUG_H_
 
-#define DEBUG 1
+#define DEBUG_RN2483_LORA 1
+#define DEBUG_LSM303AGR 1
+#define DEBUG_UBLOXEVA8M 1
 
 #define DBG_PRINTK(fmt, ...) \
             do { if (DEBUG) printk(fmt, ## __VA_ARGS__); } while (0)

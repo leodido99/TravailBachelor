@@ -18,10 +18,11 @@
 #include "LSM303AGR.h"
 #include "UBloxEVA8M.h"
 
-#define LORA_SPREADING_FACTOR "radio set sf sf7"
-#define LORA_POWER "radio set pwr 1"
+#define LORA_SPREADING_FACTOR "sf7"
+#define LORA_POWER 1
 
-#ifdef DEBUG
+#ifdef DEBUG_UBLOXEVA8M
+#define DEBUG DEBUG_UBLOXEVA8M
 static void print_nav_pvt_msg(char *txt, ubloxeva8m_nav_pvt_t* msg);
 #endif
 
@@ -56,7 +57,7 @@ void main(void)
 	gpio_pin_write(led1, LED1_GPIO_PIN, 1);
 	gpio_pin_write(led2, LED2_GPIO_PIN, 1);
 
-#if 0
+#if 1
 	if (rn2483_lora_init(CONFIG_UART_SAM0_SERCOM2_LABEL)) {
 		printk("Couldn't initialize LoRa\n");
 	} else {
@@ -64,31 +65,33 @@ void main(void)
 	}
 	/* Setup the RN2483 for radio */
 	/* Pause mac layer */
-	if (rn2483_lora_cmd("mac pause\r\n")) {
-		printk("Couldn't mac pause\n");
+	if (rn2483_lora_pause_mac()) {
+		printk("Couldn't pause mac\n");
 	}
-	rn2483_lora_wait_for_any_reply();
+
 	/* Set spreading factor */
-	if (rn2483_lora_cmd(LORA_SPREADING_FACTOR)) {
+	if (rn2483_lora_radio_set_sf(LORA_SPREADING_FACTOR)) {
 		printk("Couldn't set spreading factor\n");
 	}
-	rn2483_lora_wait_for_reply("ok");
-	/* Set power output */
-	if (rn2483_lora_cmd(LORA_POWER)) {
-		printk("Couldn't set power output\n");
-	}
-	rn2483_lora_wait_for_reply("ok");
 
-	rn2483_lora_radio_tx(data_buf, 5);
-	rn2483_lora_wait_for_reply("radio_tx_ok");
+	/* Set power output */
+	if (rn2483_lora_radio_set_pwr(LORA_POWER)) {
+		printk("Couldn't set radio power\n");
+	}
+
+	if (rn2483_lora_radio_tx(data_buf, 5)) {
+		printk("Couldn't send data\n");
+	}
 
 	data_buf[0] = 0x05;
 	data_buf[1] = 0x06;
 	data_buf[2] = 0x07;
 	data_buf[3] = 0x08;
 	data_buf[4] = 0x09;
-	rn2483_lora_radio_tx(data_buf, 5);
-	rn2483_lora_wait_for_reply("radio_tx_ok");
+	if (rn2483_lora_radio_tx(data_buf, 5)) {
+		printk("Couldn't send data\n");
+	}
+
 #endif
 
 	ubloxeva8m_init(CONFIG_I2C_SAM0_SERCOM3_LABEL);

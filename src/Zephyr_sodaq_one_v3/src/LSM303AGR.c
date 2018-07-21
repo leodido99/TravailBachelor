@@ -12,6 +12,8 @@
 
 #include "debug.h"
 
+#define DEBUG DEBUG_LSM303AGR
+
 #include <zephyr.h>
 #include <i2c.h>
 
