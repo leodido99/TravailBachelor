@@ -63,6 +63,7 @@ void main(void)
 	} else {
 		printk("LoRa initialized\n");
 	}
+
 	/* Setup the RN2483 for radio */
 	/* Pause mac layer */
 	if (rn2483_lora_pause_mac()) {
@@ -91,7 +92,6 @@ void main(void)
 	if (rn2483_lora_radio_tx(data_buf, 5)) {
 		printk("Couldn't send data\n");
 	}
-
 #endif
 
 	ubloxeva8m_init(CONFIG_I2C_SAM0_SERCOM3_LABEL);

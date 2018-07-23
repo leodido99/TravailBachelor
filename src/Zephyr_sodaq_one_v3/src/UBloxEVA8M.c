@@ -142,7 +142,7 @@ static ubloxeva8m_ubx_msg current_msg;
 static ubloxeva8m_msg_callback msg_handler = NULL;
 
 /* Forward declarations */
-#ifdef DEBUG
+#ifdef DEBUG_MSG
 static void print_msg(char* txt, ubloxeva8m_ubx_msg* msg);
 #endif
 
@@ -169,6 +169,9 @@ typedef struct {
 } ubloxeva8m_send_msg_t;
 
 static ubloxeva8m_send_msg_t msg_to_send;
+
+/* The thread id for UBloxEVA8M */
+extern const k_tid_t ubloxeva8m_thread_id;
 
 static uint16_t calc_csum(uint8_t* data, uint16_t length) {
 	uint8_t csum_a = 0, csum_b = 0;
@@ -475,13 +478,6 @@ static int configure_msg_rates(uint8_t class_id, uint8_t message_id, uint8_t rat
 	return UBLOXEVA8M_SUCCESS;
 }
 
-static bool is_data_available() {
-	if (get_nb_available_data() > 0) {
-		return true;
-	}
-	return false;
-}
-
 void ubloxeva8m_thread(void) {
 	uint16_t nb_byte;
 	uint8_t data;
@@ -526,6 +522,8 @@ bool ubloxeva8m_is_alive() {
 int ubloxeva8m_init(const char *device_name) {
 	ubloxeva8m_priv.i2c_dev = device_get_binding(device_name);
 	u32_t i2c_cfg = I2C_SPEED_SET(I2C_SPEED_FAST) | I2C_MODE_MASTER;
+
+	DBG_PRINTK("%s: Thread id %p\n", __func__, ubloxeva8m_thread_id);
 
 	current_state = 0;
 	ubloxeva8m_priv.is_thread_running = false;
@@ -606,6 +604,7 @@ int ubloxeva8m_start() {
 	flush_stream();
 
 	/* Start thread */
+	/* TODO Remove flag, start thread when needed instead */
 	ubloxeva8m_priv.is_thread_running = true;
 
 	/* Configure protocol */
@@ -648,10 +647,7 @@ int ubloxeva8m_set_dynamic_model(ubloxeva8m_dynamic_models dyn_model) {
 	return UBLOXEVA8M_SUCCESS;
 }
 
-/* Thread definition for the UBlox EVA 8M module */
-K_THREAD_DEFINE(ubloxeva8m_thread_id, UBLOXEVA8M_STACKSIZE, ubloxeva8m_thread, NULL, NULL, NULL, UBLOXEVA8M_PRIORITY, 0, K_NO_WAIT);
-
-#ifdef DEBUG
+#ifdef DEBUG_MSG
 static void print_msg(char* txt, ubloxeva8m_ubx_msg* msg) {
 	char buf[256];
 	snprintf(buf, 256, "%s Class: 0x%X Msg: 0x%X Len: %d Checksum: 0x%X Payload: 0x", txt, msg->class_id, msg->message_id, msg->length, msg->checksum);
@@ -662,3 +658,5 @@ static void print_msg(char* txt, ubloxeva8m_ubx_msg* msg) {
 }
 #endif
 
+/* Thread definition for the UBlox EVA 8M module */
+K_THREAD_DEFINE(ubloxeva8m_thread_id, UBLOXEVA8M_STACKSIZE, ubloxeva8m_thread, NULL, NULL, NULL, UBLOXEVA8M_PRIORITY, 0, K_NO_WAIT);
