@@ -116,26 +116,6 @@ u32_t cmd_idx = 0;
 u8_t cmd_buf[BUFF_SIZE];
 
 /**
- * Wait for mechanism structure
- */
-typedef struct {
-	bool wait_for;
-	int wait_for_nb;
-	char wait_for_buf[BUFF_NB][BUFF_SIZE];
-	struct k_sem* wait_for_sem;
-	int wait_for_match_idx;
-} rn2483_lora_wait_for_priv;
-
-/**
- * Structure used to store the wait for mechanism state
- */
-static rn2483_lora_wait_for_priv wait_for_priv = {
-	.wait_for = false,
-	.wait_for_nb = 0,
-	.wait_for_sem = NULL
-};
-
-/**
  * Size of the largest message we can receive from the LoRa module
  * "RN2483 1.0.3 Mar 22 2017 06:00:42\r\n"
  */
@@ -158,6 +138,29 @@ K_MSGQ_DEFINE(rn2483_lora_rx_msgs, sizeof(rn2483_lora_rx_msg), RN2483_LORA_RX_MS
 
 /* Semaphore used to wait for a certain message */
 K_SEM_DEFINE(sem_lora_wait_for_rx_msg, 0, 1);
+
+/* The thread id for LoRa */
+extern const k_tid_t rn2483_lora_thread_id;
+
+/**
+ * Wait for mechanism structure
+ */
+typedef struct {
+	bool wait_for;
+	int wait_for_nb;
+	char wait_for_buf[BUFF_NB][BUFF_SIZE];
+	struct k_sem* wait_for_sem;
+	int wait_for_match_idx;
+} rn2483_lora_wait_for_priv;
+
+/**
+ * Structure used to store the wait for mechanism state
+ */
+static rn2483_lora_wait_for_priv wait_for_priv = {
+	.wait_for = false,
+	.wait_for_nb = 0,
+	.wait_for_sem = &sem_lora_wait_for_rx_msg
+};
 
 static void rn2483_lora_irq_handler(struct device *dev) {
 	int bytes_read;
@@ -299,8 +302,6 @@ int rn2483_lora_init(const char *device_name) {
 	rx_data_buf_idx = 0;
 	new_cmd_rdy = false;
 
-	wait_for_priv.wait_for_sem = &sem_lora_wait_for_rx_msg;
-
 	/* Reset device */
 	if (rn2483_lora_reset()) {
 		return RN2483_LORA_BINDING_FAILED;
@@ -318,6 +319,9 @@ int rn2483_lora_init(const char *device_name) {
 
 	/* Enable interrupts */
 	uart_irq_rx_enable(lora_uart);
+
+	/* start LoRa thread */
+	k_thread_start(rn2483_lora_thread_id);
 
 	/* Wait for the RN2483 version message */
 	k_sem_take(wait_for_priv.wait_for_sem, K_FOREVER);
@@ -477,4 +481,4 @@ int rn2483_lora_pause_mac() {
 }
 
 /* Thread definition for the RN2483 LoRa module */
-K_THREAD_DEFINE(rn2483_lora_thread_id, RN2483_LORA_STACKSIZE, rn2483_lora_thread, NULL, NULL, NULL, RN2483_LORA_PRIORITY, 0, K_NO_WAIT);
+K_THREAD_DEFINE(rn2483_lora_thread_id, RN2483_LORA_STACKSIZE, rn2483_lora_thread, NULL, NULL, NULL, RN2483_LORA_PRIORITY, 0, K_FOREVER);
