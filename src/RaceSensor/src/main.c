@@ -1,5 +1,19 @@
+/** 
+ * @file main.c
+ * @brief Module description
+ *
+ * Detailed module description
+ *
+ * @author Léonard Bise
+ * @date   Jul 23, 2018
+ */
 
 
-int main(void) {
-  return -1;
+
+void main(void)
+{
+
+
+
+	return 0;
 }
