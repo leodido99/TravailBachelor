@@ -35,6 +35,8 @@
 
 *.out
 
+*.ps
+
 .metadata
 .classpath
 .settings/
