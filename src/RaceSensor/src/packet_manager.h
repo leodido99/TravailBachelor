@@ -15,7 +15,9 @@
  */
 #define PKT_MNGR_SUCCESS 0
 #define PKT_MNGR_NOT_INITIALIZED -1
-#define PKT_MNGR_DEVICE_FAILURE -2
+#define PKT_MNGR_LORA_DEVICE_FAILURE -2
+#define PKT_MNGR_GPS_DEVICE_FAILURE -3
+#define PKT_MNGR_ACCEL_DEVICE_FAILURE -4
 
 /**
  * Initialze the packet manager

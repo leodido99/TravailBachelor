@@ -68,6 +68,6 @@ void main(void)
 		fatal_error("Cannot start packet manager");
 	}
 
-
+	DBG_PRINTK("%s: Starting\n", __func__);
 
 }
