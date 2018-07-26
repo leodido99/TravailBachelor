@@ -83,7 +83,7 @@ static struct device *lora_uart;
 /**
  *  Buffer size
  */
-#define BUFF_SIZE 256
+#define RN2483_LORA_RX_BUFF_SIZE 128
 
 /**
  * Number of buffers
@@ -98,7 +98,7 @@ u32_t rx_data_buf_idx = 0;
 /**
  * RX Data Buffer used by the irq
  */
-u8_t rx_data_buf[BUFF_SIZE];
+u8_t rx_data_buf[RN2483_LORA_RX_BUFF_SIZE];
 
 /**
  * New command is ready to be sent
@@ -106,14 +106,43 @@ u8_t rx_data_buf[BUFF_SIZE];
 static volatile bool new_cmd_rdy = false;
 
 /**
+ * Maximum payload size that can be stored in the cmd buffer
+ * \note Each byte of data is actually represented as two
+ * chars (i.e. 16 bits)
+ */
+#define RN2483_LORA_CMD_BUFFER_PAYLOAD_MAX_SIZE (2 * RN2483_LORA_MAX_PAYLOAD_SIZE)
+
+/**
+ * The largest command we can hold in the command buffer
+ * \note The largest command we can hold is a radio tx with max size payload
+ */
+#define RN2483_LORA_MAX_CMD_SIZE (sizeof(RN2483_LORA_RADIO_TX_CMD) + RN2483_LORA_CMD_BUFFER_PAYLOAD_MAX_SIZE)
+
+/**
+ * Size of the CMD buffer
+ */
+#define RN2483_LORA_CMD_BUFFER_SIZE (RN2483_LORA_MAX_CMD_SIZE + sizeof('\r') + sizeof('\n') + sizeof('\0'))
+
+/**
  * Command index
  */
-u32_t cmd_idx = 0;
+
 
 /**
  * Buffer used to store the command to send
  */
-u8_t cmd_buf[BUFF_SIZE];
+
+
+struct tx_cmd_buffer_t {
+	u8_t cmd_buf[RN2483_LORA_CMD_BUFFER_SIZE];
+	u32_t cmd_idx;
+	bool cmd_rdy;
+};
+
+struct tx_cmd_buffer_t tx_cmd_buffer = {
+	.cmd_idx = 0,
+	.cmd_rdy = false
+};
 
 /**
  * Size of the largest message we can receive from the LoRa module
@@ -139,6 +168,9 @@ K_MSGQ_DEFINE(rn2483_lora_rx_msgs, sizeof(rn2483_lora_rx_msg), RN2483_LORA_RX_MS
 /* Semaphore used to wait for a certain message */
 K_SEM_DEFINE(sem_lora_wait_for_rx_msg, 0, 1);
 
+/* Semaphore used to protect access to the UART */
+K_SEM_DEFINE(sem_lora_tx_msg, 1, 1);
+
 /* The thread id for LoRa */
 extern const k_tid_t rn2483_lora_thread_id;
 
@@ -148,7 +180,7 @@ extern const k_tid_t rn2483_lora_thread_id;
 typedef struct {
 	bool wait_for;
 	int wait_for_nb;
-	char wait_for_buf[BUFF_NB][BUFF_SIZE];
+	char wait_for_buf[BUFF_NB][RN2483_LORA_RX_BUFF_SIZE];
 	struct k_sem* wait_for_sem;
 	int wait_for_match_idx;
 } rn2483_lora_wait_for_priv;
@@ -237,14 +269,16 @@ void rn2483_lora_thread(void) {
 	k_sem_give(wait_for_priv.wait_for_sem);
 
 	while(1) {
-		if (new_cmd_rdy) {
-			/* Send command by polling */
-			sent = uart_poll_out(lora_uart, cmd_buf[cmd_idx]);
-			if (sent == '\n') {
-				new_cmd_rdy = false;
-				DBG_PRINTK("%s: TX: %s\n", __func__, cmd_buf);
-			}
-			cmd_idx++;
+		if (tx_cmd_buffer.cmd_rdy) {
+			/* Send command */
+			do {
+				sent = uart_poll_out(lora_uart, tx_cmd_buffer.cmd_buf[tx_cmd_buffer.cmd_idx]);
+				tx_cmd_buffer.cmd_idx++;
+			} while(sent != '\n');
+
+			tx_cmd_buffer.cmd_rdy = false;
+
+			DBG_PRINTK("%s: TX: %s\n", __func__, tx_cmd_buffer.cmd_buf);
 		}
 
 		if (k_msgq_num_used_get(&rn2483_lora_rx_msgs) > 0) {
@@ -353,16 +387,13 @@ int rn2483_lora_reset() {
 }
 
 int rn2483_lora_cmd(char* cmd) {
-	if (!new_cmd_rdy) {
-		if (strlen(cmd) <= (BUFF_SIZE - 3)) {
-			memcpy(cmd_buf, cmd, strlen(cmd));
-			cmd_buf[strlen(cmd)] = '\r';
-			cmd_buf[strlen(cmd) + 1] = '\n';
-			cmd_buf[strlen(cmd) + 2] = '\0';
-			new_cmd_rdy = true;
-			cmd_idx = 0;
+	if (!tx_cmd_buffer.cmd_rdy) {
+		if (strlen(cmd) <= RN2483_LORA_MAX_CMD_SIZE) {
+			strcat(tx_cmd_buffer.cmd_buf, "\r\n");
+			tx_cmd_buffer.cmd_idx = 0;
+			tx_cmd_buffer.cmd_rdy = true;
 		} else {
-			DBG_PRINTK("%s: Cmd too long %d (max:%d)\n", __func__, strlen(cmd), BUFF_SIZE);
+			DBG_PRINTK("%s: Cmd too long %d (max:%d)\n", __func__, strlen(cmd), RN2483_LORA_CMD_BUFFER_PAYLOAD_MAX_SIZE);
 			return RN2483_LORA_CMD_TOO_LONG;
 		}
 	} else {
@@ -373,22 +404,23 @@ int rn2483_lora_cmd(char* cmd) {
 }
 
 int rn2483_lora_radio_tx(u8_t* data, u32_t size) {
-	char cmd_buf[BUFF_SIZE];
 	char tmp[3];
 	char replies[4][RN2483_LORA_MSG_SIZE] = { "busy", "invalid_param", "radio_err", "radio_tx_ok" };
 	int i;
 	int err;
 	int reply_idx = 0;
 
+	k_sem_take(&sem_lora_tx_msg, K_FOREVER);
+
 	if (size <= RN2483_LORA_MAX_PAYLOAD_SIZE) {
-		strcpy(cmd_buf, RN2483_LORA_RADIO_TX_CMD);
+		strcpy(tx_cmd_buffer.cmd_buf, RN2483_LORA_RADIO_TX_CMD);
 		for(i = 0; i < size; i++) {
 			snprintf(tmp, 3, "%02X", data[i]);
-			strcat(cmd_buf, tmp);
+			strcat(tx_cmd_buffer.cmd_buf, tmp);
 		}
 
 		/* Send command */
-		err = rn2483_lora_cmd(cmd_buf);
+		err = rn2483_lora_cmd(tx_cmd_buffer.cmd_buf);
 		if (err) {
 			return err;
 		}
@@ -406,21 +438,25 @@ int rn2483_lora_radio_tx(u8_t* data, u32_t size) {
 		DBG_PRINTK("%s: Command too long %d (max %d)\n", __func__, size, RN2483_LORA_MAX_PAYLOAD_SIZE);
 		return RN2483_LORA_CMD_TOO_LONG;
 	}
+
+	k_sem_give(&sem_lora_tx_msg);
+
 	return RN2483_LORA_SUCCESS;
 }
 
 int rn2483_lora_radio_set_sf(char* sf) {
-	char cmd_buf[BUFF_SIZE];
 	char replies[2][RN2483_LORA_MSG_SIZE] = { "ok", "invalid_param" };
 	int err;
 	int reply_idx = 0;
 
+	k_sem_take(&sem_lora_tx_msg, K_FOREVER);
+
 	/* Build command */
-	strcpy(cmd_buf, RN2483_LORA_RADIO_SET_SF);
-	strcat(cmd_buf, sf);
+	strcpy(tx_cmd_buffer.cmd_buf, RN2483_LORA_RADIO_SET_SF);
+	strcat(tx_cmd_buffer.cmd_buf, sf);
 
 	/* Send command */
-	err = rn2483_lora_cmd(cmd_buf);
+	err = rn2483_lora_cmd(tx_cmd_buffer.cmd_buf);
 	if (err) {
 		return err;
 	}
@@ -434,19 +470,23 @@ int rn2483_lora_radio_set_sf(char* sf) {
 		DBG_PRINTK("%s: Unexpected reply %s\n", __func__, replies[reply_idx]);
 		return RN2483_LORA_ERR_REPLY;
 	}
+
+	k_sem_give(&sem_lora_tx_msg);
+
 	return RN2483_LORA_SUCCESS;
 }
 
 int rn2483_lora_radio_set_pwr(u8_t pwr) {
-	char cmd_buf[BUFF_SIZE];
 	char replies[2][RN2483_LORA_MSG_SIZE] = { "ok", "invalid_param" };
 	int err;
 	int reply_idx = 0;
 
-	snprintf(cmd_buf, BUFF_SIZE, "%s%d", RN2483_LORA_RADIO_SET_PWR, pwr);
+	k_sem_take(&sem_lora_tx_msg, K_FOREVER);
+
+	snprintf(tx_cmd_buffer.cmd_buf, RN2483_LORA_CMD_BUFFER_SIZE, "%s%d", RN2483_LORA_RADIO_SET_PWR, pwr);
 
 	/* Send command */
-	err = rn2483_lora_cmd(cmd_buf);
+	err = rn2483_lora_cmd(tx_cmd_buffer.cmd_buf);
 	if (err) {
 		return err;
 	}
@@ -460,24 +500,31 @@ int rn2483_lora_radio_set_pwr(u8_t pwr) {
 		DBG_PRINTK("%s: Unexpected reply %s\n", __func__, replies[reply_idx]);
 		return RN2483_LORA_ERR_REPLY;
 	}
+
+	k_sem_give(&sem_lora_tx_msg);
 
 	return RN2483_LORA_SUCCESS;
 }
 
 int rn2483_lora_pause_mac() {
-	char cmd_buf[BUFF_SIZE];
 	int err;
 
-	strcpy(cmd_buf, RN2483_LORA_MAC_PAUSE);
+	k_sem_take(&sem_lora_tx_msg, K_FOREVER);
+
+	strcpy(tx_cmd_buffer.cmd_buf, RN2483_LORA_MAC_PAUSE);
 
 	/* Send command */
-	err = rn2483_lora_cmd(cmd_buf);
+	err = rn2483_lora_cmd(tx_cmd_buffer.cmd_buf);
 	if (err) {
 		return err;
 	}
 
 	/* Wait for reply */
-	return rn2483_lora_wait_for_any_reply();
+	err = rn2483_lora_wait_for_any_reply();
+
+	k_sem_give(&sem_lora_tx_msg);
+
+	return err;
 }
 
 /* Thread definition for the RN2483 LoRa module */
