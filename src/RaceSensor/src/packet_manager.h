@@ -1,14 +1,18 @@
 /** 
  * @file packet_manager.h
- * @brief Module description
+ * @brief Packet Manager module
  *
- * Detailed module description
+ * The Packet Manager module is responsible for periodically
+ * creating and sending the Race Tracking Packet containing
+ * the information about the competitor
  *
  * @author Léonard Bise
  * @date   Jul 23, 2018
  */
 #ifndef SRC_PACKET_MANAGER_H_
 #define SRC_PACKET_MANAGER_H_
+
+#include <zephyr.h>
 
 /**
  * Statuses of the packet manager
@@ -30,5 +34,16 @@ int pkt_mngr_init(void);
  */
 int pkt_mngr_start(void);
 
+/**
+ * Sets the heart rate sent in the packets
+ * @param heart_rate Heart Rate
+ */
+void pkt_mngr_set_heart_rate(u8_t heart_rate);
+
+/**
+ * Sets the cadence sent in the packets
+ * @param cadence Cadence
+ */
+void pkt_mngr_set_cadence(u8_t cadence);
 
 #endif /* SRC_PACKET_MANAGER_H_ */

@@ -10,10 +10,12 @@ project(NONE)
 # Application source files
 target_sources(app PRIVATE
 	       	   src/main.c
+	       	   src/debug.c
 	       	   src/packet_manager.c
 	       	   src/drivers/LSM303AGR.c
 	           src/drivers/RN2483_lora.c
 	           src/drivers/UBloxEVA8M.c
+	           src/drivers/leds.c
 	           )
 
 # Include directories

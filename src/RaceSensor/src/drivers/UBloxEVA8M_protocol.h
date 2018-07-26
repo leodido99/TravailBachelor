@@ -69,10 +69,18 @@ typedef struct __attribute__((packed,aligned(1))) {
     uint32_t    sAcc;       // 68 Speed Accuracy Estimate
     uint32_t    headingAcc; // 72 Heading Accuracy Estimate
     uint16_t    pDOP;       // 76 Position DOP
-    uint8_t   reserved1[6]; // 78 Reserved
+    uint8_t   	reserved1[6]; // 78 Reserved
     int32_t     headVeh;    // 84 Heading of vehicle (2-D)
-    uint8_t   reserved2[4]; // 88 Reserved
+    uint8_t   	reserved2[4]; // 88 Reserved
 } ubloxeva8m_nav_pvt_t;
+
+/* ubloxeva8m_nav_pvt_t - fixType */
+#define UBLOXEVA8M_NAV_PVT_FIXTYPE_NO_FIX_MASK (1 << 0)
+#define UBLOXEVA8M_NAV_PVT_FIXTYPE_DEAD_RECKONING_ONLY_MASK (1 << 1)
+#define UBLOXEVA8M_NAV_PVT_FIXTYPE_2D_FIX_MASK (1 << 2)
+#define UBLOXEVA8M_NAV_PVT_FIXTYPE_3D_FIX_MASK (1 << 3)
+#define UBLOXEVA8M_NAV_PVT_FIXTYPE_GNSS_DEAD_RECKONING_MASK (1 << 4)
+#define UBLOXEVA8M_NAV_PVT_FIXTYPE_TIME_ONLY_MASK (1 << 5)
 
 /* UBLOXEVA8M_CLASS_ACK */
 #define UBLOXEVA8M_MSG_ACK_ACK 0x01

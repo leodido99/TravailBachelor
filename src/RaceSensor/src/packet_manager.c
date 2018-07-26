@@ -1,8 +1,10 @@
 /** 
  * @file packet_manager.c
- * @brief Module description
+ * @brief Packet Manager module
  *
- * Detailed module description
+ * The Packet Manager module is responsible for periodically
+ * creating and sending the Race Tracking Packet containing
+ * the information about the competitor
  *
  * @author Léonard Bise
  * @date   Jul 23, 2018
@@ -16,8 +18,9 @@
 #include "RN2483_lora.h"
 #include "UBloxEVA8M.h"
 #include "LSM303AGR.h"
+#include "race_tracking_packet.h"
+#include "leds.h"
 
-#include <kernel.h>
 #include <string.h>
 
 /**
@@ -31,14 +34,9 @@
 #define PKT_MANAGER_SYNC_MARKER 0xF0CACC1A
 
 /**
- * Size of the packet buffer
- */
-#define PKT_MANAGER_BUFFER_SIZE 56
-
-/**
  * Stack size allocated for the packet manager thread
  */
-#define PKT_MANAGER_STACK_SIZE 512
+#define PKT_MANAGER_STACK_SIZE 1024
 
 /**
  * Thread priority for the packet manager thread
@@ -46,9 +44,25 @@
 #define PKT_MANAGER_PRIORITY 10
 
 /**
+ * ID of the sensor
+ */
+#define PKT_MANAGER_SENSOR_ID 0xBEEF
+
+/**
  * The interval between two thread execution
  */
-#define PKT_MANAGER_THREAD_INTERVAL K_MSEC(1000)
+#define PKT_MANAGER_THREAD_INTERVAL K_MSEC(5000)
+
+/**
+ * The minimum number of satellites we are waiting for during GPS fix
+ */
+#define PKT_MANAGER_GPS_FIX_NB_SV 4
+
+/**
+ * The fix type we are waiting for during GPS fix
+ */
+#define PKT_MANAGER_GPS_FIX_TYPE (UBLOXEVA8M_NAV_PVT_FIXTYPE_2D_FIX_MASK \
+				| UBLOXEVA8M_NAV_PVT_FIXTYPE_3D_FIX_MASK)
 
 /* The thread id for LoRa */
 extern const k_tid_t packet_mngr_thread_id;
@@ -62,71 +76,115 @@ struct pkt_mngr_data {
 	struct k_thread *thread_data;
 	struct k_sem *gps_sem;
 	ubloxeva8m_nav_pvt_t last_pvt_msg;
+	u16_t pkt_seq;
+	u8_t heart_rate;
+	u8_t cadence;
 };
 
 struct pkt_mngr_data pkt_mngr = {
 	.initialized = false,
-	.gps_sem = &pkt_mngr_gps_sem
+	.gps_sem = &pkt_mngr_gps_sem,
+	.pkt_seq = 0,
+	.heart_rate = 0,
+	.cadence = 0
 };
 
 /**
  * Buffer used to hold a packet
  */
-static u8_t buf[PKT_MANAGER_BUFFER_SIZE];
+struct pkt_mngr_race_pkt pkt_buffer;
 
 #ifdef DEBUG
 static void print_nav_pvt_msg(char *txt, ubloxeva8m_nav_pvt_t* msg) {
-	DBG_PRINTK("UBX-NAV-PVT: %d.%d.%d %02d:%02d:%02d validity=%d fixType=%d numSV=%d lat=%d lon=%d \n", msg->day, msg->month, msg->year, msg->hour, msg->minute, msg->seconds, msg->valid, msg->fixType, msg->numSV, msg->lat, msg->lon);
+	DBG_PRINTK("UBX-NAV-PVT: %d.%d.%d %02d:%02d:%02d:%03d validity=%d fixType=%d numSV=%d lat=%d lon=%d \n", msg->day, msg->month, msg->year, msg->hour, msg->minute, msg->seconds, msg->nano, msg->valid, msg->fixType, msg->numSV, msg->lat, msg->lon);
 }
 #endif
 
 static void gps_msg_callback(ubloxeva8m_ubx_msg* msg)
 {
 	if (msg->class_id == UBLOXEVA8M_CLASS_NAV && msg->message_id == UBLOXEVA8M_MSG_NAV_PVT) {
-		memcpy(&pkt_mngr.last_pvt_msg, msg->payload, msg->length);
+		memcpy(&pkt_mngr.last_pvt_msg, msg->payload, sizeof(ubloxeva8m_nav_pvt_t));
 		print_nav_pvt_msg("UBX-NAV-PVT: ", &pkt_mngr.last_pvt_msg);
+		k_sem_give(pkt_mngr.gps_sem);
 	}
 }
 
 static void wait_for_gps_update()
 {
-	/* Wait for GPS message */
+	/* Wait for new GPS message */
+	k_sem_reset(pkt_mngr.gps_sem);
 	k_sem_take(pkt_mngr.gps_sem, K_FOREVER);
 }
 
-static int build_packet(u8_t *buffer, int buffer_size)
+static void get_timestamp(u8_t *buffer) {
+	/* TODO */
+}
+
+static void wait_for_fix() {
+	bool led_state = false;
+
+	DBG_PRINTK("%s: Waiting for GPS fix...\n", __func__);
+
+	do {
+		wait_for_gps_update();
+		leds_set(LED_GREEN, led_state);
+		led_state = led_state ? false : true;
+	} while(pkt_mngr.last_pvt_msg.numSV < PKT_MANAGER_GPS_FIX_NB_SV ||
+		pkt_mngr.last_pvt_msg.fixType & PKT_MANAGER_GPS_FIX_TYPE);
+
+	leds_set(LED_GREEN, true);
+
+	DBG_PRINTK("%s: Found GPS fix Num SV=%d FixType=0x%x\n", __func__, pkt_mngr.last_pvt_msg.numSV, pkt_mngr.last_pvt_msg.fixType);
+}
+
+static int build_packet(struct pkt_mngr_race_pkt *packet)
 {
-	int pkt_size = 0;
-
+	/* In order to have the most precise GPS position we
+	 * wait for a new one */
 	wait_for_gps_update();
-	/* Write packet synch marker */
-	buffer[pkt_size] = (PKT_MANAGER_SYNC_MARKER >> 24) & 0xFF;
-	pkt_size++;
-	buffer[pkt_size] = (PKT_MANAGER_SYNC_MARKER >> 16) & 0xFF;
-	pkt_size++;
-	buffer[pkt_size] = (PKT_MANAGER_SYNC_MARKER >> 8) & 0xFF;
-	pkt_size++;
-	buffer[pkt_size] = PKT_MANAGER_SYNC_MARKER & 0xFF;
-	pkt_size++;
-	/* */
 
+	packet->marker = PKT_MANAGER_SYNC_MARKER;
+
+	packet->id = PKT_MANAGER_SENSOR_ID;
+
+	get_timestamp(packet->timestamp);
+
+	packet->status = 0;
+
+	packet->counter = pkt_mngr.pkt_seq;
+	pkt_mngr.pkt_seq++;
+
+	packet->latitude = pkt_mngr.last_pvt_msg.lat;
+
+	packet->longitude = pkt_mngr.last_pvt_msg.lon;
+
+	packet->nb_sv = pkt_mngr.last_pvt_msg.numSV;
+
+	packet->pdop = pkt_mngr.last_pvt_msg.pDOP;
+
+	packet->heart_rate = pkt_mngr.heart_rate;
+
+	packet->cadence = pkt_mngr.cadence;
 
 	return PKT_MNGR_SUCCESS;
 }
 
 static void pkt_mngr_thread(void)
 {
-	int pkt_size;
 	DBG_PRINTK("%s: Enter thread\n", __func__);
+
+	/* Before sending packets we are going to wait to have a good GPS fix
+	 * in order to provide precise positions */
+	wait_for_fix();
 
 	while (1) {
 		k_sleep(PKT_MANAGER_THREAD_INTERVAL);
 		/* Build packet */
-		if (build_packet(buf, PKT_MANAGER_BUFFER_SIZE) < 0) {
+		if (build_packet(&pkt_buffer) < 0) {
 			DBG_PRINTK("Couldn't build packet\n");
 		}
 		/* Send through LoRa */
-		if (rn2483_lora_radio_tx(buf, PKT_MANAGER_BUFFER_SIZE)) {
+		if (rn2483_lora_radio_tx((u8_t*)&pkt_buffer, sizeof(struct pkt_mngr_race_pkt))) {
 			DBG_PRINTK("Couldn't send packet\n");
 		}
 	}
@@ -267,6 +325,14 @@ int pkt_mngr_start(void)
 	k_thread_start(packet_mngr_thread_id);
 
 	return PKT_MNGR_SUCCESS;
+}
+
+void pkt_mngr_set_heart_rate(u8_t heart_rate) {
+	pkt_mngr.heart_rate = heart_rate;
+}
+
+void pkt_mngr_set_cadence(u8_t cadence) {
+	pkt_mngr.cadence = cadence;
 }
 
 /* Thread definition for the RN2483 LoRa module */
