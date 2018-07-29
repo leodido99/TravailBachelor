@@ -9,6 +9,7 @@
  */
 
 #include <kernel.h>
+#include <shell/shell.h>
 
 #include "debug.h"
 /**
@@ -20,8 +21,14 @@
 #include "RN2483_lora.h"
 #include "UBloxEVA8M.h"
 #include "leds.h"
+#include "race_sensor_shell.h"
 
+/**
+ * Delay used to make the LED blink on fatal error
+ */
 #define FATAL_ERR_LED_DELAY 100
+
+#define RACE_SENSOR_SHELL "race-sensor"
 
 /**
  * Function called in case of a fatal error
@@ -37,6 +44,12 @@ static void fatal_error(char *msg)
 		k_sleep(FATAL_ERR_LED_DELAY);
 	}
 }
+
+static struct shell_cmd commands[] = {
+	{ "set_lora_sf", race_sensor_shell_set_lora_sf, "<sf>\n\nSets the LoRa spreading factor (sf7 to sf12)"},
+	{ "set_lora_pwr", race_sensor_shell_set_lora_pwr, "<pwr>\n\nSets the LoRa power output (-3 to 15)"},
+	{ NULL, NULL, NULL }
+};
 
 void main(void)
 {
@@ -65,4 +78,7 @@ void main(void)
 
 	DBG_PRINTK("%s: Starting\n", __func__);
 
+	/* Setup race sensor shell */
+	SHELL_REGISTER(RACE_SENSOR_SHELL, commands);
+	shell_register_default_module(RACE_SENSOR_SHELL);
 }
