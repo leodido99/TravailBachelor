@@ -1,0 +1,555 @@
+{
+	"_type": "Project",
+	"_id": "AAAAAAFF+h6SjaM2Hec=",
+	"name": "Untitled",
+	"ownedElements": [
+		{
+			"_type": "UMLModel",
+			"_id": "AAAAAAFF+qBWK6M3Z8Y=",
+			"_parent": {
+				"$ref": "AAAAAAFF+h6SjaM2Hec="
+			},
+			"name": "Model",
+			"ownedElements": [
+				{
+					"_type": "UMLClassDiagram",
+					"_id": "AAAAAAFF+qBtyKM79qY=",
+					"_parent": {
+						"$ref": "AAAAAAFF+qBWK6M3Z8Y="
+					},
+					"name": "Main",
+					"defaultDiagram": true,
+					"ownedViews": [
+						{
+							"_type": "UMLClassView",
+							"_id": "AAAAAAFk2xqBBa7mUFU=",
+							"_parent": {
+								"$ref": "AAAAAAFF+qBtyKM79qY="
+							},
+							"model": {
+								"$ref": "AAAAAAFk2xqA+q7kspA="
+							},
+							"subViews": [
+								{
+									"_type": "UMLNameCompartmentView",
+									"_id": "AAAAAAFk2xqBBq7nprg=",
+									"_parent": {
+										"$ref": "AAAAAAFk2xqBBa7mUFU="
+									},
+									"model": {
+										"$ref": "AAAAAAFk2xqA+q7kspA="
+									},
+									"subViews": [
+										{
+											"_type": "LabelView",
+											"_id": "AAAAAAFk2xqBB67o//U=",
+											"_parent": {
+												"$ref": "AAAAAAFk2xqBBq7nprg="
+											},
+											"visible": false,
+											"font": "Arial;13;0",
+											"top": 80,
+											"height": 13
+										},
+										{
+											"_type": "LabelView",
+											"_id": "AAAAAAFk2xqBCK7pqKY=",
+											"_parent": {
+												"$ref": "AAAAAAFk2xqBBq7nprg="
+											},
+											"font": "Arial;13;1",
+											"left": 213,
+											"top": 223,
+											"width": 561.05029296875,
+											"height": 13,
+											"text": "i2c_sam0"
+										},
+										{
+											"_type": "LabelView",
+											"_id": "AAAAAAFk2xqBCK7qdUo=",
+											"_parent": {
+												"$ref": "AAAAAAFk2xqBBq7nprg="
+											},
+											"visible": false,
+											"font": "Arial;13;0",
+											"top": 80,
+											"width": 73.67724609375,
+											"height": 13,
+											"text": "(from Model)"
+										},
+										{
+											"_type": "LabelView",
+											"_id": "AAAAAAFk2xqBCK7rC6c=",
+											"_parent": {
+												"$ref": "AAAAAAFk2xqBBq7nprg="
+											},
+											"visible": false,
+											"font": "Arial;13;0",
+											"top": 80,
+											"height": 13,
+											"horizontalAlignment": 1
+										}
+									],
+									"font": "Arial;13;0",
+									"left": 208,
+									"top": 216,
+									"width": 571.05029296875,
+									"height": 25,
+									"stereotypeLabel": {
+										"$ref": "AAAAAAFk2xqBB67o//U="
+									},
+									"nameLabel": {
+										"$ref": "AAAAAAFk2xqBCK7pqKY="
+									},
+									"namespaceLabel": {
+										"$ref": "AAAAAAFk2xqBCK7qdUo="
+									},
+									"propertyLabel": {
+										"$ref": "AAAAAAFk2xqBCK7rC6c="
+									}
+								},
+								{
+									"_type": "UMLAttributeCompartmentView",
+									"_id": "AAAAAAFk2xqBCK7sqXM=",
+									"_parent": {
+										"$ref": "AAAAAAFk2xqBBa7mUFU="
+									},
+									"model": {
+										"$ref": "AAAAAAFk2xqA+q7kspA="
+									},
+									"font": "Arial;13;0",
+									"left": 208,
+									"top": 241,
+									"width": 571.05029296875,
+									"height": 10
+								},
+								{
+									"_type": "UMLOperationCompartmentView",
+									"_id": "AAAAAAFk2xqBCa7toG8=",
+									"_parent": {
+										"$ref": "AAAAAAFk2xqBBa7mUFU="
+									},
+									"model": {
+										"$ref": "AAAAAAFk2xqA+q7kspA="
+									},
+									"subViews": [
+										{
+											"_type": "UMLOperationView",
+											"_id": "AAAAAAFk2yMIX7F9164=",
+											"_parent": {
+												"$ref": "AAAAAAFk2xqBCa7toG8="
+											},
+											"model": {
+												"$ref": "AAAAAAFk2yMIKLF6kHY="
+											},
+											"font": "Arial;13;0",
+											"left": 213,
+											"top": 256,
+											"width": 561.05029296875,
+											"height": 13,
+											"text": "+i2c_sam0_init(dev: struct device *): int",
+											"horizontalAlignment": 0
+										},
+										{
+											"_type": "UMLOperationView",
+											"_id": "AAAAAAFk2xz5nq8wsqg=",
+											"_parent": {
+												"$ref": "AAAAAAFk2xqBCa7toG8="
+											},
+											"model": {
+												"$ref": "AAAAAAFk2xz5bq8tVuk="
+											},
+											"font": "Arial;13;0",
+											"left": 213,
+											"top": 271,
+											"width": 561.05029296875,
+											"height": 13,
+											"text": "+i2c_sam0_configure(dev: struct device*, config: u32_t): int",
+											"horizontalAlignment": 0
+										},
+										{
+											"_type": "UMLOperationView",
+											"_id": "AAAAAAFk2xsSjK8Q748=",
+											"_parent": {
+												"$ref": "AAAAAAFk2xqBCa7toG8="
+											},
+											"model": {
+												"$ref": "AAAAAAFk2xsSXK8NUPM="
+											},
+											"font": "Arial;13;0",
+											"left": 213,
+											"top": 286,
+											"width": 561.05029296875,
+											"height": 13,
+											"text": "+i2c_sam0_set_bit_rate(i2cm: SercomI2cm *const, bitrate: u32_t, rise_time_ns: u32_t): int",
+											"horizontalAlignment": 0
+										},
+										{
+											"_type": "UMLOperationView",
+											"_id": "AAAAAAFk2yDxQbFMEqo=",
+											"_parent": {
+												"$ref": "AAAAAAFk2xqBCa7toG8="
+											},
+											"model": {
+												"$ref": "AAAAAAFk2yDw8bFJ1Bg="
+											},
+											"font": "Arial;13;0",
+											"left": 213,
+											"top": 301,
+											"width": 561.05029296875,
+											"height": 13,
+											"text": "+i2c_sam0_isr(arg: void*): void",
+											"horizontalAlignment": 0
+										},
+										{
+											"_type": "UMLOperationView",
+											"_id": "AAAAAAFk2yE7hbFXIc4=",
+											"_parent": {
+												"$ref": "AAAAAAFk2xqBCa7toG8="
+											},
+											"model": {
+												"$ref": "AAAAAAFk2yE7TrFUJ8Y="
+											},
+											"font": "Arial;13;0",
+											"left": 213,
+											"top": 316,
+											"width": 561.05029296875,
+											"height": 13,
+											"text": "+i2c_sam0_msg_start(i2c: SercomI2cm *const, addr: u16_t, read: bool): int",
+											"horizontalAlignment": 0
+										},
+										{
+											"_type": "UMLOperationView",
+											"_id": "AAAAAAFk2yH5RLFpddk=",
+											"_parent": {
+												"$ref": "AAAAAAFk2xqBCa7toG8="
+											},
+											"model": {
+												"$ref": "AAAAAAFk2yH5DLFmU00="
+											},
+											"font": "Arial;13;0",
+											"left": 213,
+											"top": 331,
+											"width": 561.05029296875,
+											"height": 13,
+											"text": "+i2c_sam0_transfer(dev: struct device*, msgs: struct i2c_msg*, num_msgs: u8_t, addr: u16_t): int",
+											"horizontalAlignment": 0
+										}
+									],
+									"font": "Arial;13;0",
+									"left": 208,
+									"top": 251,
+									"width": 571.05029296875,
+									"height": 98
+								},
+								{
+									"_type": "UMLReceptionCompartmentView",
+									"_id": "AAAAAAFk2xqBCq7uYvk=",
+									"_parent": {
+										"$ref": "AAAAAAFk2xqBBa7mUFU="
+									},
+									"model": {
+										"$ref": "AAAAAAFk2xqA+q7kspA="
+									},
+									"visible": false,
+									"font": "Arial;13;0",
+									"left": -152,
+									"top": 32,
+									"width": 10,
+									"height": 10
+								},
+								{
+									"_type": "UMLTemplateParameterCompartmentView",
+									"_id": "AAAAAAFk2xqBC67vC5o=",
+									"_parent": {
+										"$ref": "AAAAAAFk2xqBBa7mUFU="
+									},
+									"model": {
+										"$ref": "AAAAAAFk2xqA+q7kspA="
+									},
+									"visible": false,
+									"font": "Arial;13;0",
+									"left": -152,
+									"top": 32,
+									"width": 10,
+									"height": 10
+								}
+							],
+							"font": "Arial;13;0",
+							"containerChangeable": true,
+							"left": 208,
+							"top": 216,
+							"width": 571.05029296875,
+							"height": 133,
+							"nameCompartment": {
+								"$ref": "AAAAAAFk2xqBBq7nprg="
+							},
+							"attributeCompartment": {
+								"$ref": "AAAAAAFk2xqBCK7sqXM="
+							},
+							"operationCompartment": {
+								"$ref": "AAAAAAFk2xqBCa7toG8="
+							},
+							"receptionCompartment": {
+								"$ref": "AAAAAAFk2xqBCq7uYvk="
+							},
+							"templateParameterCompartment": {
+								"$ref": "AAAAAAFk2xqBC67vC5o="
+							}
+						}
+					]
+				},
+				{
+					"_type": "UMLClass",
+					"_id": "AAAAAAFk2xqA+q7kspA=",
+					"_parent": {
+						"$ref": "AAAAAAFF+qBWK6M3Z8Y="
+					},
+					"name": "i2c_sam0",
+					"operations": [
+						{
+							"_type": "UMLOperation",
+							"_id": "AAAAAAFk2yMIKLF6kHY=",
+							"_parent": {
+								"$ref": "AAAAAAFk2xqA+q7kspA="
+							},
+							"name": "i2c_sam0_init",
+							"parameters": [
+								{
+									"_type": "UMLParameter",
+									"_id": "AAAAAAFk2yMd27GB//w=",
+									"_parent": {
+										"$ref": "AAAAAAFk2yMIKLF6kHY="
+									},
+									"type": "int",
+									"direction": "return"
+								},
+								{
+									"_type": "UMLParameter",
+									"_id": "AAAAAAFk2yNVC7GE/Ck=",
+									"_parent": {
+										"$ref": "AAAAAAFk2yMIKLF6kHY="
+									},
+									"name": "dev",
+									"type": "struct device *"
+								}
+							]
+						},
+						{
+							"_type": "UMLOperation",
+							"_id": "AAAAAAFk2xz5bq8tVuk=",
+							"_parent": {
+								"$ref": "AAAAAAFk2xqA+q7kspA="
+							},
+							"name": "i2c_sam0_configure",
+							"parameters": [
+								{
+									"_type": "UMLParameter",
+									"_id": "AAAAAAFk2x0IRa80LrI=",
+									"_parent": {
+										"$ref": "AAAAAAFk2xz5bq8tVuk="
+									},
+									"type": "int",
+									"direction": "return"
+								},
+								{
+									"_type": "UMLParameter",
+									"_id": "AAAAAAFk2x1chq83zmo=",
+									"_parent": {
+										"$ref": "AAAAAAFk2xz5bq8tVuk="
+									},
+									"name": "dev",
+									"type": "struct device*"
+								},
+								{
+									"_type": "UMLParameter",
+									"_id": "AAAAAAFk2x1chq84ku4=",
+									"_parent": {
+										"$ref": "AAAAAAFk2xz5bq8tVuk="
+									},
+									"name": "config",
+									"type": "u32_t"
+								}
+							]
+						},
+						{
+							"_type": "UMLOperation",
+							"_id": "AAAAAAFk2xsSXK8NUPM=",
+							"_parent": {
+								"$ref": "AAAAAAFk2xqA+q7kspA="
+							},
+							"name": "i2c_sam0_set_bit_rate",
+							"parameters": [
+								{
+									"_type": "UMLParameter",
+									"_id": "AAAAAAFk2xvDXa8g9AE=",
+									"_parent": {
+										"$ref": "AAAAAAFk2xsSXK8NUPM="
+									},
+									"type": "int",
+									"direction": "return"
+								},
+								{
+									"_type": "UMLParameter",
+									"_id": "AAAAAAFk2xwrnq8j/C4=",
+									"_parent": {
+										"$ref": "AAAAAAFk2xsSXK8NUPM="
+									},
+									"name": "i2cm",
+									"type": "SercomI2cm *const"
+								},
+								{
+									"_type": "UMLParameter",
+									"_id": "AAAAAAFk2xwrnq8kRPM=",
+									"_parent": {
+										"$ref": "AAAAAAFk2xsSXK8NUPM="
+									},
+									"name": "bitrate",
+									"type": "u32_t"
+								},
+								{
+									"_type": "UMLParameter",
+									"_id": "AAAAAAFk2xwrnq8lnpo=",
+									"_parent": {
+										"$ref": "AAAAAAFk2xsSXK8NUPM="
+									},
+									"name": "rise_time_ns",
+									"type": "u32_t"
+								}
+							]
+						},
+						{
+							"_type": "UMLOperation",
+							"_id": "AAAAAAFk2yDw8bFJ1Bg=",
+							"_parent": {
+								"$ref": "AAAAAAFk2xqA+q7kspA="
+							},
+							"name": "i2c_sam0_isr",
+							"parameters": [
+								{
+									"_type": "UMLParameter",
+									"_id": "AAAAAAFk2yEKUbFQTT8=",
+									"_parent": {
+										"$ref": "AAAAAAFk2yDw8bFJ1Bg="
+									},
+									"name": "arg",
+									"type": "void*"
+								},
+								{
+									"_type": "UMLParameter",
+									"_id": "AAAAAAFk2yEKUbFR1DA=",
+									"_parent": {
+										"$ref": "AAAAAAFk2yDw8bFJ1Bg="
+									},
+									"type": "void",
+									"direction": "return"
+								}
+							]
+						},
+						{
+							"_type": "UMLOperation",
+							"_id": "AAAAAAFk2yE7TrFUJ8Y=",
+							"_parent": {
+								"$ref": "AAAAAAFk2xqA+q7kspA="
+							},
+							"name": "i2c_sam0_msg_start",
+							"parameters": [
+								{
+									"_type": "UMLParameter",
+									"_id": "AAAAAAFk2yFJU7Fbb88=",
+									"_parent": {
+										"$ref": "AAAAAAFk2yE7TrFUJ8Y="
+									},
+									"type": "int",
+									"direction": "return"
+								},
+								{
+									"_type": "UMLParameter",
+									"_id": "AAAAAAFk2yGFXbFeqfg=",
+									"_parent": {
+										"$ref": "AAAAAAFk2yE7TrFUJ8Y="
+									},
+									"name": "i2c",
+									"type": "SercomI2cm *const"
+								},
+								{
+									"_type": "UMLParameter",
+									"_id": "AAAAAAFk2yGFXrFfLsI=",
+									"_parent": {
+										"$ref": "AAAAAAFk2yE7TrFUJ8Y="
+									},
+									"name": "addr",
+									"type": "u16_t"
+								},
+								{
+									"_type": "UMLParameter",
+									"_id": "AAAAAAFk2yGFXrFg9dk=",
+									"_parent": {
+										"$ref": "AAAAAAFk2yE7TrFUJ8Y="
+									},
+									"name": "read",
+									"type": "bool"
+								}
+							]
+						},
+						{
+							"_type": "UMLOperation",
+							"_id": "AAAAAAFk2yH5DLFmU00=",
+							"_parent": {
+								"$ref": "AAAAAAFk2xqA+q7kspA="
+							},
+							"name": "i2c_sam0_transfer",
+							"parameters": [
+								{
+									"_type": "UMLParameter",
+									"_id": "AAAAAAFk2yIIsLFttmI=",
+									"_parent": {
+										"$ref": "AAAAAAFk2yH5DLFmU00="
+									},
+									"type": "int",
+									"direction": "return"
+								},
+								{
+									"_type": "UMLParameter",
+									"_id": "AAAAAAFk2yKRnbFwFx0=",
+									"_parent": {
+										"$ref": "AAAAAAFk2yH5DLFmU00="
+									},
+									"name": "dev",
+									"type": "struct device*"
+								},
+								{
+									"_type": "UMLParameter",
+									"_id": "AAAAAAFk2yKRnbFxcNo=",
+									"_parent": {
+										"$ref": "AAAAAAFk2yH5DLFmU00="
+									},
+									"name": "msgs",
+									"type": "struct i2c_msg*"
+								},
+								{
+									"_type": "UMLParameter",
+									"_id": "AAAAAAFk2yKRnbFyS4I=",
+									"_parent": {
+										"$ref": "AAAAAAFk2yH5DLFmU00="
+									},
+									"name": "num_msgs",
+									"type": "u8_t"
+								},
+								{
+									"_type": "UMLParameter",
+									"_id": "AAAAAAFk2yKRnbFztXM=",
+									"_parent": {
+										"$ref": "AAAAAAFk2yH5DLFmU00="
+									},
+									"name": "addr",
+									"type": "u16_t"
+								}
+							]
+						}
+					]
+				}
+			]
+		}
+	]
+}
