@@ -49,10 +49,10 @@ int rn2483_lora_radio_set_sf(char* sf);
 
 /**
  * Sets the power of the LoRa radio output
- * @param pwr
+ * @param pwr Power value (-3 to 15)
  * @return
  */
-int rn2483_lora_radio_set_pwr(u8_t pwr);
+int rn2483_lora_radio_set_pwr(s8_t pwr);
 
 /**
  * Send data through LoRa radio

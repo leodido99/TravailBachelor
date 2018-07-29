@@ -476,7 +476,7 @@ int rn2483_lora_radio_set_sf(char* sf) {
 	return RN2483_LORA_SUCCESS;
 }
 
-int rn2483_lora_radio_set_pwr(u8_t pwr) {
+int rn2483_lora_radio_set_pwr(s8_t pwr) {
 	char replies[2][RN2483_LORA_MSG_SIZE] = { "ok", "invalid_param" };
 	int err;
 	int reply_idx = 0;
