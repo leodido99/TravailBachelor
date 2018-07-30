@@ -46,6 +46,20 @@ uint32_t vector_reader::get_next_32bits() {
 	return result;
 }
 
+int32_t vector_reader::get_next_signed_32bits() {
+	int32_t result = 0;
+	if ((unsigned)this->get_size_left() >= sizeof(int32_t)) {
+		result |= static_cast<int32_t>(data[this->curr_pos]) << 24;
+		result |= static_cast<int32_t>(data[this->curr_pos+1]) << 16;
+		result |= static_cast<int32_t>(data[this->curr_pos+2]) << 8;
+		result |= static_cast<int32_t>(data[this->curr_pos+3]);
+		this->curr_pos += sizeof(int32_t);
+	} else {
+		throw std::runtime_error("Not enough data");
+	}
+	return result;
+}
+
 uint64_t vector_reader::get_next_64bits() {
 	uint64_t result = 0;
 	if ((unsigned)this->get_size_left() >= sizeof(uint64_t)) {

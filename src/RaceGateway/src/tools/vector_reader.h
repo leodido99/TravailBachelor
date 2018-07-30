@@ -53,6 +53,12 @@ public:
 	uint32_t get_next_32bits();
 
 	/**
+	 * Read the next signed 32 bits
+	 * @return
+	 */
+	int32_t get_next_signed_32bits();
+
+	/**
 	 * Read the next 64 bits
 	 * @return
 	 */

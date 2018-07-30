@@ -11,6 +11,7 @@
 
 #include <iostream>
 #include <stdexcept>
+#include <sstream>
 #include <fstream>
 #include <chrono>
 #include <ctime>
@@ -67,4 +68,12 @@ void test_mode_cmd::exec(std::list<std::string>* parameters) {
 			throw std::runtime_error("Unknown parameter " + (*it));
 		}
 	}
+}
+
+std::string test_mode_cmd::get_usage()
+{
+	std::stringstream mystr;
+	mystr << "\tdump [log_name]: \tDumps all the saved positions to a file" << std::endl;
+	mystr << "\treset : \t\tRemove all stored positions" << std::endl;
+	return mystr.str();
 }

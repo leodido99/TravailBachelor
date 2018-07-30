@@ -28,6 +28,11 @@ public:
 	 * @param
 	 */
 	void exec(std::list<std::string>* parameters);
+
+	/**
+	 * Print the class
+	 */
+	std::string get_usage();
 };
 
 #endif /* SRC_SHELL_COMMANDS_TEST_MODE_CMD_H_ */

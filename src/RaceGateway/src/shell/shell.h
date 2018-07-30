@@ -56,6 +56,11 @@ public:
 	 * @param
 	 */
 	void add_cmd(shell_command* cmd);
+
+	/**
+	 * Print all the registered commands
+	 */
+	void print_all_commands();
 };
 
 #endif /* SRC_SHELL_H_ */

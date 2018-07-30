@@ -29,10 +29,15 @@ public:
 	virtual void exec(std::list<std::string>* parameters) = 0;
 
 	/**
+	 * Print the class
+	 */
+	virtual std::string get_usage() = 0;
+
+	/**
 	 * Sets the command name
 	 * @return
 	 */
-	const std::string& getName() const {
+	const std::string& get_name() const {
 		return name;
 	}
 
@@ -40,7 +45,7 @@ public:
 	 * Returns the command name
 	 * @param name
 	 */
-	void setName(const std::string& name) {
+	void set_name(const std::string& name) {
 		this->name = name;
 	}
 

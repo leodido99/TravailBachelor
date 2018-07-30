@@ -10,6 +10,7 @@
 
 #include "race_app_server.h"
 #include "test_mode_handler.h"
+#include "race_mode_handler.h"
 
 #include "shell.h"
 #include "test_mode_cmd.h"
@@ -52,7 +53,8 @@ int main(int argc, char **argv) {
 	myAppServer.set_verbose(true);
 	/* Test mode */
 	test_mode_handler* test_handler = new test_mode_handler();
-	myAppServer.set_rxpk_handler(test_handler);
+	race_mode_handler* race_handler = new race_mode_handler();
+	myAppServer.set_rxpk_handler(race_handler);
 
 	try {
 		/* Start application server */
@@ -61,11 +63,13 @@ int main(int argc, char **argv) {
 		std::cout << "Application server error: " << err.what() << std::endl;
 		exit(EXIT_FAILURE);
 	}
+
 	/* Configure shell */
 	test_mode_cmd* test_cmd = new test_mode_cmd(test_handler);
 	myShell.add_cmd(test_cmd);
 
 	/* Start shell */
 	myShell.start();
+
 	return EXIT_SUCCESS;
 }

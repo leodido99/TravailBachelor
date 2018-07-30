@@ -13,6 +13,7 @@
 
 #include <cstring>
 #include <iostream>
+#include <iomanip>
 #include <sstream>
 
 shell::shell() {
@@ -41,12 +42,15 @@ void shell::execute_cmd(std::string cmd, std::list<std::string>* params) {
 		if (**it == cmd) {
 			try {
 				(**it).exec(params);
+				return;
 			} catch (std::runtime_error& e) {
 				std::cout << ">> Error: " << cmd << " : " << e.what() << std::endl;
 			}
 			break;
 		}
 	}
+	std::cout << ">> Unknown command: " << cmd << std::endl;
+	this->print_all_commands();
 }
 
 std::list<std::string>* shell::get_parameters(std::string cmd_line) {
@@ -67,4 +71,12 @@ void shell::start() {
 
 void shell::add_cmd(shell_command* cmd) {
 	this->commands.push_back(cmd);
+}
+
+void shell::print_all_commands()
+{
+	std::cout << "Available Commands:" << std::endl << std::endl;
+	for (std::list<shell_command*>::iterator it=this->commands.begin(); it != this->commands.end(); ++it) {
+		std::cout << (**it).get_name() << std::endl << (**it).get_usage() << std::endl;
+	}
 }
