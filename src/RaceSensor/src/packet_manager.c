@@ -22,6 +22,7 @@
 #include "leds.h"
 
 #include <string.h>
+#include <misc/byteorder.h>
 
 /**
  * Set debug
@@ -143,24 +144,26 @@ static int build_packet(struct pkt_mngr_race_pkt *packet)
 	 * wait for a new one */
 	wait_for_gps_update();
 
-	packet->marker = PKT_MANAGER_SYNC_MARKER;
+	/* Data is transfered as big endian */
+	packet->marker = sys_cpu_to_be32(PKT_MANAGER_SYNC_MARKER);
 
-	packet->id = PKT_MANAGER_SENSOR_ID;
+	packet->id = sys_cpu_to_be16(PKT_MANAGER_SENSOR_ID);
 
+	/* TODO Byte order */
 	get_timestamp(packet->timestamp);
 
 	packet->status = 0;
 
-	packet->counter = pkt_mngr.pkt_seq;
+	packet->counter = sys_cpu_to_be16(pkt_mngr.pkt_seq);
 	pkt_mngr.pkt_seq++;
 
-	packet->latitude = pkt_mngr.last_pvt_msg.lat;
+	packet->latitude = sys_cpu_to_be32(pkt_mngr.last_pvt_msg.lat);
 
-	packet->longitude = pkt_mngr.last_pvt_msg.lon;
+	packet->longitude = sys_cpu_to_be32(pkt_mngr.last_pvt_msg.lon);
 
 	packet->nb_sv = pkt_mngr.last_pvt_msg.numSV;
 
-	packet->pdop = pkt_mngr.last_pvt_msg.pDOP;
+	packet->pdop = sys_cpu_to_be16(pkt_mngr.last_pvt_msg.pDOP);
 
 	packet->heart_rate = pkt_mngr.heart_rate;
 
