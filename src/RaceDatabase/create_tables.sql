@@ -19,7 +19,7 @@ CREATE TABLE race_tracker.track_point (
     competition_id SERIAL NOT NULL REFERENCES race_tracker.competition,
     sequence INTEGER NOT NULL,
     position GEOMETRY NOT NULL,
-    PRIMARY KEY (track_point_id, competition_track_id)
+    PRIMARY KEY (track_point_id)
 );
 
 CREATE TABLE race_tracker.competitor (
