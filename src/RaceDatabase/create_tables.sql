@@ -3,7 +3,7 @@ CREATE TABLE race_tracker.country (
     country_code VARCHAR(2) UNIQUE NOT NULL,
     country_name VARCHAR(20) NOT NULL,
     country_icon BYTEA NOT NULL,
-    PRIMARY_KEY(country_code)
+    PRIMARY KEY(country_code)
 );
 
 CREATE TABLE race_tracker.competition (
