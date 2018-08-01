@@ -29,5 +29,22 @@ ADd info to install DB
 
 % Edit the pg_hba config file /etc/postgresql/9.6/main/pg_hba.conf to change 127.0.0.1/32 to 0.0.0.0/0 for IPv4 and ::1/128 to ::/0 for IPv6. Save and exit.
 
+% Install postgis
+% sudo apt-get install postgis
+
 % Install libpqxx
 %sudo apt-get install libpqxx-dev
+
+% Postgis Geometry vs Geography
+% http://workshops.boundlessgeo.com/postgis-intro/geography.html
+
+% SQL Requests
+% Postgis geometry point
+% Create point : ST_MakePoint(X,Y)
+% Distance between two points: ST_Distance(point1, point2)
+% Get latitude:  SELECT ST_X(column) from table;
+% Get longitude: SELECT ST_Y(column) from table;
+
+% Ajouter les requêtes SQL pour chaque éléments, à prendre des scriptes 
+
+
