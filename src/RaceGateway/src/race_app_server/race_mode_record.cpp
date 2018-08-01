@@ -36,8 +36,8 @@ std::string race_mode_record::to_string()
 	std::stringstream mystr;
 
 	mystr << "race_mode_record(" << "id: " << this->id << " Timestamp: " << "TODO" << " Status: " << this->status << " Seq: " << this->seq;
-	mystr <<  " Latitude: " << this->lat << " Longitude: " << this->lon << " Nb SV: " << this->nb_sv << " Position DOP: " << this->hdop;
-	mystr << " Heart Rate: " << this->heart_rate << "  Cadence: " << this->cadence;
+	mystr <<  " Latitude: " << this->lat << " Longitude: " << this->lon << " Nb SV: " << unsigned(this->nb_sv) << " Position DOP: " << this->hdop;
+	mystr << " Heart Rate: " << unsigned(this->heart_rate) << "  Cadence: " << unsigned(this->cadence);
 	mystr <<  ")";
 
 	return mystr.str();

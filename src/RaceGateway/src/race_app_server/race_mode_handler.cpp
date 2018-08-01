@@ -11,6 +11,7 @@
 #include "race_mode_handler.h"
 #include "vector_reader.h"
 #include "race_mode_record.h"
+#include "logger.h"
 
 #include <iostream>
 #include <sstream>
@@ -24,7 +25,7 @@
 race_mode_handler::race_mode_handler()
 {
 	this->nb_discarded = 0;
-
+	this->tot_pkt = 0;
 }
 
 race_mode_handler::~race_mode_handler()
@@ -55,15 +56,18 @@ void race_mode_handler::handle(lora_rxpk_parser* rxpk)
 		race_record.set_heart_rate(myreader.get_next_8bits());
 		race_record.set_cadence(myreader.get_next_8bits());
 
-		std::cout << race_record.to_string();
+
+
+		log(logINFO) << race_record.to_string();
 	} else {
 		this->nb_discarded++;
 	}
+	this->tot_pkt++;
 }
 
 std::string race_mode_handler::print()
 {
 	std::stringstream mystr;
-	mystr << "race_mode_handler(nb discarded=" << this->nb_discarded << ")";
+	mystr << "race_mode_handler(total nb packet=" << this->tot_pkt << " nb discarded=" << this->nb_discarded << ")";
 	return mystr.str();
 }
