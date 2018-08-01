@@ -48,7 +48,7 @@ CREATE TABLE race_tracker.data_point (
     heart_rate smallint NOT NULL,
     cadence smallint NOT NULL,
     nb_satellites smallint NOT NULL,
-    position_dop smallint NOT NULL,
+    position_dop float8 NOT NULL,
     status smallint NOT NULL,
     PRIMARY KEY (data_point_id, competitor_id, competition_id)
 );
