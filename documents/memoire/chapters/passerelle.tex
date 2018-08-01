@@ -6,3 +6,28 @@
 %		- La base de données
 
 \chapter{Description de la passerelle}\label{ch:passerelle}
+
+
+ADd info to install DB
+% Install DB
+% https://opensource.com/article/17/10/set-postgres-database-your-raspberry-pi
+%sudo apt install postgresql libpq-dev postgresql-client 
+%postgresql-client-common -y
+
+%sudo su postgres
+
+%createuser pi -P --interactive
+
+%psql
+%> create database test;
+
+%psql test
+
+%test=> create table people (name text, company text);
+
+% Edit the PostgreSQL config file /etc/postgresql/9.6/main/postgresql.conf to uncomment the listen_addresses line and change its value from localhost to *. Save and exit.
+
+% Edit the pg_hba config file /etc/postgresql/9.6/main/pg_hba.conf to change 127.0.0.1/32 to 0.0.0.0/0 for IPv4 and ::1/128 to ::/0 for IPv6. Save and exit.
+
+% Install libpqxx
+%sudo apt-get install libpqxx-dev
