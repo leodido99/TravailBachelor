@@ -1,3 +1,1 @@
--- Schema for: Data Model
-CREATE SCHEMA race_tracker
-    AUTHORIZATION postgres;
+CREATE SCHEMA race_tracker;
