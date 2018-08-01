@@ -7148,7 +7148,8 @@
 									"_parent": {
 										"$ref": "AAAAAAFkNhbZOeFnh3c="
 									},
-									"name": "ofstream file"
+									"name": "ofstream file",
+									"type": ""
 								},
 								{
 									"_type": "UMLParameter",
