@@ -10,6 +10,6 @@ createlang plpgsql $db_name
 # Load the PostGIS object and function definitions into the database
 psql -d race_tracker_db -f ${postgis_scripts}/postgis.sql
 # Create the schema
-psql -d race_tracker_db -f schema_create.sql
+psql -d race_tracker_db -f create_schema.sql
 # Create the tables
-psql -d race_tracker_db -f data_model_main_create.sql
+psql -d race_tracker_db -f create_tables.sql
