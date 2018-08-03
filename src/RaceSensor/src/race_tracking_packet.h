@@ -13,7 +13,7 @@
 
 #define RACE_TRACKING_PKT_TIMESTAMP_SIZE 8
 
-struct pkt_mngr_race_pkt {
+struct race_tracking_pkt {
 	u32_t marker;
 	u16_t id;
 	u8_t timestamp[RACE_TRACKING_PKT_TIMESTAMP_SIZE];

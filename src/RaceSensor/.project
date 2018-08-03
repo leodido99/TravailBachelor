@@ -24,4 +24,11 @@
 		<nature>org.eclipse.cdt.managedbuilder.core.managedBuildNature</nature>
 		<nature>org.eclipse.cdt.managedbuilder.core.ScannerConfigNature</nature>
 	</natures>
+	<linkedResources>
+		<link>
+			<name>zephyr_fork</name>
+			<type>2</type>
+			<location>/Users/leonard.bise/gitrepo/zephyr_fork</location>
+		</link>
+	</linkedResources>
 </projectDescription>

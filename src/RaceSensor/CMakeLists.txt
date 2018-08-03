@@ -11,7 +11,7 @@ project(NONE)
 target_sources(app PRIVATE
 	       	   src/main.c
 	       	   src/debug.c
-	       	   src/packet_manager.c
+	       	   src/race_sensor_manager.c
 	       	   src/race_sensor_shell.c
 	       	   src/drivers/LSM303AGR.c
 	           src/drivers/RN2483_lora.c

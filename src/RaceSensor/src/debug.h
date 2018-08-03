@@ -12,7 +12,7 @@
 
 /* Modules */
 #define DEBUG_MAIN 1
-#define DEBUG_PKT_MNGR 1
+#define DEBUG_RACE_SENSOR_MNGR 1
 
 /* Drivers */
 #define DEBUG_RN2483_LORA 1

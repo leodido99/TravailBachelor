@@ -17,7 +17,7 @@
  */
 #define DEBUG DEBUG_MAIN
 
-#include "packet_manager.h"
+#include "race_sensor_manager.h"
 #include "RN2483_lora.h"
 #include "UBloxEVA8M.h"
 #include "leds.h"
@@ -64,16 +64,16 @@ void main(void)
 		fatal_error("Cannot init LEDs");
 	}
 
-	DBG_PRINTK("%s: Initializing packet manager\n", __func__);
-	err = pkt_mngr_init();
+	DBG_PRINTK("%s: Initializing race sensor manager\n", __func__);
+	err = race_sensor_mngr_init();
 	if (err < 0) {
-		fatal_error("Cannot init packet manager");
+		fatal_error("Cannot init race sensor manager");
 	}
 
-	DBG_PRINTK("%s: Starting packet manager\n", __func__);
-	err = pkt_mngr_start();
+	DBG_PRINTK("%s: Starting race sensor manager\n", __func__);
+	err = race_sensor_mngr_start();
 	if (err < 0) {
-		fatal_error("Cannot start packet manager");
+		fatal_error("Cannot start race sensor manager");
 	}
 
 	DBG_PRINTK("%s: Starting\n", __func__);
