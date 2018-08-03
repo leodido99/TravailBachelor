@@ -1,22 +1,28 @@
-
-% - Description du capteur
-% 		- Le matériel
-% 		- Le système d'exploitation Zephyr
-% 		- La couche radio LoRa
-%      - Le logiciel embarqué
-%		- Le boîtier
-
 \chapter{Description du capteur}\label{ch:capteur}
 
-Le travail du capteur et d'acquérir les données nécessaires, puis de les transmettre à intervalles réguliers par la couche radio LoRa aux passerelles. Le cœur du capteur est le micro-contrôleur, celui-ci permet l'exécution du firmware qui est en charge de la gestion des opérations. C'est cette application qui va effectuer aux moments voulus les acquisitions nécessaire et ensuite créer un paquet de données pour être  envoyé.
+Le travail du capteur et d'acquérir les données nécessaires, puis de les transmettre à intervalles réguliers par la couche radio LoRa à la passerelle. Le cœur du capteur est le micro-contrôleur, celui-ci permet l'exécution du firmware qui est en charge de la gestion des opérations. C'est cette application qui va effectuer aux moments voulus les acquisitions nécessaire et ensuite créer un paquet de données pour être  envoyé.
 
 Pour se faire le capteur est munit de plusieurs modules permettant l'acquisition des différents paramètres. Il sont présentés dans la liste suivante.
 
 \begin{itemize}
-\item GPS: Il permettra de connaître la position (latitude/longitude) du capteur et également d'avoir une référence de temps
-\item Accéléromètre: Ce module sera utilisé pour connaître le nombre de pas effectués par le sportif ce qui permettra de calculer sa cadence de course
-\item Rythme cardiaque:  Au moyen d'une sangle pectorale portée par l'athlète, ce module déclenchera une impulsion à chaque fois qu'un battement du cœur sera détecté
-\item Radio LoRa: C'est au moyen de cet élément que le capteur transmettra les paquets de données à la passerelle
+\item GPS: Il permettra de connaître la position (latitude/longitude) du capteur et également d'avoir une référence de temps. Voir la section \ref{ch:module_ubloxeva8m} pour plus de détails.
+\item Accéléromètre: Ce module sera utilisé pour connaître le nombre de pas effectués par le sportif ce qui permettra de calculer sa cadence de course. Voir la section \ref{ch:module_lsm303agr} pour plus de détails.
+\item Rythme cardiaque:  Au moyen d'une sangle pectorale portée par l'athlète, ce module déclenchera une impulsion à chaque fois qu'un battement du cœur sera détecté. Voir la section \ref{ch:module_hr} pour plus de détails.
+\item Radio LoRa: C'est au moyen de cet élément que le capteur transmettra les paquets de données à la passerelle. Voir la section \ref{ch:module_rn2483} pour plus de détails.
+\end{itemize}
+
+\subsection{Les contraintes}
+
+Le capteur est également soumis à des contraintes liées à son utilisation dans les conditions d'une compétition sportive.
+
+Afin de gêner au minimum le sportif pendant la course et afin que le capteur soit utilisable pour l'entièreté d'une compétition, il est soumis aux contraintes définit durant la pré-étude et listé ci-dessous.
+
+\begin{itemize}
+\item Veiller à ce que sa taille soit minimale
+\item Son poids ne doit pas dépasser 200 g
+\item Il doit disposer d'une autonomie d'au moins 10 heures
+\item Il doit être capable de transmettre les paquets de données à une passerelle située à une distance de 5 km en espace libre
+\item Il sera placé dans un boîtier étanche
 \end{itemize}
 
 \section{Le matériel}
@@ -54,22 +60,48 @@ Prix & 114 CHF\\
 
 Aux modules de base, comme expliqué précédemment, il faudra rajouter un module qui permettra de compter le nombre de battement du cœur. Il est développé par la société Adafruit sous le nom de "Adafruit Heart Rate Start Pack".
 
-\hl{PHOTO SODAQ}
+\todo{PHOTO SODAQ}
 
 Le module LoRa RN2483 est connecté par un lien série UART et utilise une interface de type AT commands, c'est à dire qu'il est piloté avec l'envoie de chaînes de caractère représentant des commandes, dans la même idée les réponses reçues sont de type text. Le module GPS ainsi que l'accéléromètre sont quant à eux connecté sur le bus $I^{2}C$. Le module rythme cardiaque sera lui connecté simplement sur un General Purpose I/O.
 
-% Configuration HW? i.e. nb msg GPS etc..
-
 Le schéma block~\ref{fig:schema_block_sodaq} présente les différents modules et leurs connections avec le micro-contrôleur.
 
-\hl{Ajouter debug SEGGER}
+\todo{Ajouter debug SEGGER}
 
 \begin{figure}[htb]
 \centering 
-\includegraphics[width=1\columnwidth]{sensor_schema} 
+\includegraphics[width=1\columnwidth]{sensor_schema.png} 
 \caption{Schéma block du capteur SODAQ One}
 \label{fig:schema_block_sodaq}
 \end{figure}
+
+\subsection{Le module GPS UBloxEVA8M}\label{ch:module_ubloxeva8m}
+
+Le EVA8M de la compagnie UBlox est un module GPS à haute précision et qui propose 8 moteurs de positionnement avec des performances très intéressantes. Il est capable de gérer les signaux GPS, GLONASS, QZSS et SBAS et dispose d'une sensibilité très haute de -164 dBm. Son temps d'acquisition de la position est minime et il dispose de mécanisme d'optimisation de la consommation d'énergie.
+
+Ce module est très simple d'utilisation, dispose de son propre oscillateur et pour la plupart des applications il ne requiert qu'une antenne GNSS externe. De plus il propose plusieurs interfaces différentes, SPI, USB, $I^{2}C$ et UART.
+
+Il assure une précision de la position GPS à 2.5 m et de 4 m en GLONASS et Il est capable de générer des messages jusqu'à une fréquence de 18 Hz.
+
+Le module est détaillé dans sa datasheet \cite{ublox-datasheet} ainsi que dans le document d'explication de son protocole \cite{ublox-protocol}.
+
+\todo{}
+
+\subsection{Le module LoRa RN2483}\label{ch:module_rn2483}
+
+\todo{}
+
+\subsection{Le module rythme cardiaque Adafruit}\label{ch:module_hr}
+
+\todo{}
+
+\subsection{Le module accéléromètre LSM303AGR}\label{ch:module_lsm303agr}
+
+\todo{}
+
+\subsection{La batterie}
+
+\todo{}
 
 \section{Le système d'exploitation Zephyr}
 
@@ -85,14 +117,95 @@ Ce système d'exploitation a été choisi car en plus d'être moderne il dispose
 
 Même si beaucoup d'éléments sont déjà existant pour le micro-contrôleur utilisé par le SODAQ One, le développement d'un drivers $I^{2}C$ a été réalisé car il n'en n'existait aucun au moment ou j'ai commencé le travail de Bachelor. Ce driver est utilisé afin de pouvoir communiquer avec les modules GPS et accéléromètre. Les drivers développé dans le cadre du travail de diplôme sont décrit en détail dans la section \ref{ch:drivers}.
 
-La figure \ref{fig:zephyr_archi} présente l'architecture système du système d'exploitation temps-réel Zephyr.
+La figure \ref{fig:zephyr_archi} présente l'architecture du système d'exploitation temps-réel Zephyr.
 
 \begin{figure}[htb]
 \centering 
-\includegraphics[width=0.8\columnwidth]{zephyr_archi} 
-\caption{Architecture système du système d'exploitation Zephyr - http://www.zephyrproject.org}
+\includegraphics[width=0.8\columnwidth]{zephyr_archi.png} 
+\caption{Architecture du système d'exploitation Zephyr - http://www.zephyrproject.org}
 \label{fig:zephyr_archi}
 \end{figure}
+
+\section{Le logiciel embarqué}
+
+Cette section décrit le logiciel embarqué sur le capteur dans son ensemble. En se basant sur les fonctionnalités proposées par Zephyr ainsi que les drivers, qui sont décrit dans la section \ref{ch:drivers}, c'est lui qui va cadencer les acquisitions ainsi que l'envoie des paquets LoRa à la passerelle. Le logiciel embarqué ainsi que les drivers sont entièrement écrit en langage C. Il en va de même pour le système d'exploitation Zephyr qui contient cependant certaines parties écrites en assembleur.
+
+La liste suivante présente toutes les acquisitions qui sont gérer par le logiciel.
+
+\begin{itemize}
+\item Position GPS message générer par le module à une fréquence de 1 Hz
+\item Rythme cardiaque, une interruption est déclenchée à chaque battement du cœur
+\item Comptage du nombre de pas, une interruption est déclenchée lorsqu'un pas est détecté par l'accéléromètre
+\end{itemize}
+
+De manière général et de façon simplifié on peut définir le processus du capteur comme dans la figure \ref{fig:sensor_process}.
+
+\begin{figure}[htb]
+\centering 
+\includegraphics[width=0.5\columnwidth]{sensor_process.png} 
+\caption{Processus général du capteur}
+\label{fig:sensor_process}
+\end{figure}
+
+\subsection{Architecture logiciel}
+
+La figure \ref{fig:sensor_static_archi} montre l'architecture statique du logiciel embarqué, tout les modules dont il est composé sont présentés.
+
+\begin{figure}[htb]
+\centering 
+\includegraphics[width=1.0\columnwidth]{sensor_static_archi.png} 
+\caption{Architecture statique du logiciel embarqué sur le capteur}
+\label{fig:sensor_static_archi}
+\end{figure}
+
+Les éléments qui compose la couche application du logiciel embarqué sont décrit en plus de détail dans la liste ci-dessous.
+
+\begin{itemize}
+\item Race Sensor Manager: C'est le module responsable de la gestion du capteur, au moyen d'un thread c'est lui qui déclenche les acquisitions et qui paquetise les données afin de les transmettre dans des paquets LoRa.
+\item Race Sensor Shell: Le shell du capteur, il est principalement utile pour les tests et le debug. Il propose plusieurs commande qui permettent par exemple de modifier la configuration de la liaison radio LoRa.
+\item Debug: Ce module propose des fonctions qui facilite le debug de l'application.
+\end{itemize}
+
+La figure \ref{fig:sensor_dyn_archi} décrit les éléments dynamiques qui compose le logiciel du capteur.
+
+\todo{Update when finished}
+
+\begin{figure}[htb]
+\centering 
+\includegraphics[width=0.8\columnwidth]{sensor_dyn_archi.png} 
+\caption{Architecture dynamique du logiciel embarqué sur le capteur}
+\label{fig:sensor_dyn_archi}
+\end{figure}
+
+Zephyr propose une implémentation de la priorité des threads intéressante qui permet en fonction de la valeur d'également modifier le comportement de l'ordonnanceur. La priorité d'un thread, valeur entière, peut être soit positive ou négative. Une valeur de priorité plus petite est plus importante qu'une valeur numériquement plus grande, ainsi un thread de priorité -2 est plus prioritaire qu'un de priorité 7.
+
+En plus de cela, l'ordonnanceur distingue deux catégorie de thread en utilisant la valeur de priorité. Des threads dit coopératif et des threads pré-emptible.
+
+Les threads coopératif ont une valeur de priorité négative, une fois qu'ils deviennent le thread exécutant, il le reste jusqu'à ce qu'il effectue une action qui le mettrait dans l'état non prêt, c'est à dire l'acquisition d'un sémaphore qui est utilisé ou une attente par exemple.
+
+Un threads pré-emptible a une valeur de priorité non négative. Lors de son exécution ce genre de thread peut à tout moment être mis dans l'état non prêt par l'ordonnanceur afin de permettre à un thread coopératif ou à un thread pré-emptible de priorité plus haute ou égale de s'exécuter. \cite{zephyr_web}
+
+La table \ref{tab:threads_cara} décrit en plus de détail les caractéristiques de chaque threads.
+
+\begin{table}[htb]
+\caption{Caractéristiques des threads du capteur}
+\label{tab:threads_cara}
+\centering
+\begin{tabular}{ l l l }
+\toprule
+Thread & Priorité & Période \\
+\midrule
+Race Sensor Manager & Haute - 0 & 15 s  \\
+RN2483 (LoRa) & 1 & 100 ms  \\
+Driver UBloxEVA8M (GPS) & 2 & 100 ms  \\
+Accéléromètre & Basse - 3 & 100 ms  \\
+\bottomrule 
+\end{tabular}
+\end{table}
+
+Le thread le plus prioritaire est celui du gestionnaire du capteur, en effet étant donné qu'il a une période qui est longue, lorsqu'il est prêt il doit directement prendre la main sur les autres threads afin de garantir la fréquence de transmission des données à la passerelle.
+Le thread responsable de la transmission des données au module LoRa doit également faire son travail en priorité afin de garantir le transfert des données rapidement.
+Enfin les thread de gestion du module GPS et de l'accéléromètre dispose de priorité plus faible car leur importance est moindre dans le processus du capteur.
 
 \section{Les drivers}\label{ch:drivers}
 
@@ -110,28 +223,28 @@ Les drivers présenté dans la liste suivante ont été développés dans le cad
 
 \subsection{Driver $I^{2}C$ ATSAMD21G18}
 
-\hl{TODO Ajouter data sheet SAMD21 dans biblio + réf}
-
 $I^{2}C$ est un bus qui permet de connecter plusieurs esclaves à un maître. Le maître est le seul à initier les accès aux esclaves qui disposent chacun de leur adresse spécifique, lorsque le maître veut lire ou écrire sur un esclave il va envoyer un message $I^{2}C$ contenant l'adresse de l'esclave en question, suivi des données à écrire ou de l'adresse à lire par exemple. Avantage de taille est qu'il ne nécessite que deux connections pour fonctionner, une qui permet la distribution du signal de synchronisation qui est uniquement contrôlé par le maître et une autre pour le transfert des données qui peut être contrôlé soit par le maître lors d'une écriture ou de l'esclave pour une lecture.
+
+L'écriture de ce driver se base sur les informations disponible dans la datasheet du micro-contrôleur ATSAMD21G18 \cite{samd21-datasheet}. Les composant SERCOM $I^{2}C$ sont décrit à partir de la page 545. L'application note \cite{samd21-i2c-configuration} a également été consultée.
 
 \begin{figure}[htb]
 \centering 
-\includegraphics[width=0.8\columnwidth]{i2c_bus} 
+\includegraphics[width=0.8\columnwidth]{i2c_bus.png} 
 \caption{Schéma d'un bus $I^{2}C$}
 \label{fig:i2c_bus}
 \end{figure}
 
-Le bus $I^{2}C$ utilise un protocole pour la communication entre un maître et un esclave, en fonction de l'opération voulue le message ne sera pas tout à fait le même. Le maître commence toujours par envoyer l'adresse de l'esclave à qui est destiné le message, suivi de l'opération, lecture ou écriture. Les données sont ensuite placé sur le bus par le maître dans le cas d'une écriture ou par l'esclave lors d'une lecture. Chose importante lorsque le maître à terminé le processus de lecture, il doit envoyé un message de type NACK suivi d'un STOP afin d'informer l'esclave de la fin du transfert.
+Le bus $I^{2}C$ utilise un protocole pour la communication entre un maître et un esclave, en fonction de l'opération voulue le message ne sera pas tout à fait le même. Le maître commence toujours par envoyer un START suivi de l'adresse de l'esclave à qui est destiné le message et puis enfin du type d'opération, lecture ou écriture. Les données sont ensuite placé sur le bus par le maître dans le cas d'une écriture ou par l'esclave lors d'une lecture. Chose importante lorsque le maître à terminé le processus de lecture, il doit envoyé un message de type NACK suivi d'un STOP afin d'informer l'esclave de la fin du transfert.
 La figure \ref{fig:i2c_messages} propose les deux types de messages qu'il existe.
 
 \begin{figure}[htb]
 \centering 
-\includegraphics[width=1\columnwidth]{i2c_messages} 
+\includegraphics[width=1\columnwidth]{i2c_messages.png} 
 \caption{Les messages $I^{2}C$}
 \label{fig:i2c_messages}
 \end{figure}
 
-Le driver $I^{2}C$ est responsable du pilotage d'un des 5 SERCOM que propose le micro-contrôleur, ce sont des modules qui peuvent être configuré afin de proposer une interface de type UART, $I^{2}C$ ou SPI. Étant donné qu'il est intégré directement à Zephyr, il doit respecter les contraintes qui y sont liées c'est à dire d'être placé dans le dossier $I^{2}C$ du système d'exploitation: zephyr/drivers/i2c/i2c\_sam0.c et qu'il doit proposer une interface standardisée qui permet au système d'exploitation d'initier les opérations suivantes.
+Le driver $I^{2}C$ est responsable du pilotage des SERCOM que propose le micro-contrôleur, ce sont des modules qui peuvent être configuré afin de proposer une interface de type UART, $I^{2}C$ ou SPI. Étant donné qu'il est intégré directement à Zephyr, il doit respecter les contraintes qui y sont liées c'est à dire d'être placé dans le dossier $I^{2}C$ du système d'exploitation: zephyr/drivers/i2c/i2c\_sam0.c et qu'il doit proposer une interface standardisée qui permet au système d'exploitation d'initier les opérations suivantes.
 
 \begin{itemize}
 \item Configuration de l'interface
@@ -146,22 +259,67 @@ La figure \ref{fig:driver_i2c_uml} présente le diagramme de classe du driver $I
 
 \begin{figure}[htb]
 \centering 
-\includegraphics[width=0.8\columnwidth]{driver_i2c_uml} 
+\includegraphics[width=0.8\columnwidth]{driver_i2c_uml.png} 
 \caption{Diagramme de class du driver $I^{2}C$}
 \label{fig:driver_i2c_uml}
 \end{figure}
 
+Un exemple d'utilisation du driver $I^{2}C$ est disponible ci-dessous.
+
+\begin{lstlisting}[style=CStyle]
+#include <i2c.h>
+
+/* Address of the i2c slave */
+#define I2C_DEVICE_ADDR 0x20
+
+#define BUFFER_SIZE 128
+
+void main(void) {
+	/* Get binding on i2c device */
+	struct device* i2c_dev = device_get_binding(CONFIG_I2C_SAM0_SERCOM3_LABEL);
+	/* i2c device configuration */
+	u32_t i2c_cfg = I2C_SPEED_SET(I2C_SPEED_FAST) | I2C_MODE_MASTER;
+	uint8_t msg[BUFFER_SIZE];
+	
+	/* Check if binding succeeded */
+	if (!i2c_dev) {
+		DBG_PRINTK("%s: Binding to i2c failed\n", __func__);
+		return;
+	}
+	/* Configure I2C Device */
+	if (i2c_configure(i2c_dev, i2c_cfg)) {
+		DBG_PRINTK("%s: i2c configuration failed\n", __func__);
+		return;
+	}	
+	
+	msg[0] = 0x11;
+	msg[1] = 0x22;
+	msg[2] = 0x33;
+	msg[3] = 0x44;	
+	
+	/* Send message to i2c slave */
+	if (i2c_write(i2c_dev, msg, 4, I2C_DEVICE_ADDR)) {
+		DBG_PRINTK("%s: I2C access failed\n", __func__);
+	}
+	
+	/* Read from i2c slave */
+	if (i2c_read(i2c_dev, msg, 4, I2C_DEVICE_ADDR)) {
+		DBG_PRINTK("%s: I2C access failed\n", __func__);
+		return 0;
+	}	
+}
+\end{lstlisting}
+
 \subsection{Driver UBloxEVA8M}
 
-Le driver UBloxEVA8M permet le pilotage du module GPS du même nom qui se trouve connecté sur le bus $I^{2}C$. Ce module est intégré directement à la carte SODAQ One et propose une gestion GPS complète, il est capable de recevoir les signaux GPS, GLONASS, QZSS et SBAS, il est extrêmement sensible, très rapide et de petite taille, en somme une solution idéal pour des capteurs de petite taille. Il est décrit en plus détails au chapitre \ref{ubloxeva8m_description}. 
-\hl{TODO Chapitre GPS module link}
+Le driver UBloxEVA8M permet le pilotage du module GPS du même nom qui se trouve connecté sur le bus $I^{2}C$. Ce module est intégré directement à la carte SODAQ One et propose une gestion GPS complète, il est capable de recevoir les signaux GPS, GLONASS, QZSS et SBAS, il est extrêmement sensible, très rapide et de petite taille, en somme une solution idéal pour des capteurs de petite taille. Il est décrit en plus détails à la section \ref{ch:module_ubloxeva8m}. 
 
 Le module utilise trois types de protocole pour la transmission des données et la configuration du module, NMEA, UPX et RTCM. NMEA est un protocole à base de texte qui envoie des messages formée de character ASCII il est idéale lorsque le module est connecté sur un UART. UPX est un protocole compact car il utilise des mots binaires qui sont protégés par des checksum. Enfin le protocole Radio Technical Commission for Maritime Services (RTCM) est unidirectionnel (seulement envoie vers le receveur) qui permet au receveur l'utilisation des corrections du positionnement relatif uniquement.
-Le driver utilise uniquement le protocole UPX car il est le mieux adapté pour l'utilisation sur un bus $I^{2}C$, il est décrit en détail dans le document \cite{ublox-protocol}.
+Le driver utilise les messages du protocole UPX car il est le mieux adapté pour l'utilisation sur un bus $I^{2}C$, il est décrit en détail dans le document \cite{ublox-protocol}.
 
 Une fois que le module a été configuré, il va produire les messages qui ont été activés et contenant diverses informations et les placé dans une FIFO. Au travers du bus $I^{2}C$, le thread du driver va interroger le module périodiquement afin de savoir si des messages sont prêt à être lu, si c'est le cas le driver va lire les messages disponible et les stocker dans une structure de type ubloxeva8m\_ubx\_msg. L'utilisateur récupère les messages reçu grâce à une fonction callback qui est passée au driver et qu'il appelle à chaque fois qu'un message est prêt.
 
-Dans le cadre du projet, un seul message est utilisée c'est le UBX-NAV-PVT, la liste suivante présente un résumé des informations contenue dans ce mesage, pour plus de détails voir \cite[p.~307]{ublox-protocol}.
+Dans le cadre du projet, le message UBX-NAV-PVT est utilisé pour récupérer les informations nécessaire au projet, c'est à dire la position, l'évaluation de la précision de la position ainsi que les informations de temps qui servent à synchroniser le capteur. La liste suivante présente un résumé des informations contenue dans ce message, pour plus de détails voir \cite[p.~307]{ublox-protocol}.
 
 \begin{itemize}
  \item La date du jour
@@ -173,36 +331,276 @@ Dans le cadre du projet, un seul message est utilisée c'est le UBX-NAV-PVT, la 
  \item La vitesse
  \end{itemize} 
 
-\hl{TODO}
-
-En ce basant sur le driver $I^{2}C$ décrit à la section précédente il va permettre l'initialisation, la configuration et la récupération des messages GPS du composant. Il utilise un thread qui va périodiquement 
+En utilisant le driver $I^{2}C$ décrit à la section précédente il va permettre l'initialisation, la configuration et la récupération des messages GPS du composant. Une fois le module GPS initialisé et configuré, le driver utilise un thread qui va périodiquement allez voir si de nouveaux messages sont présent dans la FIFO, si c'est le cas ils sont lus et ensuite décodé. Lorsque les messages sont prêt ils sont ensuite transférer à l'application au travers d'une fonction de callback.
 
 La figure \ref{fig:driver_ubloxeva8m_uml} présente le diagramme de classe du driver UBloxEVA8M.
 
 \begin{figure}[htb]
 \centering 
-\includegraphics[width=0.8\columnwidth]{driver_ubloxeva8m_uml} 
+\includegraphics[width=0.8\columnwidth]{driver_ubloxeva8m_uml.png} 
 \caption{Diagramme de class du driver UBloxEVA8M}
 \label{fig:driver_ubloxeva8m_uml}
 \end{figure}
 
+Un exemple d'utilisation du driver UBloxEVA8M est proposée ci-dessous. Le principe d'utilisation et la configuration d'une fonction qui est appelé par le driver lorsqu'un nouveau message est reçu, une fonction callback. Dans cette fonction, l'utilisateur peut vérifier de quel type de message il s'agit, dans le cas ou le message l'intéresse il peut ensuite utiliser les structures permettant le décodage des différents messages.
 
+\begin{lstlisting}[style=CStyle]
+#include "UBloxEVA8M.h"
 
+/* Function to print a UBX-NAV-PVT message */
+static void print_nav_pvt_msg(char *txt, ubloxeva8m_nav_pvt_t* msg) {
+	DBG_PRINTK("UBX-NAV-PVT: %d.%d.%d %02d:%02d:%02d:%03d validity=%d fixType=%d numSV=%d lat=%d lon=%d \n", msg->day, msg->month, msg->year, msg->hour, msg->minute, msg->seconds, msg->nano, msg->valid, msg->fixType, msg->numSV, msg->lat, msg->lon);
+}
 
+/* Callback function on GPS message */
+static void gps_msg_callback(ubloxeva8m_ubx_msg* msg)
+{
+	ubloxeva8m_nav_pvt_t pvt_msg;
+	
+	/* Check message type */
+	if (msg->class_id == UBLOXEVA8M_CLASS_NAV && msg->message_id == UBLOXEVA8M_MSG_NAV_PVT) {
+		/* Copy message in struct */
+		memcpy(&pvt_msg, msg->payload, sizeof(ubloxeva8m_nav_pvt_t));
+		print_nav_pvt_msg("UBX-NAV-PVT: ", &pvt_msg);
+	}
+}
 
+void main(void)
+{
+	int err;
 
+	/* Initialize the gps */
+	err = ubloxeva8m_init(CONFIG_I2C_SAM0_SERCOM3_LABEL);
+	if (err) {
+		DBG_PRINTK("%s: Can't initialize UBloxEVA8M %d\n", __func__, err);
+		return;
+	}
+
+	/* Set callback function */
+	ubloxeva8m_set_callback(gps_msg_callback);
+
+	/* Start module */
+	err = ubloxeva8m_start();
+	if (err) {
+		DBG_PRINTK("%s: Can't start GPS module %d\n", __func__, err);
+		return;
+	}
+
+	/* Set the dynamic model used by the GPS */
+	err = ubloxeva8m_set_dynamic_model(UBLOXEVA8M_DYNMODEL_AUTOMOTIVE);
+	if (err) {
+		DBG_PRINTK("%s: Can't set dynamic model %d\n", __func__, err);
+		return;
+	}
+}
+\end{lstlisting}
 
 \subsection{Driver LSM303AGR}
 
+Le driver LSM303AGR est le moyen de communiquer avec le module accéléromètre et magnétomètre qui est connecté au bus $I^{2}C$. Dans le cadre du projet seule la partie qui gère l'accéléromètre a été développée puisque le magnétomètre n'est pas utilisé. Le composant est décrit en détail dans le datasheet associé \cite{lsm303agr-datasheet}.
+
+Le composant LSM303AGR est configuré au travers d'une liste de registre, il est également possible de lire les différentes valeurs mesurer au travers d'un autre groupe de registre. Tout les registres disponible sont détaillés dans le document \cite[p.~43]{lsm303agr-datasheet}.
+
+Puisque le composant LSM303AGR se trouve placé sur le bus $I^{2}C$, ce driver utilise également le driver pour ce bus afin de pouvoir communiquer avec le module. La majorité des opérations consiste à écrire ou lire des valeurs dans les différents registres à disposition afin de configurer ou de récupérer les données voulues. Il est à noté qu'il est également possible de configurer le module afin qu'il produise des interruptions lorsque certains seuils sont dépassés sur un certain axe. Cette fonctionnalité est utilisé afin de détecter les pas effectuer par le porteur de capteur.
+
+\todo{Revoir diagramme après implémentation finale}
+
+La figure \ref{fig:driver_lsm303agr_uml} présente le diagramme de classe du driver LSM303AGR.
+
+\begin{figure}[htb]
+\centering 
+\includegraphics[width=1\columnwidth]{driver_lsm303agr_uml.png} 
+\caption{Diagramme de class du driver LSM303AGR}
+\label{fig:driver_lsm303agr_uml}
+\end{figure}
+
+Un exemple d'utilisation du driver est proposée ci-dessous.
+
+\begin{lstlisting}[style=CStyle]
+#include "LSM303AGR.h"
+
+void main(void)
+{
+	int err;
+	lsm303agr_status_t lsm_status;
+	int16_t accel_x;
+	int16_t accel_y;
+	int16_t accel_z;
+
+	/* Initialize the LSM303AGR module */
+	err = lsm303agr_init(CONFIG_I2C_SAM0_SERCOM3_LABEL);
+	if (err) {
+		DBG_PRINTK("%s: Can't init LSM303AGR %d\n", __func__, err);
+		return;
+	}
+
+	/* Enable the accelerometer */
+	err = lsm303agr_accel_enable(LSM303AGR_NORMAL_MODE, LSM303AGR_HIGH_RES_100HZ, false, (LSM303AGR_Z_AXIS | LSM303AGR_Y_AXIS | LSM303AGR_X_AXIS));
+	if (err) {
+		DBG_PRINTK("%s: Can't enable accelerometer %d\n", __func__, err);
+		return;
+	}
+
+	/* Set accelerometer scale */
+	if (lsm303agr_accel_set_scale(LSM303AGR_8G)) {
+		DBG_PRINTK("Couldn't set accelerometer scale\n");
+		return;
+	}
+	
+	/* Get accelerometer status */
+	if (lsm303agr_get_status(&lsm_status)) {
+		DBG_PRINTK("Couldn't get status\n");
+		return;	
+	}
+	
+	/* Get current acceleration on x axis */	
+	if (lsm303agr_get_x_acceleration(&accel_x)) {
+		DBG_PRINTK("Couldn't get acceleration\n");
+		return;		
+	}
+
+	/* Get current acceleration on y axis */	
+	if (lsm303agr_get_y_acceleration(&accel_y)) {
+		DBG_PRINTK("Couldn't get acceleration\n");
+		return;		
+	}
+	
+	/* Get current acceleration on z axis */	
+	if (lsm303agr_get_z_acceleration(&accel_z)) {
+		DBG_PRINTK("Couldn't get acceleration\n");
+		return;		
+	}	
+}
+\end{lstlisting}
+
+\todo{Add setup of IRQ}
+
 \subsection{Driver RN2483}
+
+Le driver RN2483 permet de piloter le composant du même nom qui permet la communication radio LoRa. Le module est connecté au micro-contrôleur par un UART et il est piloté grâce à un protocole de commande texte qui permette d'effectuer les différentes opérations requises pour l'envoie de donnée.
+
+Le protocole est détaillé dans le document Command Reference User's Guide \cite{rn2483-datasheet}.
+
+Grâce au driver il est possible à l'utilisateur d'effectuer certaines opérations, le driver se charge de créer les bonnes commandes et de les envoyer sur l'UART. Une fois la commande exécutée par le module il vérifie également le bon acquittement de celle-ci.
+
+Il est aussi possible de gérer la couche MAC LoRaWAN grâce au composant, puisque cette couche n'est pas utilisée dans le cadre du projet, elle est désactivée au moyen de la fonction rn2483\_lora\_pause\_mac() et seule la couche radio LoRa est utilisée pour envoyer des messages, cela permet de simplifier grandement la gestion du protocole de communication.
+
+La figure \ref{fig:driver_rn2483_uml} présente le diagramme de classe du driver RN2483.
+
+\begin{figure}[htb]
+\centering 
+\includegraphics[width=0.6\columnwidth]{driver_rn2483_uml.png} 
+\caption{Diagramme de class du driver RN2483}
+\label{fig:driver_rn2483_uml}
+\end{figure}
+
+Un exemple d'utilisation du driver est proposée ci-dessous.
+
+\begin{lstlisting}[style=CStyle]
+#include "RN2483.h"
+
+/**
+ * LoRa spreading factor
+ * (Between sf7 and sf12)
+ */
+#define LORA_SPREADING_FACTOR "sf7"
+
+/**
+ * LoRa power output
+ */
+#define LORA_POWER_OUTPUT 1
+
+#define BUFFER_SIZE 56
+
+void main(void)
+{
+	int err;
+	u8_t buffer[BUFFER_SIZE];
+
+	/* Initialize the UART */
+	err = rn2483_lora_init(CONFIG_UART_SAM0_SERCOM2_LABEL);
+	if (err) {
+		DBG_PRINTK("%s: Can't init RN2483 %d\n", __func__, err);
+		return;
+	}
+
+	/* Pause mac layer */
+	err = rn2483_lora_pause_mac();
+	if (err) {
+		DBG_PRINTK("%s: Can't pause mac layer %d\n", __func__, err);
+		return;
+	}
+
+	/* Set spreading factor */
+	err = rn2483_lora_radio_set_sf(LORA_SPREADING_FACTOR);
+	if (err) {
+		DBG_PRINTK("%s: Can't set spreading factor %d\n", __func__, err);
+		return;
+	}
+
+	/* Set power output */
+	err = rn2483_lora_radio_set_pwr(LORA_POWER_OUTPUT);
+	if (err) {
+		DBG_PRINTK("%s: Can't set power output %d\n", __func__, err);
+		return;
+	}
+	
+	/* Send data */
+	buffer[0] = 0x11;
+	buffer[1] = 0x22;
+	buffer[2] = 0x33;
+	buffer[3] = 0x44;
+	
+	if (rn2483_lora_radio_tx(buffer, 4) {
+		DBG_PRINTK("Couldn't send packet\n");
+		return;
+	}	
+}
+\end{lstlisting}
 
 \subsection{Driver LEDs}
 
+La carte SODAQ One est équipée de 3 LEDs, une rouge, une verte, une bleu, qui sont connectés à des GPIOs. Ce driver, très simple, permet d'abstraire la gestion des GPIO et propose une interface facilitant la gestion des LEDs.
 
-\section{Le logiciel embarqué}
+La figure \ref{fig:driver_led_uml} présente le diagramme de classe du driver LED.
 
-\hl{TODO}
+\begin{figure}[htb]
+\centering 
+\includegraphics[width=0.6\columnwidth]{driver_led_uml.png} 
+\caption{Diagramme de class du driver LED}
+\label{fig:driver_led_uml}
+\end{figure}
+
+\begin{lstlisting}[style=CStyle]
+#include "led.h"
+
+void main(void)
+{
+	int err;
+
+	err = leds_init();
+	if (err) {
+		DBG_PRINTK("%s: Cannot initialize LEDs\n", __func__);
+		return;
+	}
+	
+	while(1) {
+		/* Switch-on LED */
+		leds_set(LED_RED, true);
+		/* Delay */
+		k_sleep(K_SECONDS(1));
+		/* Switch-off LED */
+		leds_set(LED_RED, false);
+		/* Delay */
+		k_sleep(K_SECONDS(1));		
+	}
+}
+\end{lstlisting}
+
+\section{Le débuggage}
+
+\todo{}
 
 \section{Le boîtier}
 
-\hl{TODO}
+\todo{}
