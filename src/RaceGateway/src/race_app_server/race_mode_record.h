@@ -38,7 +38,7 @@ public:
 	virtual ~race_mode_record();
 	std::string to_string();
 
-	uint8_t getCadence() const
+	uint8_t get_cadence() const
 	{
 		return cadence;
 	}
