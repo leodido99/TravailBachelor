@@ -77,27 +77,43 @@ Le schéma block~\ref{fig:schema_block_sodaq} présente les différents modules 
 
 \subsection{Le module GPS UBloxEVA8M}\label{ch:module_ubloxeva8m}
 
+\todo{figure}
+
 Le EVA8M de la compagnie UBlox est un module GPS à haute précision et qui propose 8 moteurs de positionnement avec des performances très intéressantes. Il est capable de gérer les signaux GPS, GLONASS, QZSS et SBAS et dispose d'une sensibilité très haute de -164 dBm. Son temps d'acquisition de la position est minime et il dispose de mécanisme d'optimisation de la consommation d'énergie.
 
 Ce module est très simple d'utilisation, dispose de son propre oscillateur et pour la plupart des applications il ne requiert qu'une antenne GNSS externe. De plus il propose plusieurs interfaces différentes, SPI, USB, $I^{2}C$ et UART.
 
-Il assure une précision de la position GPS à 2.5 m et de 4 m en GLONASS et Il est capable de générer des messages jusqu'à une fréquence de 18 Hz.
+Il assure une précision de la position GPS à 2.5 m et de 4 m en GLONASS, Il est capable de générer des messages jusqu'à une fréquence de 18 Hz et il propose 3 protocoles différents, NMEA, UBX et RTCM.
 
-Le module est détaillé dans sa datasheet \cite{ublox-datasheet} ainsi que dans le document d'explication de son protocole \cite{ublox-protocol}.
+Une fois le module configuré par l'utilisateur, il va générer les messages voulues à une certaine fréquence. En fonction des message différentes information seront disponible, le choix des messages sélectionnés dépend du type d'application que l'on souhaite réaliser. Lorsque la configuration est effectuée, il suffit à l'utilisateur de venir lire la queue de message du module périodiquement afin de pouvoir y récupérer les messages et d'y extraire les informations.
 
-\todo{}
+Le module est détaillé dans le datasheet \cite{ublox-datasheet} ainsi que dans le document d'explication de son protocole \cite{ublox-protocol}.
 
 \subsection{Le module LoRa RN2483}\label{ch:module_rn2483}
 
-\todo{}
+\todo{figure}
+
+Le RN2483 est un module de gestion de la couche radio LoRa et également de la couche protocolaire LoRaWAN. Il utilise un simple protocole de commande/réponse sur une interface de type UART. Bien qu'il ne soit pas utilisé dans ce projet, le module est capable d'assurer la gestion de la couche LoRaWAN de classe A automatiquement, c'est à dire de la gestion du mécanisme d'authentification avec gestion du chiffrement des messages LoRa et du reste des mécanismes propres au LoRaWAN.
+
+Chose intéressante, il est possible de désactiver entièrement la couche protocolaire LoRaWAN si l'on désire uniquement utiliser la couche radio LoRa, ce qui est le cas de ce projet. Dans ce cas de figure tous les éléments de gestion du protocole sont désactivés, reste la possibilité de configurer la couche radio LoRa avec la modification des différents paramètres, comme le facteur d'étalement ou la puissance de sortie du signal par exemple, et l'envoie ou la réception de données.
+
+En plus le composant est capable d'envoyer les signaux en utilisant diverses modulations, FSK, GFSK ou LoRa.
+
+L'utilisation ainsi que toutes les commandes sont décrite dans la datasheet du composant \cite{rn2483-datasheet}.
 
 \subsection{Le module rythme cardiaque Adafruit}\label{ch:module_hr}
 
-\todo{}
+Le module Adafruit pour le rythme cardiaque est composé de deux éléments principaux, d'une part la sangle pectorale qui sera portée par le sportif et le récepteur qui permettra au micro-contrôleur de détecter les battements du cœur. La sangle et le récepteur utilise le protocole sans-fil WeakLink+ de la compagnie Polar ce qui permet au récepteur, lorsqu'un battement est transmis par la sangle, de générer une impulsion sur une entrée du micro-contrôleur.
+
+\todo{figure}
 
 \subsection{Le module accéléromètre LSM303AGR}\label{ch:module_lsm303agr}
 
-\todo{}
+\todo{figure}
+
+Le LSM303AGR est un accéléromètre trois axes couplé à un magnétomètre. Seul l'accéléromètre est utilisé dans le cadre du projet, il est utilisé afin de détecter lorsque le sportif effectue un pas. Le composant est capable de proposer des échelles d'accélération linéaire de +/-2 à +/-16g, il peut communiquer soit sur le bus $I^{2}C$, ce qui est le cas sur la carte SODAQ One mais il peut aussi être connecté à un bus SPI. Il propose toute une série de registres qui permettent de configurer les différents paramètres de l'accéléromètre ainsi que du magnétomètre et de récupérer les valeurs d'accélération sur chaque axes. Il est aussi possible de configurer l'utilisation d'une FIFO, auquel cas plusieurs valeurs d'accélérations peuvent être stockées à la suite et lues lorsque nécessaire.
+
+Enfin le module peut être configuré pour générer une interruption lorsqu'un certain seuil d'accélération est dépassé sur une combinaison des 3 axes afin de pouvoir détecter un certain mouvement ou déplacement par exemple. 
 
 \subsection{La batterie}
 
