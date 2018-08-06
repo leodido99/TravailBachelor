@@ -24,7 +24,7 @@ SRCPATHS=./src ./src/rapidjson ./src/lora_pkt ./src/race_app_server ./src/shell 
 CFLAGS=
 
 # Add linking flags
-LDFLAGS=
+LDFLAGS=-rpath ~/rpi-libs
 
 # Linker script
 LINKERSCRIPT=
@@ -32,15 +32,17 @@ LINKERSCRIPT=
 # Add libraries
 # Format: -l<lib_name>
 # Exemple: libDrvEEPROM.a -> -lDrvEEPROM
-LD_LIBS=
+#LD_LIBS=-lldap_r-2.4 -lssl -lgssapi_krb5 -lcrypto -lpq -lpqxx-4.0
+LD_LIBS=-lpq -lpqxx-4.0 -lpthread
 
 # Library paths
 # Use the -L<lib_path> format
-LD_PATHS=
+#LD_PATHS=-Llib/libldap -Llib/libssl -Llib/libgssapi_krb5 -Llib/libcrypto/ -Llib/libpq/ -Llib/libpqxx/
 
 # Add required include path
 # Format: -I<folder>
-INC+=
+#INC+=-I~/rpi-libs/usr/include
+INC+=-I/home/leonard/rpi-libs/usr/include/
 
 # If you want to use the same Makefile.cfg and Makefile.inc
 # for several programs, you can specify the path to them
