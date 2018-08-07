@@ -41,7 +41,9 @@ LD_LIBS=-lpqxx -lpq
 
 # Add required include path
 # Format: -I<folder>
-#INC+=-I~/rpi-libs/usr/include
+ifneq ($(TARGET),rpi)
+INC+=-I$(HOME)/rpi-libs/usr/include
+endif
 #INC+=-Ilib/libpqxx/include
 
 # If you want to use the same Makefile.cfg and Makefile.inc
