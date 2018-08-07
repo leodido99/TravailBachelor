@@ -5380,7 +5380,7 @@
 											"font": "Arial;13;1",
 											"left": 21,
 											"top": 1599,
-											"width": 290.13232421875,
+											"width": 340.7041015625,
 											"height": 13,
 											"text": "race_tracker_data"
 										},
@@ -5415,7 +5415,7 @@
 									"font": "Arial;13;0",
 									"left": 16,
 									"top": 1592,
-									"width": 300.13232421875,
+									"width": 350.7041015625,
 									"height": 25,
 									"stereotypeLabel": {
 										"$ref": "AAAAAAFlBCbbXgCQWIg="
@@ -5442,7 +5442,7 @@
 									"font": "Arial;13;0",
 									"left": 16,
 									"top": 1617,
-									"width": 300.13232421875,
+									"width": 350.7041015625,
 									"height": 10
 								},
 								{
@@ -5467,9 +5467,9 @@
 											"font": "Arial;13;0",
 											"left": 21,
 											"top": 1632,
-											"width": 290.13232421875,
+											"width": 340.7041015625,
 											"height": 13,
-											"text": "+race_tracker_data(c: connection)",
+											"text": "+race_tracker_data(connection_str: string)",
 											"horizontalAlignment": 0
 										},
 										{
@@ -5484,17 +5484,34 @@
 											"font": "Arial;13;0",
 											"left": 21,
 											"top": 1647,
-											"width": 290.13232421875,
+											"width": 340.7041015625,
 											"height": 13,
-											"text": "+insert_data_point(record: race_mode_record): int",
+											"text": "+insert_data_point(record: race_mode_record*): int",
+											"horizontalAlignment": 0
+										},
+										{
+											"_type": "UMLOperationView",
+											"_id": "AAAAAAFlFbxTBIwFKcs=",
+											"_parent": {
+												"$ref": "AAAAAAFlBCbbXgCVo4M="
+											},
+											"model": {
+												"$ref": "AAAAAAFlFbxStov8sqU="
+											},
+											"font": "Arial;13;0",
+											"left": 21,
+											"top": 1662,
+											"width": 340.7041015625,
+											"height": 13,
+											"text": "+get_active_competitions(sensor_id: uint16_t): result",
 											"horizontalAlignment": 0
 										}
 									],
 									"font": "Arial;13;0",
 									"left": 16,
 									"top": 1627,
-									"width": 300.13232421875,
-									"height": 38
+									"width": 350.7041015625,
+									"height": 53
 								},
 								{
 									"_type": "UMLReceptionCompartmentView",
@@ -5533,8 +5550,8 @@
 							"containerChangeable": true,
 							"left": 16,
 							"top": 1592,
-							"width": 300.13232421875,
-							"height": 73,
+							"width": 350.7041015625,
+							"height": 88,
 							"nameCompartment": {
 								"$ref": "AAAAAAFlBCbbXgCPkyk="
 							},
@@ -8759,8 +8776,8 @@
 									"_parent": {
 										"$ref": "AAAAAAFlBCfXdgE1G8I="
 									},
-									"name": "c",
-									"type": "connection"
+									"name": "connection_str",
+									"type": "string"
 								}
 							]
 						},
@@ -8779,9 +8796,7 @@
 										"$ref": "AAAAAAFlBChzhgGei84="
 									},
 									"name": "record",
-									"type": {
-										"$ref": "AAAAAAFlBDEJ7Agm3cg="
-									}
+									"type": "race_mode_record*"
 								},
 								{
 									"_type": "UMLParameter",
@@ -8790,6 +8805,34 @@
 										"$ref": "AAAAAAFlBChzhgGei84="
 									},
 									"type": "int",
+									"direction": "return"
+								}
+							]
+						},
+						{
+							"_type": "UMLOperation",
+							"_id": "AAAAAAFlFbxStov8sqU=",
+							"_parent": {
+								"$ref": "AAAAAAFlBCbbXQCMtTI="
+							},
+							"name": "get_active_competitions",
+							"parameters": [
+								{
+									"_type": "UMLParameter",
+									"_id": "AAAAAAFlFbz5r4whKxg=",
+									"_parent": {
+										"$ref": "AAAAAAFlFbxStov8sqU="
+									},
+									"name": "sensor_id",
+									"type": "uint16_t"
+								},
+								{
+									"_type": "UMLParameter",
+									"_id": "AAAAAAFlFbz5r4wiE6w=",
+									"_parent": {
+										"$ref": "AAAAAAFlFbxStov8sqU="
+									},
+									"type": "result",
 									"direction": "return"
 								}
 							]
