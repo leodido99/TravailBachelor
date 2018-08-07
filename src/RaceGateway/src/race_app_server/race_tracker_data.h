@@ -13,10 +13,11 @@
 
 #include <pqxx/pqxx>
 #include "race_mode_record.h"
+#include <string>
 
 class race_tracker_data {
 private:
-	pqxx::connection connection;
+	std::string connection_str;
 
 public:
 	/**
