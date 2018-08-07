@@ -33,7 +33,7 @@ LINKERSCRIPT=
 # Format: -l<lib_name>
 # Exemple: libDrvEEPROM.a -> -lDrvEEPROM
 #LD_LIBS=-lldap_r-2.4 -lssl -lgssapi_krb5 -lcrypto -lpq -lpqxx-4.0
-#LD_LIBS=-lpq -lpqxx-4.0 -lpthread
+LD_LIBS=-lpqxx -lpq
 
 # Library paths
 # Use the -L<lib_path> format
