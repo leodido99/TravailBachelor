@@ -11,11 +11,13 @@
 #define SRC_RACE_APP_SERVER_RACE_MODE_HANDLER_H_
 
 #include "rxpk_handler.h"
+#include "race_tracker_data.h"
 
 class race_mode_handler: public rxpk_handler {
 private:
 	int nb_discarded;
 	int tot_pkt;
+	race_tracker_data *data;
 
 public:
 	/**

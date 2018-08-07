@@ -11,12 +11,15 @@
 #include "race_tracker_data.h"
 
 #include <string>
+#include <exception>
 
-race_tracker_data::race_tracker_data()
+race_tracker_data::race_tracker_data(std::string connection_str)
 {
-	pqxx::connection C("dbname = testdb user = postgres password = cohondob \
-	      hostaddr = 127.0.0.1 port = 5432");
+	this->connection = new pqxx::connection(connection_str);
 
+	if (!this->connection.is_open()) {
+		throw std::runtime_error("Cannot connect to database " + connection_str);
+	}
 }
 
 race_tracker_data::~race_tracker_data()
@@ -26,6 +29,9 @@ race_tracker_data::~race_tracker_data()
 
 int race_tracker_data::insert_data_point(race_mode_record* data_point)
 {
+
+
+
 	std::string insert_query = "INSERT INTO race_tracker.data_point (competitor_id, competition_id, sequence, time_stamp, position, heart_rate, cadence, nb_satellites, position_dop, status)" \
 			 	   "VALUES (1, 1, 0, '2018-05-26 08:30:00-00', ST_MakePoint(46.9933, 6.91612), 130, 160, 5, 9.9, 0);";
 

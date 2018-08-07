@@ -15,11 +15,14 @@
 #include "race_mode_record.h"
 
 class race_tracker_data {
+private:
+	pqxx::connection connection;
+
 public:
 	/**
 	 * Constructor
 	 */
-	race_tracker_data();
+	race_tracker_data(std::string connection_str);
 
 	/**
 	 * Destructor

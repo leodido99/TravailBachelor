@@ -26,6 +26,7 @@ race_mode_handler::race_mode_handler()
 {
 	this->nb_discarded = 0;
 	this->tot_pkt = 0;
+	this->data = new race_tracker_data("dbname = race_tracker_db user = pi password = heig hostaddr = 127.0.0.1 port = 5432");
 }
 
 race_mode_handler::~race_mode_handler()
