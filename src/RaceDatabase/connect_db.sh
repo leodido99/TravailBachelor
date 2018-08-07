@@ -1,3 +1,3 @@
 #!/bin/bash
 
-psql -d race_track_db
+psql -d race_tracker_db
