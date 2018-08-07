@@ -43,7 +43,7 @@ int race_tracker_data::insert_data_point(race_mode_record* data_point)
 
 	pqxx::result r = this->get_active_competitions(data_point->get_id());
 	if (r.size() > 1) {
-		throw std::runtime_error("Sensor active on " + r.size() + " competitions");
+		throw std::runtime_error("Sensor active on " + std::to_string(r.size()) + " competitions");
 	}
 
 	t.prepared("insert_data_point")().exec();
