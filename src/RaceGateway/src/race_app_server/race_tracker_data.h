@@ -37,6 +37,13 @@ public:
 	 */
 	int insert_data_point(race_mode_record *data_point);
 
+	/**
+	 * Returns a list of active competitions for the given sensor ID
+	 * @param sensor_id Sensor ID
+	 * @return List of active competitions
+	 */
+	pqxx::result get_active_competitions(uint16_t sensor_id);
+
 };
 
 #endif /* SRC_RACE_APP_SERVER_RACE_TRACKER_DATA_H_ */
