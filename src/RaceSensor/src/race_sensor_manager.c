@@ -54,6 +54,8 @@
  */
 #define RACE_SENSOR_MNGR_THREAD_INTERVAL K_MSEC(5000)
 
+static int msg_interval = RACE_SENSOR_MNGR_THREAD_INTERVAL;
+
 /**
  * The minimum number of satellites we are waiting for during GPS fix
  */
@@ -181,7 +183,7 @@ static void race_sensor_mngr_thread(void)
 	wait_for_fix();
 
 	while (1) {
-		k_sleep(RACE_SENSOR_MNGR_THREAD_INTERVAL);
+		k_sleep(msg_interval);
 		/* Build packet */
 		if (build_packet(&pkt_buffer) < 0) {
 			DBG_PRINTK("Couldn't build packet\n");
@@ -336,6 +338,10 @@ void race_sensor_mngr_set_heart_rate(u8_t heart_rate) {
 
 void race_sensor_mngr_set_cadence(u8_t cadence) {
 	race_sensor_mngr.cadence = cadence;
+}
+
+void race_sensor_mngr_set_msg_interval(int interval) {
+	msg_interval = K_MSEC(interval);
 }
 
 /* Thread definition for the RN2483 LoRa module */

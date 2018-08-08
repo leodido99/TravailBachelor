@@ -14,6 +14,7 @@
 #include <stdlib.h>
 
 #include "RN2483_lora.h"
+#include "race_sensor_manager.h"
 
 int race_sensor_shell_set_lora_sf(int argc, char *argv[]) {
 	int err;
@@ -53,6 +54,21 @@ int race_sensor_shell_set_lora_pwr(int argc, char *argv[]) {
 	} else {
 		printk("Set LoRa power output %d successfully\n", pwr);
 	}
+
+	return 0;
+}
+
+int race_sensor_shell_set_msg_interval(int argc, char *argv[]) {
+	int interval;
+	char *end;
+
+	if (argc != 2) {
+		printk("Wrong number of arguments\n");
+		return -EINVAL;
+	}
+
+	interval = strtol(argv[1], &end, 0);
+	race_sensor_mngr_set_msg_interval(interval);
 
 	return 0;
 }

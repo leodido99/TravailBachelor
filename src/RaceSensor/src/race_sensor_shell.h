@@ -26,4 +26,12 @@ int race_sensor_shell_set_lora_sf(int argc, char *argv[]);
  */
 int race_sensor_shell_set_lora_pwr(int argc, char *argv[]);
 
+/**
+ * Sets the interval between two messages
+ * @param argc Number of arguments
+ * @param argv Arguments array
+ * @return 0 on success, negative errno code on failure
+ */
+int race_sensor_shell_set_msg_interval(int argc, char *argv[]);
+
 #endif /* SRC_RACE_SENSOR_SHELL_H_ */

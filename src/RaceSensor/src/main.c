@@ -48,6 +48,7 @@ static void fatal_error(char *msg)
 static struct shell_cmd commands[] = {
 	{ "set_lora_sf", race_sensor_shell_set_lora_sf, "<sf>\n\nSets the LoRa spreading factor (sf7 to sf12)"},
 	{ "set_lora_pwr", race_sensor_shell_set_lora_pwr, "<pwr>\n\nSets the LoRa power output (-3 to 15)"},
+	{ "set_msg_interval", race_sensor_shell_set_msg_interval , "<ms>\n\nSets the sensor message interval" },
 	{ NULL, NULL, NULL }
 };
 

@@ -46,4 +46,10 @@ void race_sensor_mngr_set_heart_rate(u8_t heart_rate);
  */
 void race_sensor_mngr_set_cadence(u8_t cadence);
 
+/**
+ * Sets the message interval
+ * @param interval Interval in ms
+ */
+void race_sensor_mngr_set_msg_interval(int interval);
+
 #endif /* SRC_RACE_SENSOR_MANAGER_H_ */
