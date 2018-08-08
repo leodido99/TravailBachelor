@@ -15,6 +15,12 @@
 
 #include "logger.h"
 
+pqxx::prepare::invocation& prep_dynamic(unsigned char data, pqxx::prepare::invocation& inv)
+{
+    inv(data);
+    return inv;
+}
+
 race_tracker_data::race_tracker_data(std::string connection_str)
 {
 	this->connection_str = connection_str;	
@@ -34,7 +40,7 @@ int race_tracker_data::insert_data_point(race_mode_record* data_point)
 		throw std::runtime_error("Cannot connect to database " + connection_str);
 	}
 
-	c.prepare("insert_data_point", "INSERT INTO race_tracker.data_point "
+	/*c.prepare("insert_data_point", "INSERT INTO race_tracker.data_point "
 		  "(competitor_id, competition_id, sequence, time_stamp, position, heart_rate, cadence, nb_satellites, position_dop, status)"
 		  "VALUES ($1, $2, $3, $4, ST_MakePoint($5, $6), $7, $8, $9, $10, $11);");
 
@@ -49,24 +55,31 @@ int race_tracker_data::insert_data_point(race_mode_record* data_point)
 			     "race_tracker.competitor_registration.sensor_id = $1 "
 			     "AND race_tracker.competition.active = True;");
 
-	pqxx::result r = t.prepared("get_ids")().exec(data_point->get_id());
+	pqxx::result r = t.prepared("get_ids")(data_point->get_id()).exec();
 	if (r.size() > 1) {
 		throw std::runtime_error("Sensor active on " + std::to_string(r.size()) + " competitions");
 	}
 
-	log(logINFO) << "competitor_id = " << r["competitor_id"] << "competition_id = " << r["competition_id"];
+	auto row = r[0];
 
-	t.prepared("insert_data_point")(r["competitor_id"].as<uint16_t>())
-				       (r["competition_id"].as<uint16_t>())
+	log(logINFO) << "competitor_id = " << row["competitor_id"].c_str() << "competition_id = " << row["competition_id"].c_str();*/
+
+uint16_t hr = static_cast<uint16_t>(data_point->get_heart_rate());
+uint16_t cad = static_cast<uint16_t>(data_point->get_cadence());
+uint16_t nbsv = static_cast<uint16_t>(data_point->get_nb_sv());
+uint16_t status = static_cast<uint16_t>(data_point->get_status());
+
+	/*t.prepared("insert_data_point")(row["competitor_id"].as<uint16_t>())
+				       (row["competition_id"].as<uint16_t>())
 				       (data_point->get_seq())
-				       (0) /* TODO Timestamp */
-				       (data_point->get_lat())
+				       (0)*/ /* TODO Timestamp */
+				       /*(data_point->get_lat())
 				       (data_point->get_lon())
-				       (data_point->get_heart_rate())
-				       (data_point->get_cadence())
-				       (data_point->get_nb_sv())
+				       (0)
+				       (0)
+				       (0)
 				       (data_point->get_hdop())
-				       (data_point->get_status()).exec();
+				       (0).exec();*/
 
 
 
