@@ -17,7 +17,7 @@ class race_mode_handler: public rxpk_handler {
 private:
 	int nb_discarded;
 	int tot_pkt;
-	race_tracker_data *data;
+	race_tracker_data *db;
 
 public:
 	/**

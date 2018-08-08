@@ -26,7 +26,7 @@ race_mode_handler::race_mode_handler()
 {
 	this->nb_discarded = 0;
 	this->tot_pkt = 0;
-	this->data = new race_tracker_data("dbname = race_tracker_db user = pi password = heig hostaddr = 127.0.0.1 port = 5432");
+	this->db = new race_tracker_data("dbname = race_tracker_db user = pi password = heig hostaddr = 127.0.0.1 port = 5432");
 }
 
 race_mode_handler::~race_mode_handler()
@@ -57,9 +57,9 @@ void race_mode_handler::handle(lora_rxpk_parser* rxpk)
 		race_record.set_heart_rate(myreader.get_next_8bits());
 		race_record.set_cadence(myreader.get_next_8bits());
 
-
-
 		log(logINFO) << race_record.to_string();
+
+		this->db->insert_data_point(&race_record);
 	} else {
 		this->nb_discarded++;
 	}
