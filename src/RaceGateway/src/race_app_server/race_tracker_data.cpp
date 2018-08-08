@@ -38,24 +38,40 @@ int race_tracker_data::insert_data_point(race_mode_record* data_point)
 		  "(competitor_id, competition_id, sequence, time_stamp, position, heart_rate, cadence, nb_satellites, position_dop, status)"
 		  "VALUES ($1, $2, $3, $4, ST_MakePoint($5, $6), $7, $8, $9, $10, $11);");
 
-	std::string insert_query = "INSERT INTO race_tracker.data_point (competitor_id, competition_id, sequence, time_stamp, position, heart_rate, cadence, nb_satellites, position_dop, status)" \
-			 	   "VALUES (1, 1, 0, '2018-05-26 08:30:00-00', ST_MakePoint(46.9933, 6.91612), 130, 160, 5, 9.9, 0);";
+	c.prepare("get_ids", "select race_tracker.competitor_registration.competition_id, "
+			     "race_tracker.competitor_registration.competitor_id from "
+			     "race_tracker.competitor_registration INNER JOIN "
+			     "race_tracker.competitor ON "
+			     "(race_tracker.competitor_registration.competitor_id = "
+			     "race_tracker.competitor.competitor_id) INNER JOIN "
+			     "race_tracker.competition ON (race_tracker.competition.competition_id "
+			     "= race_tracker.competitor_registration.competition_id) WHERE "
+			     "race_tracker.competitor_registration.sensor_id = $1 "
+			     "AND race_tracker.competition.active = True;");
 
-	pqxx::result r = this->get_active_competitions(data_point->get_id());
+	pqxx::result r = t.prepared("get_ids")().exec(data_point->get_id());
 	if (r.size() > 1) {
 		throw std::runtime_error("Sensor active on " + std::to_string(r.size()) + " competitions");
 	}
 
-	t.prepared("insert_data_point")().exec();
+	log(logINFO) << "competitor_id = " << r["competitor_id"] << "competition_id = " << r["competition_id"];
+
+	t.prepared("insert_data_point")(r["competitor_id"].as<uint16_t>())
+				       (r["competition_id"].as<uint16_t>())
+				       (data_point->get_seq())
+				       (0) /* TODO Timestamp */
+				       (data_point->get_lat())
+				       (data_point->get_lon())
+				       (data_point->get_heart_rate())
+				       (data_point->get_cadence())
+				       (data_point->get_nb_sv())
+				       (data_point->get_hdop())
+				       (data_point->get_status()).exec();
 
 
 
 
 
-	log(logINFO) << "Query results:";
-	for (auto row: r) {
-		log(logINFO) << row["competition_id"].as<uint16_t>() << " = ";
-	}
 
 	// INSERT INTO race_tracker.data_point (competitor_id, competition_id, sequence, time_stamp, position, heart_rate, cadence, nb_satellites, position_dop, status)
 	// VALUES (1, 1, 0, '2018-05-26 08:30:00-00', ST_MakePoint(46.9933, 6.91612), 130, 160, 5, 9.9, 0);
