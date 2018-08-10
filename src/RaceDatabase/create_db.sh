@@ -13,3 +13,5 @@ psql -d race_tracker_db -f ${postgis_scripts}/postgis.sql
 psql -d race_tracker_db -f create_schema.sql
 # Create the tables
 psql -d race_tracker_db -f create_tables.sql
+# Initialize countries
+psql -d race_tracker_db -f insert_countries.sql

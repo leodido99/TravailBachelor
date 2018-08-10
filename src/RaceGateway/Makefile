@@ -32,15 +32,19 @@ LINKERSCRIPT=
 # Add libraries
 # Format: -l<lib_name>
 # Exemple: libDrvEEPROM.a -> -lDrvEEPROM
-LD_LIBS=
+#LD_LIBS=-lldap_r-2.4 -lssl -lgssapi_krb5 -lcrypto -lpq -lpqxx-4.0
+LD_LIBS=-lpqxx -lpq
 
 # Library paths
 # Use the -L<lib_path> format
-LD_PATHS=
+#LD_PATHS=-Llib/libldap -Llib/libssl -Llib/libgssapi_krb5 -Llib/libcrypto/ -Llib/libpq/ -Llib/libpqxx/
 
 # Add required include path
 # Format: -I<folder>
-INC+=
+ifneq ($(TARGET),rpi)
+INC+=-I$(HOME)/rpi-libs/usr/include
+endif
+#INC+=-Ilib/libpqxx/include
 
 # If you want to use the same Makefile.cfg and Makefile.inc
 # for several programs, you can specify the path to them
@@ -52,9 +56,6 @@ else
 include $(MAKEFILE_FILES)MakefileC++11.cfg
 endif
 include $(MAKEFILE_FILES)Makefile.inc
-
-# Variables used to copy the executable to the Raspberry pi
-PI_ADDR=192.168.1.14
 
 # =============================================================================
 # BUILD TARGET
