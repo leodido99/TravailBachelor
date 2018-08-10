@@ -1,0 +1,42 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% LaTeX Document Template
+%
+% Author: Léonard Bise
+% Date: 09.07.2018
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% Settings of the template
+\input{settings/template_settings.tex}
+
+% Setup page headers and footers
+\input{settings/headerfooter.tex}
+
+\begin{document}
+
+\pagestyle{fancy}
+
+\LARGE{Résumé}
+
+\begin{normalsize}
+Les compétitions sportives, de course à pied ou de cyclisme par exemple, sont des événements dont le déroulement n'es pas toujours facile à suivre pour les spectateurs qui sont sur place. Une fois le départ de la course donné on peut vite perdre de vue les concurrents, il faut donc se déplacer pour pour pouvoir suivre son déroulement et même dans ce cas, vu que le nombre de sportifs est souvent élevé, on peut difficilement se faire une idée globale sur la position de chacun d'eux ou du classement à un instant précis. 
+
+Ce projet propose la réalisation d’un système permettant le suivi en temps réel de compétitions sportives au travers d’une application mobile Android afin d'impliquer d'avantage les spectateurs. Grâce à une carte sur laquelle il est possible de voir le parcours de la course en entier, l'application tiendra à jour la position GPS de chaque coureur en temps réel grâce aux données transmises par un capteur équipé sur les sportifs. En plus de cela d'autres informations supplémentaires sont aussi disponibles sur l'interface: le nom du sportif, son pays d'origine, son numéro de dossard, la distance parcourus, la vitesse moyenne, son rythme cardiaque et sa cadence (nombre de pas par unité de temps). Enfin l'application permet de choisir ses coureurs favoris afin d'en faciliter le suivis ainsi que l'administration du système avec la création des courses ou l'inscription des coureurs par exemple.
+
+Pour que le système puisse remplir sa tâche, les éléments suivant ont été développés.
+
+\begin{itemize}
+\item Un capteur qui est porté par les athlètes et qui permet de faire l'acquisition des données
+\item Une passerelle qui est placée le long du parcours et qui centralise les données produite par les capteurs dans une base de données
+\item Une application mobile qui permet la visualisation des données produites
+\end{itemize}
+
+La communication entre le capteur et la passerelle est assuré grâce à la technologie sans-fil LoRa, un protocole qui est prévu pour être utilisé par de petit système avec peu de ressource, comme le capteur, sur des distances de plusieurs kilomètres et qui ne nécessite pas de surcoût pour son utilisation contrairement au communication mobile GSM par exemple, car il utilise les bandes de fréquences libres ISM. Le travail apporte une analyse sur l'utilisation de cette technologie pour ce genre application afin de définir si son utilisation est pertinente ou si au contraire ils existent trop de contraintes.
+
+Le capteur, à base d'un micro-contrôleur ATSAMD21 disposant d'un cœur ARM Cortex-M0+, dispose d'un firmware écrit en langage C qui utilise le système d'exploitation Zephyr qui propose tout les mécanismes et services nécessaire pour le développement d'une application embarqué temps réel: ordonnancement multi-tâche, sémaphore, queue de message, pilote, allocation de la mémoire et bien d'autres.
+
+La passerelle est construite à partir d'un micro ordinateur Raspberry Pi 3 model B+ exécutant le système d'exploitation Linux ainsi que d'une carte de gestion LoRa. Une application serveur, codée en langage C++, se charge de récupérer les paquets reçu par l'interface LoRa et d'enregistrer les données décodées dans la base de données.
+
+\end{normalsize}
+
+\end{document}
