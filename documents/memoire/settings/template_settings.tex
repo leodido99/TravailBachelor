@@ -38,7 +38,37 @@ bookmarks=true,bookmarksopenlevel=2]{hyperref}  % Links color in pdf
 % OR
 %\lstinputlisting{source_filename.py}
 \usepackage{listings}
-\lstset{language=[LaTeX]Tex,tabsize=4, basicstyle=\scriptsize\ttfamily, showstringspaces=false, numbers=left, numberstyle=\tiny, numbersep=10pt, breaklines=true, breakautoindent=true, breakindent=10pt}
+\lstset{
+language=[LaTeX]Tex,
+tabsize=4,
+basicstyle=\scriptsize\ttfamily,
+showstringspaces=false,
+numbers=left,
+numberstyle=\tiny,
+numbersep=10pt,
+breaklines=true,
+breakautoindent=true,
+breakindent=10pt,
+    emph=[1]% Variable Types
+    {% 
+    	rxpk,
+        time,
+        tmms,
+        tmst,
+        chan,
+        stat,
+        modu,
+        datr,
+        codr,
+        rssi,
+        lsnr,
+        size,
+        data,
+        rfch,
+        freq        
+    },
+  emphstyle=[1]{\color{blue}},
+}
 
 % Alter \cleardoublepage
 \makeatletter
