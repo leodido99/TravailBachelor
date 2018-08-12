@@ -43,8 +43,7 @@ public class MainMenuActivity extends AppCompatActivity {
      * @param view
      */
     public void goToViewRaces(View view) {
-        //Intent intent = new Intent(this, ViewRaceSelectorActivity.class);
-        Intent intent = new Intent(this, ViewRaceActivity.class);
+        Intent intent = new Intent(this, ViewRaceSelectorActivity.class);
         /*EditText editText = (EditText) findViewById(R.id.editText);
         String message = editText.getText().toString();
         intent.putExtra(EXTRA_MESSAGE, message);*/
