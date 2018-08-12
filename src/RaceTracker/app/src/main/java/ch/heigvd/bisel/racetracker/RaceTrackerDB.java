@@ -29,7 +29,8 @@ public class RaceTrackerDB extends AsyncTask<String, Void, ResultSet> {
     }
 
     public void getCompetitions(RaceTrackerDBGetResult callback) {
-        execute("SELECT * FROM race_tracker.competition");
+        execute("SELECT competition_id, name, ST_X(location) as lat, ST_Y(location) as lon, event_date, active " +
+                "FROM race_tracker.competition;");
         this.callback = callback;
     }
 

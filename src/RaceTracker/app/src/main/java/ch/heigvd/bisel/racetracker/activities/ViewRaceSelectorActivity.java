@@ -7,6 +7,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import ch.heigvd.bisel.racetracker.R;
+import ch.heigvd.bisel.racetracker.RaceTrackerCompetition;
 import ch.heigvd.bisel.racetracker.RaceTrackerDBGetResult;
 import ch.heigvd.bisel.racetracker.RaceTrackerDB;
 
@@ -14,14 +15,22 @@ public class ViewRaceSelectorActivity extends AppCompatActivity implements RaceT
 
     public void getResult(ResultSet results) throws SQLException {
         while (results.next()) {
-            System.out.println("DBG: " + results.getString(1) + " : " + results.getString(2));
+            RaceTrackerCompetition cp = new RaceTrackerCompetition(results);
+            System.out.println("DBG: Competition: " + cp.toString());
+
         }
+        results.getStatement().close();
+        results.close();
     }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_race_selector);
+
+        /* Setup RecyclerView */
+
+
         /* Get list of competitions from the DB */
         RaceTrackerDB db = new RaceTrackerDB(this);
         db.getCompetitions(this);
