@@ -28,6 +28,7 @@ public class RaceTrackerDB extends AsyncTask<String, Void, ResultSet> {
         System.out.println("DBG: DB Connection string: " + connectionString);
     }
 
+    //public void getCompetitions(RaceTrackerDBGetResult callback) {
     public void getCompetitions(RaceTrackerDBGetResult callback) {
         execute("SELECT competition_id, name, ST_X(location) as lat, ST_Y(location) as lon, event_date, active " +
                 "FROM race_tracker.competition;");
@@ -39,7 +40,7 @@ public class RaceTrackerDB extends AsyncTask<String, Void, ResultSet> {
         super.onPostExecute(result);
         System.out.println("Query executed: ");
         try {
-            callback.getResult(result);
+            callback.queryResult(result);
         } catch (SQLException e) {
             e.printStackTrace();
         }

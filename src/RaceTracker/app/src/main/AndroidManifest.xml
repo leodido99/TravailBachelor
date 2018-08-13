@@ -78,6 +78,9 @@
         <uses-library android:name="com.google.android.maps" />
 
         <activity android:name=".activities.RaceLocationPickerActivity" />
+        <activity
+            android:name=".activities.ViewRaceActivityGoogle"
+            android:label="@string/title_activity_view_race_google"></activity>
     </application>
 
 </manifest>

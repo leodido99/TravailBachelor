@@ -24,4 +24,5 @@
     <string name="createnewrace_create">Créer</string>
     <string name="createnewrace_pick_location">Séléctionner l\'emplacement</string>
     <string name="createnewrace_set_course">Parcours</string>
+    <string name="title_activity_view_race_google">Race Tracker</string>
 </resources>

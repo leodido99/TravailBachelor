@@ -12,7 +12,7 @@ import java.sql.*;
 public class ViewRaceActivity extends AppCompatActivity implements RaceTrackerDBGetResult {
     private RaceTrackerCompetition competition;
 
-    public void getResult(ResultSet results) throws SQLException {
+    public void queryResult(ResultSet results) throws SQLException {
         while (results.next()) {
             System.out.println("DBG: " + results.getString(1) + " : " + results.getString(2));
         }

@@ -11,9 +11,6 @@ public class LatLngWrapper implements Serializable {
     // mark it transient so defaultReadObject()/defaultWriteObject() ignore it
     private transient LatLng mLocation;
 
-    // ...
-
-
     public LatLngWrapper(Double lat, Double lon) {
         this.mLocation = new LatLng(lat, lon);
     }
