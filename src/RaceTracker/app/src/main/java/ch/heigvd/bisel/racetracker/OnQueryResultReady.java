@@ -4,5 +4,5 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public interface RaceTrackerDBGetResult {
-    void queryResult(ResultSet results) throws SQLException;
+    void onQueryResultReady(ResultSet results) throws SQLException;
 }
