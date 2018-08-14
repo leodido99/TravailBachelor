@@ -1,5 +1,6 @@
 package ch.heigvd.bisel.racetracker.activities;
 
+import android.os.Handler;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 
@@ -7,16 +8,29 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
-import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
+
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.HashMap;
+import java.util.Map;
 
 import ch.heigvd.bisel.racetracker.R;
 import ch.heigvd.bisel.racetracker.RaceTrackerCompetition;
+import ch.heigvd.bisel.racetracker.RaceTrackerCompetitor;
+import ch.heigvd.bisel.racetracker.OnQueryResultReady;
+import ch.heigvd.bisel.racetracker.RaceTrackerDB;
+import ch.heigvd.bisel.racetracker.RaceTrackerDataPoint;
 
-public class ViewRaceActivityGoogle extends FragmentActivity implements OnMapReadyCallback {
-
+public class ViewRaceActivity extends FragmentActivity implements OnMapReadyCallback {
     private GoogleMap mMap;
     private RaceTrackerCompetition competition;
+    private Map<Integer, RaceTrackerCompetitor> competitors;
+    private OnCompetitorsResults onCompetitorsResults;
+    private OnLastDataPointResults onLastDataPointResults;
+    private RaceTrackerDB db;
+    private int handlerInterval = 5000; /* In seconds */
+    private Handler handler;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,8 +43,108 @@ public class ViewRaceActivityGoogle extends FragmentActivity implements OnMapRea
 
         /* Retrieve competition class from intent */
         competition = (RaceTrackerCompetition)getIntent().getSerializableExtra("competition");
+
+        /* Initialize the competitors map */
+        competitors = new HashMap<>();
+
+        /* Create query results handler */
+        onLastDataPointResults = new OnLastDataPointResults();
+        onCompetitorsResults = new OnCompetitorsResults();
+
+        /* Get Competitors */
+        db = new RaceTrackerDB(this);
+        db.getCompetitors(onCompetitorsResults, competition.getCompetitionId());
+
+        /* Create handler */
+        handler = new Handler();
     }
 
+    public void handleDataPointLive(RaceTrackerDataPoint dataPoint) {
+        /* First data point */
+        if (!competitors.get(dataPoint.getCompetitorId()).hasLastDataPoint()) {
+            competitors.get(dataPoint.getCompetitorId()).setLastDataPoint(dataPoint);
+            competitors.get(dataPoint.getCompetitorId()).updatePositionMarker();
+        } else {
+            /* Check if data point is new */
+            /* TODO Check for jump in sequence */
+            if (dataPoint.getSequence() > competitors.get(dataPoint.getCompetitorId()).getLastDataPoint().getSequence()) {
+                competitors.get(dataPoint.getCompetitorId()).setLastDataPoint(dataPoint);
+                competitors.get(dataPoint.getCompetitorId()).updatePositionMarker();
+            }
+        }
+    }
+
+    public void handleDataPointReplay(RaceTrackerDataPoint dataPoint) {
+
+    }
+
+    public void handleDataPoint(RaceTrackerDataPoint dataPoint) {
+        if (competition.isActive()) {
+            handleDataPointLive(dataPoint);
+        } else {
+            handleDataPointReplay(dataPoint);
+        }
+    }
+
+    public class OnLastDataPointResults implements OnQueryResultReady {
+        private ResultSet results;
+
+        public ResultSet getResults() {
+            return results;
+        }
+
+        /* Process the list of competition */
+        public void onQueryResultReady(ResultSet results) throws SQLException {
+            this.results = results;
+            /* Callback when competitions are ready */
+            while (results.next()) {
+                RaceTrackerDataPoint dataPoint = new RaceTrackerDataPoint(results);
+                handleDataPoint(dataPoint);
+                /*RaceTrackerCompetition cp = new RaceTrackerCompetition(results);
+                resultList.add(cp);
+                System.out.println("DBG: Competition: " + cp.toString());*/
+            }
+
+            results.getStatement().close();
+            results.close();
+            /* Updates UI */
+            //mAdapter.notifyDataSetChanged();
+        }
+    }
+
+    public class OnCompetitorsResults implements OnQueryResultReady {
+        private ResultSet results;
+
+        public ResultSet getResults() {
+            return results;
+        }
+
+        /* Process the list of competition */
+        public void onQueryResultReady(ResultSet results) throws SQLException {
+            this.results = results;
+            /* Callback when competitions are ready */
+            while (results.next()) {
+                RaceTrackerCompetitor competitor = new RaceTrackerCompetitor(results);
+                competitors.put(competitor.getCompetitorId(), competitor);
+                System.out.println("DBG: Competitor: " + competitor.toString());
+            }
+
+            results.getStatement().close();
+            results.close();
+            /* Updates UI */
+            //mAdapter.notifyDataSetChanged();
+            /* Once the competitor list is ready, we can start checking for data points */
+            startDataPointChecker();
+        }
+    }
+
+    public void startDataPointChecker() {
+        handler.postDelayed(dataPointChecker, 0);
+    }
+
+    public void stopDataPointChecker() {
+        handler.removeCallbacks(dataPointChecker);
+    }
 
     /**
      * Manipulates the map once available.
@@ -46,7 +160,19 @@ public class ViewRaceActivityGoogle extends FragmentActivity implements OnMapRea
         mMap = googleMap;
 
 
-        mMap.addMarker(new MarkerOptions().position(competition.location.getObject()).title("Race"));
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(competition.location.getObject()));
+        //mMap.addMarker(new MarkerOptions().position(competition.getLocation().getObject()).title("Race"));
+        mMap.moveCamera(CameraUpdateFactory.newLatLng(competition.getLocation().getObject()));
     }
+
+    Runnable dataPointChecker = new Runnable() {
+        @Override
+        public void run() {
+            try {
+                db.getLastDataPoint(onLastDataPointResults, competition.getCompetitionId());
+            } finally {
+                /* Restart handler */
+                handler.postDelayed(dataPointChecker, handlerInterval);
+            }
+        }
+    };
 }

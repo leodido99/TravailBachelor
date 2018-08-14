@@ -16,7 +16,7 @@ import java.util.ArrayList;
 import ch.heigvd.bisel.racetracker.R;
 import ch.heigvd.bisel.racetracker.RaceTrackerCompetition;
 import ch.heigvd.bisel.racetracker.RaceTrackerCompetitionAdapter;
-import ch.heigvd.bisel.racetracker.RaceTrackerDBGetResult;
+import ch.heigvd.bisel.racetracker.OnQueryResultReady;
 import ch.heigvd.bisel.racetracker.RaceTrackerDB;
 import ch.heigvd.bisel.racetracker.RecyclerTouchListener;
 
@@ -27,7 +27,7 @@ public class ViewRaceSelectorActivity extends AppCompatActivity {
     private ArrayList<RaceTrackerCompetition> resultList;
     private CompetitionsResult competitionsResult;
 
-    public class CompetitionsResult implements RaceTrackerDBGetResult {
+    public class CompetitionsResult implements OnQueryResultReady {
         private ResultSet results;
 
         public ResultSet getResults() {
@@ -35,7 +35,7 @@ public class ViewRaceSelectorActivity extends AppCompatActivity {
         }
 
         /* Process the list of competition */
-        public void queryResult(ResultSet results) throws SQLException {
+        public void onQueryResultReady(ResultSet results) throws SQLException {
             this.results = results;
             /* Callback when competitions are ready */
             while (results.next()) {
@@ -83,9 +83,9 @@ public class ViewRaceSelectorActivity extends AppCompatActivity {
             public void onClick(View view, int position) {
                 //Movie movie = movieList.get(position);
                 RaceTrackerCompetition competition = resultList.get(position);
-                Toast.makeText(getApplicationContext(), competition.name + " is selected!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), competition.getName() + " is selected!", Toast.LENGTH_SHORT).show();
                 /* Add competition class to intent so next activity can retrieve it */
-                Intent intent = new Intent(view.getContext(), ViewRaceActivityGoogle.class);
+                Intent intent = new Intent(view.getContext(), ViewRaceActivity.class);
                 intent.putExtra("competition", competition);
                 startActivity(intent);
             }

@@ -25,15 +25,6 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".activities.ViewRaceActivity"
-            android:parentActivityName=".activities.MainMenuActivity">
-
-            <!-- The meta-data tag is required if you support API level 15 and lower -->
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value=".activities.MainMenuActivity" />
-        </activity>
-        <activity
             android:name=".activities.ViewRaceSelectorActivity"
             android:parentActivityName=".activities.MainMenuActivity">
 
@@ -79,7 +70,7 @@
 
         <activity android:name=".activities.RaceLocationPickerActivity" />
         <activity
-            android:name=".activities.ViewRaceActivityGoogle"
+            android:name=".activities.ViewRaceActivity"
             android:label="@string/title_activity_view_race_google"></activity>
     </application>
 

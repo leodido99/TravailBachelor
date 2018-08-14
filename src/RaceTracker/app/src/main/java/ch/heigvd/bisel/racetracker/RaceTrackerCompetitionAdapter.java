@@ -1,7 +1,5 @@
 package ch.heigvd.bisel.racetracker;
 
-import android.content.Context;
-import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,8 +7,6 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import java.util.ArrayList;
-
-import ch.heigvd.bisel.racetracker.activities.ViewRaceActivity;
 
 public class RaceTrackerCompetitionAdapter extends RecyclerView.Adapter<RaceTrackerCompetitionAdapter.ViewHolder> {
     private ArrayList<RaceTrackerCompetition> competitions;
@@ -52,9 +48,9 @@ public class RaceTrackerCompetitionAdapter extends RecyclerView.Adapter<RaceTrac
 
         // - get element from your dataset at this position
         // - replace the contents of the view with that element
-        holder.name.setText(competitions.get(position).name);
-        holder.date.setText(competitions.get(position).eventDate.toString());
-        if (competitions.get(position).active) {
+        holder.name.setText(competitions.get(position).getName());
+        holder.date.setText(competitions.get(position).getEventDate().toString());
+        if (competitions.get(position).isActive()) {
             activeText = "LIVE";
         } else {
             activeText = "Revoir";
