@@ -11,6 +11,7 @@ import android.widget.Toast;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 
 import ch.heigvd.bisel.racetracker.R;
@@ -28,24 +29,32 @@ public class ViewRaceSelectorActivity extends AppCompatActivity {
     private CompetitionsResult competitionsResult;
 
     public class CompetitionsResult implements OnQueryResultReady {
-        private ResultSet results;
+        private RaceTrackerDB.RaceTrackerQuery results;
 
-        public ResultSet getResults() {
+        public RaceTrackerDB.RaceTrackerQuery getResults() {
             return results;
         }
 
-        /* Process the list of competition */
-        public void onQueryResultReady(ResultSet results) throws SQLException {
+        /* Callback when competitions are ready */
+        public void onQueryResultReady(RaceTrackerDB.RaceTrackerQuery results) throws SQLException {
             this.results = results;
-            /* Callback when competitions are ready */
-            while (results.next()) {
-                RaceTrackerCompetition cp = new RaceTrackerCompetition(results);
+
+            if (results.getException() != null) {
+                /* Exception during query */
+                RaceTrackerCompetition cp = new RaceTrackerCompetition();
+                cp.setName(results.getException().getMessage());
                 resultList.add(cp);
-                System.out.println("DBG: Competition: " + cp.toString());
+            } else {
+                while (results.getResult().next()) {
+                    RaceTrackerCompetition cp = new RaceTrackerCompetition(results.getResult());
+                    resultList.add(cp);
+                    System.out.println("DBG: Competition: " + cp.toString());
+                }
+
+                results.getResult().getStatement().close();
+                results.getResult().close();
             }
 
-            results.getStatement().close();
-            results.close();
             /* Updates UI */
             mAdapter.notifyDataSetChanged();
         }
@@ -64,8 +73,9 @@ public class ViewRaceSelectorActivity extends AppCompatActivity {
         /* Setup RecyclerView */
         mRecyclerView = findViewById(R.id.ViewRaceSelectorRecycler);
 
-        // use this setting to improve performance if you know that changes
-        // in content do not change the layout size of the RecyclerView
+        /* use this setting to improve performance if you know that changes
+         * in content do not change the layout size of the RecyclerView
+         */
         mRecyclerView.setHasFixedSize(true);
 
         mLayoutManager = new LinearLayoutManager(this);

@@ -49,7 +49,9 @@ public class RaceTrackerCompetitionAdapter extends RecyclerView.Adapter<RaceTrac
         // - get element from your dataset at this position
         // - replace the contents of the view with that element
         holder.name.setText(competitions.get(position).getName());
-        holder.date.setText(competitions.get(position).getEventDate().toString());
+        if (competitions.get(position).getEventDate() != null) {
+            holder.date.setText(competitions.get(position).getEventDate().toString());
+        }
         if (competitions.get(position).isActive()) {
             activeText = "LIVE";
         } else {

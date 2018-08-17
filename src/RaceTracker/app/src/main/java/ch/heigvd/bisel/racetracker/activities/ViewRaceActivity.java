@@ -87,50 +87,61 @@ public class ViewRaceActivity extends FragmentActivity implements OnMapReadyCall
     }
 
     public class OnLastDataPointResults implements OnQueryResultReady {
-        private ResultSet results;
+        private RaceTrackerDB.RaceTrackerQuery results;
 
-        public ResultSet getResults() {
+        public RaceTrackerDB.RaceTrackerQuery getResults() {
             return results;
         }
 
-        /* Process the list of competition */
-        public void onQueryResultReady(ResultSet results) throws SQLException {
+        /* Callback when competitions are ready */
+        public void onQueryResultReady(RaceTrackerDB.RaceTrackerQuery results) throws SQLException {
             this.results = results;
-            /* Callback when competitions are ready */
-            while (results.next()) {
-                RaceTrackerDataPoint dataPoint = new RaceTrackerDataPoint(results);
-                handleDataPoint(dataPoint);
+
+            if (results.getException() != null) {
+                /* Exception during query */
+            } else {
+                while (results.getResult().next()) {
+                    RaceTrackerDataPoint dataPoint = new RaceTrackerDataPoint(results.getResult());
+                    handleDataPoint(dataPoint);
                 /*RaceTrackerCompetition cp = new RaceTrackerCompetition(results);
                 resultList.add(cp);
                 System.out.println("DBG: Competition: " + cp.toString());*/
+                }
+
+                results.getResult().getStatement().close();
+                results.getResult().close();
             }
 
-            results.getStatement().close();
-            results.close();
+
             /* Updates UI */
             //mAdapter.notifyDataSetChanged();
         }
     }
 
     public class OnCompetitorsResults implements OnQueryResultReady {
-        private ResultSet results;
+        private RaceTrackerDB.RaceTrackerQuery results;
 
-        public ResultSet getResults() {
+        public RaceTrackerDB.RaceTrackerQuery getResults() {
             return results;
         }
 
-        /* Process the list of competition */
-        public void onQueryResultReady(ResultSet results) throws SQLException {
+        /* Callback when competitions are ready */
+        public void onQueryResultReady(RaceTrackerDB.RaceTrackerQuery results) throws SQLException {
             this.results = results;
-            /* Callback when competitions are ready */
-            while (results.next()) {
-                RaceTrackerCompetitor competitor = new RaceTrackerCompetitor(results);
-                competitors.put(competitor.getCompetitorId(), competitor);
-                System.out.println("DBG: Competitor: " + competitor.toString());
+
+            if (results.getException() != null) {
+                /* Exception during query */
+            } else {
+                while (results.getResult().next()) {
+                    RaceTrackerCompetitor competitor = new RaceTrackerCompetitor(results.getResult());
+                    competitors.put(competitor.getCompetitorId(), competitor);
+                    System.out.println("DBG: Competitor: " + competitor.toString());
+                }
+
+                results.getResult().getStatement().close();
+                results.getResult().close();
             }
 
-            results.getStatement().close();
-            results.close();
             /* Updates UI */
             //mAdapter.notifyDataSetChanged();
             /* Once the competitor list is ready, we can start checking for data points */

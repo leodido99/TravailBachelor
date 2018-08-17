@@ -37,7 +37,8 @@ public class RaceTrackerDB extends AsyncTask<RaceTrackerDB.RaceTrackerQuery, Voi
         query.setCallback(callback);
         query.setQuery("SELECT competition_id, name, ST_X(location) as lat, ST_Y(location) as lon, event_date, active " +
                 "FROM race_tracker.competition;");
-        execute(query);
+        RaceTrackerDBAsyncTask task = new RaceTrackerDBAsyncTask(connectionString, dbUser, dbPwd);
+        task.execute(query);
     }
 
     /**
@@ -54,7 +55,8 @@ public class RaceTrackerDB extends AsyncTask<RaceTrackerDB.RaceTrackerQuery, Voi
                 "OVER (PARTITION BY data_point.competitor_id ORDER BY sequence DESC) AS therank, * " +
                 "FROM race_tracker.data_point WHERE data_point.competition_id = {0}) t " +
                 "WHERE therank = 1;", competition_id));
-        execute(query);
+        RaceTrackerDBAsyncTask task = new RaceTrackerDBAsyncTask(connectionString, dbUser, dbPwd);
+        task.execute(query);
     }
 
     /**
@@ -69,7 +71,8 @@ public class RaceTrackerDB extends AsyncTask<RaceTrackerDB.RaceTrackerQuery, Voi
                 "race_tracker.competitor_registration INNER JOIN race_tracker.competitor ON " +
                 "(competitor_registration.competitor_id = competitor.competitor_id) " +
                 "WHERE competitor_registration.competition_id = {0};", competition_id));
-        execute(query);
+        RaceTrackerDBAsyncTask task = new RaceTrackerDBAsyncTask(connectionString, dbUser, dbPwd);
+        task.execute(query);
     }
 
     /**
@@ -79,7 +82,7 @@ public class RaceTrackerDB extends AsyncTask<RaceTrackerDB.RaceTrackerQuery, Voi
     protected void onPostExecute(RaceTrackerDB.RaceTrackerQuery result) {
         super.onPostExecute(result);
         try {
-            result.getCallback().onQueryResultReady(result.getResult());
+            result.getCallback().onQueryResultReady(result);
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -109,6 +112,7 @@ public class RaceTrackerDB extends AsyncTask<RaceTrackerDB.RaceTrackerQuery, Voi
      */
     public class RaceTrackerQuery {
         private String query;
+        private SQLException exception;
         private ResultSet result;
         private OnQueryResultReady callback;
 
@@ -134,6 +138,14 @@ public class RaceTrackerDB extends AsyncTask<RaceTrackerDB.RaceTrackerQuery, Voi
 
         public void setCallback(OnQueryResultReady callback) {
             this.callback = callback;
+        }
+
+        public SQLException getException() {
+            return exception;
+        }
+
+        public void setException(SQLException exception) {
+            this.exception = exception;
         }
     }
 }

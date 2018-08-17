@@ -12,6 +12,9 @@ public class RaceTrackerCompetition implements Serializable {
     private Timestamp eventDate;
     private boolean active;
 
+    public RaceTrackerCompetition() {
+    }
+
     /**
      * Construct a RaceTrackerCompetition from the result of a query
      * @param fromDB Result from DB that contains all the expected columns
