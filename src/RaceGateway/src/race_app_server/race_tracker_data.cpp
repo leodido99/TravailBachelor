@@ -57,12 +57,12 @@ int race_tracker_data::insert_data_point(race_mode_record* data_point)
 
 	auto row = r[0];
 
-	log(logINFO) << "competitor_id = " << row["competitor_id"].c_str() << "competition_id = " << row["competition_id"].c_str();
+	log(logINFO) << "competitor_id = " << row["competitor_id"].c_str() << " competition_id = " << row["competition_id"].c_str();
 
 	t.prepared("insert_data_point")(row["competitor_id"].as<uint16_t>())
 				       (row["competition_id"].as<uint16_t>())
 				       (data_point->get_seq())
-				       (0) /* TODO Timestamp */
+				       ("2018-10-15 00:00:00-00") /* TODO Timestamp */
 				       (data_point->get_lat())
 				       (data_point->get_lon())
 				       (static_cast<uint16_t>(data_point->get_heart_rate()))
@@ -71,7 +71,7 @@ int race_tracker_data::insert_data_point(race_mode_record* data_point)
 				       (data_point->get_hdop())
 				       (static_cast<uint16_t>(data_point->get_status())).exec();
 
-	//t.commit();
+	t.commit();
 
 	return 0;
 }
