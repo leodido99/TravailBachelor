@@ -331,11 +331,30 @@ La figure \ref{fig:lora_rxpk_parser_uml} montre le diagramme de classe de LoRa r
 
 \subsubsection{Vector Reader}
 
-\todo{}
+Le Vector Reader est une classe qui permet l'extraction de données depuis un vecteur de byte. Les données qui sont reçu dans les paquets sous forme d'objet json contient les données encodée en base64, une fois les données décodées elles sont transformées en vecteur de byte et c'est donc grâce à la classe Vector Reader que l'on peut en extraire les différents paramètres.
+
+La figure \ref{fig:vector_reader_uml} montre le diagramme de classe de Vector Reader.
+
+\begin{figure}[htb]
+\centering 
+\includegraphics[width=0.4\columnwidth]{vector_reader_uml.png} 
+\caption{Diagramme de classe de Vector Reader}
+\label{fig:vector_reader_uml}
+ \end{figure}
 
 \subsubsection{Shell \& Shell Command}
 
-\todo{}
+La classe Shell est responsable de la gestion du shell de la passerelle qui permet à l'utilisateur d'exécuter des commandes afin d'effectuer diverses opérations. C'est cette classe qui dispose d'un thread en écoute sur l'entrée du clavier, lorsqu'une commande est entrée le Shell va allez regarder dans sa liste de commande si elle existe et l'exécuter.
+La Shell Command est une classe abstraite qui permet de définir le nom et le comportement d'une commande, une fois définit elle est ajoutée au Shell au moyen de la méthode \func{add\_cmd()}.
+
+La figure \ref{fig:shell_shell_cmd_uml} montre le diagramme de classe de Shell et Shell Command.
+
+\begin{figure}[htb]
+\centering 
+\includegraphics[width=0.4\columnwidth]{shell_shell_cmd_uml.png} 
+\caption{Diagramme de classe de Shell et Shell Command}
+\label{fig:shell_shell_cmd_uml}
+ \end{figure}
 
 \subsubsection{Logger}
 
