@@ -202,7 +202,7 @@
 										"$ref": "AAAAAAFjzu16p/lgiZs="
 									},
 									"name": "zoom",
-									"type": "INTEGER",
+									"type": "FLOAT8",
 									"length": 0
 								}
 							]

@@ -12,7 +12,7 @@ CREATE TABLE race_tracker.competition (
     location GEOMETRY NOT NULL,
     event_date TIMESTAMP without time zone NOT NULL,
     active BOOLEAN NOT NULL DEFAULT FALSE,
-    zoom INTEGER NOT NULL DEFAULT 12,
+    zoom FLOAT8 NOT NULL DEFAULT 12.0,
     PRIMARY KEY (competition_id)
 );
 
