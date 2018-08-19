@@ -8,7 +8,7 @@ CREATE TABLE race_tracker.country (
 
 CREATE TABLE race_tracker.competition (
     competition_id SERIAL UNIQUE NOT NULL,
-    name VARCHAR(20) NOT NULL,
+    name VARCHAR(50) NOT NULL,
     location GEOMETRY NOT NULL,
     event_date TIMESTAMP without time zone NOT NULL,
     active BOOLEAN NOT NULL DEFAULT FALSE,

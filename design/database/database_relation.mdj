@@ -163,7 +163,7 @@
 									},
 									"name": "name",
 									"type": "VARCHAR",
-									"length": "20"
+									"length": "50"
 								},
 								{
 									"_type": "ERDColumn",
