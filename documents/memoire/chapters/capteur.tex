@@ -182,6 +182,8 @@ Les éléments qui compose la couche application du logiciel embarqué sont déc
 \item Race Sensor Manager: C'est le module responsable de la gestion du capteur, au moyen d'un thread c'est lui qui déclenche les acquisitions et qui paquetise les données afin de les transmettre dans des paquets LoRa.
 \item Race Sensor Shell: Le shell du capteur, il est principalement utile pour les tests et le debug. Il propose plusieurs commande qui permettent par exemple de modifier la configuration de la liaison radio LoRa.
 \item Debug: Ce module propose des fonctions qui facilite le debug de l'application.
+\item Heart Rate: Compte le nombre de battement du cœur par unité de temps en s'appuyant sur l'accéléromètre Adafruit Heart Rate starter pack
+\item Cadence: Permet le comptage des pas du sportifs par unité de temps grâce à l'accéléromètre LSM303AGR
 \end{itemize}
 
 La figure \ref{fig:sensor_dyn_archi} décrit les éléments dynamiques qui compose le logiciel du capteur.
@@ -224,6 +226,61 @@ Accéléromètre & Basse - 3 & 100 ms  \\
 Le thread le plus prioritaire est celui du gestionnaire du capteur, en effet étant donné qu'il a une période qui est longue, lorsqu'il est prêt il doit directement prendre la main sur les autres threads afin de garantir la fréquence de transmission des données à la passerelle.
 Le thread responsable de la transmission des données au module LoRa doit également faire son travail en priorité afin de garantir le transfert des données rapidement.
 Enfin les thread de gestion du module GPS et de l'accéléromètre dispose de priorité plus faible car leur importance est moindre dans le processus du capteur.
+
+\subsection{Race Sensor Manager}
+
+Le Race Sensor Manager est le module principale du capteur, lors de l'allumage du capteur, c'est lui qui commence par configurer tous les éléments nécessaires au fonctionnement du capteur, comme les drivers par exemple. Une fois le système initialisé, le thread du Race Sensor Manager va s'occuper d'envoyer les données acquises dans des paquets LoRa à intervalle régulier.
+
+La figure \ref{fig:race_sensor_manager_uml} présente le diagramme de classe du Race Sensor Manager.
+
+\begin{figure}[htb]
+\centering 
+\includegraphics[width=0.5\columnwidth]{race_sensor_manager_uml.png} 
+\caption{Diagramme de classe du Race Sensor Manager}
+\label{fig:race_sensor_manager_uml}
+\end{figure}
+
+Lors du lancement du firmware du capteur, le Race Sensor Manager est initialisé puis lancé grâce aux fonctions \func{race\_sensor\_mngr\_init()} et \func{race\_sensor\_mngr\_start()}. Durant l'initialisation du module tous les drivers sont initialisé et les interfaces de communications sont configuré, au terme de cette opération le thread est lancé qui s'occupera du séquencement des opérations. Les opérations d'initialisation sont décrite dans le diagramme de séquence \ref{fig:race_sensor_manager_init_seq}.
+
+\begin{figure}[htb]
+\centering 
+\includegraphics[width=0.7\columnwidth]{race_sensor_manager_seq_init.png} 
+\caption{Diagramme de séquence de l'initialisation du Race Sensor Manager}
+\label{fig:race_sensor_manager_init_seq}
+\end{figure}
+
+Le thread va s'occuper de paquetiser et d'envoyer les données collectées régulièrement, le comportement est décrit dans le digramme de séquence \ref{fig:race_sensor_manager_init_thread}.
+
+\begin{figure}[htb]
+\centering 
+\includegraphics[width=1\columnwidth]{race_sensor_manager_seq_thread.png} 
+\caption{Diagramme de séquence du thread du Race Sensor Manager}
+\label{fig:race_sensor_manager_init_thread}
+\end{figure}
+
+\subsection{Heart Rate}
+
+\todo{}
+
+\subsection{Cadence}
+
+\todo{}
+
+\subsection{Debug}
+
+Ce module propose quelque fonction et macros qui sont utile pendant le debug du capteur comme l'affichage de message sur une console ou l'affichage de la liste de tous les threads qui sont actifs.
+
+\subsection{Race Sensor Shell}
+
+Le Race Sensor Shell permet l'utilisation d'un shell exécuté directement sur le capteur qui permet l'ajout de diverses commandes permettant la configuration du capteur pendant l'exécution du firmware. Il s'appuie sur le module shell proposé par Zephyr qui prend en charge la gestion du shell, il suffit de lui donner des pointeurs de fonction ainsi que des noms de fonction et le reste est pris en charge par le système d'exploitation.
+
+La liste suivante montre les commandes disponible dans le shell du capteur:
+
+\begin{itemize}
+\item set\_lora\_sf: Permet de changer le facteur d'étalement de la couche radio LoRa
+\item set\_lora\_pwr: Permet de changer la puissance de sortie du signal de la couche radio LoRa
+\item set\_msg\_interval: Permet de modifier l'intervalle entre deux messages envoyé à la passerelle
+\end{itemize}
 
 \section{Les drivers}\label{ch:drivers}
 
