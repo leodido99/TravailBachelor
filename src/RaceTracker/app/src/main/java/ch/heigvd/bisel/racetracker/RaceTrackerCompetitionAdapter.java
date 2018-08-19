@@ -46,9 +46,10 @@ public class RaceTrackerCompetitionAdapter extends RecyclerView.Adapter<RaceTrac
     public void onBindViewHolder(ViewHolder holder, int position) {
         String activeText;
 
-        // - get element from your dataset at this position
-        // - replace the contents of the view with that element
+        /* - get element from your dataset at this position
+           - replace the contents of the view with that element */
         holder.name.setText(competitions.get(position).getName());
+        /* TODO Clean-up way of showing that app cannot connect to DB */
         if (competitions.get(position).getEventDate() != null) {
             holder.date.setText(competitions.get(position).getEventDate().toString());
         }

@@ -26,7 +26,6 @@ public class RaceTrackerDBAsyncTask extends AsyncTask<RaceTrackerDB.RaceTrackerQ
     @Override
     protected void onPostExecute(ArrayList<RaceTrackerDB.RaceTrackerQuery> results) {
         super.onPostExecute(results);
-        System.out.println("nb results " + results.size());
         try {
             /* Execute all the callbacks */
             for(RaceTrackerDB.RaceTrackerQuery result : results) {

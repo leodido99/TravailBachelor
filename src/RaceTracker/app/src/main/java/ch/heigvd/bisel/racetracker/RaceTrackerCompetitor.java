@@ -1,5 +1,6 @@
 package ch.heigvd.bisel.racetracker;
 
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 import java.sql.ResultSet;
@@ -13,7 +14,7 @@ public class RaceTrackerCompetitor {
     private int bibNumber;
     private int sensorId;
     private RaceTrackerDataPoint lastDataPoint;
-    private MarkerOptions mapMarker;
+    private Marker mapMarker;
 
     /**
      * Construct a RaceTrackerCompetitor from the result of a query
@@ -30,18 +31,13 @@ public class RaceTrackerCompetitor {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        /* Initialize marker */
-        mapMarker = new MarkerOptions();
-        mapMarker.title(firstName + " " + lastName);
-        mapMarker.visible(false);
-        mapMarker.draggable(false);
     }
 
     /**
      * Update the competitor position marker using the last data point
      */
     public void updatePositionMarker() {
-        mapMarker.position(lastDataPoint.getPosition());
+        mapMarker.setPosition(lastDataPoint.getPosition());
     }
 
     public String toString() {
@@ -50,14 +46,6 @@ public class RaceTrackerCompetitor {
 
     public RaceTrackerDataPoint getLastDataPoint() {
         return lastDataPoint;
-    }
-
-    public MarkerOptions getMapMarker() {
-        return mapMarker;
-    }
-
-    public void setMapMarker(MarkerOptions mapMarker) {
-        this.mapMarker = mapMarker;
     }
 
     public boolean hasLastDataPoint() {
@@ -118,5 +106,13 @@ public class RaceTrackerCompetitor {
 
     public void setSensorId(int sensorId) {
         this.sensorId = sensorId;
+    }
+
+    public Marker getMapMarker() {
+        return mapMarker;
+    }
+
+    public void setMapMarker(Marker mapMarker) {
+        this.mapMarker = mapMarker;
     }
 }
