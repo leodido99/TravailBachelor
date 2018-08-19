@@ -35,7 +35,7 @@ public class RaceTrackerDB extends AsyncTask<RaceTrackerDB.RaceTrackerQuery, Voi
     public void getCompetitions(OnQueryResultReady callback) {
         RaceTrackerQuery query = new RaceTrackerQuery();
         query.setCallback(callback);
-        query.setQuery("SELECT competition_id, name, ST_X(location) as lat, ST_Y(location) as lon, event_date, active " +
+        query.setQuery("SELECT competition_id, name, ST_X(location) as lat, ST_Y(location) as lon, event_date, active, zoom " +
                 "FROM race_tracker.competition;");
         RaceTrackerDBAsyncTask task = new RaceTrackerDBAsyncTask(connectionString, dbUser, dbPwd);
         task.execute(query);

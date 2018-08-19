@@ -4,6 +4,7 @@ import android.os.Handler;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -73,6 +74,12 @@ public class ViewRaceActivity extends FragmentActivity implements OnMapReadyCall
     }
 
     public void handleDataPointLive(RaceTrackerDataPoint dataPoint) {
+        /* Check if competitor of the data point is known */
+        if (!competitors.containsKey(dataPoint.getCompetitorId())) {
+            Toast.makeText(getApplicationContext(), "Competitor of the data point is unknown", Toast.LENGTH_LONG).show();
+            return;
+        }
+
         /* First data point */
         if (!competitors.get(dataPoint.getCompetitorId()).hasLastDataPoint()) {
             firstDataPoint(dataPoint);
@@ -119,19 +126,16 @@ public class ViewRaceActivity extends FragmentActivity implements OnMapReadyCall
 
             if (results.getException() != null) {
                 /* Exception during query */
+                Toast.makeText(getApplicationContext(), "Exception during query: " + results.getException().getMessage(), Toast.LENGTH_LONG).show();
             } else {
                 while (results.getResult().next()) {
                     RaceTrackerDataPoint dataPoint = new RaceTrackerDataPoint(results.getResult());
                     handleDataPoint(dataPoint);
-                /*RaceTrackerCompetition cp = new RaceTrackerCompetition(results);
-                resultList.add(cp);
-                System.out.println("DBG: Competition: " + cp.toString());*/
                 }
 
                 results.getResult().getStatement().close();
                 results.getResult().close();
             }
-
 
             /* Updates UI */
             //mAdapter.notifyDataSetChanged();
@@ -151,6 +155,7 @@ public class ViewRaceActivity extends FragmentActivity implements OnMapReadyCall
 
             if (results.getException() != null) {
                 /* Exception during query */
+                Toast.makeText(getApplicationContext(), "Exception during query: " + results.getException().getMessage(), Toast.LENGTH_LONG).show();
             } else {
                 while (results.getResult().next()) {
                     RaceTrackerCompetitor competitor = new RaceTrackerCompetitor(results.getResult());
@@ -190,10 +195,11 @@ public class ViewRaceActivity extends FragmentActivity implements OnMapReadyCall
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
 
+        /* Change map type */
+        mMap.setMapType(GoogleMap.MAP_TYPE_SATELLITE);
 
-        //mMap.addMarker(new MarkerOptions().position(competition.getLocation().getObject()).title("Race"));
-        //mMap.moveCamera(CameraUpdateFactory.newLatLng());
-        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(competition.getLocation().getObject(), 12.0f));
+        /* Move camera and zoom to competition position*/
+        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(competition.getLocation().getObject(), competition.getZoom()));
     }
 
     Runnable dataPointChecker = new Runnable() {

@@ -96,6 +96,8 @@ typedef struct {
 static lsm303agr_priv_t lsm303agr_priv;
 
 int lsm303agr_init(const char *device_name) {
+	uint8_t accel_id;
+	uint8_t magn_id;
 	lsm303agr_priv.i2c_dev = device_get_binding(device_name);
 	u32_t i2c_cfg = I2C_SPEED_SET(I2C_SPEED_FAST) | I2C_MODE_MASTER;
 
@@ -110,9 +112,11 @@ int lsm303agr_init(const char *device_name) {
 	}
 
 	/* Check device IDs */
-	if (lsm303agr_accel_get_device_id() != LSM303AGR_ACCEL_DEVICE_ID ||
-			lsm303agr_mag_get_device_id() != LSM303AGR_MAGN_DEVICE_ID) {
-		DBG_PRINTK("%s: Unknown device IDs Accelereometer: 0x%X Magnetometer: 0x%X\n", __func__, lsm303agr_accel_get_device_id(), lsm303agr_mag_get_device_id());
+	accel_id = lsm303agr_accel_get_device_id();
+	magn_id = lsm303agr_mag_get_device_id();
+	if (accel_id != LSM303AGR_ACCEL_DEVICE_ID ||
+	    magn_id != LSM303AGR_MAGN_DEVICE_ID) {
+		DBG_PRINTK("%s: Unknown device IDs Accelereometer: 0x%X Magnetometer: 0x%X\n", __func__, accel_id, magn_id);
 		return LSM303AGR_UNKNOWN_DEVICE;
 	}
 

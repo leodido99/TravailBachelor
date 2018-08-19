@@ -41,9 +41,7 @@ public class ViewRaceSelectorActivity extends AppCompatActivity {
 
             if (results.getException() != null) {
                 /* Exception during query */
-                RaceTrackerCompetition cp = new RaceTrackerCompetition();
-                cp.setName(results.getException().getMessage());
-                resultList.add(cp);
+                Toast.makeText(getApplicationContext(), "Exception during query: " + results.getException().getMessage(), Toast.LENGTH_LONG).show();
             } else {
                 while (results.getResult().next()) {
                     RaceTrackerCompetition cp = new RaceTrackerCompetition(results.getResult());

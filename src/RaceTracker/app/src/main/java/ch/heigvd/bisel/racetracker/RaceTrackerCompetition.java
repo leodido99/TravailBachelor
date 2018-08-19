@@ -11,6 +11,7 @@ public class RaceTrackerCompetition implements Serializable {
     private LatLngWrapper location;
     private Timestamp eventDate;
     private boolean active;
+    private float zoom;
 
     public RaceTrackerCompetition() {
     }
@@ -26,6 +27,7 @@ public class RaceTrackerCompetition implements Serializable {
             location = new LatLngWrapper(fromDB.getDouble("lat"), fromDB.getDouble("lon"));
             eventDate = fromDB.getTimestamp("event_date");
             active = fromDB.getBoolean("active");
+            zoom = fromDB.getFloat("zoom");
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -74,5 +76,13 @@ public class RaceTrackerCompetition implements Serializable {
 
     public void setActive(boolean active) {
         this.active = active;
+    }
+
+    public float getZoom() {
+        return zoom;
+    }
+
+    public void setZoom(float zoom) {
+        this.zoom = zoom;
     }
 }

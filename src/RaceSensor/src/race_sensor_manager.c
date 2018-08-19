@@ -135,8 +135,6 @@ static void wait_for_fix() {
 	} while(race_sensor_mngr.last_pvt_msg.numSV < RACE_SENSOR_MNGR_GPS_FIX_NB_SV ||
 			(race_sensor_mngr.last_pvt_msg.fixType & RACE_SENSOR_MNGR_GPS_FIX_TYPE));
 
-	leds_set(LED_GREEN, true);
-
 	DBG_PRINTK("%s: Found GPS fix Num SV=%d FixType=0x%x\n", __func__, race_sensor_mngr.last_pvt_msg.numSV, race_sensor_mngr.last_pvt_msg.fixType);
 }
 
@@ -181,6 +179,9 @@ static void race_sensor_mngr_thread(void)
 	/* Before sending packets we are going to wait to have a good GPS fix
 	 * in order to provide precise positions */
 	wait_for_fix();
+
+	/* Switch-on green LED to signify sensor has a GPS fix */
+	leds_set(LED_GREEN, true);
 
 	while (1) {
 		k_sleep(msg_interval);
