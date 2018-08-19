@@ -5,3 +5,5 @@ SELECT * FROM race_tracker.data_point WHERE data_point.competitor_id = X AND dat
 
 -- All in one
 SELECT data_point_id, competitor_id, competition_id, sequence, time_stamp, ST_X(position) as lat, ST_Y(position) as lon, heart_rate, cadence, nb_satellites, position_dop, status FROM (SELECT rank() OVER (PARTITION BY data_point.competitor_id ORDER BY sequence DESC) AS therank, * FROM race_tracker.data_point WHERE data_point.competition_id = 1) t WHERE therank = 1;
+
+SELECT data_point_id, competitor_id, competition_id, sequence, time_stamp, ST_X(position) as lat, ST_Y(position) as lon, heart_rate, cadence, nb_satellites, position_dop, status FROM (SELECT rank() OVER (PARTITION BY data_point.competitor_id ORDER BY sequence DESC) AS therank, * FROM race_tracker.data_point WHERE data_point.competition_id = 4) t WHERE therank = 1;
