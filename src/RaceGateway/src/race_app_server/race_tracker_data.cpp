@@ -51,10 +51,8 @@ int race_tracker_data::insert_data_point(race_mode_record* data_point)
 			     "AND race_tracker.competition.active = True;");
 
 	pqxx::result r = t.prepared("get_ids")(data_point->get_id()).exec();
-	if (r.size() > 1) {
-		throw std::runtime_error("Sensor active on " + std::to_string(r.size()) + " competitions");
-	}
 
+	/* Only take the first result, if there are more than one it means the system is badly configured (Several sensors with the same ID) */
 	auto row = r[0];
 
 	log(logINFO) << "competitor_id = " << row["competitor_id"].c_str() << " competition_id = " << row["competition_id"].c_str();
