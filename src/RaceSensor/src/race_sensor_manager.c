@@ -52,7 +52,7 @@
 /**
  * The interval between two thread execution
  */
-#define RACE_SENSOR_MNGR_THREAD_INTERVAL K_MSEC(5000)
+#define RACE_SENSOR_MNGR_THREAD_INTERVAL K_MSEC(15000)
 
 static int msg_interval = RACE_SENSOR_MNGR_THREAD_INTERVAL;
 
