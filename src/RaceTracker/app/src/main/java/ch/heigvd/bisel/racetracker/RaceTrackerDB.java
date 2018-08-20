@@ -60,6 +60,23 @@ public class RaceTrackerDB extends AsyncTask<RaceTrackerDB.RaceTrackerQuery, Voi
     }
 
     /**
+     * Returns all the data points for the given competition
+     * @param callback Callback called when results are ready
+     * @param competition_id Competition
+     */
+    public void getDataPoints(OnQueryResultReady callback, int competition_id) {
+        RaceTrackerQuery query = new RaceTrackerQuery();
+        query.setCallback(callback);
+        query.setQuery(MessageFormat.format("SELECT data_point_id, competitor_id, " +
+                "competition_id, sequence, time_stamp, ST_X(position) as lat, ST_Y(position) as lon, " +
+                "heart_rate, cadence, nb_satellites, position_dop, status " +
+                "FROM race_tracker.data_point WHERE data_point.competition_id = {0};"
+                , competition_id));
+        RaceTrackerDBAsyncTask task = new RaceTrackerDBAsyncTask(connectionString, dbUser, dbPwd);
+        task.execute(query);
+    }
+
+    /**
      * Get all the competitors registered for a race
      * @param callback Callback called when results are ready
      * @param competition_id Competition

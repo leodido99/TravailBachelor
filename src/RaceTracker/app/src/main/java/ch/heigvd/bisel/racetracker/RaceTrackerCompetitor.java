@@ -38,6 +38,7 @@ public class RaceTrackerCompetitor {
      */
     public void updatePositionMarker() {
         mapMarker.setPosition(lastDataPoint.getPosition());
+        mapMarker.setVisible(true);
     }
 
     public String toString() {
@@ -50,6 +51,14 @@ public class RaceTrackerCompetitor {
 
     public boolean hasLastDataPoint() {
         if (lastDataPoint == null) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+    public boolean hasMarker() {
+        if (mapMarker == null) {
             return false;
         } else {
             return true;
