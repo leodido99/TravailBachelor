@@ -1,0 +1,154 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Template Settings
+%
+% Author: Léonard Bise
+% Date: 25.05.2018
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Book Recto-Verso A4 Fonts 11pt
+\documentclass[a4paper,11pt,fleqn, twoside]{book}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[french]{babel}
+
+\usepackage{booktabs}
+\usepackage{longtable}
+
+\usepackage{tikz}
+\usepackage{fancyhdr}
+\usepackage{graphicx} % includegraphics
+\graphicspath{{images/}{../images/}}
+\usepackage[
+breaklinks=true,colorlinks=true,
+linkcolor=black,urlcolor=black,citecolor=black,
+bookmarks=true,bookmarksopenlevel=2]{hyperref}  % Links color in pdf
+\usepackage{bookmark} % Creates bookmarks in pdf files
+\usepackage[final]{pdfpages}
+\usepackage{float}
+\usepackage{subcaption}
+
+% Force figures to be placed in their section
+\usepackage[section]{placeins}
+
+% Include source code
+%\begin{lstlisting}
+%Put your code here.
+%\end{lstlisting}
+% OR
+%\lstinputlisting{source_filename.py}
+\usepackage{listings}
+\lstset{language=[LaTeX]Tex,tabsize=4, basicstyle=\scriptsize\ttfamily, showstringspaces=false, numbers=left, numberstyle=\tiny, numbersep=10pt, breaklines=true, breakautoindent=true, breakindent=10pt}
+
+% Alter \cleardoublepage
+\makeatletter
+\def\cleardoublepage{\clearpage\if@twoside \ifodd\c@page\else
+    \hbox{}
+    \thispagestyle{empty}
+    \newpage
+    \if@twocolumn\hbox{}\newpage\fi\fi\fi}
+\makeatother \clearpage{\pagestyle{plain}\cleardoublepage}
+
+\usepackage{fourier} % Utopia font-typesetting including mathematical formula compatible with newer TeX-Distributions (>2010)
+%\usepackage{utopia} % on older systems -> use this package instead of fourier in combination with mathdesign for better looking results
+%\usepackage[adobe-utopia]{mathdesign}
+%\setlength{\textwidth}{155mm} % = 210mm - 37mm - 26.2mm
+%\setlength{\oddsidemargin}{7mm} % 37mm - 1in (from hoffset)
+%\setlength{\evensidemargin}{7mm} % = 26.2mm - 1in (from hoffset)
+%\setlength{\topmargin}{-2mm} % = 0mm -1in + 23.2mm 
+%\setlength{\textheight}{221.9mm} % = 297mm -29.5mm -31.6mm - 14mm (12 to accomodate footline with pagenumber)
+%\setlength{\headheight}{46pt}
+%\usepackage[
+%  top=2.5cm,
+%  bottom=2.5cm,
+%  left=3cm,
+%  right=2.5cm,
+%  headsep=1.5cm,
+%  footskip=30pt,
+%  headheight=46pt,
+%  asymmetric,
+%  showframe
+%]{geometry}
+\usepackage{geometry}
+\setlength{\topmargin}{-1.5cm}
+\setlength{\textheight}{700pt}
+\setlength{\footskip}{25pt}
+\setlength{\textwidth}{430pt}
+\setlength{\headheight}{46pt}
+
+% Distance between floats on the top or the bottom and the text
+\setlength{\textfloatsep}{10pt plus 1.0pt minus 2.0pt}
+
+% Display landscape pages in the proper orientation in pdf viewers
+\usepackage{pdflscape}
+
+% Increase interline spacing slightly
+\usepackage{setspace}
+\setstretch{1.1}
+
+% To align all floating figures/tables etc... to the top margin
+\makeatletter
+\setlength{\@fptop}{0pt} 
+\makeatother
+
+% Spacing after/before sections
+\usepackage{titlesec}
+\titlespacing*{\chapter}{0pt}{-30pt}{5pt}
+\titlespacing*{\section}{0pt}{5pt}{5pt}
+\titlespacing*{\subsection}{0pt}{5pt}{5pt}
+\titlespacing*{\subsubsection}{0pt}{5pt}{5pt}
+
+% Modifies chapters display
+\titleformat{\chapter}
+  {\LARGE\bfseries}{\thechapter}{10pt}{}
+
+% Use fancy pagestyle on chapter pages
+\makeatletter
+\renewcommand\chapter{\if@openright\cleardoublepage\else\clearpage\fi
+                    \thispagestyle{fancy}% original style: plain
+                    \global\@topnum\z@
+                    \@afterindentfalse
+                    \secdef\@chapter\@schapter}
+\makeatother
+
+% Paragraph spacing
+\setlength{\parskip}{\baselineskip}
+\setlength{\parindent}{0pt}%
+
+% SI Units
+\usepackage{siunitx}
+\sisetup{load-configurations = abbreviations}
+
+% Define a checkmark symbol
+\def\checkmark{\tikz\fill[scale=0.4](0,.35) -- (.25,0) -- (1,.7) -- (.25,.15) -- cycle;} 
+
+% User commands
+\newcommand{\hl}[1]{\colorbox{yellow}{#1}}
+\newcommand{\todo}[1]{\hl{TODO: #1}}
+
+\definecolor{mGreen}{rgb}{0,0.6,0}
+\definecolor{mGray}{rgb}{0.5,0.5,0.5}
+\definecolor{mPurple}{rgb}{0.58,0,0.82}
+\definecolor{backgroundColour}{rgb}{0.95,0.95,0.92}
+
+\lstdefinestyle{CStyle}{
+    backgroundcolor=\color{backgroundColour},   
+    commentstyle=\color{mGreen},
+    keywordstyle=\color{magenta},
+    numberstyle=\tiny\color{mGray},
+    stringstyle=\color{mPurple},
+    basicstyle=\footnotesize,
+    breakatwhitespace=false,         
+    breaklines=true,                 
+    captionpos=b,                    
+    keepspaces=true,                 
+    numbers=left,                    
+    numbersep=5pt,                  
+    showspaces=false,                
+    showstringspaces=false,
+    showtabs=false,                  
+    tabsize=2,
+    language=C
+}
+
+

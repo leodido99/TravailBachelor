@@ -5,6 +5,8 @@ La passerelle est chargée du traitement des paquets reçu par les capteurs et d
 
 Elle se compose de deux parties physique, d'une part un module de gestion de la communication LoRa, le concentrateur, qui se charge de la réception des paquets radio LoRa. L'autre partie est le micro-ordinateur, lorsqu'un paquet de données est reçu par le concentrateur, l'ordinateur de traitement le récupère puis se charge de décoder les données pour ensuite les stocker.
 
+D'autre part, la passerelle fait également office d'access point WiFi, les applications qui souhaitent pouvoir accéder à la base de données se connectent directement à ce réseau. Ce sera le cas de l'application mobile par exemple.
+
 La passerelle utilise une distribution du système d'exploitation Linux sur lequel sont exécutés deux programmes: le packet forwader et le serveur d'application.
 
 Le packet forwarder est un logiciel qui est disponible sur internet gratuitement, son but est de récupérer les messages LoRa reçus par le concentrateur et de transformer les paquets en objets de type json qui sont ensuite transmis au travers d'un socket sous la forme d'un paquet UDP.
@@ -69,7 +71,7 @@ Le Raspberry Pi et le Dragino LoRa HAT communiquent au travers d'un bus de type 
 
 \begin{figure}[htb]
 \centering 
-\includegraphics[width=0.8\columnwidth]{gateway_detailed_schema.png} 
+\includegraphics[width=1\columnwidth]{gateway_detailed_schema.png} 
 \caption{Schéma block de la passerelle}
 \label{fig:gateway_schema}
 \end{figure}
@@ -136,7 +138,7 @@ Un exemple d'objet json envoyé par le packet forwarder est présenté ci-dessou
 
 Le protocole est décrit en grand détails sur la page github du packet forwarder de Semtech voir \cite{lora-pkt-forwarder-protocol}.
 
-A la base le packet forwarder a été développé par la société Semtech, tenante de la patente du protocole de communication LoRa, c'est également cette société qui a définit le format des strings json envoyées dans les paquets UDP. Cependant la version qui est utilisée dans le cadre du projet de Bachelor, est un fork sur lequel plusieurs personnes ont travaillés afin de rajouter un certains nombre de fonctionnalité comme l'utilisation de fichiers de configuration ou le support de concentrateurs divers. Les principaux acteurs du développement de ce logiciel sont la société Semtech, Thomas Telkamp, Charles Hallard et Julien Le Sech. C'est le fork de Charles Hallard qui est employé par le projet car il supporte le Dragino LoRa HAT, il est disponible gratuitement sur github. \cite{pkt-forwarder-hallard}
+A la base le packet forwarder a été développé par la société Semtech, tenante de la patente du protocole de communication LoRa, c'est également cette société qui a définit le format des objets json envoyées dans les paquets UDP. Cependant la version qui est utilisée dans le cadre du projet de Bachelor, est un fork sur lequel plusieurs personnes ont travaillés afin de rajouter un certains nombre de fonctionnalité comme l'utilisation de fichiers de configuration ou le support de concentrateurs divers. Les principaux acteurs du développement de ce logiciel sont la société Semtech, Thomas Telkamp, Charles Hallard et Julien Le Sech. C'est le fork de Charles Hallard qui est employé par le projet car il supporte le Dragino LoRa HAT, il est disponible gratuitement sur github. \cite{pkt-forwarder-hallard}
 
 Les tâches en lien avec le packet forwarer sont très simple, il s'agit d'abord de cloner le repository git, de compiler le programme puis de configurer le packet forwarder au moyen d'un fichier json, principalement pour sélectionner la fréquence et le facteur d'étalement sur lequel il doit écouter ainsi que l'adresse et le port du serveur auquel on souhaite envoyer les paquets UDP générés. On peut ensuite exécuter simplement le packet forwarder et dès la réception de paquets ils seront automatiquement transférés.
 
@@ -150,13 +152,13 @@ Le serveur d'application est écrit en C++ et s'exécute sur le système d'explo
 
 \subsection{Architecture logiciel}
 
-L'architecture logiciel du serveur d'application se compose de 3 couches différentes, la couche application, la couche paquet LoRa et la couche outils. Le serveur d'application peut fonctionner en deux modes, race ou test. Le mode course est le mode standard, dans ce mode le serveur d'application récupère les paquets envoyés par le capteur, extrait les informations et les stock dans la base de données. Dans le mode test, les paquets sont récupérés mais ne sont stockés que localement afin de pouvoir faire différents tests sur le système. Il est possible de changer de mode en utilisant le shell du serveur d'application.
+L'architecture logiciel du serveur d'application se compose de 3 couches différentes, la couche application, la couche paquet LoRa et la couche outils. Le serveur d'application peut fonctionner en deux modes, course ou test. Le mode course est le mode standard, dans ce mode le serveur d'application récupère les paquets envoyés par le capteur, extrait les informations et les stock dans la base de données. Dans le mode test, les paquets sont récupérés mais ne sont stockés que localement afin de pouvoir faire différents tests sur le système. Il est possible de changer de mode en utilisant le shell du serveur d'application.
 
 La figure \ref{fig:gateway_static_archi} présente l'architecture statique du serveur d'application.
 
 \begin{figure}[htb]
 \centering 
-\includegraphics[width=0.8\columnwidth]{gateway_static_archi.png} 
+\includegraphics[width=1\columnwidth]{gateway_static_archi.png} 
 \caption{Architecture statique du serveur d'application}
 \label{fig:gateway_static_archi}
 \end{figure}
@@ -182,6 +184,15 @@ Les différents modules qui compose le serveur d'application sont résumés dans
 
 \todo{Add lib extern to biblio with url}
 
+La figure \ref{fig:app_serv_flow} montre le flux des données reçu par le serveur d'application et quelle classe est responsable de sa gestion.
+
+\begin{figure}[htb]
+\centering 
+\includegraphics[width=1\columnwidth]{app_serv_flow.png} 
+\caption{Flux des données du serveur d'application}
+\label{fig:app_serv_flow}
+\end{figure}
+
 Le serveur d'application est composé de deux threads qui sont gérés par le système d'exploitation, le premier est responsable de la réception des paquets du packet forwarder, c'est à dire qu'il attend sur un socket que des données soit disponibles. L'autre thread est utilisé pour le shell, il attend une entrée au clavier et l'exécute.
 
 Les threads du serveur d'application sont gérer par la librairie standard pthread, ils n'ont pas de priorité spécifique et sont de type asynchrone, c'est à dire que tout deux attende un événement précis avant de se débloquer.
@@ -190,22 +201,102 @@ La figure \ref{fig:gateway_dyn_archi} montre l'architecture dynamique du serveur
 
 \begin{figure}[htb]
 \centering 
-\includegraphics[width=0.8\columnwidth]{gateway_dyn_archi.png} 
+\includegraphics[width=1\columnwidth]{gateway_dyn_archi.png} 
 \caption{Architecture dynamique du serveur d'application}
 \label{fig:gateway_dyn_archi}
 \end{figure}
 
 \subsection{Les librairies externes}
 
-\todo{Ajout petit exemple code pour chaque}
-
 Le serveur d'application utilise plusieurs librairies externes qui sont décrite dans cette section.
 
 La librairie pqxx est la librairie officiel qui permet d'exécuter simplement des requêtes PostgreSQL sur des base de données de type relationnelle. Elle est open source, multi-plateforme et disponible gratuitement avec une license BSD sur internet à l'adresse \url{http://pqxx.org/development/libpqxx/}.
 
+Un exemple simple d'exécution d'une requête est présenté ci-dessous.
+
+\begin{lstlisting}[style=CStyle]
+#include <pqxx/pqxx>
+
+int main(void) {
+	pqxx::connection c("dbname = race_tracker_db user = pi password = heig hostaddr = 127.0.0.1 port = 5432");
+	pqxx::work t{c};
+
+	if (!c.is_open()) {
+		throw std::runtime_error("Cannot connect to database " + connection_str);
+	}
+
+	c.prepare("print_competitions", "SELECT * FROM race_tracker.competition;");
+
+	pqxx::result r = t.prepared("print_competitions").exec();
+	
+	for (auto row: r) {
+		std::cout << "Competition id=" << row["competition_id"] << "name=" << row["name"] << std::endl;
+	}
+
+	return 0;
+}
+\end{lstlisting}
+
 base64 est une classe écrite par la société Semtech également proposé en open source avec une license de type revised BSD. \url{https://github.com/Lora-net/packet_forwarder/blob/master/lora_pkt_fwd/src/base64.c}
 
+\begin{lstlisting}[style=CStyle]
+#include "base64.h"
+
+#define BUF_SIZE 256
+
+int main(void) {
+	uint8_t buffer[BUF_SIZE];
+	int nb_bytes_conv
+	char b64_str[] = { "-DS4CGaDCdG+48eJNM3Vai-zDpsR71Pn9CPA9uCON84" };
+	int bin_size = 32;
+
+	/* Decode data from base64 */
+	nb_bytes_conv = b64_to_bin(b64_str, strlen(b64_str), buffer, BUF_SIZE);
+	if (nb_bytes_conv == -1 || (unsigned int)nb_bytes_conv != bin_size) {
+		throw std::runtime_error("Couldn't convert the base64 data (actual=" + std::to_string(nb_bytes_conv) + " expected=" + std::to_string(bin_size));
+	}
+
+	std::cout << "Decoded data=";
+	for (int i = 0; i < bin_size; i++) {
+		std::cout << (unsigned)buffer[i];
+	}
+	std::cout << std::endl;
+
+	return 0;
+}
+\end{lstlisting}
+
 La librairie rapidjson est un parser et générateur de chaîne JSON rapide et efficient qui propose une API de style SAX/DOM. Elle est développée par la société Tencent et open source. Disponible à l'adresse \url{http://rapidjson.org/}.
+
+\begin{lstlisting}[style=CStyle]
+#include <rapidjson/document.h>
+
+int main(void) {
+	std::string json_str = "
+	{
+    	"hello": "world",
+    	"t": true ,
+    	"f": false,
+    	"n": null,
+    	"i": 123,
+    	"pi": 3.1416,
+    	"a": [1, 2, 3, 4]
+	} ";
+	rapidjson::Document doc;
+	static const char* kTypeNames[] = { "Null", "False", "True", "Object", "Array", "String", "Number" };
+	
+	rapidjson::StringStream packet_stream(json_string.c_str());
+	doc.ParseStream(packet_stream);
+	
+	/* Print all json members name and type */
+	for (Value::ConstMemberIterator itr = document.MemberBegin(); itr != document.MemberEnd(); ++itr)
+	{
+    	printf("Type of member %s is %s\n", itr->name.GetString(), kTypeNames[itr->value.GetType()]);
+	}
+
+	return 0;
+}
+\end{lstlisting}
 
 \subsection{Les classes}
 
@@ -222,7 +313,7 @@ La figure \ref{fig:race_app_server_uml} montre le diagramme de séquence de la c
 
 \begin{figure}[htb]
 \centering 
-\includegraphics[width=0.5\columnwidth]{race_server_app_uml.png} 
+\includegraphics[width=0.6\columnwidth]{race_server_app_uml.png} 
 \caption{Diagramme de classe de Race App Server}
 \label{fig:race_app_server_uml}
 \end{figure}
@@ -231,7 +322,7 @@ Les opérations effectué pour traiter un nouveau paquet reçu sont décrites da
 
 \begin{figure}[htb]
 \centering 
-\includegraphics[width=0.9\columnwidth]{race_server_app_seq.png} 
+\includegraphics[width=1\columnwidth]{race_server_app_seq.png} 
 \caption{Diagramme de séquence des opérations du thread de la classe Race App Server}
 \label{fig:race_app_server_seq}
 \end{figure}
@@ -246,7 +337,7 @@ La figure \ref{fig:race_tracker_data_uml} montre le diagramme de classe de Race 
 
 \begin{figure}[htb]
 \centering 
-\includegraphics[width=0.5\columnwidth]{race_tracker_data_uml.png} 
+\includegraphics[width=0.6\columnwidth]{race_tracker_data_uml.png} 
 \caption{Diagramme de classe de Race Tracker Data}
 \label{fig:race_tracker_data_uml}
 \end{figure}
@@ -272,7 +363,7 @@ La figure \ref{fig:race_mode_handler_uml} montre le diagramme de classe de Race 
 
 \begin{figure}[htb]
 \centering 
-\includegraphics[width=0.7\columnwidth]{race_mode_handler_uml.png} 
+\includegraphics[width=0.8\columnwidth]{race_mode_handler_uml.png} 
 \caption{Diagramme de classe de Race Mode Handler et Race Mode Record}
 \label{fig:race_mode_handler_uml}
  \end{figure}
@@ -285,9 +376,9 @@ La figure \ref{fig:test_mode_handler_uml} montre le diagramme de classe de Test 
 
 \begin{figure}[htb]
 \centering 
-\includegraphics[width=0.6\columnwidth]{test_mode_handler_uml.png} 
+\includegraphics[width=0.7\columnwidth]{test_mode_handler_uml.png} 
 \caption{Diagramme de classe de Test Mode Handler et Test Mode Record}
-\label{fig:race_mode_handler_uml}
+\label{fig:test_mode_handler_uml}
  \end{figure}
 
 \subsubsection{LoRa Packet Forwarder Parser}
@@ -298,7 +389,7 @@ La figure \ref{fig:lora_pkt_forwarder_parser_uml} montre le diagramme de classe 
 
 \begin{figure}[htb]
 \centering 
-\includegraphics[width=0.3\columnwidth]{lora_pkt_forwarder_parser_uml.png} 
+\includegraphics[width=0.4\columnwidth]{lora_pkt_forwarder_parser_uml.png} 
 \caption{Diagramme de classe de LoRa Packet Forwarder Parser}
 \label{fig:lora_pkt_forwarder_parser_uml}
  \end{figure}
@@ -311,7 +402,7 @@ La figure \ref{fig:lora_push_data_parser_uml} montre le diagramme de classe de L
 
 \begin{figure}[htb]
 \centering 
-\includegraphics[width=0.3\columnwidth]{lora_push_data_parser_uml.png} 
+\includegraphics[width=0.4\columnwidth]{lora_push_data_parser_uml.png} 
 \caption{Diagramme de classe de LoRa Push Data Parser}
 \label{fig:lora_push_data_parser_uml}
  \end{figure}
@@ -337,7 +428,7 @@ La figure \ref{fig:vector_reader_uml} montre le diagramme de classe de Vector Re
 
 \begin{figure}[htb]
 \centering 
-\includegraphics[width=0.4\columnwidth]{vector_reader_uml.png} 
+\includegraphics[width=0.5\columnwidth]{vector_reader_uml.png} 
 \caption{Diagramme de classe de Vector Reader}
 \label{fig:vector_reader_uml}
  \end{figure}
@@ -351,11 +442,20 @@ La figure \ref{fig:shell_shell_cmd_uml} montre le diagramme de classe de Shell e
 
 \begin{figure}[htb]
 \centering 
-\includegraphics[width=0.4\columnwidth]{shell_shell_cmd_uml.png} 
+\includegraphics[width=0.5\columnwidth]{shell_shell_cmd_uml.png} 
 \caption{Diagramme de classe de Shell et Shell Command}
 \label{fig:shell_shell_cmd_uml}
  \end{figure}
 
 \subsubsection{Logger}
 
-\todo{}
+Le logger est une simple classe qui permet l'affichage de message de log sur la sortie standard. Elle est principalement utilisée pour des questions de debug. Il est possible de loguer différents types de message, information, warning, erreur et également de filtrer certains types de messages que l'ont ne souhaite pas recevoir par exemple.
+
+La figure \ref{fig:logger_uml} montre le diagramme de classe de Logger.
+
+\begin{figure}[htb]
+\centering 
+\includegraphics[width=0.3\columnwidth]{logger_uml.png} 
+\caption{Diagramme de classe de Logger}
+\label{fig:logger_uml}
+ \end{figure}
