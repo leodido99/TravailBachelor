@@ -674,7 +674,39 @@ void main(void)
 
 \section{Paquet de donnée}
 
-\todo{}
+Le capteur transmet les données qui sont acquises au cours de la course grâce à un paquet de donnée LoRa. Le format et le contenu de ce paquet sont présentés ci-dessous.
+
+\begin{figure}[htb]
+\centering 
+\includegraphics[width=1\columnwidth]{sensor_packet_format.png} 
+\caption{Format du paquet de donnée LoRa}
+\label{fig:sensor_packet_format}
+\end{figure}
+
+Le paquet fait une taille totale de 30 bytes et est composé des éléments suivants.
+
+\begin{table}[htb]
+\caption{Détails des champs du paquet de données radio LoRa}
+\label{tab:sensor_packet_format}
+\centering
+\begin{tabular}{ l l l p{9cm} l }
+\toprule
+Champs & Taille & Type & Description \\
+\midrule
+Marqueur & 4 & uint & Une valeur fixe servant de marqueur et permettant d'identifier que le paquet provient bien d'un capteur du système \\
+ID & 1 & uint & Identifiant du capteur qui a généré le paquet \\
+Timestamp & 8 & uint & Heure et date au moment de la génération du paquet \\
+Status & 1 & uint & Status du capteur \\
+Seq & 1 & uint & Numéro de séquence du paquet. Chaque fois qu'un paquet est généré le compteur est incrémenté de un, cela permet de détecter lorsque des paquets sont perdu \\
+Latitude & 4 & int & Latitude du capteur reporté directement depuis le module GPS \\
+Longitude & 4 & int & Longitude du capteur reporté directement depuis le module GPS \\
+Nb SV & 1 & uint & Nombre de satellites GPS en vue \\
+DoP & 2 & int & Disolution of Position, la qualité de la précision de la position GPS \\
+Rythme cardiaque & 1 & uint & Rythme cardiaque de l'athlète \\
+Cadence & 1 & uint & Cadence de l'athlète \\
+\bottomrule 
+\end{tabular}
+\end{table}
 
 \section{Le débuggage}
 

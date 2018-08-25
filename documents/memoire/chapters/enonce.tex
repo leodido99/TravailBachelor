@@ -1,0 +1,18 @@
+
+Lors d’événements sportifs comme des courses à pied ou de vélo tout terrain, une fois le départ donné les spectateurs sont parfois loin de l’action pour une longue durée.
+
+Afin de rendre ce temps mort plus intéressant, ce projet propose le développement d’un système de tracking des athlètes en direct. Grâce à un capteur placé sur chaque concurrent, il devient possible d’afficher sur une carte la situation globale de la course à tout moment.
+
+L’objectif de ce système est de permettre de récupérer et centraliser la position GPS et le rythme cardiaque de chaque athlète équipé d’un capteur et d’afficher ces informations sur une carte géographique.
+
+Le système est composé de 3 éléments distincts : un capteur, un gateway et une application.
+
+Le capteur doit embarquer un capteur de rythme cardiaque et un système de positionnement GPS. De plus, il doit avoir sa propre source d’énergie avec une autonomie permettant son fonctionnement pendant l’entièreté d’une course.
+
+Le gateway est le système qui récupère les données produites par les capteurs et les stocks dans une base de données située sur un serveur.
+
+Les capteurs et le gateway communiqueront en utilisant le protocole LoRa (Long-Range) sur la bande de fréquence 868Mhz. De son côté le gateway se connecte à la base de données en utilisant un réseau WiFi.
+
+L’application est en charge de l’affichage de la position des coureurs sur la carte ainsi que de leur rythme cardiaque. Une estimation de la vitesse et de la distance parcourue est également affichée. En plus l’application permet de rejouer une course qui s’est tenue dans le passée.
+
+Une contrainte liée au capteur est qu’il doit être suffisamment petit pour ne pas gêner le sportif lors de son effort et être utilisable en extérieur.
