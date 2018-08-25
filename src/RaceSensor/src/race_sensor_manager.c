@@ -20,6 +20,7 @@
 #include "LSM303AGR.h"
 #include "race_tracking_packet.h"
 #include "leds.h"
+#include "heart_rate.h"
 
 #include <string.h>
 #include <misc/byteorder.h>
@@ -314,6 +315,12 @@ int race_sensor_mngr_init(void)
 	/* Configure the accelerometer */
 	err = configure_lsm303agr();
 	if (err) {
+		return err;
+	}
+
+	DBG_PRINTK("%s: Initializing Heart_Rate\n", __func__);
+	err = hr_init(GPIO_HR_DEV, GPIO_HR_PIN);
+	if (err < 0) {
 		return err;
 	}
 
