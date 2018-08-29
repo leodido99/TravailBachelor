@@ -82,4 +82,5 @@ void main(void)
 	/* Setup race sensor shell */
 	SHELL_REGISTER(RACE_SENSOR_SHELL, commands);
 	shell_register_default_module(RACE_SENSOR_SHELL);
+
 }

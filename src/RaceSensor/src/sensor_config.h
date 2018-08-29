@@ -14,10 +14,14 @@
 /* GPIO									     */
 /* ************************************************************************* */
 /**
- * Heart Rate connected on PA11 GPIO
+ * Heart Rate connected on PA7 GPIO
  */
-#define GPIO_HR_DEV CONFIG_GPIO_SAM0_PORTA_LABEL
+#define GPIO_HR_DEV CONFIG_GPIO_SAM0_PORTB_LABEL
 #define GPIO_HR_PIN 11
+//#define GPIO_HR_DEV CONFIG_GPIO_SAM0_PORTB_LABEL
+//#define GPIO_HR_PIN 8
+//#define GPIO_HR_DEV CONFIG_GPIO_SAM0_PORTB_LABEL
+//#define GPIO_HR_PIN 8
 
 /* ************************************************************************* */
 /* LoRa									     */

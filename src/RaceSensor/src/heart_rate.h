@@ -13,6 +13,7 @@
 
 #define HR_SUCCESS 0
 #define HR_BINDING_FAILED -1
+#define HR_GPIO_ACCESSS_FAILED -2
 
 int hr_init(const char* device, int pin);
 
