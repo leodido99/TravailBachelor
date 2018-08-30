@@ -192,7 +192,7 @@ public:
 		this->status = status;
 	}
 
-	const race_pkt_timestamp& get_timestamp() const
+	race_pkt_timestamp& get_timestamp()
 	{
 		return timestamp;
 	}
