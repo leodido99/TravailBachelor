@@ -9,6 +9,7 @@
 
 #include "debug.h"
 #include <gpio.h>
+#include <pinmux.h>
 
 /**
  * Set debug
@@ -69,10 +70,24 @@ int hr_get_io(void)
 int hr_init(const char* device, int pin)
 {
 	int err;
+	struct device *muxa;
 
 	hr.pin = pin;
 
 	DBG_PRINTK("HR device %s pin %d\n", device, hr.pin);
+
+	/* Update pin configuration to be EXTINT */
+	muxa = device_get_binding(CONFIG_PINMUX_SAM0_A_LABEL);
+	if (!muxa) {
+		DBG_PRINTK("%s: Binding to pinmux failed\n", __func__);
+		return HR_BINDING_FAILED;
+	}
+
+	err = pinmux_pin_set(muxa, 11, PINMUX_FUNC_A);
+	if (err < 0) {
+		DBG_PRINTK("%s: Cannot change pin function\n", __func__);
+		return err;
+	}
 
 	hr.gpio_dev = device_get_binding(device);
 	if (!hr.gpio_dev) {
