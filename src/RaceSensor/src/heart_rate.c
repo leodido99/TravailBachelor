@@ -20,16 +20,36 @@ struct heart_rate {
 	struct gpio_callback gpio_cb;
 	int pin;
 	int beat_cnt;
+	s64_t start_time;
 };
 
 static struct heart_rate hr = {
-	.beat_cnt = 0
+	.beat_cnt = 0,
+	.start_time = 0
 };
 
 void hr_gpio_callback(struct device *port, struct gpio_callback *cb, u32_t pins)
 {
-	printk("beat!\n");
+	if (hr.start_time == 0) {
+		hr.start_time = k_uptime_get();
+	}
+
 	hr.beat_cnt++;
+}
+
+u8_t hr_get(void)
+{
+	u8_t bpm;
+	s64_t elapsed_s = (k_uptime_get() - hr.start_time) / 1000;
+
+	bpm = (60 * hr.beat_cnt) / elapsed_s;
+
+	DBG_PRINTK("%s: BPM=%d beats=%d elapsed=%lld s\n", __func__, bpm, hr.beat_cnt, elapsed_s);
+
+	hr.beat_cnt = 0;
+	hr.start_time = 0;
+
+	return bpm;
 }
 
 int hr_get_io(void)

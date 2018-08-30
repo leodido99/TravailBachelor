@@ -32,6 +32,12 @@
 #define DEBUG DEBUG_RACE_SENSOR_MNGR
 
 /**
+ * If the module must wait for a valid GPS fix before
+ * starting to send packets. Used for debug
+ */
+#define RACE_SENSOR_DO_GPS_FIX 0
+
+/**
  * Marker used to signal the beginning of the packet
  */
 #define RACE_SENSOR_MNGR_SYNC_MARKER 0xF0CACC1A
@@ -82,16 +88,12 @@ struct race_sensor_mngr_data {
 	struct k_sem *gps_sem;
 	ubloxeva8m_nav_pvt_t last_pvt_msg;
 	u16_t pkt_seq;
-	u8_t heart_rate;
-	u8_t cadence;
 };
 
 struct race_sensor_mngr_data race_sensor_mngr = {
 	.initialized = false,
 	.gps_sem = &race_sensor_mngr_gps_sem,
 	.pkt_seq = 0,
-	.heart_rate = 0,
-	.cadence = 0
 };
 
 /**
@@ -167,9 +169,9 @@ static int build_packet(struct race_tracking_pkt *packet)
 
 	packet->pdop = sys_cpu_to_be16(race_sensor_mngr.last_pvt_msg.pDOP);
 
-	packet->heart_rate = race_sensor_mngr.heart_rate;
+	packet->heart_rate = hr_get();
 
-	packet->cadence = race_sensor_mngr.cadence;
+	packet->cadence = cadence_get();
 
 	return RACE_SENSOR_MNGR_SUCCESS;
 }
@@ -180,7 +182,11 @@ static void race_sensor_mngr_thread(void)
 
 	/* Before sending packets we are going to wait to have a good GPS fix
 	 * in order to provide precise positions */
+#if RACE_SENSOR_DO_GPS_FIX > 0
 	wait_for_fix();
+#else
+	DBG_PRINTK("%s: Not waiting for GPS Fix!\n", __func__);
+#endif
 
 	/* Switch-on green LED to signify sensor has a GPS fix */
 	leds_set(LED_GREEN, true);
@@ -339,14 +345,6 @@ int race_sensor_mngr_start(void)
 	k_thread_start(race_sensor_mngr_thread_id);
 
 	return RACE_SENSOR_MNGR_SUCCESS;
-}
-
-void race_sensor_mngr_set_heart_rate(u8_t heart_rate) {
-	race_sensor_mngr.heart_rate = heart_rate;
-}
-
-void race_sensor_mngr_set_cadence(u8_t cadence) {
-	race_sensor_mngr.cadence = cadence;
 }
 
 void race_sensor_mngr_set_msg_interval(int interval) {
