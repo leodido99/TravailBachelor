@@ -96,13 +96,27 @@ struct race_sensor_mngr_data race_sensor_mngr = {
 	.pkt_seq = 0,
 };
 
+union timestamp {
+	struct {
+		u8_t reserved;
+		u16_t year;
+		u8_t mon;
+		u8_t day;
+		u8_t h;
+		u8_t min;
+		u8_t sec;
+	} field;
+	u64_t reg;
+} __packed;
+
 /**
  * Buffer used to hold a packet
  */
-struct race_tracking_pkt pkt_buffer;
+struct race_tracking_pkt  pkt_buffer;
 
 #ifdef DEBUG
-static void print_nav_pvt_msg(char *txt, ubloxeva8m_nav_pvt_t* msg) {
+static void print_nav_pvt_msg(char *txt, ubloxeva8m_nav_pvt_t* msg)
+{
 	DBG_PRINTK("UBX-NAV-PVT: %d.%d.%d %02d:%02d:%02d:%03d validity=%d fixType=%d numSV=%d lat=%d lon=%d \n", msg->day, msg->month, msg->year, msg->hour, msg->minute, msg->seconds, msg->nano, msg->valid, msg->fixType, msg->numSV, msg->lat, msg->lon);
 }
 #endif
@@ -116,19 +130,32 @@ static void gps_msg_callback(ubloxeva8m_ubx_msg* msg)
 	}
 }
 
-static void wait_for_gps_update()
+static void wait_for_gps_update(void)
 {
 	/* Wait for new GPS message */
 	k_sem_reset(race_sensor_mngr.gps_sem);
 	k_sem_take(race_sensor_mngr.gps_sem, K_FOREVER);
 }
 
-static void get_timestamp(u8_t *buffer) {
-	/* TODO */
+static u64_t get_timestamp(void)
+{
+	union timestamp ts;
+
+	/* TODO Optimize timestamp, no need to use so many bytes */
+	ts.field.reserved = 0;
+	ts.field.year = race_sensor_mngr.last_pvt_msg.year;
+	ts.field.mon = race_sensor_mngr.last_pvt_msg.month;
+	ts.field.day = race_sensor_mngr.last_pvt_msg.day;
+	ts.field.h = race_sensor_mngr.last_pvt_msg.hour;
+	ts.field.min = race_sensor_mngr.last_pvt_msg.minute;
+	ts.field.sec = race_sensor_mngr.last_pvt_msg.seconds;
+
+	return ts.reg;
 }
 
 #if RACE_SENSOR_DO_GPS_FIX > 0
-static void wait_for_fix() {
+static void wait_for_fix()
+{
 	bool led_state = false;
 
 	DBG_PRINTK("%s: Waiting for GPS fix...\n", __func__);
@@ -155,8 +182,7 @@ static int build_packet(struct race_tracking_pkt *packet)
 
 	packet->id = sys_cpu_to_be16(RACE_SENSOR_MNGR_SENSOR_ID);
 
-	/* TODO Byte order */
-	get_timestamp(packet->timestamp);
+	packet->timestamp = sys_cpu_to_be64(get_timestamp());
 
 	packet->status = 0;
 
@@ -349,7 +375,8 @@ int race_sensor_mngr_start(void)
 	return RACE_SENSOR_MNGR_SUCCESS;
 }
 
-void race_sensor_mngr_set_msg_interval(int interval) {
+void race_sensor_mngr_set_msg_interval(int interval)
+{
 	msg_interval = K_MSEC(interval);
 }
 
