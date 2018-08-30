@@ -14,7 +14,13 @@
 struct race_tracking_pkt {
 	u32_t marker;
 	u16_t id;
-	u64_t timestamp;
+	u8_t reserved;
+	u16_t year;
+	u8_t mon;
+	u8_t day;
+	u8_t h;
+	u8_t min;
+	u8_t sec;
 	u8_t status;
 	u16_t counter;
 	s32_t latitude;

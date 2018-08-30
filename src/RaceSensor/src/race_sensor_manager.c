@@ -96,19 +96,6 @@ struct race_sensor_mngr_data race_sensor_mngr = {
 	.pkt_seq = 0,
 };
 
-union timestamp {
-	struct {
-		u8_t reserved;
-		u16_t year;
-		u8_t mon;
-		u8_t day;
-		u8_t h;
-		u8_t min;
-		u8_t sec;
-	} field;
-	u64_t reg;
-} __packed;
-
 /**
  * Buffer used to hold a packet
  */
@@ -135,22 +122,6 @@ static void wait_for_gps_update(void)
 	/* Wait for new GPS message */
 	k_sem_reset(race_sensor_mngr.gps_sem);
 	k_sem_take(race_sensor_mngr.gps_sem, K_FOREVER);
-}
-
-static u64_t get_timestamp(void)
-{
-	union timestamp ts;
-
-	/* TODO Optimize timestamp, no need to use so many bytes */
-	ts.field.reserved = 0;
-	ts.field.year = race_sensor_mngr.last_pvt_msg.year;
-	ts.field.mon = race_sensor_mngr.last_pvt_msg.month;
-	ts.field.day = race_sensor_mngr.last_pvt_msg.day;
-	ts.field.h = race_sensor_mngr.last_pvt_msg.hour;
-	ts.field.min = race_sensor_mngr.last_pvt_msg.minute;
-	ts.field.sec = race_sensor_mngr.last_pvt_msg.seconds;
-
-	return ts.reg;
 }
 
 #if RACE_SENSOR_DO_GPS_FIX > 0
@@ -182,7 +153,13 @@ static int build_packet(struct race_tracking_pkt *packet)
 
 	packet->id = sys_cpu_to_be16(RACE_SENSOR_MNGR_SENSOR_ID);
 
-	packet->timestamp = sys_cpu_to_be64(get_timestamp());
+	packet->reserved = 0;
+	packet->year = sys_cpu_to_be16(race_sensor_mngr.last_pvt_msg.year);
+	packet->mon = race_sensor_mngr.last_pvt_msg.month;
+	packet->day = race_sensor_mngr.last_pvt_msg.day;
+	packet->h = race_sensor_mngr.last_pvt_msg.hour;
+	packet->min = race_sensor_mngr.last_pvt_msg.minute;
+	packet->sec = race_sensor_mngr.last_pvt_msg.seconds;
 
 	packet->status = 0;
 
