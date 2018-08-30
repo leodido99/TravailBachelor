@@ -127,6 +127,7 @@ static void get_timestamp(u8_t *buffer) {
 	/* TODO */
 }
 
+#if RACE_SENSOR_DO_GPS_FIX > 0
 static void wait_for_fix() {
 	bool led_state = false;
 
@@ -141,6 +142,7 @@ static void wait_for_fix() {
 
 	DBG_PRINTK("%s: Found GPS fix Num SV=%d FixType=0x%x\n", __func__, race_sensor_mngr.last_pvt_msg.numSV, race_sensor_mngr.last_pvt_msg.fixType);
 }
+#endif
 
 static int build_packet(struct race_tracking_pkt *packet)
 {
