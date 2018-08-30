@@ -27,7 +27,6 @@ struct race_pkt_timestamp_t {
 class race_mode_record {
 private:
 	uint16_t id;
-	race_pkt_timestamp_t timestamp;
 	uint8_t status;
 	uint16_t seq;
 	double lat;
@@ -38,6 +37,7 @@ private:
 	uint8_t cadence;
 
 public:
+	race_pkt_timestamp_t timestamp;
 	race_mode_record();
 	virtual ~race_mode_record();
 	std::string to_string();
