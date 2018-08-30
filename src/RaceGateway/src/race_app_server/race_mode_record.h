@@ -15,9 +15,13 @@
 
 #define RACE_PKT_NO_ID 0xFFFF
 
-#define RACE_PKT_TIMESTAMP_SIZE 8
 struct race_pkt_timestamp_t {
-	uint8_t timestamp[RACE_PKT_TIMESTAMP_SIZE];
+	uint16_t year;
+	uint8_t month;
+	uint8_t day;
+	uint8_t hour;
+	uint8_t min;
+	uint8_t sec;
 };
 
 class race_mode_record {
