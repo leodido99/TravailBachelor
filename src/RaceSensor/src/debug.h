@@ -15,9 +15,9 @@
 #define DEBUG_RACE_SENSOR_MNGR 1
 
 /* Drivers */
-#define DEBUG_RN2483_LORA 1
+#define DEBUG_RN2483_LORA 0
 #define DEBUG_LSM303AGR 1
-#define DEBUG_UBLOXEVA8M 1
+#define DEBUG_UBLOXEVA8M 0
 #define DEBUG_LEDS 1
 #define DEBUG_HR 1
 

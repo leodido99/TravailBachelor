@@ -21,6 +21,7 @@
 #include "race_tracking_packet.h"
 #include "leds.h"
 #include "heart_rate.h"
+#include "cadence.h"
 
 #include <string.h>
 #include <misc/byteorder.h>

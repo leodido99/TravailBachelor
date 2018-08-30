@@ -16,11 +16,11 @@
 /**
  * Heart Rate connected on PA7 GPIO
  */
+/* TODO: Something is wrong because the pin on which the HR is supposed
+ * to be PA11 but it doesn't work... Only setting PB11 works */
 #define GPIO_HR_DEV CONFIG_GPIO_SAM0_PORTB_LABEL
 #define GPIO_HR_PIN 11
-//#define GPIO_HR_DEV CONFIG_GPIO_SAM0_PORTB_LABEL
-//#define GPIO_HR_PIN 8
-//#define GPIO_HR_DEV CONFIG_GPIO_SAM0_PORTB_LABEL
+//#define GPIO_HR_DEV CONFIG_GPIO_SAM0_PORTA_LABEL
 //#define GPIO_HR_PIN 8
 
 /* ************************************************************************* */
