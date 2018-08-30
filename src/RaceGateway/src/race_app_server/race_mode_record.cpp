@@ -35,10 +35,12 @@ std::string race_mode_record::to_string()
 {
 	std::stringstream mystr;
 
-	mystr << "race_mode_record(" << "id: " << this->id << " Timestamp: " << unsigned(this->timestamp.get_year()) << "." << unsigned(this->timestamp.get_month()) << "." << unsigned(this->timestamp.get_day()) << " " << unsigned(this->timestamp.get_hour()) << ":" << unsigned(this->timestamp.get_min()) << ":" << unsigned(this->timestamp.get_sec()) << " Status: " << unsigned(this->status) << " Seq: " << this->seq;
-	mystr <<  " Latitude: " << this->lat << " Longitude: " << this->lon << " Nb SV: " << unsigned(this->nb_sv) << " Position DOP: " << this->hdop;
+	mystr << "race_mode_record(" << "id: " << this->id << " Timestamp: " << unsigned(this->timestamp.get_year()) << "." << unsigned(this->timestamp.get_month());
+	mystr << "." << unsigned(this->timestamp.get_day()) << " " << unsigned(this->timestamp.get_hour()) << ":" << unsigned(this->timestamp.get_min()) << ":" << unsigned(this->timestamp.get_sec())
+	mystr << " Status: " << unsigned(this->status) << " Seq: " << this->seq;
+	mystr << " Latitude: " << this->lat << " Longitude: " << this->lon << " Nb SV: " << unsigned(this->nb_sv) << " Position DOP: " << this->hdop;
 	mystr << " Heart Rate: " << unsigned(this->heart_rate) << "  Cadence: " << unsigned(this->cadence);
-	mystr <<  ")";
+	mystr << ")";
 
 	return mystr.str();
 }
