@@ -11,12 +11,16 @@
 #ifndef SRC_RACE_TRACKING_PACKET_H_
 #define SRC_RACE_TRACKING_PACKET_H_
 
-#define RACE_TRACKING_PKT_TIMESTAMP_SIZE 8
-
 struct race_tracking_pkt {
 	u32_t marker;
 	u16_t id;
-	u8_t timestamp[RACE_TRACKING_PKT_TIMESTAMP_SIZE];
+	u8_t reserved;
+	u16_t year;
+	u8_t mon;
+	u8_t day;
+	u8_t h;
+	u8_t min;
+	u8_t sec;
 	u8_t status;
 	u16_t counter;
 	s32_t latitude;

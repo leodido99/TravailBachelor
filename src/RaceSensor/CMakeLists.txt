@@ -16,7 +16,9 @@ target_sources(app PRIVATE
 	       	   src/drivers/LSM303AGR.c
 	           src/drivers/RN2483_lora.c
 	           src/drivers/UBloxEVA8M.c
-	           src/drivers/leds.c	           
+	           src/drivers/leds.c	  
+	           src/heart_rate.c
+	           src/cadence.c         
 	           )
 
 # Include directories

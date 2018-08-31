@@ -8,8 +8,9 @@
 #ifndef SRC_CADENCE_H_
 #define SRC_CADENCE_H_
 
+#include <zephyr.h>
 
-
+u8_t cadence_get(void);
 
 
 #endif /* SRC_CADENCE_H_ */

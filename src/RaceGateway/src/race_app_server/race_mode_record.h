@@ -15,15 +15,79 @@
 
 #define RACE_PKT_NO_ID 0xFFFF
 
-#define RACE_PKT_TIMESTAMP_SIZE 8
-struct race_pkt_timestamp_t {
-	uint8_t timestamp[RACE_PKT_TIMESTAMP_SIZE];
+class race_pkt_timestamp {
+private:
+	uint16_t year;
+	uint8_t month;
+	uint8_t day;
+	uint8_t hour;
+	uint8_t min;
+	uint8_t sec;
+public:
+	uint8_t get_day() const
+	{
+		return day;
+	}
+
+	void set_day(uint8_t day)
+	{
+		this->day = day;
+	}
+
+	uint8_t get_hour() const
+	{
+		return hour;
+	}
+
+	void set_hour(uint8_t hour)
+	{
+		this->hour = hour;
+	}
+
+	uint8_t get_min() const
+	{
+		return min;
+	}
+
+	void set_min(uint8_t min)
+	{
+		this->min = min;
+	}
+
+	uint8_t get_month() const
+	{
+		return month;
+	}
+
+	void set_month(uint8_t month)
+	{
+		this->month = month;
+	}
+
+	uint8_t get_sec() const
+	{
+		return sec;
+	}
+
+	void set_sec(uint8_t sec)
+	{
+		this->sec = sec;
+	}
+
+	uint16_t get_year() const
+	{
+		return year;
+	}
+
+	void set_year(uint16_t year)
+	{
+		this->year = year;
+	}
 };
 
 class race_mode_record {
 private:
 	uint16_t id;
-	race_pkt_timestamp_t timestamp;
 	uint8_t status;
 	uint16_t seq;
 	double lat;
@@ -32,7 +96,7 @@ private:
 	double hdop;
 	uint8_t heart_rate;
 	uint8_t cadence;
-
+	race_pkt_timestamp timestamp;
 public:
 	race_mode_record();
 	virtual ~race_mode_record();
@@ -128,12 +192,12 @@ public:
 		this->status = status;
 	}
 
-	const race_pkt_timestamp_t& get_timestamp() const
+	race_pkt_timestamp& get_timestamp()
 	{
 		return timestamp;
 	}
 
-	void set_timestamp(const race_pkt_timestamp_t& timestamp)
+	void set_timestamp(const race_pkt_timestamp& timestamp)
 	{
 		this->timestamp = timestamp;
 	}

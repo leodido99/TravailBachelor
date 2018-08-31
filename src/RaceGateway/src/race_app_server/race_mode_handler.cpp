@@ -42,9 +42,14 @@ void race_mode_handler::handle(lora_rxpk_parser* rxpk)
 
 	if (myreader.get_next_32bits() == RACE_PKT_MARKER) {
 		race_record.set_id(myreader.get_next_16bits());
-		/* TODO Timestamp */
-		myreader.get_next_64bits();
-		//race_record.set_timestamp();
+		/* Discard reserved field */
+		myreader.get_next_8bits();
+		race_record.get_timestamp().set_year(myreader.get_next_16bits());
+		race_record.get_timestamp().set_month(myreader.get_next_8bits());
+		race_record.get_timestamp().set_day(myreader.get_next_8bits());
+		race_record.get_timestamp().set_hour(myreader.get_next_8bits());
+		race_record.get_timestamp().set_min(myreader.get_next_8bits());
+		race_record.get_timestamp().set_sec(myreader.get_next_8bits());
 		race_record.set_status(myreader.get_next_8bits());
 		race_record.set_seq(myreader.get_next_16bits());
 		int32_t lat_raw = myreader.get_next_signed_32bits();
