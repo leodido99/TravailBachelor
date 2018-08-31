@@ -25,13 +25,20 @@
 % Préambule
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\input{head/preambule.tex}
+\cleardoublepage
+\makeatletter
+\includepdf[
+  pages=1,
+  scale=0.9,
+  ]{head/TB-Preambule.pdf}
+\makeatother
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Résumé (Signé)
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\includepdf[pages=-]{../resume/TB_Bise_Leonard_Resume.pdf}
+\cleardoublepage
+\includepdf{../resume/TB_Bise_Leonard_Resume.pdf}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Table des matières
@@ -161,6 +168,7 @@
 % Authentification
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+\cleardoublepage
 \includepdf[pages=-]{../authentification/TB_Bise_Leonard_Authentification.pdf}
 
 \end{document}
