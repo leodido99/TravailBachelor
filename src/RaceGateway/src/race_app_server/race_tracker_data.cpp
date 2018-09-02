@@ -58,10 +58,16 @@ int race_tracker_data::insert_data_point(race_mode_record* data_point)
 	log(logINFO) << "competitor_id = " << row["competitor_id"].c_str() << " competition_id = " << row["competition_id"].c_str();
 	log(logINFO) << data_point->to_string();
 
+	std::stringstream mystr;
+	mystr << data_point->get_timestamp().get_year() << "-" << data_point->get_timestamp().get_month() << "-";
+	mystr << data_point->get_timestamp().get_day() << " " << data_point->get_timestamp().hour << ":" << data_point->get_timestamp().get_min();
+	mystr << ":" << data_point->get_timestamp().get_sec() << "-00";
+	log(logINFO) << "Timestamp: " << mystr.c_str();
+
 	t.prepared("insert_data_point")(row["competitor_id"].as<uint16_t>())
 				       (row["competition_id"].as<uint16_t>())
 				       (data_point->get_seq())
-				       ("2018-10-15 00:00:00-00") /* TODO Timestamp */
+				       (mystr.c_str())
 				       (data_point->get_lat())
 				       (data_point->get_lon())
 				       (static_cast<uint16_t>(data_point->get_heart_rate()))
