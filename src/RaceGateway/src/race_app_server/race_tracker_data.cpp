@@ -59,15 +59,15 @@ int race_tracker_data::insert_data_point(race_mode_record* data_point)
 	log(logINFO) << data_point->to_string();
 
 	std::stringstream mystr;
-	mystr << data_point->get_timestamp().get_year() << "-" << data_point->get_timestamp().get_month() << "-";
-	mystr << data_point->get_timestamp().get_day() << " " << data_point->get_timestamp().hour << ":" << data_point->get_timestamp().get_min();
-	mystr << ":" << data_point->get_timestamp().get_sec() << "-00";
-	log(logINFO) << "Timestamp: " << mystr.c_str();
+	mystr << unsigned(data_point->get_timestamp().get_year()) << "-" << unsigned(data_point->get_timestamp().get_month()) << "-";
+	mystr << unsigned(data_point->get_timestamp().get_day()) << " " << unsigned(data_point->get_timestamp().get_hour()) << ":" << unsigned(data_point->get_timestamp().get_min());
+	mystr << ":" << unsigned(data_point->get_timestamp().get_sec()) << "-00";
+	log(logINFO) << "Timestamp: " << mystr.str();
 
 	t.prepared("insert_data_point")(row["competitor_id"].as<uint16_t>())
 				       (row["competition_id"].as<uint16_t>())
 				       (data_point->get_seq())
-				       (mystr.c_str())
+				       (mystr.str())
 				       (data_point->get_lat())
 				       (data_point->get_lon())
 				       (static_cast<uint16_t>(data_point->get_heart_rate()))
