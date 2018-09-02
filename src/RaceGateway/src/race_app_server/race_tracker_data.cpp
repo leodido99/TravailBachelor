@@ -56,6 +56,7 @@ int race_tracker_data::insert_data_point(race_mode_record* data_point)
 	auto row = r[0];
 
 	log(logINFO) << "competitor_id = " << row["competitor_id"].c_str() << " competition_id = " << row["competition_id"].c_str();
+	log(logINFO) << data_point->to_string();
 
 	t.prepared("insert_data_point")(row["competitor_id"].as<uint16_t>())
 				       (row["competition_id"].as<uint16_t>())
