@@ -35,7 +35,7 @@
  * If the module must wait for a valid GPS fix before
  * starting to send packets. Used for debug
  */
-#define RACE_SENSOR_DO_GPS_FIX 0
+#define RACE_SENSOR_DO_GPS_FIX 1
 
 /**
  * Marker used to signal the beginning of the packet
@@ -51,11 +51,6 @@
  * Thread priority for the packet manager thread
  */
 #define RACE_SENSOR_MNGR_PRIORITY 10
-
-/**
- * ID of the sensor
- */
-#define RACE_SENSOR_MNGR_SENSOR_ID 0xBEEF
 
 /**
  * The interval between two thread execution
@@ -146,12 +141,13 @@ static int build_packet(struct race_tracking_pkt *packet)
 {
 	/* In order to have the most precise GPS position we
 	 * wait for a new one */
+	/* TODO Synch on gps message cycle? */
 	wait_for_gps_update();
 
 	/* Data is transfered as big endian */
 	packet->marker = sys_cpu_to_be32(RACE_SENSOR_MNGR_SYNC_MARKER);
 
-	packet->id = sys_cpu_to_be16(RACE_SENSOR_MNGR_SENSOR_ID);
+	packet->id = sys_cpu_to_be16(SENSOR_ID);
 
 	packet->reserved = 0;
 	packet->year = sys_cpu_to_be16(race_sensor_mngr.last_pvt_msg.year);
@@ -202,6 +198,7 @@ static void race_sensor_mngr_thread(void)
 		if (build_packet(&pkt_buffer) < 0) {
 			DBG_PRINTK("Couldn't build packet\n");
 		}
+
 		/* Send through LoRa */
 		if (rn2483_lora_radio_tx((u8_t*)&pkt_buffer, sizeof(struct race_tracking_pkt))) {
 			DBG_PRINTK("Couldn't send packet\n");
