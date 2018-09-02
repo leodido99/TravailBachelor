@@ -105,7 +105,7 @@ L'utilisation ainsi que toutes les commandes sont décrite dans la datasheet du 
 
 \subsection{Le module rythme cardiaque Adafruit}\label{ch:module_hr}
 
-Le module Adafruit pour le rythme cardiaque est composé de deux éléments principaux, d'une part la sangle pectorale qui sera portée par le sportif et le récepteur qui permettra au micro-contrôleur de détecter les battements du cœur. La sangle et le récepteur utilise le protocole sans-fil WeakLink+ de la compagnie Polar ce qui permet au récepteur, lorsqu'un battement est transmis par la sangle, de générer une impulsion sur une entrée du micro-contrôleur.
+Le module Adafruit pour le rythme cardiaque est composé de deux éléments principaux, d'une part la sangle pectorale qui sera portée par le sportif et le récepteur qui permettra au micro-contrôleur de détecter les battements du cœur. La sangle et le récepteur utilise le protocole sans-fil WeakLink+ de la compagnie Polar ce qui permet au récepteur, lorsqu'un battement est transmis par la sangle, de générer une impulsion sur une entrée du micro-contrôleur. Cette impulsion est détectée par le micro-contrôleur grâce au driver External Interrupt Controller spécialement développé pour ce projet et qui permet de déclencher des interruptions lors de la détection d'un flanc montant par exemple.
 
 \todo{figure}
 
@@ -117,9 +117,15 @@ Le LSM303AGR est un accéléromètre trois axes couplé à un magnétomètre. Se
 
 Enfin le module peut être configuré pour générer une interruption lorsqu'un certain seuil d'accélération est dépassé sur une combinaison des 3 axes afin de pouvoir détecter un certain mouvement ou déplacement par exemple. 
 
-\subsection{La batterie}
+\subsection{L'accumulateur}
 
-\todo{}
+\todo{figure}
+
+L'accumulateur utilisé pour alimenter la carte SODAQ One est de type lithium-polymère, solution assurant une sécurité accrue mais distribuant un peu moins d'énergie qu'un accumulateur de type lithium-ion par exemple.
+
+Cet accumulateur est capable de délivrer environ 3.7V et 1200 mAh.
+
+\todo{Discharge figure?}
 
 \section{Le système d'exploitation Zephyr}
 
@@ -671,6 +677,10 @@ void main(void)
 	}
 }
 \end{lstlisting}
+
+\subsection{Driver External Interrupt Controller}
+
+\todo{}
 
 \section{Paquet de donnée}
 
