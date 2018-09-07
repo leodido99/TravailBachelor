@@ -3,11 +3,14 @@ package ch.heigvd.bisel.racetracker.activities;
 import android.os.Handler;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.MapFragment;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
@@ -24,8 +27,10 @@ import java.util.Map;
 
 import ch.heigvd.bisel.racetracker.R;
 import ch.heigvd.bisel.racetracker.RaceTrackerCompetition;
+import ch.heigvd.bisel.racetracker.RaceTrackerCompetitionAdapter;
 import ch.heigvd.bisel.racetracker.RaceTrackerCompetitor;
 import ch.heigvd.bisel.racetracker.OnQueryResultReady;
+import ch.heigvd.bisel.racetracker.RaceTrackerCompetitorAdapter;
 import ch.heigvd.bisel.racetracker.RaceTrackerDB;
 import ch.heigvd.bisel.racetracker.RaceTrackerDataPoint;
 
@@ -41,15 +46,25 @@ public class ViewRaceActivity extends FragmentActivity implements OnMapReadyCall
     private Handler handler;
     private boolean leavePositionTrail;
     private ArrayList<RaceTrackerDataPoint> dataPoints;
+    private RecyclerView mRecyclerView;
+    private RecyclerView.Adapter mAdapter;
+    private RecyclerView.LayoutManager mLayoutManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_view_race_google);
+        setContentView(R.layout.activity_view_race);
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
-        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
-                .findFragmentById(R.id.map);
+        //SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
+        //        .findFragmentById(R.id.mapView);
+        MapFragment mapFragment = (MapFragment) getFragmentManager().findFragmentById(R.id.mapView);
         mapFragment.getMapAsync(this);
+
+        /* Setup RecyclerView */
+        mRecyclerView = findViewById(R.id.CompetitorsRecycler);
+
+        mLayoutManager = new LinearLayoutManager(this);
+        mRecyclerView.setLayoutManager(mLayoutManager);
 
         /* Retrieve competition class from intent */
         competition = (RaceTrackerCompetition)getIntent().getSerializableExtra("competition");
@@ -86,6 +101,7 @@ public class ViewRaceActivity extends FragmentActivity implements OnMapReadyCall
         /* TODO Check for jump in sequence i.e lost packet */
         if (!competitors.get(dataPoint.getCompetitorId()).hasLastDataPoint() ||
             dataPoint.getSequence() > competitors.get(dataPoint.getCompetitorId()).getLastDataPoint().getSequence()) {
+            //Toast.makeText(getApplicationContext(), "New data point seq=" + dataPoint.getSequence(), Toast.LENGTH_SHORT).show();
             /* In leave position trail mode, we create a new marker to save the last position */
             if (competitors.get(dataPoint.getCompetitorId()).hasLastDataPoint() && leavePositionTrail) {
                 /* Create new marker at old position */
@@ -213,6 +229,7 @@ public class ViewRaceActivity extends FragmentActivity implements OnMapReadyCall
         /* Callback when competitions are ready */
         public void onQueryResultReady(RaceTrackerDB.RaceTrackerQuery results) throws SQLException {
             this.results = results;
+            ArrayList<RaceTrackerCompetitor> competitorsList = new ArrayList<>();
 
             if (results.getException() != null) {
                 /* Exception during query */
@@ -221,6 +238,7 @@ public class ViewRaceActivity extends FragmentActivity implements OnMapReadyCall
                 while (results.getResult().next()) {
                     RaceTrackerCompetitor competitor = new RaceTrackerCompetitor(results.getResult());
                     competitors.put(competitor.getCompetitorId(), competitor);
+                    competitorsList.add(competitor);
                     /* Setup map marker */
                     competitor.setMapMarker(mMap.addMarker(new MarkerOptions()
                             .position(new LatLng(0,0))
@@ -234,8 +252,12 @@ public class ViewRaceActivity extends FragmentActivity implements OnMapReadyCall
                 results.getResult().close();
             }
 
+            /* Initialize adapter and add it to view */
+            mAdapter = new RaceTrackerCompetitorAdapter(competitorsList);
+            mRecyclerView.setAdapter(mAdapter);
+
             /* Updates UI */
-            //mAdapter.notifyDataSetChanged();
+            mAdapter.notifyDataSetChanged();
 
             /* Setup markers of data points */
             setupMarkers();
