@@ -3,23 +3,20 @@ package ch.heigvd.bisel.racetracker.activities;
 import android.os.Handler;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
+import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapFragment;
 import com.google.android.gms.maps.OnMapReadyCallback;
-import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
-import java.sql.Array;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -27,10 +24,10 @@ import java.util.Map;
 
 import ch.heigvd.bisel.racetracker.R;
 import ch.heigvd.bisel.racetracker.RaceTrackerCompetition;
-import ch.heigvd.bisel.racetracker.RaceTrackerCompetitionAdapter;
 import ch.heigvd.bisel.racetracker.RaceTrackerCompetitor;
 import ch.heigvd.bisel.racetracker.OnQueryResultReady;
 import ch.heigvd.bisel.racetracker.RaceTrackerCompetitorAdapter;
+import ch.heigvd.bisel.racetracker.RaceTrackerCountry;
 import ch.heigvd.bisel.racetracker.RaceTrackerDB;
 import ch.heigvd.bisel.racetracker.RaceTrackerDataPoint;
 
@@ -38,9 +35,13 @@ public class ViewRaceActivity extends FragmentActivity implements OnMapReadyCall
     private GoogleMap mMap;
     private RaceTrackerCompetition competition;
     private Map<Integer, RaceTrackerCompetitor> competitors;
+    private Map<String, RaceTrackerCountry> countries;
+
+    private OnCountryResults onCountryResults;
     private OnCompetitorsResults onCompetitorsResults;
     private OnLastDataPointResults onLastDataPointResults;
     private OnDataPointsResults onDataPointsResults;
+
     private RaceTrackerDB db;
     private int handlerInterval = 5000; /* In seconds */
     private Handler handler;
@@ -66,19 +67,27 @@ public class ViewRaceActivity extends FragmentActivity implements OnMapReadyCall
         mLayoutManager = new LinearLayoutManager(this);
         mRecyclerView.setLayoutManager(mLayoutManager);
 
+        /* Add line between items */
+        mRecyclerView.addItemDecoration(new DividerItemDecoration(this, LinearLayoutManager.VERTICAL));
+
         /* Retrieve competition class from intent */
         competition = (RaceTrackerCompetition)getIntent().getSerializableExtra("competition");
 
-        /* Initialize the competitors map */
+        /* Initialize the maps */
         competitors = new HashMap<>();
+        countries = new HashMap<>();
 
         /* Create query results handler */
         onLastDataPointResults = new OnLastDataPointResults();
         onCompetitorsResults = new OnCompetitorsResults();
         onDataPointsResults = new OnDataPointsResults();
+        onCountryResults = new OnCountryResults();
+
+        db = new RaceTrackerDB(this);
+        /* Get Countries */
+        db.getCountries(onCountryResults);
 
         /* Get Competitors */
-        db = new RaceTrackerDB(this);
         db.getCompetitors(onCompetitorsResults, competition.getCompetitionId());
 
         /* Create handler */
@@ -112,7 +121,6 @@ public class ViewRaceActivity extends FragmentActivity implements OnMapReadyCall
             }
             /* Add data point to competitor and update the marker position */
             competitors.get(dataPoint.getCompetitorId()).setLastDataPoint(dataPoint);
-            competitors.get(dataPoint.getCompetitorId()).updatePositionMarker();
         }
     }
 
@@ -153,6 +161,24 @@ public class ViewRaceActivity extends FragmentActivity implements OnMapReadyCall
         }
     }
 
+    public class OnCountryResults implements OnQueryResultReady {
+        /* Callback when countries are ready */
+        public void onQueryResultReady(RaceTrackerDB.RaceTrackerQuery results) throws SQLException {
+            if (results.getException() != null) {
+                /* Exception during query */
+                Toast.makeText(getApplicationContext(), "Exception during query: " + results.getException().getMessage(), Toast.LENGTH_LONG).show();
+            } else {
+                while (results.getResult().next()) {
+                    RaceTrackerCountry country = new RaceTrackerCountry(results.getResult());
+                    countries.put(country.getCountryCode(), country);
+                }
+
+                results.getResult().getStatement().close();
+                results.getResult().close();
+            }
+        }
+    }
+
     public void addMarker(RaceTrackerDataPoint dataPoint, int markerResource) {
         /* Check if competitor of the data point is known */
         if (!competitors.containsKey(dataPoint.getCompetitorId())) {
@@ -188,6 +214,11 @@ public class ViewRaceActivity extends FragmentActivity implements OnMapReadyCall
             } else {
                 while (results.getResult().next()) {
                     RaceTrackerDataPoint dataPoint = new RaceTrackerDataPoint(results.getResult());
+
+                    if (competitors.get(dataPoint.getCompetitorId()).getStartTime() == null) {
+                        competitors.get(dataPoint.getCompetitorId()).setStartTime(dataPoint.getTimeStamp());
+                    }
+
                     if (competition.isActive()) {
                         handleDataPointLive(dataPoint);
                     } else {
@@ -201,7 +232,7 @@ public class ViewRaceActivity extends FragmentActivity implements OnMapReadyCall
             }
 
             /* Updates UI */
-            //mAdapter.notifyDataSetChanged();
+            mAdapter.notifyDataSetChanged();
 
             /* In replay mode start the handler */
             if (!competition.isActive()) {
@@ -245,6 +276,8 @@ public class ViewRaceActivity extends FragmentActivity implements OnMapReadyCall
                             .title(competitor.getFirstName() + " " + competitor.getLastName())
                             .visible(false)
                             .icon(BitmapDescriptorFactory.fromResource(R.drawable.competitor_marker_blue))));
+                    /* Setup country */
+                    competitor.setCountry(countries.get(competitor.getCountryCode()));
                     System.out.println("DBG: Competitor: " + competitor.toString());
                 }
 

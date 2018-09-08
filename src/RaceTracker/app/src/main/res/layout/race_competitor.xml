@@ -1,123 +1,100 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:id="@+id/CompetitorRow"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    tools:layout_editor_absoluteY="81dp">
 
-    <android.support.constraint.ConstraintLayout
+    <TextView
+        android:id="@+id/CompetitorHR"
         android:layout_width="wrap_content"
-        android:layout_height="153dp"
+        android:layout_height="wrap_content"
         android:layout_marginBottom="16dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginLeft="16dp"
-        android:layout_marginRight="16dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginStart="8dp"
+        android:text="HeartRate"
+        android:textSize="14sp"
+        app:layout_constraintBaseline_toBaselineOf="@+id/CompetitorTimeElapsed"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/CompetitorTimeElapsed" />
+
+    <TextView
+        android:id="@+id/CompetitorLastName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginTop="8dp"
+        android:text="LastName"
+        android:textSize="14sp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/CompetitorFirstName"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/CompetitorTimeElapsed"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:text="ElapsedTime"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toBottomOf="@+id/CompetitorDistance" />
 
-        <TextView
-            android:id="@+id/CompetitorLastName"
-            android:layout_width="85dp"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="16dp"
-            android:layout_marginLeft="16dp"
-            android:layout_marginRight="16dp"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="16dp"
-            android:text="TextView"
-            android:textSize="20sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/CompetitorFirstName"
-            app:layout_constraintTop_toTopOf="parent" />
+    <TextView
+        android:id="@+id/CompetitorSpeed"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:text="Speed"
+        android:textSize="14sp"
+        app:layout_constraintBaseline_toBaselineOf="@+id/CompetitorDistance"
+        app:layout_constraintStart_toEndOf="@+id/CompetitorDistance" />
 
-        <TextView
-            android:id="@+id/CompetitorFirstName"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="16dp"
-            android:layout_marginStart="16dp"
-            android:text="TextView"
-            android:textSize="20sp"
-            app:layout_constraintBaseline_toBaselineOf="@+id/CompetitorLastName"
-            app:layout_constraintStart_toEndOf="@+id/CompetitorBib" />
+    <TextView
+        android:id="@+id/CompetitorBib"
+        android:layout_width="wrap_content"
+        android:layout_height="27dp"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="8dp"
+        android:text="BibNumber"
+        android:textSize="14sp"
+        app:layout_constraintStart_toEndOf="@+id/CompetitorCountry"
+        app:layout_constraintTop_toTopOf="parent" />
 
-        <TextView
-            android:id="@+id/CompetitorBib"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="16dp"
-            android:layout_marginStart="16dp"
-            android:text="TextView"
-            android:textSize="20sp"
-            app:layout_constraintBaseline_toBaselineOf="@+id/CompetitorFirstName"
-            app:layout_constraintStart_toStartOf="parent" />
+    <TextView
+        android:id="@+id/CompetitorFirstName"
+        android:layout_width="65dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:text="FirstName"
+        android:textSize="14sp"
+        app:layout_constraintStart_toEndOf="@+id/CompetitorBib"
+        app:layout_constraintTop_toTopOf="parent" />
 
-        <TextView
-            android:id="@+id/CompetitorHR"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="16dp"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="16dp"
-            android:text="TextView"
-            android:textSize="20sp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/CompetitorBib" />
+    <TextView
+        android:id="@+id/CompetitorDistance"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:text="Distance"
+        android:textSize="14sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/CompetitorCountry" />
 
-        <TextView
-            android:id="@+id/CompetitorDistance"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="16dp"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="16dp"
-            android:text="TextView"
-            android:textSize="20sp"
-            app:layout_constraintStart_toEndOf="@+id/CompetitorHR"
-            app:layout_constraintTop_toBottomOf="@+id/CompetitorFirstName" />
-
-        <TextView
-            android:id="@+id/CompetitorSpeed"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="16dp"
-            android:layout_marginRight="16dp"
-            android:layout_marginTop="16dp"
-            android:text="TextView"
-            android:textSize="20sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/CompetitorDistance"
-            app:layout_constraintTop_toBottomOf="@+id/CompetitorLastName" />
-
-        <TextView
-            android:id="@+id/CompetitorTimeElapsed"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="16dp"
-            android:layout_marginLeft="16dp"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="16dp"
-            android:text="TextView"
-            android:textSize="20sp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/CompetitorDistance" />
-
-        <TextView
-            android:id="@+id/CompetitorCountry"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="16dp"
-            android:layout_marginStart="16dp"
-            android:text="TextView"
-            android:textSize="20sp"
-            app:layout_constraintBaseline_toBaselineOf="@+id/CompetitorTimeElapsed"
-            app:layout_constraintStart_toEndOf="@+id/CompetitorTimeElapsed" />
-    </android.support.constraint.ConstraintLayout>
+    <WebView
+        android:id="@+id/CompetitorCountry"
+        android:layout_width="25sp"
+        android:layout_height="25sp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </android.support.constraint.ConstraintLayout>
