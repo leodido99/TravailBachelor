@@ -1,5 +1,6 @@
 package ch.heigvd.bisel.racetracker;
 
+import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
@@ -8,6 +9,7 @@ import java.sql.SQLException;
  * query
  */
 public class RaceTrackerQuery {
+    private Connection connection;
     private String query;
     private SQLException exception;
     private ResultSet result;
@@ -43,5 +45,13 @@ public class RaceTrackerQuery {
 
     public void setException(SQLException exception) {
         this.exception = exception;
+    }
+
+    public Connection getConnection() {
+        return connection;
+    }
+
+    public void setConnection(Connection connection) {
+        this.connection = connection;
     }
 }
