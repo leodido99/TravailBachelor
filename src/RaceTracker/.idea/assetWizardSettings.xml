@@ -19,10 +19,10 @@
                                   <option name="values">
                                     <map>
                                       <entry key="assetType" value="IMAGE" />
-                                      <entry key="imageAsset" value="$PROJECT_DIR$/../Resources/competitor_icon.png" />
-                                      <entry key="outputName" value="competitor_marker_grey" />
+                                      <entry key="imageAsset" value="$PROJECT_DIR$/../Resources/heart_icon.png" />
+                                      <entry key="outputName" value="heart_rate" />
                                       <entry key="theme" value="CUSTOM" />
-                                      <entry key="themeColor" value="b2bae5" />
+                                      <entry key="themeColor" value="e53540" />
                                     </map>
                                   </option>
                                 </PersistentState>
@@ -58,6 +58,11 @@
                                 </PersistentState>
                               </value>
                             </entry>
+                          </map>
+                        </option>
+                        <option name="values">
+                          <map>
+                            <entry key="outputIconType" value="ACTIONBAR" />
                           </map>
                         </option>
                       </PersistentState>

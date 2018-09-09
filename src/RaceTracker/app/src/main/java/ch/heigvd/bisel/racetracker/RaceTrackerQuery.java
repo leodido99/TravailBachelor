@@ -58,6 +58,6 @@ public class RaceTrackerQuery {
     public void close() throws SQLException {
         result.getStatement().close();
         result.close();
-        connection.close();
+        //connection.close();
     }
 }

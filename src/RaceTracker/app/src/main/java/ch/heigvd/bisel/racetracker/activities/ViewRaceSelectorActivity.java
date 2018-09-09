@@ -47,8 +47,6 @@ public class ViewRaceSelectorActivity extends AppCompatActivity {
                     resultList.add(cp);
                     System.out.println("DBG: Competition: " + cp.toString());
                 }
-
-                results.close();
             }
 
             /* Updates UI */
@@ -64,7 +62,11 @@ public class ViewRaceSelectorActivity extends AppCompatActivity {
         /* Get list of competitions from the DB */
         RaceTrackerDB db = new RaceTrackerDB(this);
         competitionsResult = new CompetitionsResult();
-        db.getCompetitions(competitionsResult);
+        try {
+            db.getCompetitions(competitionsResult);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
 
         /* Setup RecyclerView */
         mRecyclerView = findViewById(R.id.ViewRaceSelectorRecycler);

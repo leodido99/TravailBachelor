@@ -30,6 +30,7 @@ public class RaceTrackerDBAsyncTask extends AsyncTask<RaceTrackerQuery, Void, Ar
             /* Execute all the callbacks */
             for(RaceTrackerQuery result : results) {
                 result.getCallback().onQueryResultReady(result);
+                result.close();
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -45,9 +46,10 @@ public class RaceTrackerDBAsyncTask extends AsyncTask<RaceTrackerQuery, Void, Ar
         results = new ArrayList<>();
 
         try {
+            Connection conn = DriverManager.getConnection(connection, user, password);
+
             for(int i = 0; i < queries.length; i++) {
-                queries[i].setConnection(DriverManager.getConnection(connection,
-                        user, password));
+                queries[i].setConnection(conn);
                 st = queries[i].getConnection().createStatement();
                 queries[i].setResult(st.executeQuery(queries[i].getQuery()));
                 results.add(queries[i]);

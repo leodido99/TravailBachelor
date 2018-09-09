@@ -15,31 +15,13 @@ public class RaceTrackerCountry {
     private String countryCode;
     private String countryName;
     private byte[] countryFlag;
-    private Bitmap countryFlagIcon;
     private String countryFlagXml;
 
     public RaceTrackerCountry(ResultSet fromDB) throws SQLException {
         countryCode = fromDB.getString("country_code");
         countryName = fromDB.getString("country_name");
         countryFlag = fromDB.getBytes("country_icon");
-
-
         countryFlagXml = new String(countryFlag);
-        //VectorDrawable vectorDrawable = new VectorDrawable();
-        //String xmlData = new String(countryFlag);
-        //vectorDrawable.createFromXml(xmlData)
-
-        //InputStream arrayInputStream = new ByteArrayInputStream(countryFlag);
-        //vectorDrawable.createFromStream(arrayInputStream, "test");
-        //countryFlagIcon = Bitmap.createBitmap(vectorDrawable.getIntrinsicWidth(),
-        //        vectorDrawable.getIntrinsicHeight(), Bitmap.Config.ARGB_8888);
-        //Canvas canvas = new Canvas(countryFlagIcon);
-        //vectorDrawable.setBounds(0, 0, canvas.getWidth(), canvas.getHeight());
-        //vectorDrawable.draw(canvas);
-
-        //
-        InputStream arrayInputStream = new ByteArrayInputStream(countryFlag);
-        countryFlagIcon = BitmapFactory.decodeStream(arrayInputStream);
     }
 
     public String getCountryCode() {
@@ -64,14 +46,6 @@ public class RaceTrackerCountry {
 
     public void setCountryFlag(byte[] countryFlag) {
         this.countryFlag = countryFlag;
-    }
-
-    public Bitmap getCountryFlagIcon() {
-        return countryFlagIcon;
-    }
-
-    public void setCountryFlagIcon(Bitmap countryFlagIcon) {
-        this.countryFlagIcon = countryFlagIcon;
     }
 
     public String getCountryFlagXml() {

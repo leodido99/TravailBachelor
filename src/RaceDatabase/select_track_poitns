@@ -1,0 +1,1 @@
+SELECT * FROM race_tracker.track_point WHERE competition_id = 1 ORDER BY sequence;

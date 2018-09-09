@@ -1,8 +1,12 @@
 package ch.heigvd.bisel.racetracker.activities;
 
+import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.os.Handler;
+import android.preference.PreferenceManager;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -16,6 +20,8 @@ import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.gms.maps.model.Polyline;
+import com.google.android.gms.maps.model.PolylineOptions;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -32,8 +38,9 @@ import ch.heigvd.bisel.racetracker.RaceTrackerDB;
 import ch.heigvd.bisel.racetracker.RaceTrackerDataPoint;
 import ch.heigvd.bisel.racetracker.RaceTrackerQuery;
 
-public class ViewRaceActivity extends FragmentActivity implements OnMapReadyCallback {
+public class ViewRaceActivity extends AppCompatActivity implements OnMapReadyCallback {
     private GoogleMap mMap;
+    private Polyline track;
     private RaceTrackerCompetition competition;
     private Map<Integer, RaceTrackerCompetitor> competitors;
     private Map<String, RaceTrackerCountry> countries;
@@ -42,6 +49,7 @@ public class ViewRaceActivity extends FragmentActivity implements OnMapReadyCall
     private OnCompetitorsResults onCompetitorsResults;
     private OnLastDataPointResults onLastDataPointResults;
     private OnDataPointsResults onDataPointsResults;
+    private OnTrackPointResults onTrackPointResults;
 
     private RaceTrackerDB db;
     private int handlerInterval = 5000; /* In seconds */
@@ -56,9 +64,7 @@ public class ViewRaceActivity extends FragmentActivity implements OnMapReadyCall
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_race);
-        // Obtain the SupportMapFragment and get notified when the map is ready to be used.
-        //SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
-        //        .findFragmentById(R.id.mapView);
+        /* Obtain the SupportMapFragment and get notified when the map is ready to be used. */
         MapFragment mapFragment = (MapFragment) getFragmentManager().findFragmentById(R.id.mapView);
         mapFragment.getMapAsync(this);
 
@@ -83,13 +89,25 @@ public class ViewRaceActivity extends FragmentActivity implements OnMapReadyCall
         onCompetitorsResults = new OnCompetitorsResults();
         onDataPointsResults = new OnDataPointsResults();
         onCountryResults = new OnCountryResults();
+        onTrackPointResults = new OnTrackPointResults();
 
         db = new RaceTrackerDB(this);
         /* Get Countries */
-        db.getCountries(onCountryResults);
+        try {
+            db.getCountries(onCountryResults);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
 
         /* Get Competitors */
-        db.getCompetitors(onCompetitorsResults, competition.getCompetitionId());
+        try {
+            db.getCompetitors(onCompetitorsResults, competition.getCompetitionId());
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        /* Get Track points */
+        db.getTrackPoints(onTrackPointResults, competition.getCompetitionId());
 
         /* Create handler */
         handler = new Handler();
@@ -109,14 +127,16 @@ public class ViewRaceActivity extends FragmentActivity implements OnMapReadyCall
 
         /* Check if the marker position needs updating */
         /* TODO Check for jump in sequence i.e lost packet */
+        SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
         if (!competitors.get(dataPoint.getCompetitorId()).hasLastDataPoint() ||
             dataPoint.getSequence() > competitors.get(dataPoint.getCompetitorId()).getLastDataPoint().getSequence()) {
             //Toast.makeText(getApplicationContext(), "New data point seq=" + dataPoint.getSequence(), Toast.LENGTH_SHORT).show();
             /* In leave position trail mode, we create a new marker to save the last position */
-            if (competitors.get(dataPoint.getCompetitorId()).hasLastDataPoint() && leavePositionTrail) {
+            if (competitors.get(dataPoint.getCompetitorId()).hasLastDataPoint() && sharedPref.getBoolean("leave_point_trail", false)) {
                 /* Create new marker at old position */
                 Marker oldpos = mMap.addMarker(new MarkerOptions().position(competitors.get(dataPoint.getCompetitorId()).getMapMarker().getPosition()));
                 oldpos.setIcon(BitmapDescriptorFactory.fromResource(R.drawable.competitor_marker_grey));
+                oldpos.setAnchor(0.5f, 0.5f);
                 oldpos.setTitle(competitors.get(dataPoint.getCompetitorId()).getMapMarker().getTitle()
                         + " #" + competitors.get(dataPoint.getCompetitorId()).getLastDataPoint().getSequence());
             }
@@ -152,8 +172,6 @@ public class ViewRaceActivity extends FragmentActivity implements OnMapReadyCall
                     RaceTrackerDataPoint dataPoint = new RaceTrackerDataPoint(results.getResult());
                     handleDataPointLive(dataPoint);
                 }
-
-                results.close();
             }
 
             /* Updates UI */
@@ -172,27 +190,27 @@ public class ViewRaceActivity extends FragmentActivity implements OnMapReadyCall
                     RaceTrackerCountry country = new RaceTrackerCountry(results.getResult());
                     countries.put(country.getCountryCode(), country);
                 }
-
-                results.close();
             }
         }
     }
 
-    public void addMarker(RaceTrackerDataPoint dataPoint, int markerResource) {
-        /* Check if competitor of the data point is known */
-        if (!competitors.containsKey(dataPoint.getCompetitorId())) {
-            Toast.makeText(getApplicationContext(), "Competitor of the data point is unknown", Toast.LENGTH_LONG).show();
-            return;
-        }
-
-        Marker marker = mMap.addMarker(new MarkerOptions().position(dataPoint.getPosition()));
-        marker.setIcon(BitmapDescriptorFactory.fromResource(markerResource));
-        marker.setTitle(competitors.get(dataPoint.getCompetitorId()).getFirstName() + " " + competitors.get(dataPoint.getCompetitorId()).getLastName()
-                + " #" + dataPoint.getSequence());
-
-        /* Update the last data point of the competitor if needed */
-        if (!competitors.get(dataPoint.getCompetitorId()).hasLastDataPoint() || dataPoint.getSequence() > competitors.get(dataPoint.getCompetitorId()).getLastDataPoint().getSequence()) {
-            competitors.get(dataPoint.getCompetitorId()).setLastDataPoint(dataPoint);
+    public class OnTrackPointResults implements OnQueryResultReady {
+        /* Callback when countries are ready */
+        public void onQueryResultReady(RaceTrackerQuery results) throws SQLException {
+            if (results.getException() != null) {
+                /* Exception during query */
+                Toast.makeText(getApplicationContext(), "Exception during query: " + results.getException().getMessage(), Toast.LENGTH_LONG).show();
+            } else {
+                ArrayList<LatLng> points = new ArrayList<>();
+                while (results.getResult().next()) {
+                    LatLng point = new LatLng(results.getResult().getDouble("latitude"), results.getResult().getDouble("longitude"));
+                    points.add(point);
+                }
+                track = mMap.addPolyline(new PolylineOptions()
+                        .width(5)
+                        .color(Color.RED));
+                track.setPoints(points);
+            }
         }
     }
 
@@ -225,8 +243,6 @@ public class ViewRaceActivity extends FragmentActivity implements OnMapReadyCall
                         dataPoints.add(dataPoint);
                     }
                 }
-
-                results.close();
             }
 
             /* Updates UI */
@@ -243,7 +259,7 @@ public class ViewRaceActivity extends FragmentActivity implements OnMapReadyCall
         }
     }
 
-    public void setupMarkers() {
+    public void setupMarkers() throws SQLException {
         /* Send query to get all data points until now */
         db.getDataPoints(onDataPointsResults, competition.getCompetitionId());
     }
@@ -273,13 +289,12 @@ public class ViewRaceActivity extends FragmentActivity implements OnMapReadyCall
                             .position(new LatLng(0,0))
                             .title(competitor.getFirstName() + " " + competitor.getLastName())
                             .visible(false)
+                            .anchor(0.5f, 0.5f)
                             .icon(BitmapDescriptorFactory.fromResource(R.drawable.competitor_marker_blue))));
                     /* Setup country */
                     competitor.setCountry(countries.get(competitor.getCountryCode()));
                     System.out.println("DBG: Competitor: " + competitor.toString());
                 }
-
-                results.close();
             }
 
             /* Initialize adapter and add it to view */
@@ -327,6 +342,8 @@ public class ViewRaceActivity extends FragmentActivity implements OnMapReadyCall
         public void run() {
             try {
                 db.getLastDataPoint(onLastDataPointResults, competition.getCompetitionId());
+            } catch (SQLException e) {
+                e.printStackTrace();
             } finally {
                 /* Restart handler */
                 handler.postDelayed(dataPointChecker, handlerInterval);
