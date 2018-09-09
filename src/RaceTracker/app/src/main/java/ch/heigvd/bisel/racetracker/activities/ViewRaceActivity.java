@@ -153,8 +153,7 @@ public class ViewRaceActivity extends FragmentActivity implements OnMapReadyCall
                     handleDataPointLive(dataPoint);
                 }
 
-                results.getResult().getStatement().close();
-                results.getResult().close();
+                results.close();
             }
 
             /* Updates UI */
@@ -174,8 +173,7 @@ public class ViewRaceActivity extends FragmentActivity implements OnMapReadyCall
                     countries.put(country.getCountryCode(), country);
                 }
 
-                results.getResult().getStatement().close();
-                results.getResult().close();
+                results.close();
             }
         }
     }
@@ -228,8 +226,7 @@ public class ViewRaceActivity extends FragmentActivity implements OnMapReadyCall
                     }
                 }
 
-                results.getResult().getStatement().close();
-                results.getResult().close();
+                results.close();
             }
 
             /* Updates UI */
@@ -282,8 +279,7 @@ public class ViewRaceActivity extends FragmentActivity implements OnMapReadyCall
                     System.out.println("DBG: Competitor: " + competitor.toString());
                 }
 
-                results.getResult().getStatement().close();
-                results.getResult().close();
+                results.close();
             }
 
             /* Initialize adapter and add it to view */

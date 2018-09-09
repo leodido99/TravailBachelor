@@ -54,4 +54,10 @@ public class RaceTrackerQuery {
     public void setConnection(Connection connection) {
         this.connection = connection;
     }
+
+    public void close() throws SQLException {
+        result.getStatement().close();
+        result.close();
+        connection.close();
+    }
 }

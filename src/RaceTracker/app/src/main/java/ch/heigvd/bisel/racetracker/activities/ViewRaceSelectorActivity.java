@@ -48,8 +48,7 @@ public class ViewRaceSelectorActivity extends AppCompatActivity {
                     System.out.println("DBG: Competition: " + cp.toString());
                 }
 
-                results.getResult().getStatement().close();
-                results.getResult().close();
+                results.close();
             }
 
             /* Updates UI */
