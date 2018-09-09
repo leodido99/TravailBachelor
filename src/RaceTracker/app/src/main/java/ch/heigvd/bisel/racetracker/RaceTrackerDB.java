@@ -93,6 +93,18 @@ public class RaceTrackerDB extends AsyncTask<RaceTrackerDB.RaceTrackerQuery, Voi
     }
 
     /**
+     * Get all the countries
+     * @param callback Callback called when results are ready
+     */
+    public void getCountries(OnQueryResultReady callback) {
+        RaceTrackerQuery query = new RaceTrackerQuery();
+        query.setCallback(callback);
+        query.setQuery("SELECT * FROM race_tracker.country;");
+        RaceTrackerDBAsyncTask task = new RaceTrackerDBAsyncTask(connectionString, dbUser, dbPwd);
+        task.execute(query);
+    }
+
+    /**
      * Called at the end of the query execution
      */
     @Override
