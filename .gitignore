@@ -49,6 +49,7 @@ src/RaceTracker/local.properties
 src/RaceTracker/.idea/libraries
 src/RaceTracker/.idea/modules.xml
 src/RaceTracker/.idea/workspace.xml
+src/RaceTracker/.idea/caches
 src/RaceTracker/build
 src/RaceTracker/captures
 

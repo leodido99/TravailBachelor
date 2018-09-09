@@ -15,7 +15,7 @@ public class ManageRaceSelectorActivity extends AppCompatActivity {
         setContentView(R.layout.activity_manage_race_selector);
     }
 
-    public void onClickCreateRace(View view) {
+    public void goToCreateRace(View view) {
         Intent intent = new Intent(this, CreateNewRaceActivity.class);
         /*EditText editText = (EditText) findViewById(R.id.editText);
         String message = editText.getText().toString();
@@ -23,12 +23,19 @@ public class ManageRaceSelectorActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-    public void onClickModifyRace(View view) {
+    public void goToModifyRace(View view) {
 
     }
 
-    public void onClickCreateCompetitor(View view) {
+    public void goToCreateCompetition(View view) {
 
     }
 
+    public void goToCreateCompetitor(View view) {
+
+    }
+
+    public void goToAssignCompetitor(View view) {
+
+    }
 }

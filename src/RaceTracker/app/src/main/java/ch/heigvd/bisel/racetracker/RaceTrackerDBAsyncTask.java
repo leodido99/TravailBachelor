@@ -8,11 +8,11 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 
-public class RaceTrackerDBAsyncTask extends AsyncTask<RaceTrackerDB.RaceTrackerQuery, Void, ArrayList<RaceTrackerDB.RaceTrackerQuery>> {
+public class RaceTrackerDBAsyncTask extends AsyncTask<RaceTrackerQuery, Void, ArrayList<RaceTrackerQuery>> {
     private String connection;
     private String user;
     private String password;
-    private ArrayList<RaceTrackerDB.RaceTrackerQuery> results;
+    private ArrayList<RaceTrackerQuery> results;
 
     public RaceTrackerDBAsyncTask(String connection, String user, String password) {
         this.connection = connection;
@@ -24,11 +24,11 @@ public class RaceTrackerDBAsyncTask extends AsyncTask<RaceTrackerDB.RaceTrackerQ
      * Called at the end of the query execution
      */
     @Override
-    protected void onPostExecute(ArrayList<RaceTrackerDB.RaceTrackerQuery> results) {
+    protected void onPostExecute(ArrayList<RaceTrackerQuery> results) {
         super.onPostExecute(results);
         try {
             /* Execute all the callbacks */
-            for(RaceTrackerDB.RaceTrackerQuery result : results) {
+            for(RaceTrackerQuery result : results) {
                 result.getCallback().onQueryResultReady(result);
             }
         } catch (SQLException e) {
@@ -40,7 +40,7 @@ public class RaceTrackerDBAsyncTask extends AsyncTask<RaceTrackerDB.RaceTrackerQ
      * Executes the query
      */
     @Override
-    public ArrayList<RaceTrackerDB.RaceTrackerQuery> doInBackground(RaceTrackerDB.RaceTrackerQuery... queries) {
+    public ArrayList<RaceTrackerQuery> doInBackground(RaceTrackerQuery... queries) {
         Statement st;
         results = new ArrayList<>();
 
