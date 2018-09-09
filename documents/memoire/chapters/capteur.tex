@@ -139,7 +139,7 @@ Autour de cet RTOS Il existe une importante communauté qui travail activement s
 
 Ce système d'exploitation a été choisi car en plus d'être moderne il dispose déjà de la configuration d'une carte très similaire au SODAQ One, le Adafruit Feather M0 Basic Proto qui embarque le même micro-contrôleur, ceci facilitera passablement le travail de modifications pour adapter la configuration du RTOS au SODAQ One. Cette configuration consiste a définir, grâce à des Device Tree, quels sont les composants que la carte embarque et sur quels ports ou pins ils sont connectés, cela permet ensuite au système d'exploitation de pouvoir les piloter correctement.
 
-Même si beaucoup d'éléments sont déjà existant pour le micro-contrôleur utilisé par le SODAQ One, le développement d'un drivers $I^{2}C$ a été réalisé car il n'en n'existait aucun au moment ou j'ai commencé le travail de Bachelor. Ce driver est utilisé afin de pouvoir communiquer avec les modules GPS et accéléromètre. Les drivers développé dans le cadre du travail de diplôme sont décrit en détail dans la section \ref{ch:drivers}.
+Même si beaucoup d'éléments sont déjà existant pour le micro-contrôleur utilisé par le SODAQ One, le développement d'un nouveau driver $I^{2}C$ ainsi qu'un driver de gestion des interruptions externes, ont été réalisés car il n'en n'existait aucun au moment ou j'ai commencé le travail de Bachelor. Le driver $I^{2}C$ est utilisé afin de pouvoir communiquer avec les modules GPS et accéléromètre. Le driver External Interrupt Controller est utilisé afin de détecter les battements du cœur, lors de cet événement une impulsion est générée par le module rythme cardiaque qui, grâce à ce driver, permet de déclencher une interruption. Les drivers développés dans le cadre du travail de diplôme sont décrit en détail dans la section \ref{ch:drivers}.
 
 La figure \ref{fig:zephyr_archi} présente l'architecture du système d'exploitation temps-réel Zephyr.
 
@@ -149,6 +149,70 @@ La figure \ref{fig:zephyr_archi} présente l'architecture du système d'exploita
 \caption{Architecture du système d'exploitation Zephyr - http://www.zephyrproject.org}
 \label{fig:zephyr_archi}
 \end{figure}
+
+\subsection{Configuration Zephyr pour la carte SODAQ One}
+
+Zephyr utilise un système de configuration qui permet de définir les périphériques qui sont présent sur une certaine carte. Cela permet ensuite aux utilisateurs de pouvoir accéder aux différents éléments grâce aux drivers proposés par le système d'exploitation. En plus de cela il est également nécessaire de configurer la fonction de chaque pins que l'on souhaite utiliser car elles ont souvent la possibilité d'en avoir plusieurs. Enfin l'on peut spécifier une configuration de base, par exemple en activant par défaut la gestion du bus $I^{2}C$.
+
+Dans le cadre du projet, une nouvelle configuration a du être définit pour la carte SODAQ One.
+
+Un fichier important est de type Device Tree (dts), c'est un type de fichier qui permet de définir avec des nœuds les composants disponibles. Les informations contenus dans ce fichier sont spécifiques à une certaine carte car elles dépendent de la façon dont les périphériques sont connectés au micro-contrôleur. Ce type de fichier est beaucoup utilisé par Linux par exemple.
+
+Pour la carte SODAQ One, le fichier est principalement utilisé afin de définir le type de micro-contrôleur présent sur la carte ainsi que les composants SERCOM utilisés pour les divers périphérique. Enfin on peut spécifier quel composant doit être utilisé par Zephyr pour la console.
+
+Un extrait de ce fichier est présenté ci-dessous.
+
+\begin{lstlisting}
+/*
+ * Copyright (c) 2018 Leonard Bise
+ *
+ * SPDX-License-Identifier: Apache-2.0
+ */
+
+/dts-v1/;
+#include <atmel/samd21.dtsi>
+
+/ {
+	model = "SODAQ One v3";
+	compatible = "sodaq,one-v3", "atmel,samd21g18a",
+			"atmel,samd21";
+
+	chosen {
+		zephyr,console = &sercom5;
+		zephyr,sram = &sram0;
+		zephyr,flash = &flash0;
+		zephyr,code-partition = &code_partition;
+	};
+};
+
+&sercom0 {
+	status = "ok";
+	compatible = "atmel,sam0-spi";
+	#address-cells = <1>;
+	#size-cells = <0>;
+};
+
+&sercom2 {
+	status = "ok";
+	compatible = "atmel,sam0-uart";
+	current-speed = <57600>;
+};
+
+&sercom3 {
+	status = "ok";
+	compatible = "atmel,sam0-i2c";
+	clock-frequency = <I2C_BITRATE_FAST>;	
+};
+
+&sercom5 {
+	status = "ok";
+	compatible = "atmel,sam0-uart";
+	current-speed = <115200>;
+};
+
+...
+
+\end{lstlisting}
 
 \section{Le logiciel embarqué}
 
@@ -300,7 +364,10 @@ Les drivers présenté dans la liste suivante ont été développés dans le cad
 \item Driver LSM303AGR pour le module accéléromètre qui se base également sur le driver  $I^{2}C$
 \item Driver RN2483 LoRa permettant d'exploiter la communication LoRa et qui se base sur le driver UART existant de Zephyr
 \item Driver pour piloter les 3 LEDs de la carte SODAQ One au travers de GPIOs
+\item Driver External Interrupt Controller permet de déclencher une interruption en fonction de l'état d'un I/O qui est utilisé pour pouvoir compter les battements du cœur
 \end{itemize}
+
+Enfin le Driver GPIO de Zephyr a du être modifié afin de pouvoir utiliser les interruptions sur les I/O proposés par le driver External Interrupt Controller.
 
 \subsection{Driver $I^{2}C$ ATSAMD21G18}
 
@@ -652,6 +719,8 @@ La figure \ref{fig:driver_led_uml} présente le diagramme de classe du driver LE
 \label{fig:driver_led_uml}
 \end{figure}
 
+Un exemple d'utilisation du driver est disponible ci-dessous.
+
 \begin{lstlisting}[style=CStyle]
 #include "led.h"
 
@@ -680,7 +749,56 @@ void main(void)
 
 \subsection{Driver External Interrupt Controller}
 
-\todo{}
+Lorsqu'un battement du cœur du sportif est détecté par le module rythme cardiaque, une impulsion est générée sur une ligne connectée à un GPIO du micro-contrôleur. Afin de pouvoir compter proprement les battements une interruption doit pouvoir être déclenchée lorsque l'impulsion est détectée. Dans Zephyr cela se traduit par la configuration au travers du driver GPIO, on peut spécifier si l'on souhaite déclencher une interruption et dans quelles conditions, flanc montant ou descendant ou alors lors d'un niveau haut ou bas. Cependant cette fonctionnalité n'était pas présente au moment du travail de Bachelor. Afin de pouvoir proposer cette fonctionnalité un driver de gestion des interruptions externe ou External Interrupt Controller (EIC) a du être développé. Une fois le driver développé il a fallut ensuite modifier le driver GPIO afin de pouvoir proposer cette fonctionnalité.
+
+La figure \ref{fig:driver_eic_uml} présente le diagramme de classe du driver External Interrupt Controller.
+
+\begin{figure}[htb]
+\centering 
+\includegraphics[width=0.6\columnwidth]{eic_uml.png} 
+\caption{Diagramme de class du driver External Interrupt Controller}
+\label{fig:driver_eic_uml}
+\end{figure}
+
+Un exemple d'utilisation du driver est disponible ci-dessous.
+
+\begin{lstlisting}[style=CStyle]
+#include "exti_sam0.h"
+
+void gpio_callback(int line, void *user)
+{
+	DBG_PRINTK("GPIO interruption triggered");
+}
+
+void main(void)
+{
+	int err;
+	int line = 1;
+
+	err = sam0_exti_enable(line);
+	if (err) {
+		DBG_PRINTK("%s: Cannot enable external interrupt\n", __func__);
+		return;	
+	}
+	
+	err = sam0_exti_trigger(line, SAM0_EXTI_TRIG_RISING);
+	if (err) {
+		DBG_PRINTK("%s: Cannot set interrupt trigger type\n", __func__);
+		return;	
+	}
+
+	err = sam0_exti_set_callback(line , gpio_callback);
+	if (err) {
+		DBG_PRINTK("%s: Cannot set interrupt trigger type\n", __func__);
+		return;	
+	}	
+
+	while (1) {
+		k_sleep(K_SECONDS(1));	
+	}
+}
+\end{lstlisting}
+
 
 \section{Paquet de donnée}
 
