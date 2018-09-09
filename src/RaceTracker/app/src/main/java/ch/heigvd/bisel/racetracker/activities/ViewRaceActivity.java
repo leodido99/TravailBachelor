@@ -164,7 +164,7 @@ public class ViewRaceActivity extends FragmentActivity implements OnMapReadyCall
 
     public class OnCountryResults implements OnQueryResultReady {
         /* Callback when countries are ready */
-        public void onQueryResultReady(RaceTrackerDB.RaceTrackerQuery results) throws SQLException {
+        public void onQueryResultReady(RaceTrackerQuery results) throws SQLException {
             if (results.getException() != null) {
                 /* Exception during query */
                 Toast.makeText(getApplicationContext(), "Exception during query: " + results.getException().getMessage(), Toast.LENGTH_LONG).show();

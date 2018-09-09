@@ -45,11 +45,10 @@ public class RaceTrackerDBAsyncTask extends AsyncTask<RaceTrackerQuery, Void, Ar
         results = new ArrayList<>();
 
         try {
-            Connection conn = DriverManager.getConnection(connection,
-                    user, password);
-
             for(int i = 0; i < queries.length; i++) {
-                st = conn.createStatement();
+                queries[i].setConnection(DriverManager.getConnection(connection,
+                        user, password));
+                st = queries[i].getConnection().createStatement();
                 queries[i].setResult(st.executeQuery(queries[i].getQuery()));
                 results.add(queries[i]);
             }
