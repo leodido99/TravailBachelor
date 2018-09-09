@@ -22,13 +22,12 @@ public class RaceTrackerDB {
     private String connectionString;
     private Jdbc3PoolingDataSource connectionPool;
 
-    public RaceTrackerDB(Context context) {
+    public RaceTrackerDB(String serverAddress) {
         super();
-        SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(context);
         /* TODO Remove connectionString if connectionPool works
          * TODO Clean-up duplicated code in queries */
         /* TODO Abstract Postgresql stuff... */
-        connectionString = jdbc + sharedPref.getString("server_address", "") + ":"
+        connectionString = jdbc + serverAddress + ":"
                 + databasePort + "/" + databaseName;
         /*connectionPool = new Jdbc3PoolingDataSource();
         connectionPool.setDataSourceName("RaceTracker Data Source");

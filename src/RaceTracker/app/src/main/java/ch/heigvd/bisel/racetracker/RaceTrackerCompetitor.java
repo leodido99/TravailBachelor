@@ -7,6 +7,7 @@ import com.google.android.gms.maps.model.Marker;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 
@@ -17,8 +18,7 @@ public class RaceTrackerCompetitor {
     private String lastName;
     private int bibNumber;
     private int sensorId;
-    private RaceTrackerDataPoint prevLastDataPoint;
-    private RaceTrackerDataPoint lastDataPoint;
+
     private Marker mapMarker;
     private float distance;
     private float speed;
@@ -26,8 +26,13 @@ public class RaceTrackerCompetitor {
     private int elapsedTimeM;
     private int elapsedTimeS;
     private int currHeartRate;
+    private int currCadence;
     private Timestamp startTime;
     private RaceTrackerCountry country;
+
+    private ArrayList<RaceTrackerDataPoint> dataPoints;
+    private RaceTrackerDataPoint prevLastDataPoint;
+    private RaceTrackerDataPoint lastDataPoint;
 
     /**
      * Construct a RaceTrackerCompetitor from the result of a query
@@ -47,6 +52,7 @@ public class RaceTrackerCompetitor {
             elapsedTimeM = 0;
             elapsedTimeS = 0;
             currHeartRate = 0;
+            currCadence = 0;
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -253,5 +259,13 @@ public class RaceTrackerCompetitor {
 
     public void setCountry(RaceTrackerCountry country) {
         this.country = country;
+    }
+
+    public int getCurrCadence() {
+        return currCadence;
+    }
+
+    public void setCurrCadence(int currCadence) {
+        this.currCadence = currCadence;
     }
 }

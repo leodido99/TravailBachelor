@@ -19,9 +19,8 @@
                                   <option name="values">
                                     <map>
                                       <entry key="assetType" value="IMAGE" />
-                                      <entry key="imageAsset" value="$PROJECT_DIR$/../Resources/heart_icon.png" />
-                                      <entry key="outputName" value="heart_rate" />
-                                      <entry key="theme" value="CUSTOM" />
+                                      <entry key="imageAsset" value="$PROJECT_DIR$/../Resources/running_icon.png" />
+                                      <entry key="outputName" value="cadence" />
                                       <entry key="themeColor" value="e53540" />
                                     </map>
                                   </option>

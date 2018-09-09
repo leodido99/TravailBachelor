@@ -10,6 +10,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
 import android.widget.Toast;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -41,9 +42,12 @@ import ch.heigvd.bisel.racetracker.RaceTrackerQuery;
 public class ViewRaceActivity extends AppCompatActivity implements OnMapReadyCallback {
     private GoogleMap mMap;
     private Polyline track;
+
+    private RaceTrackerDB db;
     private RaceTrackerCompetition competition;
     private Map<Integer, RaceTrackerCompetitor> competitors;
     private Map<String, RaceTrackerCountry> countries;
+    private ArrayList<RaceTrackerDataPoint> dataPoints;
 
     private OnCountryResults onCountryResults;
     private OnCompetitorsResults onCompetitorsResults;
@@ -51,19 +55,22 @@ public class ViewRaceActivity extends AppCompatActivity implements OnMapReadyCal
     private OnDataPointsResults onDataPointsResults;
     private OnTrackPointResults onTrackPointResults;
 
-    private RaceTrackerDB db;
-    private int handlerInterval = 5000; /* In seconds */
+    private int handlerInterval = 5000;
     private Handler handler;
-    private boolean leavePositionTrail;
-    private ArrayList<RaceTrackerDataPoint> dataPoints;
+
     private RecyclerView mRecyclerView;
     private RecyclerView.Adapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
 
+    /**
+     * Called upon Activity creation
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_race);
+
         /* Obtain the SupportMapFragment and get notified when the map is ready to be used. */
         MapFragment mapFragment = (MapFragment) getFragmentManager().findFragmentById(R.id.mapView);
         mapFragment.getMapAsync(this);
@@ -91,7 +98,8 @@ public class ViewRaceActivity extends AppCompatActivity implements OnMapReadyCal
         onCountryResults = new OnCountryResults();
         onTrackPointResults = new OnTrackPointResults();
 
-        db = new RaceTrackerDB(this);
+        SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+        db = new RaceTrackerDB(sharedPref.getString("server_address", ""));
         /* Get Countries */
         try {
             db.getCountries(onCountryResults);
@@ -114,8 +122,6 @@ public class ViewRaceActivity extends AppCompatActivity implements OnMapReadyCal
 
         /* Create list of all data points used by the replay mode */
         dataPoints = new ArrayList<>();
-
-        leavePositionTrail = true;
     }
 
     public void handleDataPointLive(RaceTrackerDataPoint dataPoint) {
@@ -127,10 +133,11 @@ public class ViewRaceActivity extends AppCompatActivity implements OnMapReadyCal
 
         /* Check if the marker position needs updating */
         /* TODO Check for jump in sequence i.e lost packet */
-        SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
         if (!competitors.get(dataPoint.getCompetitorId()).hasLastDataPoint() ||
             dataPoint.getSequence() > competitors.get(dataPoint.getCompetitorId()).getLastDataPoint().getSequence()) {
-            //Toast.makeText(getApplicationContext(), "New data point seq=" + dataPoint.getSequence(), Toast.LENGTH_SHORT).show();
+            /* Retrieve preferences manager */
+            SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+
             /* In leave position trail mode, we create a new marker to save the last position */
             if (competitors.get(dataPoint.getCompetitorId()).hasLastDataPoint() && sharedPref.getBoolean("leave_point_trail", false)) {
                 /* Create new marker at old position */
@@ -140,6 +147,7 @@ public class ViewRaceActivity extends AppCompatActivity implements OnMapReadyCal
                 oldpos.setTitle(competitors.get(dataPoint.getCompetitorId()).getMapMarker().getTitle()
                         + " #" + competitors.get(dataPoint.getCompetitorId()).getLastDataPoint().getSequence());
             }
+
             /* Add data point to competitor and update the marker position */
             competitors.get(dataPoint.getCompetitorId()).setLastDataPoint(dataPoint);
         }
@@ -309,10 +317,33 @@ public class ViewRaceActivity extends AppCompatActivity implements OnMapReadyCal
         }
     }
 
+    /**
+     * Handler of the Reset Camera button
+     * @param view
+     */
+    public void onResetCamerabOnClick(View view) {
+        resetCamera();
+    }
+
+    /**
+     * Resets the camera to the DB position and zoom lvl
+     */
+    public void resetCamera() {
+        /* Move camera and zoom to competition position*/
+        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(competition.getLocation().getObject(), competition.getZoom()));
+    }
+
+    /**
+     * Start handler which periodically makes queries to the DB
+     * to see if a new point is available
+     */
     public void startDataPointChecker() {
         handler.postDelayed(dataPointChecker, 0);
     }
 
+    /**
+     * Stop new Data Point Checker
+     */
     public void stopDataPointChecker() {
         handler.removeCallbacks(dataPointChecker);
     }
@@ -320,11 +351,6 @@ public class ViewRaceActivity extends AppCompatActivity implements OnMapReadyCal
     /**
      * Manipulates the map once available.
      * This callback is triggered when the map is ready to be used.
-     * This is where we can add markers or lines, add listeners or move the camera. In this case,
-     * we just add a marker near Sydney, Australia.
-     * If Google Play services is not installed on the device, the user will be prompted to install
-     * it inside the SupportMapFragment. This method will only be triggered once the user has
-     * installed Google Play services and returned to the app.
      */
     @Override
     public void onMapReady(GoogleMap googleMap) {
@@ -333,8 +359,7 @@ public class ViewRaceActivity extends AppCompatActivity implements OnMapReadyCal
         /* Change map type */
         mMap.setMapType(GoogleMap.MAP_TYPE_SATELLITE);
 
-        /* Move camera and zoom to competition position*/
-        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(competition.getLocation().getObject(), competition.getZoom()));
+        resetCamera();
     }
 
     Runnable dataPointChecker = new Runnable() {
