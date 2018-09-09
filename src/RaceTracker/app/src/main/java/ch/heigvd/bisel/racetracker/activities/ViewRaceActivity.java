@@ -4,7 +4,6 @@ import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Handler;
 import android.preference.PreferenceManager;
-import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DividerItemDecoration;
@@ -29,19 +28,24 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
+import ch.heigvd.bisel.racetracker.OnDataReady;
 import ch.heigvd.bisel.racetracker.R;
 import ch.heigvd.bisel.racetracker.RaceTrackerCompetition;
 import ch.heigvd.bisel.racetracker.RaceTrackerCompetitor;
 import ch.heigvd.bisel.racetracker.OnQueryResultReady;
 import ch.heigvd.bisel.racetracker.RaceTrackerCompetitorAdapter;
+import ch.heigvd.bisel.racetracker.RaceTrackerCompetitors;
 import ch.heigvd.bisel.racetracker.RaceTrackerCountry;
 import ch.heigvd.bisel.racetracker.RaceTrackerDB;
+import ch.heigvd.bisel.racetracker.RaceTrackerDBConnection;
 import ch.heigvd.bisel.racetracker.RaceTrackerDataPoint;
 import ch.heigvd.bisel.racetracker.RaceTrackerQuery;
 
-public class ViewRaceActivity extends AppCompatActivity implements OnMapReadyCallback {
+public class ViewRaceActivity extends AppCompatActivity implements OnMapReadyCallback, OnDataReady {
     private GoogleMap mMap;
     private Polyline track;
+
+    private RaceTrackerCompetitors competitorsDB;
 
     private RaceTrackerDB db;
     private RaceTrackerCompetition competition;
@@ -61,6 +65,10 @@ public class ViewRaceActivity extends AppCompatActivity implements OnMapReadyCal
     private RecyclerView mRecyclerView;
     private RecyclerView.Adapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
+
+    public enum Transactions {
+        TRANSACTION_COMPETITORS
+    }
 
     /**
      * Called upon Activity creation
@@ -91,6 +99,20 @@ public class ViewRaceActivity extends AppCompatActivity implements OnMapReadyCal
         competitors = new HashMap<>();
         countries = new HashMap<>();
 
+        /* Create DB connection */
+        RaceTrackerDBConnection connection = new RaceTrackerDBConnection(getApplicationContext(),
+                getResources().getString(R.string.db_server_key),
+                getResources().getString(R.string.db_user_key),
+                getResources().getString(R.string.db_pwd_key));
+
+        /* Retrieve competitors */
+        competitorsDB = new RaceTrackerCompetitors(Transactions.TRANSACTION_COMPETITORS.ordinal(),
+                                                   connection, this, competition.getCompetitionId());
+
+
+
+
+
         /* Create query results handler */
         onLastDataPointResults = new OnLastDataPointResults();
         onCompetitorsResults = new OnCompetitorsResults();
@@ -98,8 +120,8 @@ public class ViewRaceActivity extends AppCompatActivity implements OnMapReadyCal
         onCountryResults = new OnCountryResults();
         onTrackPointResults = new OnTrackPointResults();
 
-        SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-        db = new RaceTrackerDB(sharedPref.getString("server_address", ""));
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
+        db = new RaceTrackerDB(prefs.getString(getResources().getString(R.string.db_server_key), ""));
         /* Get Countries */
         try {
             db.getCountries(onCountryResults);
@@ -122,6 +144,17 @@ public class ViewRaceActivity extends AppCompatActivity implements OnMapReadyCal
 
         /* Create list of all data points used by the replay mode */
         dataPoints = new ArrayList<>();
+    }
+
+    /**
+     * Triggered when data is ready
+     */
+    public void onDataReady(int id) {
+        switch(id) {
+            case Transactions.TRANSACTION_COMPETITORS:
+                break;
+        }
+
     }
 
     public void handleDataPointLive(RaceTrackerDataPoint dataPoint) {

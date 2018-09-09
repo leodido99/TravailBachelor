@@ -1,16 +1,9 @@
 package ch.heigvd.bisel.racetracker;
 
-import android.content.Context;
-import android.content.SharedPreferences;
-import android.os.AsyncTask;
-import android.preference.PreferenceManager;
-
 import org.postgresql.jdbc3.Jdbc3PoolingDataSource;
 
-import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.text.MessageFormat;
 
 public class RaceTrackerDB {
@@ -49,9 +42,10 @@ public class RaceTrackerDB {
      * Get all the competitions
      * @param callback Callback called when results are ready
      */
-    public void getCompetitions(OnQueryResultReady callback) throws SQLException {
+    public void getCompetitions(OnQueryResultReady callback, OnQueryExecuted callbackExecuted) throws SQLException {
         RaceTrackerQuery query = new RaceTrackerQuery();
-        query.setCallback(callback);
+        query.setCallbackResultReady(callback);
+        query.setCallbackExecuted(callbackExecuted);
         query.setQuery("SELECT competition_id, name, ST_X(location) as lat, ST_Y(location) as lon, event_date, active, zoom " +
                 "FROM race_tracker.competition;");
         RaceTrackerDBAsyncTask task = new RaceTrackerDBAsyncTask(connectionString, dbUser, dbPwd);
@@ -65,7 +59,7 @@ public class RaceTrackerDB {
      */
     public void getLastDataPoint(OnQueryResultReady callback, int competition_id) throws SQLException {
         RaceTrackerQuery query = new RaceTrackerQuery();
-        query.setCallback(callback);
+        query.setCallbackResultReady(callback);
         query.setQuery(MessageFormat.format("SELECT data_point_id, competitor_id, " +
                 "competition_id, sequence, time_stamp, ST_X(position) as lat, ST_Y(position) as lon" +
                 ", heart_rate, cadence, nb_satellites, position_dop, status FROM (SELECT rank() " +
@@ -83,7 +77,7 @@ public class RaceTrackerDB {
      */
     public void getDataPoints(OnQueryResultReady callback, int competition_id) throws SQLException {
         RaceTrackerQuery query = new RaceTrackerQuery();
-        query.setCallback(callback);
+        query.setCallbackResultReady(callback);
         query.setQuery(MessageFormat.format("SELECT data_point_id, competitor_id, " +
                 "competition_id, sequence, time_stamp, ST_X(position) as lat, ST_Y(position) as lon, " +
                 "heart_rate, cadence, nb_satellites, position_dop, status " +
@@ -100,7 +94,7 @@ public class RaceTrackerDB {
      */
     public void getCompetitors(OnQueryResultReady callback, int competition_id) throws SQLException {
         RaceTrackerQuery query = new RaceTrackerQuery();
-        query.setCallback(callback);
+        query.setCallbackResultReady(callback);
         query.setQuery(MessageFormat.format("SELECT * FROM " +
                 "race_tracker.competitor_registration INNER JOIN race_tracker.competitor ON " +
                 "(competitor_registration.competitor_id = competitor.competitor_id) " +
@@ -115,7 +109,7 @@ public class RaceTrackerDB {
      */
     public void getCountries(OnQueryResultReady callback) throws SQLException {
         RaceTrackerQuery query = new RaceTrackerQuery();
-        query.setCallback(callback);
+        query.setCallbackResultReady(callback);
         query.setQuery("SELECT * FROM race_tracker.country;");
         RaceTrackerDBAsyncTask task = new RaceTrackerDBAsyncTask(connectionString, dbUser, dbPwd);
         task.execute(query);
@@ -129,7 +123,7 @@ public class RaceTrackerDB {
      */
     public void getTrackPoints(OnQueryResultReady callback, int competition_id) {
         RaceTrackerQuery query = new RaceTrackerQuery();
-        query.setCallback(callback);
+        query.setCallbackResultReady(callback);
         query.setQuery(MessageFormat.format("SELECT track_point_id, competition_id, sequence, ST_X(position) as latitude, ST_Y(position) as longitude FROM race_tracker.track_point WHERE competition_id = {0} ORDER BY sequence;", competition_id));
         RaceTrackerDBAsyncTask task = new RaceTrackerDBAsyncTask(connectionString, dbUser, dbPwd);
         task.execute(query);

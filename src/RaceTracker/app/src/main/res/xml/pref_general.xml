@@ -4,13 +4,25 @@
     <!-- NOTE: EditTextPreference's summary should be set to its value by the activity code. -->
     <EditTextPreference
         android:capitalize="words"
-        android:defaultValue="@string/pref_default_server_address"
+        android:defaultValue="@string/db_default_server"
         android:inputType="textCapWords"
-        android:key="server_address"
+        android:key="@string/db_server_key"
         android:maxLines="1"
         android:selectAllOnFocus="true"
         android:singleLine="true"
-        android:title="@string/pref_server_address" />
+        android:title="@string/pref_db_server" />
+    <EditTextPreference
+        android:defaultValue="@string/db_default_user"
+        android:key="@string/db_user_key"
+        android:selectAllOnFocus="true"
+        android:singleLine="true"
+        android:title="@string/pref_db_user" />
+    <EditTextPreference
+        android:defaultValue="@string/db_default_pwd"
+        android:key="@string/db_pwd_key"
+        android:selectAllOnFocus="true"
+        android:singleLine="true"
+        android:title="@string/pref_db_pwd" />
     <SwitchPreference
         android:defaultValue="false"
         android:key="leave_point_trail"

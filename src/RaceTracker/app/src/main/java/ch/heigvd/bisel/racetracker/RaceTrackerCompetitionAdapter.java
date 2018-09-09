@@ -16,6 +16,14 @@ public class RaceTrackerCompetitionAdapter extends RecyclerView.Adapter<RaceTrac
         this.competitions = competitions;
     }
 
+    public ArrayList<RaceTrackerCompetition> getCompetitions() {
+        return competitions;
+    }
+
+    public void setCompetitions(ArrayList<RaceTrackerCompetition> competitions) {
+        this.competitions = competitions;
+    }
+
     // Provide a reference to the views for each data item
     // Complex data items may need more than one view per item, and
     // you provide access to all the views for a data item in a view holder
@@ -64,7 +72,10 @@ public class RaceTrackerCompetitionAdapter extends RecyclerView.Adapter<RaceTrac
     // Return the size of your dataset (invoked by the layout manager)
     @Override
     public int getItemCount() {
-        return competitions.size();
+        if (competitions != null) {
+            return competitions.size();
+        } else {
+            return 0;
+        }
     }
-
 }

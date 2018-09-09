@@ -1,17 +1,16 @@
 package ch.heigvd.bisel.racetracker;
 
-import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class RaceTrackerData implements OnQueryResultReady {
     private int competitionId;
-    private OnRaceTrackerDataReady callback;
+    private OnDataReady callback;
 
     private RaceTrackerDB raceTrackerDB;
     private ArrayList<RaceTrackerCompetitor> competitors;
 
 
-    public RaceTrackerData(String serverAddress, int competitionId, OnRaceTrackerDataReady callback) {
+    public RaceTrackerData(String serverAddress, int competitionId, OnDataReady callback) {
         this.competitionId = competitionId;
         this.callback = callback;
 
@@ -30,10 +29,17 @@ public class RaceTrackerData implements OnQueryResultReady {
     }
 
     /**
-     * Callback function 
+     * Callback function
      * @param results
      */
     public void onQueryResultReady(RaceTrackerQuery results) {
+        if (results.getException() != null) {
+            /* Exception during query */
 
+        } else {
+            /*while (results.getResult().next()) {
+
+            }*/
+        }
     }
 }

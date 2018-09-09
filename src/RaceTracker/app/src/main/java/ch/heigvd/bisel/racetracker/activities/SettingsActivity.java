@@ -3,6 +3,7 @@ package ch.heigvd.bisel.racetracker.activities;
 import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.media.Ringtone;
 import android.media.RingtoneManager;
@@ -20,6 +21,7 @@ import android.text.TextUtils;
 import android.view.MenuItem;
 
 import ch.heigvd.bisel.racetracker.R;
+import ch.heigvd.bisel.racetracker.RaceTrackerCompetitions;
 
 import java.util.List;
 
@@ -154,7 +156,9 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
             // to their values. When their values change, their summaries are
             // updated to reflect the new value, per the Android Design
             // guidelines.
-            bindPreferenceSummaryToValue(findPreference("server_address"));
+            bindPreferenceSummaryToValue(findPreference(getResources().getString(R.string.db_server_key)));
+            bindPreferenceSummaryToValue(findPreference(getResources().getString(R.string.db_user_key)));
+            bindPreferenceSummaryToValue(findPreference(getResources().getString(R.string.db_pwd_key)));
         }
 
         @Override

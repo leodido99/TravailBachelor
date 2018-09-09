@@ -1,6 +1,6 @@
 <resources>
     <string name="app_name">RaceTracker</string>
-    <string name="mainmenu_viewer">Regarder une course</string>
+    <string name="mainmenu_viewer" translatable="false">Regarder une course</string>
     <string name="mainmenu_management">Gérer les courses</string>
     <string name="managemenu_create_race">Créer une nouvelle course</string>
     <string name="option_configure">Options</string>
@@ -10,9 +10,6 @@
 
     <!-- General settings -->
     <string name="pref_header_general">Général</string>
-
-    <string name="pref_server_address">Adresse serveur</string>
-    <string name="pref_default_server_address">192.168.4.1</string>
     <string name="managemenu_modify_race">Modifier une course</string>
     <string name="managemenu_new_competitor">Ajouter un participant</string>
     <string name="create_new_race_default">Nom de la course</string>
@@ -25,4 +22,13 @@
     <string name="createnewrace_pick_location">Séléctionner l\'emplacement</string>
     <string name="createnewrace_set_course">Parcours</string>
     <string name="title_activity_view_race_google">Race Tracker</string>
+    <string name="db_user_key">db_user</string>
+    <string name="pref_db_user">Utilisateur</string>
+    <string name="db_default_user">pi</string>
+    <string name="db_pwd_key">db_pwd</string>
+    <string name="pref_db_pwd">Mot de passe</string>
+    <string name="db_default_pwd">heig</string>
+    <string name="db_server_key">db_server</string>
+    <string name="pref_db_server">Adresse serveur</string>
+    <string name="db_default_server">192.168.4.1</string>
 </resources>

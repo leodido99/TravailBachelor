@@ -1,6 +1,8 @@
 package ch.heigvd.bisel.racetracker.activities;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.DividerItemDecoration;
@@ -12,46 +14,33 @@ import android.widget.Toast;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+import ch.heigvd.bisel.racetracker.OnDataReady;
 import ch.heigvd.bisel.racetracker.R;
 import ch.heigvd.bisel.racetracker.RaceTrackerCompetition;
 import ch.heigvd.bisel.racetracker.RaceTrackerCompetitionAdapter;
 import ch.heigvd.bisel.racetracker.OnQueryResultReady;
+import ch.heigvd.bisel.racetracker.RaceTrackerCompetitions;
 import ch.heigvd.bisel.racetracker.RaceTrackerDB;
+import ch.heigvd.bisel.racetracker.RaceTrackerDBConnection;
 import ch.heigvd.bisel.racetracker.RaceTrackerQuery;
 import ch.heigvd.bisel.racetracker.RecyclerTouchListener;
 
-public class ViewRaceSelectorActivity extends AppCompatActivity {
+public class ViewRaceSelectorActivity extends AppCompatActivity implements OnDataReady {
     private RecyclerView mRecyclerView;
     private RecyclerView.Adapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
-    private ArrayList<RaceTrackerCompetition> resultList;
-    private CompetitionsResult competitionsResult;
+    private RaceTrackerCompetitions competitions;
 
-    public class CompetitionsResult implements OnQueryResultReady {
-        private RaceTrackerQuery results;
+    /**
+     * Triggered when competitions are ready
+     */
+    public void onDataReady() {
+        /* Initialize adapter and add it to view */
+        mAdapter = new RaceTrackerCompetitionAdapter(competitions.getCompetitions());
+        mRecyclerView.setAdapter(mAdapter);
 
-        public RaceTrackerQuery getResults() {
-            return results;
-        }
-
-        /* Callback when competitions are ready */
-        public void onQueryResultReady(RaceTrackerQuery results) throws SQLException {
-            this.results = results;
-
-            if (results.getException() != null) {
-                /* Exception during query */
-                Toast.makeText(getApplicationContext(), "Exception during query: " + results.getException().getMessage(), Toast.LENGTH_LONG).show();
-            } else {
-                while (results.getResult().next()) {
-                    RaceTrackerCompetition cp = new RaceTrackerCompetition(results.getResult());
-                    resultList.add(cp);
-                    System.out.println("DBG: Competition: " + cp.toString());
-                }
-            }
-
-            /* Updates UI */
-            mAdapter.notifyDataSetChanged();
-        }
+        /* Updates UI */
+        mAdapter.notifyDataSetChanged();
     }
 
     @Override
@@ -59,14 +48,12 @@ public class ViewRaceSelectorActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_race_selector);
 
-        /* Get list of competitions from the DB */
-        RaceTrackerDB db = new RaceTrackerDB(this);
-        competitionsResult = new CompetitionsResult();
-        try {
-            db.getCompetitions(competitionsResult);
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+        /* Retrieve Competitions list */
+        RaceTrackerDBConnection connection = new RaceTrackerDBConnection(getApplicationContext(),
+                getResources().getString(R.string.db_server_key),
+                getResources().getString(R.string.db_user_key),
+                getResources().getString(R.string.db_pwd_key));
+        competitions = new RaceTrackerCompetitions(connection, this);
 
         /* Setup RecyclerView */
         mRecyclerView = findViewById(R.id.ViewRaceSelectorRecycler);
@@ -79,9 +66,6 @@ public class ViewRaceSelectorActivity extends AppCompatActivity {
         mLayoutManager = new LinearLayoutManager(this);
         mRecyclerView.setLayoutManager(mLayoutManager);
 
-        /* Initialize list to be filled later in callback */
-        resultList = new ArrayList<>();
-
         /* Add line between items */
         mRecyclerView.addItemDecoration(new DividerItemDecoration(this, LinearLayoutManager.VERTICAL));
 
@@ -90,8 +74,7 @@ public class ViewRaceSelectorActivity extends AppCompatActivity {
             @Override
             public void onClick(View view, int position) {
                 //Movie movie = movieList.get(position);
-                RaceTrackerCompetition competition = resultList.get(position);
-                Toast.makeText(getApplicationContext(), competition.getName() + " is selected!", Toast.LENGTH_SHORT).show();
+                RaceTrackerCompetition competition = competitions.getCompetitions().get(position);
                 /* Add competition class to intent so next activity can retrieve it */
                 Intent intent = new Intent(view.getContext(), ViewRaceActivity.class);
                 intent.putExtra("competition", competition);
@@ -103,9 +86,5 @@ public class ViewRaceSelectorActivity extends AppCompatActivity {
 
             }
         }));
-
-        /* Initialize adapter and add it to view */
-        mAdapter = new RaceTrackerCompetitionAdapter(resultList);
-        mRecyclerView.setAdapter(mAdapter);
     }
 }
