@@ -12,7 +12,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.text.MessageFormat;
 
-public class RaceTrackerDB extends AsyncTask<RaceTrackerDB.RaceTrackerQuery, Void, RaceTrackerDB.RaceTrackerQuery> {
+public class RaceTrackerDB {
     static final String jdbc = "jdbc:postgresql://";
     static final String databaseName = "race_tracker_db";
     static final String databasePort = "5432";
@@ -102,79 +102,5 @@ public class RaceTrackerDB extends AsyncTask<RaceTrackerDB.RaceTrackerQuery, Voi
         query.setQuery("SELECT * FROM race_tracker.country;");
         RaceTrackerDBAsyncTask task = new RaceTrackerDBAsyncTask(connectionString, dbUser, dbPwd);
         task.execute(query);
-    }
-
-    /**
-     * Called at the end of the query execution
-     */
-    @Override
-    protected void onPostExecute(RaceTrackerDB.RaceTrackerQuery result) {
-        super.onPostExecute(result);
-        try {
-            result.getCallback().onQueryResultReady(result);
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
-
-    /**
-     * Executes the query
-     */
-    @Override
-    public RaceTrackerDB.RaceTrackerQuery doInBackground(RaceTrackerDB.RaceTrackerQuery... queries) {
-        Statement st;
-
-        try {
-            Connection conn = DriverManager.getConnection(connectionString, dbUser, dbPwd);
-            st = conn.createStatement();
-            queries[0].setResult(st.executeQuery(queries[0].getQuery()));
-            return queries[0];
-        } catch (SQLException e) {
-            System.out.println("DBG: " + e.getMessage());
-            return null;
-        }
-    }
-
-    /**
-     * Class passed which contains all data necessary to execute
-     * query
-     */
-    public class RaceTrackerQuery {
-        private String query;
-        private SQLException exception;
-        private ResultSet result;
-        private OnQueryResultReady callback;
-
-        public ResultSet getResult() {
-            return result;
-        }
-
-        public void setResult(ResultSet result) {
-            this.result = result;
-        }
-
-        public String getQuery() {
-            return query;
-        }
-
-        public void setQuery(String query) {
-            this.query = query;
-        }
-
-        public OnQueryResultReady getCallback() {
-            return callback;
-        }
-
-        public void setCallback(OnQueryResultReady callback) {
-            this.callback = callback;
-        }
-
-        public SQLException getException() {
-            return exception;
-        }
-
-        public void setException(SQLException exception) {
-            this.exception = exception;
-        }
     }
 }

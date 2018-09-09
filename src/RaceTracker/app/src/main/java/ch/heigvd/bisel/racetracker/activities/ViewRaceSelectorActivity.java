@@ -9,9 +9,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.Toast;
 
-import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Timestamp;
 import java.util.ArrayList;
 
 import ch.heigvd.bisel.racetracker.R;
@@ -19,6 +17,7 @@ import ch.heigvd.bisel.racetracker.RaceTrackerCompetition;
 import ch.heigvd.bisel.racetracker.RaceTrackerCompetitionAdapter;
 import ch.heigvd.bisel.racetracker.OnQueryResultReady;
 import ch.heigvd.bisel.racetracker.RaceTrackerDB;
+import ch.heigvd.bisel.racetracker.RaceTrackerQuery;
 import ch.heigvd.bisel.racetracker.RecyclerTouchListener;
 
 public class ViewRaceSelectorActivity extends AppCompatActivity {
@@ -29,14 +28,14 @@ public class ViewRaceSelectorActivity extends AppCompatActivity {
     private CompetitionsResult competitionsResult;
 
     public class CompetitionsResult implements OnQueryResultReady {
-        private RaceTrackerDB.RaceTrackerQuery results;
+        private RaceTrackerQuery results;
 
-        public RaceTrackerDB.RaceTrackerQuery getResults() {
+        public RaceTrackerQuery getResults() {
             return results;
         }
 
         /* Callback when competitions are ready */
-        public void onQueryResultReady(RaceTrackerDB.RaceTrackerQuery results) throws SQLException {
+        public void onQueryResultReady(RaceTrackerQuery results) throws SQLException {
             this.results = results;
 
             if (results.getException() != null) {

@@ -30,6 +30,7 @@ import ch.heigvd.bisel.racetracker.RaceTrackerCompetitorAdapter;
 import ch.heigvd.bisel.racetracker.RaceTrackerCountry;
 import ch.heigvd.bisel.racetracker.RaceTrackerDB;
 import ch.heigvd.bisel.racetracker.RaceTrackerDataPoint;
+import ch.heigvd.bisel.racetracker.RaceTrackerQuery;
 
 public class ViewRaceActivity extends FragmentActivity implements OnMapReadyCallback {
     private GoogleMap mMap;
@@ -133,14 +134,14 @@ public class ViewRaceActivity extends FragmentActivity implements OnMapReadyCall
      * This query retrieves all the last data points (highest sequence number)
      */
     public class OnLastDataPointResults implements OnQueryResultReady {
-        private RaceTrackerDB.RaceTrackerQuery results;
+        private RaceTrackerQuery results;
 
-        public RaceTrackerDB.RaceTrackerQuery getResults() {
+        public RaceTrackerQuery getResults() {
             return results;
         }
 
         /* Callback when competitions are ready */
-        public void onQueryResultReady(RaceTrackerDB.RaceTrackerQuery results) throws SQLException {
+        public void onQueryResultReady(RaceTrackerQuery results) throws SQLException {
             this.results = results;
 
             if (results.getException() != null) {
@@ -198,14 +199,14 @@ public class ViewRaceActivity extends FragmentActivity implements OnMapReadyCall
     }
 
     public class OnDataPointsResults implements OnQueryResultReady {
-        private RaceTrackerDB.RaceTrackerQuery results;
+        private RaceTrackerQuery results;
 
-        public RaceTrackerDB.RaceTrackerQuery getResults() {
+        public RaceTrackerQuery getResults() {
             return results;
         }
 
         /* Callback when competitions are ready */
-        public void onQueryResultReady(RaceTrackerDB.RaceTrackerQuery results) throws SQLException {
+        public void onQueryResultReady(RaceTrackerQuery results) throws SQLException {
             this.results = results;
 
             if (results.getException() != null) {
@@ -251,14 +252,14 @@ public class ViewRaceActivity extends FragmentActivity implements OnMapReadyCall
     }
 
     public class OnCompetitorsResults implements OnQueryResultReady {
-        private RaceTrackerDB.RaceTrackerQuery results;
+        private RaceTrackerQuery results;
 
-        public RaceTrackerDB.RaceTrackerQuery getResults() {
+        public RaceTrackerQuery getResults() {
             return results;
         }
 
         /* Callback when competitions are ready */
-        public void onQueryResultReady(RaceTrackerDB.RaceTrackerQuery results) throws SQLException {
+        public void onQueryResultReady(RaceTrackerQuery results) throws SQLException {
             this.results = results;
             ArrayList<RaceTrackerCompetitor> competitorsList = new ArrayList<>();
 
