@@ -23,7 +23,7 @@
         style="?android:attr/borderlessButtonStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:onClick="onResetCamerabOnClick"
+        android:onClick="onResetCameraOnClick"
         android:src="@android:drawable/ic_menu_mylocation"
         app:layout_constraintStart_toEndOf="@+id/mapView"
         app:layout_constraintTop_toTopOf="parent" />

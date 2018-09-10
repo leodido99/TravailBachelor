@@ -28,47 +28,44 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-import ch.heigvd.bisel.racetracker.OnDataReady;
 import ch.heigvd.bisel.racetracker.R;
 import ch.heigvd.bisel.racetracker.RaceTrackerCompetition;
 import ch.heigvd.bisel.racetracker.RaceTrackerCompetitor;
 import ch.heigvd.bisel.racetracker.OnQueryResultReady;
 import ch.heigvd.bisel.racetracker.RaceTrackerCompetitorAdapter;
 import ch.heigvd.bisel.racetracker.RaceTrackerCompetitors;
+import ch.heigvd.bisel.racetracker.RaceTrackerCountries;
 import ch.heigvd.bisel.racetracker.RaceTrackerCountry;
-import ch.heigvd.bisel.racetracker.RaceTrackerDB;
 import ch.heigvd.bisel.racetracker.RaceTrackerDBConnection;
 import ch.heigvd.bisel.racetracker.RaceTrackerDataPoint;
+import ch.heigvd.bisel.racetracker.RaceTrackerDataPoints;
 import ch.heigvd.bisel.racetracker.RaceTrackerQuery;
+import ch.heigvd.bisel.racetracker.RaceTrackerTrackPoint;
+import ch.heigvd.bisel.racetracker.RaceTrackerTrackPoints;
 
-public class ViewRaceActivity extends AppCompatActivity implements OnMapReadyCallback, OnDataReady {
+public class ViewRaceActivity extends AppCompatActivity implements OnMapReadyCallback,
+        RaceTrackerCompetitors.OnCompetitorsReady,
+        RaceTrackerCountries.OnCountriesReady,
+        RaceTrackerDataPoints.OnDataPointsReady,
+        RaceTrackerTrackPoints.OnTrackPointsReady {
     private GoogleMap mMap;
     private Polyline track;
 
-    private RaceTrackerCompetitors competitorsDB;
+    private RaceTrackerDataPoints dataPointsDB;
 
-    private RaceTrackerDB db;
     private RaceTrackerCompetition competition;
     private Map<Integer, RaceTrackerCompetitor> competitors;
     private Map<String, RaceTrackerCountry> countries;
     private ArrayList<RaceTrackerDataPoint> dataPoints;
 
-    private OnCountryResults onCountryResults;
-    private OnCompetitorsResults onCompetitorsResults;
-    private OnLastDataPointResults onLastDataPointResults;
-    private OnDataPointsResults onDataPointsResults;
-    private OnTrackPointResults onTrackPointResults;
-
     private int handlerInterval = 5000;
     private Handler handler;
+    private boolean handlerStarted = false;
+    private boolean systemInit = false;
 
     private RecyclerView mRecyclerView;
     private RecyclerView.Adapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
-
-    public enum Transactions {
-        TRANSACTION_COMPETITORS
-    }
 
     /**
      * Called upon Activity creation
@@ -105,56 +102,23 @@ public class ViewRaceActivity extends AppCompatActivity implements OnMapReadyCal
                 getResources().getString(R.string.db_user_key),
                 getResources().getString(R.string.db_pwd_key));
 
-        /* Retrieve competitors */
-        competitorsDB = new RaceTrackerCompetitors(Transactions.TRANSACTION_COMPETITORS.ordinal(),
-                                                   connection, this, competition.getCompetitionId());
-
-
-
-
-
-        /* Create query results handler */
-        onLastDataPointResults = new OnLastDataPointResults();
-        onCompetitorsResults = new OnCompetitorsResults();
-        onDataPointsResults = new OnDataPointsResults();
-        onCountryResults = new OnCountryResults();
-        onTrackPointResults = new OnTrackPointResults();
-
-        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
-        db = new RaceTrackerDB(prefs.getString(getResources().getString(R.string.db_server_key), ""));
-        /* Get Countries */
-        try {
-            db.getCountries(onCountryResults);
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-
-        /* Get Competitors */
-        try {
-            db.getCompetitors(onCompetitorsResults, competition.getCompetitionId());
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-
-        /* Get Track points */
-        db.getTrackPoints(onTrackPointResults, competition.getCompetitionId());
+        /* Retrieve data from DB */
+        RaceTrackerCountries countriesDB = new RaceTrackerCountries(connection, this);
+        RaceTrackerCompetitors competitorsDB = new RaceTrackerCompetitors(connection,
+                this,
+                competition.getCompetitionId());
+        dataPointsDB = new RaceTrackerDataPoints(connection,
+                this,
+                competition.getCompetitionId());
+        RaceTrackerTrackPoints trackPointsDB = new RaceTrackerTrackPoints(connection,
+                this,
+                competition.getCompetitionId());
 
         /* Create handler */
         handler = new Handler();
 
         /* Create list of all data points used by the replay mode */
         dataPoints = new ArrayList<>();
-    }
-
-    /**
-     * Triggered when data is ready
-     */
-    public void onDataReady(int id) {
-        switch(id) {
-            case Transactions.TRANSACTION_COMPETITORS:
-                break;
-        }
-
     }
 
     public void handleDataPointLive(RaceTrackerDataPoint dataPoint) {
@@ -220,141 +184,11 @@ public class ViewRaceActivity extends AppCompatActivity implements OnMapReadyCal
         }
     }
 
-    public class OnCountryResults implements OnQueryResultReady {
-        /* Callback when countries are ready */
-        public void onQueryResultReady(RaceTrackerQuery results) throws SQLException {
-            if (results.getException() != null) {
-                /* Exception during query */
-                Toast.makeText(getApplicationContext(), "Exception during query: " + results.getException().getMessage(), Toast.LENGTH_LONG).show();
-            } else {
-                while (results.getResult().next()) {
-                    RaceTrackerCountry country = new RaceTrackerCountry(results.getResult());
-                    countries.put(country.getCountryCode(), country);
-                }
-            }
-        }
-    }
-
-    public class OnTrackPointResults implements OnQueryResultReady {
-        /* Callback when countries are ready */
-        public void onQueryResultReady(RaceTrackerQuery results) throws SQLException {
-            if (results.getException() != null) {
-                /* Exception during query */
-                Toast.makeText(getApplicationContext(), "Exception during query: " + results.getException().getMessage(), Toast.LENGTH_LONG).show();
-            } else {
-                ArrayList<LatLng> points = new ArrayList<>();
-                while (results.getResult().next()) {
-                    LatLng point = new LatLng(results.getResult().getDouble("latitude"), results.getResult().getDouble("longitude"));
-                    points.add(point);
-                }
-                track = mMap.addPolyline(new PolylineOptions()
-                        .width(5)
-                        .color(Color.RED));
-                track.setPoints(points);
-            }
-        }
-    }
-
-    public class OnDataPointsResults implements OnQueryResultReady {
-        private RaceTrackerQuery results;
-
-        public RaceTrackerQuery getResults() {
-            return results;
-        }
-
-        /* Callback when competitions are ready */
-        public void onQueryResultReady(RaceTrackerQuery results) throws SQLException {
-            this.results = results;
-
-            if (results.getException() != null) {
-                /* Exception during query */
-                Toast.makeText(getApplicationContext(), "Exception during query: " + results.getException().getMessage(), Toast.LENGTH_LONG).show();
-            } else {
-                while (results.getResult().next()) {
-                    RaceTrackerDataPoint dataPoint = new RaceTrackerDataPoint(results.getResult());
-
-                    if (competitors.get(dataPoint.getCompetitorId()).getStartTime() == null) {
-                        competitors.get(dataPoint.getCompetitorId()).setStartTime(dataPoint.getTimeStamp());
-                    }
-
-                    if (competition.isActive()) {
-                        handleDataPointLive(dataPoint);
-                    } else {
-                        /* In replay mode we simply fill the list */
-                        dataPoints.add(dataPoint);
-                    }
-                }
-            }
-
-            /* Updates UI */
-            mAdapter.notifyDataSetChanged();
-
-            /* In replay mode start the handler */
-            if (!competition.isActive()) {
-                /* TODO Start handler for replay mode (set interval with difference from timestamps */
-
-            } else {
-                /* Once the marker up until now are set, we can check for new points */
-                startDataPointChecker();
-            }
-        }
-    }
-
-    public void setupMarkers() throws SQLException {
-        /* Send query to get all data points until now */
-        db.getDataPoints(onDataPointsResults, competition.getCompetitionId());
-    }
-
-    public class OnCompetitorsResults implements OnQueryResultReady {
-        private RaceTrackerQuery results;
-
-        public RaceTrackerQuery getResults() {
-            return results;
-        }
-
-        /* Callback when competitions are ready */
-        public void onQueryResultReady(RaceTrackerQuery results) throws SQLException {
-            this.results = results;
-            ArrayList<RaceTrackerCompetitor> competitorsList = new ArrayList<>();
-
-            if (results.getException() != null) {
-                /* Exception during query */
-                Toast.makeText(getApplicationContext(), "Exception during query: " + results.getException().getMessage(), Toast.LENGTH_LONG).show();
-            } else {
-                while (results.getResult().next()) {
-                    RaceTrackerCompetitor competitor = new RaceTrackerCompetitor(results.getResult());
-                    competitors.put(competitor.getCompetitorId(), competitor);
-                    competitorsList.add(competitor);
-                    /* Setup map marker */
-                    competitor.setMapMarker(mMap.addMarker(new MarkerOptions()
-                            .position(new LatLng(0,0))
-                            .title(competitor.getFirstName() + " " + competitor.getLastName())
-                            .visible(false)
-                            .anchor(0.5f, 0.5f)
-                            .icon(BitmapDescriptorFactory.fromResource(R.drawable.competitor_marker_blue))));
-                    /* Setup country */
-                    competitor.setCountry(countries.get(competitor.getCountryCode()));
-                    System.out.println("DBG: Competitor: " + competitor.toString());
-                }
-            }
-
-            /* Initialize adapter and add it to view */
-            mAdapter = new RaceTrackerCompetitorAdapter(competitorsList);
-            mRecyclerView.setAdapter(mAdapter);
-
-            /* Updates UI */
-            mAdapter.notifyDataSetChanged();
-
-            /* Setup markers of data points */
-            setupMarkers();
-        }
-    }
-
     /**
      * Handler of the Reset Camera button
      * @param view
      */
-    public void onResetCamerabOnClick(View view) {
+    public void onResetCameraOnClick(View view) {
         resetCamera();
     }
 
@@ -371,7 +205,10 @@ public class ViewRaceActivity extends AppCompatActivity implements OnMapReadyCal
      * to see if a new point is available
      */
     public void startDataPointChecker() {
-        handler.postDelayed(dataPointChecker, 0);
+        if (!handlerStarted) {
+            handler.postDelayed(dataPointChecker, 0);
+            handlerStarted = true;
+        }
     }
 
     /**
@@ -379,6 +216,7 @@ public class ViewRaceActivity extends AppCompatActivity implements OnMapReadyCal
      */
     public void stopDataPointChecker() {
         handler.removeCallbacks(dataPointChecker);
+        handlerStarted = false;
     }
 
     /**
@@ -399,13 +237,167 @@ public class ViewRaceActivity extends AppCompatActivity implements OnMapReadyCal
         @Override
         public void run() {
             try {
-                db.getLastDataPoint(onLastDataPointResults, competition.getCompetitionId());
-            } catch (SQLException e) {
-                e.printStackTrace();
+                dataPointsDB.getLastPoints();
             } finally {
                 /* Restart handler */
                 handler.postDelayed(dataPointChecker, handlerInterval);
             }
         }
     };
+
+    /**
+     * Triggered when the activity resumes
+     */
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        if (systemInit) {
+            startDataPointChecker();
+        }
+    }
+
+    /**
+     * Triggered when the activity is put on pause
+     */
+    @Override
+    public void onPause() {
+        super.onPause();
+        stopDataPointChecker();
+    }
+
+    /**
+     * Triggered when the back button is pressed
+     */
+    @Override
+    public void onBackPressed() {
+        stopDataPointChecker();
+        super.onBackPressed();
+    }
+
+    /**
+     * Triggered when competitor list is ready
+     * @param competitors List of competitors
+     */
+    public void onCompetitorsReady(ArrayList<RaceTrackerCompetitor> competitors) {
+        for (RaceTrackerCompetitor competitor : competitors) {
+            /* Add competitors to hash map */
+            this.competitors.put(competitor.getCompetitorId(), competitor);
+
+            /* Set competitor country */
+            competitor.setCountry(countries.get(competitor.getCountryCode()));
+        }
+
+        /* Initialize adapter and add it to view */
+        mAdapter = new RaceTrackerCompetitorAdapter(competitors);
+        mRecyclerView.setAdapter(mAdapter);
+
+        /* Updates UI */
+        mAdapter.notifyDataSetChanged();
+    }
+
+    /**
+     * Triggered when the list of countries is ready
+     * @param countries List of countries
+     */
+    public void onCountriesReady(ArrayList<RaceTrackerCountry> countries) {
+        /* Create hash table */
+        for (RaceTrackerCountry country : countries) {
+            this.countries.put(country.getCountryCode(), country);
+        }
+    }
+
+    /**
+     * Adds a marker to the map
+     * @param position Marker position
+     * @param icon Marker icon
+     * @param label Marker label
+     * @return New marker
+     */
+    public Marker addMarker(LatLng position, int icon, String label) {
+        Marker oldPos = mMap.addMarker(new MarkerOptions().position(position));
+        oldPos.setIcon(BitmapDescriptorFactory.fromResource(icon));
+        oldPos.setAnchor(0.5f, 0.5f);
+        oldPos.setTitle(label);
+        return oldPos;
+    }
+
+    /**
+     * Triggered when track points are ready
+     * @param trackPoints Track point list
+     */
+    public void onTrackPointsReady(ArrayList<RaceTrackerTrackPoint> trackPoints) {
+        ArrayList<LatLng> trackPositions = new ArrayList<>();
+
+        for (RaceTrackerTrackPoint trackPoint : trackPoints) {
+            trackPositions.add(trackPoint.getPosition());
+        }
+
+        track = mMap.addPolyline(new PolylineOptions()
+                .width(5)
+                .color(Color.RED));
+        track.setPoints(trackPositions);
+    }
+
+    /**
+     * Triggered when data points are ready
+     * @param dataPoints List of new data points
+     */
+    public void onDataPointsReady(Map<Integer, ArrayList<RaceTrackerDataPoint>> dataPoints) {
+        SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+        Boolean leaveTrail = sharedPref.getBoolean(getResources().getString(R.string.leave_trail_key), false);
+        Marker lastMarker = null;
+        int cnt = 0;
+        boolean consumed;
+
+        /* TODO Replay mode */
+
+        /* Dispatch data points to the competitors */
+        for (Map.Entry<Integer, ArrayList<RaceTrackerDataPoint>> entry : dataPoints.entrySet()) {
+            consumed = false;
+
+            for (RaceTrackerDataPoint dataPoint : entry.getValue()) {
+                consumed = competitors.get(dataPoint.getCompetitorId()).consumeDataPoint(dataPoint);
+                if (consumed && leaveTrail) {
+                    lastMarker = addMarker(dataPoint.getPosition(), R.drawable.competitor_marker_grey,
+                            competitors.get(dataPoint.getCompetitorId()).getFirstName()
+                                    + " " + competitors.get(dataPoint.getCompetitorId()).getLastName() + " #"
+                                    + dataPoint.getSequence());
+                }
+
+                cnt++;
+            }
+
+            /* If the competitor consumed a data point that means the last position is going to change */
+            if (consumed) {
+                /* Update of previous marker if it exists */
+                if (competitors.get(entry.getKey()).getMapMarker() != null) {
+                    competitors.get(entry.getKey()).getMapMarker().setIcon(BitmapDescriptorFactory.fromResource(R.drawable.competitor_marker_grey));
+                    competitors.get(entry.getKey()).getMapMarker().setTitle(competitors.get(entry.getKey()).getMapMarker().getTitle()
+                            + " #" + competitors.get(entry.getKey()).getLastDataPoint().getSequence());
+                }
+
+                if (lastMarker != null) {
+                    /* Last marker becomes the current position */
+                    lastMarker.setIcon(BitmapDescriptorFactory.fromResource(R.drawable.competitor_marker_blue));
+                    lastMarker.setTitle(competitors.get(entry.getKey()).getFirstName() + " "
+                            + competitors.get(entry.getKey()).getLastName());
+                    competitors.get(entry.getKey()).setMapMarker(lastMarker);
+                } else {
+                    /* Create marker for last position */
+                    competitors.get(entry.getKey()).setMapMarker(addMarker(competitors.get(entry.getKey()).getLastDataPoint().getPosition(), R.drawable.competitor_marker_blue,
+                            competitors.get(entry.getKey()).getFirstName()
+                                    + " " + competitors.get(entry.getKey()).getLastName()));
+                }
+            }
+        }
+
+        startDataPointChecker();
+        systemInit = true;
+
+        /* Updates UI */
+        mAdapter.notifyDataSetChanged();
+
+        System.out.println("DBG: Processed " + cnt + " data points");
+    }
 }

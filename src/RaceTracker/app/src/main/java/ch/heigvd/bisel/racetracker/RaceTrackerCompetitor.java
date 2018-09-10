@@ -53,6 +53,7 @@ public class RaceTrackerCompetitor {
             elapsedTimeS = 0;
             currHeartRate = 0;
             currCadence = 0;
+            dataPoints = new ArrayList<>();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -66,8 +67,8 @@ public class RaceTrackerCompetitor {
             return;
         }
 
-        mapMarker.setPosition(lastDataPoint.getPosition());
-        mapMarker.setVisible(true);
+        //mapMarker.setPosition(lastDataPoint.getPosition());
+        //mapMarker.setVisible(true);
         currHeartRate = lastDataPoint.getHeartRate();
 
         updateElapsedTime();
@@ -267,5 +268,33 @@ public class RaceTrackerCompetitor {
 
     public void setCurrCadence(int currCadence) {
         this.currCadence = currCadence;
+    }
+
+    public boolean consumeDataPoint(RaceTrackerDataPoint dataPoint) {
+        if (lastDataPoint != null) {
+            /* If the data point is the same than the last one, silently skip */
+            if (lastDataPoint.getSequence() == dataPoint.getSequence()) {
+                return false;
+            }
+
+            /* Check sequence */
+            if (dataPoint.getSequence() < lastDataPoint.getSequence()) {
+                /* New data point is out of sequence */
+                throw new RuntimeException("Out of sequence data point!");
+            }
+        }
+
+        if (startTime == null) {
+            startTime = dataPoint.getTimeStamp();
+        }
+
+        if (lastDataPoint != null) {
+            prevLastDataPoint = lastDataPoint;
+        }
+
+        lastDataPoint = dataPoint;
+        update();
+
+        return true;
     }
 }

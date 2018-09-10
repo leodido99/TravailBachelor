@@ -4,11 +4,9 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class RaceTrackerCompetitions implements OnQueryResultReady, OnQueryExecuted {
-    private OnDataReady callback;
+    private RaceTrackerCompetitions.OnCompetitionsReady callback;
     private ArrayList<RaceTrackerCompetition> competitions;
-    private RaceTrackerDB raceTrackerDB;
     private RaceTrackerQuery query;
-    private int id;
 
     /**
      * Create a new instance to retrieve the list of competitions
@@ -16,7 +14,7 @@ public class RaceTrackerCompetitions implements OnQueryResultReady, OnQueryExecu
      * @param connection Connection to the database
      * @param callback Called when competitions are ready to be retrieved
      */
-    public RaceTrackerCompetitions(RaceTrackerDBConnection connection, OnDataReady callback) {
+    public RaceTrackerCompetitions(RaceTrackerDBConnection connection, RaceTrackerCompetitions.OnCompetitionsReady callback) {
         this.callback = callback;
         competitions = new ArrayList<>();
 
@@ -31,25 +29,14 @@ public class RaceTrackerCompetitions implements OnQueryResultReady, OnQueryExecu
     }
 
     /**
-     * Creates a new instance to retrieve the list of competitions
-     * @param id ID of the transaction (provided back in callback)
-     * @param connection Connection to the database
-     * @param callback Called when competitions are ready to be retrieved
-     */
-    public RaceTrackerCompetitions(int id, RaceTrackerDBConnection connection, OnDataReady callback) {
-        this(connection, callback);
-        this.id = id;
-    }
-
-    /**
      * Callback executed when the results of the query are ready
      * @param results Results of the query
      * @throws SQLException
      */
-    public void onQueryResultReady(RaceTrackerQuery results) throws SQLException {
+    public void onQueryResultReady(RaceTrackerQuery results) throws SQLException, RuntimeException {
         if (results.getException() != null) {
             /* Exception during query */
-
+            throw new RuntimeException(results.getException().getMessage());
         } else {
             while (results.getResult().next()) {
                 RaceTrackerCompetition competition = new RaceTrackerCompetition(results.getResult());
@@ -63,7 +50,7 @@ public class RaceTrackerCompetitions implements OnQueryResultReady, OnQueryExecu
      * @param query Query that was executed
      */
     public void onQueryExecuted(RaceTrackerQuery query) {
-        this.callback.onDataReady(this.id);
+        this.callback.onCompetitionsReady(competitions);
     }
 
     /**
@@ -80,5 +67,12 @@ public class RaceTrackerCompetitions implements OnQueryResultReady, OnQueryExecu
      */
     public void setCompetitions(ArrayList<RaceTrackerCompetition> competitions) {
         this.competitions = competitions;
+    }
+
+    /**
+     * Interface used for callbacks when data is ready
+     */
+    public interface OnCompetitionsReady {
+        void onCompetitionsReady(ArrayList<RaceTrackerCompetition> competitions);
     }
 }

@@ -24,9 +24,9 @@
         android:singleLine="true"
         android:title="@string/pref_db_pwd" />
     <SwitchPreference
-        android:defaultValue="false"
-        android:key="leave_point_trail"
-        android:title="Afficher tout les points" />
+        android:defaultValue="@string/default_leave_trail"
+        android:key="@string/leave_trail_key"
+        android:title="@string/pref_leave_trail" />
 
     <!-- NOTE: Hide buttons to simplify the UI. Users can touch outside the dialog to
          dismiss it. -->

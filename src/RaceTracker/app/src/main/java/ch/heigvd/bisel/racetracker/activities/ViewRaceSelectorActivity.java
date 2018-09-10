@@ -1,31 +1,23 @@
 package ch.heigvd.bisel.racetracker.activities;
 
 import android.content.Intent;
-import android.content.SharedPreferences;
-import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
-import android.widget.Toast;
 
-import java.sql.SQLException;
 import java.util.ArrayList;
 
-import ch.heigvd.bisel.racetracker.OnDataReady;
 import ch.heigvd.bisel.racetracker.R;
 import ch.heigvd.bisel.racetracker.RaceTrackerCompetition;
 import ch.heigvd.bisel.racetracker.RaceTrackerCompetitionAdapter;
-import ch.heigvd.bisel.racetracker.OnQueryResultReady;
 import ch.heigvd.bisel.racetracker.RaceTrackerCompetitions;
-import ch.heigvd.bisel.racetracker.RaceTrackerDB;
 import ch.heigvd.bisel.racetracker.RaceTrackerDBConnection;
-import ch.heigvd.bisel.racetracker.RaceTrackerQuery;
 import ch.heigvd.bisel.racetracker.RecyclerTouchListener;
 
-public class ViewRaceSelectorActivity extends AppCompatActivity implements OnDataReady {
+public class ViewRaceSelectorActivity extends AppCompatActivity implements RaceTrackerCompetitions.OnCompetitionsReady {
     private RecyclerView mRecyclerView;
     private RecyclerView.Adapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
@@ -34,9 +26,9 @@ public class ViewRaceSelectorActivity extends AppCompatActivity implements OnDat
     /**
      * Triggered when competitions are ready
      */
-    public void onDataReady() {
+    public void onCompetitionsReady(ArrayList<RaceTrackerCompetition> competitions) {
         /* Initialize adapter and add it to view */
-        mAdapter = new RaceTrackerCompetitionAdapter(competitions.getCompetitions());
+        mAdapter = new RaceTrackerCompetitionAdapter(competitions);
         mRecyclerView.setAdapter(mAdapter);
 
         /* Updates UI */

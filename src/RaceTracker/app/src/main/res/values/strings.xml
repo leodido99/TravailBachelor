@@ -22,13 +22,20 @@
     <string name="createnewrace_pick_location">Séléctionner l\'emplacement</string>
     <string name="createnewrace_set_course">Parcours</string>
     <string name="title_activity_view_race_google">Race Tracker</string>
+
     <string name="db_user_key">db_user</string>
     <string name="pref_db_user">Utilisateur</string>
     <string name="db_default_user">pi</string>
+
     <string name="db_pwd_key">db_pwd</string>
     <string name="pref_db_pwd">Mot de passe</string>
     <string name="db_default_pwd">heig</string>
+
     <string name="db_server_key">db_server</string>
     <string name="pref_db_server">Adresse serveur</string>
     <string name="db_default_server">192.168.4.1</string>
+
+    <string name="leave_trail_key">leave_trail</string>
+    <string name="pref_leave_trail">Afficher tous les points</string>
+    <string name="default_leave_trail">false</string>
 </resources>
