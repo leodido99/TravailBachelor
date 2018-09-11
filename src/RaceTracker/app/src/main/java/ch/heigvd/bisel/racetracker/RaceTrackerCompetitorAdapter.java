@@ -1,17 +1,13 @@
 package ch.heigvd.bisel.racetracker;
 
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.WebView;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
-import java.util.Calendar;
 
 public class RaceTrackerCompetitorAdapter extends RecyclerView.Adapter<RaceTrackerCompetitorAdapter.ViewHolder>  {
     ArrayList<RaceTrackerCompetitor> competitors;

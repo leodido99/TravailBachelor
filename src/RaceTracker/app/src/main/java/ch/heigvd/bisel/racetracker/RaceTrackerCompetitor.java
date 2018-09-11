@@ -35,10 +35,18 @@ public class RaceTrackerCompetitor {
     private RaceTrackerDataPoint lastDataPoint;
 
     /**
+     * Creates a new empty instance of RaceTrackerCompetitor
+     */
+    public RaceTrackerCompetitor() {
+        dataPoints = new ArrayList<>();
+    }
+
+    /**
      * Construct a RaceTrackerCompetitor from the result of a query
      * @param fromDB Result from DB that contains all the expected columns
      */
     public RaceTrackerCompetitor(ResultSet fromDB) {
+        this();
         try {
             competitorId = fromDB.getInt("competitor_id");
             countryCode = fromDB.getString("country_code");
@@ -53,7 +61,6 @@ public class RaceTrackerCompetitor {
             elapsedTimeS = 0;
             currHeartRate = 0;
             currCadence = 0;
-            dataPoints = new ArrayList<>();
         } catch (SQLException e) {
             e.printStackTrace();
         }

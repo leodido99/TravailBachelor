@@ -17,7 +17,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".activities.MainMenuActivity"
+        <activity
+            android:name=".activities.MainMenuActivity"
             android:screenOrientation="landscape">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -48,12 +49,13 @@
         <activity
             android:name=".activities.SettingsActivity"
             android:label="@string/title_activity_settings"
-            android:screenOrientation="landscape"/>
+            android:screenOrientation="landscape" />
 
-            <!-- The meta-data tag is required if you support API level 15 and lower -->
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value=".activities.MainMenuActivity" />
+        <!-- The meta-data tag is required if you support API level 15 and lower -->
+        <meta-data
+            android:name="android.support.PARENT_ACTIVITY"
+            android:value=".activities.MainMenuActivity" />
+
         <activity
             android:name=".activities.CreateNewRaceActivity"
             android:parentActivityName=".activities.MainMenuActivity"
@@ -81,7 +83,8 @@
         <activity android:name=".activities.RaceLocationPickerActivity" />
         <activity
             android:name=".activities.ViewRaceActivity"
-            android:label="@string/title_activity_view_race_google"></activity>
+            android:label="@string/title_activity_view_race_google" />
+        <activity android:name=".activities.CreateNewCompetitorActivity"></activity>
     </application>
 
 </manifest>

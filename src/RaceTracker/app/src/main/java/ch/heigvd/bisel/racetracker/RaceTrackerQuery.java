@@ -17,14 +17,19 @@ public class RaceTrackerQuery {
     private ResultSet result;
     private OnQueryResultReady callbackResultReady;
     private OnQueryExecuted callbackExecuted;
-    private RaceTrackerDBAsyncTask async;
+    private RaceTrackerExecuteQuery asyncQuery;
+    private RaceTrackerExecuteUpdate asynchUpdate;
+    private boolean isUpdateQuery;
+    private int nbUpdated;
 
     public RaceTrackerQuery() {
-
+        isUpdateQuery = false;
     }
 
     public RaceTrackerQuery(RaceTrackerDBConnection connection) {
-        async = new RaceTrackerDBAsyncTask(connection.getConnection(), connection.getUser(), connection.getPwd());
+        this();
+        asyncQuery = new RaceTrackerExecuteQuery(connection.getConnection(), connection.getUser(), connection.getPwd());
+        asynchUpdate =  new RaceTrackerExecuteUpdate(connection.getConnection(), connection.getUser(), connection.getPwd());
     }
 
     public ResultSet getResult() {
@@ -83,13 +88,27 @@ public class RaceTrackerQuery {
         this.callbackExecuted = callbackExecuted;
     }
 
-    public void close() throws SQLException {
-        result.getStatement().close();
-        result.close();
-        //connection.close();
+    public void execute() {
+        if (isUpdateQuery) {
+            asynchUpdate.execute(this);
+        } else {
+            asyncQuery.execute(this);
+        }
     }
 
-    public void execute() {
-        async.execute(this);
+    public boolean isUpdateQuery() {
+        return isUpdateQuery;
+    }
+
+    public void setUpdateQuery(boolean updateQuery) {
+        isUpdateQuery = updateQuery;
+    }
+
+    public int getNbUpdated() {
+        return nbUpdated;
+    }
+
+    public void setNbUpdated(int nbUpdated) {
+        this.nbUpdated = nbUpdated;
     }
 }

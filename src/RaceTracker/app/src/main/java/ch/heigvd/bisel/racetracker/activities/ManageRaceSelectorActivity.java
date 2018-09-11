@@ -17,9 +17,6 @@ public class ManageRaceSelectorActivity extends AppCompatActivity {
 
     public void goToCreateRace(View view) {
         Intent intent = new Intent(this, CreateNewRaceActivity.class);
-        /*EditText editText = (EditText) findViewById(R.id.editText);
-        String message = editText.getText().toString();
-        intent.putExtra(EXTRA_MESSAGE, message);*/
         startActivity(intent);
     }
 
@@ -32,7 +29,8 @@ public class ManageRaceSelectorActivity extends AppCompatActivity {
     }
 
     public void goToCreateCompetitor(View view) {
-
+        Intent intent = new Intent(this, CreateNewCompetitorActivity.class);
+        startActivity(intent);
     }
 
     public void goToAssignCompetitor(View view) {

@@ -9,14 +9,19 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 
-/* TODO Clean-up */
-public class RaceTrackerDBAsyncTask extends AsyncTask<RaceTrackerQuery, Void, ArrayList<RaceTrackerQuery>> {
+public class RaceTrackerExecuteQuery extends AsyncTask<RaceTrackerQuery, Void, ArrayList<RaceTrackerQuery>> {
     private String connection;
     private String user;
     private String password;
     private ArrayList<RaceTrackerQuery> results;
 
-    public RaceTrackerDBAsyncTask(String connection, String user, String password) {
+    /**
+     * Create a new instance to execute a query
+     * @param connection Connection to the DB
+     * @param user User of the DB
+     * @param password Pwd of the DB
+     */
+    public RaceTrackerExecuteQuery(String connection, String user, String password) {
         this.connection = connection;
         this.user = user;
         this.password = password;
@@ -30,19 +35,11 @@ public class RaceTrackerDBAsyncTask extends AsyncTask<RaceTrackerQuery, Void, Ar
         super.onPostExecute(results);
 
         for(RaceTrackerQuery result : results) {
-            result.getCallbackExecuted().onQueryExecuted(result);
+            if (result.getCallbackExecuted() != null) {
+                result.getCallbackExecuted().onQueryExecuted(result);
+            }
         }
 
-
-        /*try {*/
-            /* Execu*te all the callbacks */
-            /*for(RaceTrackerQuery result : results) {
-                result.getCallbackResultReady().onQueryResultReady(result);
-                result.close();
-            }*/
-        /*} catch (SQLException e) {
-            e.printStackTrace();
-        }*/
     }
 
     /**
@@ -50,33 +47,23 @@ public class RaceTrackerDBAsyncTask extends AsyncTask<RaceTrackerQuery, Void, Ar
      */
     @Override
     public ArrayList<RaceTrackerQuery> doInBackground(RaceTrackerQuery... queries) {
-        //Statement st;
         results = new ArrayList<>();
 
-        //try {
             for(int i = 0; i < queries.length; i++) {
                 try (Connection conn = DriverManager.getConnection(connection, user, password);
                      Statement st = conn.createStatement();
                      ResultSet rs = st.executeQuery(queries[i].getQuery())) {
                     queries[i].setResult(rs);
-                    queries[i].getCallbackResultReady().onQueryResultReady(queries[i]);
+                    if (queries[i].getCallbackResultReady() != null) {
+                        queries[i].getCallbackResultReady().onQueryResultReady(queries[i]);
+                    }
                     results.add(queries[i]);
                 } catch (SQLException e) {
                     e.printStackTrace();
+                    queries[i].setException(e);
                 }
+            }
 
-                /*queries[i].setConnection(conn);
-                st = queries[i].getConnection().createStatement();
-                queries[i].setResult(st.executeQuery(queries[i].getQuery()));
-                results.add(queries[i]);*/
-            }
-        /*} catch (SQLException e) {
-            System.out.println("DBG: " + e.getMessage());
-            for(int i = 0; i < queries.length; i++) {
-                queries[i].setException(e);
-                results.add(queries[i]);
-            }
-        }*/
         return results;
     }
 }

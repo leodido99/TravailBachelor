@@ -5,6 +5,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 
+/*  TODO CLean-uip*/
 public class RaceTrackerCompetition implements Serializable {
     private int competitionId;
     private String name;

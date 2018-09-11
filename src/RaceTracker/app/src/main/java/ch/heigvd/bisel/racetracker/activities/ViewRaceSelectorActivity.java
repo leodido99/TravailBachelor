@@ -65,7 +65,6 @@ public class ViewRaceSelectorActivity extends AppCompatActivity implements RaceT
         mRecyclerView.addOnItemTouchListener(new RecyclerTouchListener(getApplicationContext(), mRecyclerView, new RecyclerTouchListener.ClickListener() {
             @Override
             public void onClick(View view, int position) {
-                //Movie movie = movieList.get(position);
                 RaceTrackerCompetition competition = competitions.getCompetitions().get(position);
                 /* Add competition class to intent so next activity can retrieve it */
                 Intent intent = new Intent(view.getContext(), ViewRaceActivity.class);

@@ -38,4 +38,8 @@
     <string name="leave_trail_key">leave_trail</string>
     <string name="pref_leave_trail">Afficher tous les points</string>
     <string name="default_leave_trail">false</string>
+
+    <string name="createnewcompetitor_first_name">Prénom</string>
+    <string name="createnewcompetitor_last_name">Nom</string>
+    <string name="createnewcompetitor_create">Créer nouveau participant</string>
 </resources>
