@@ -35,6 +35,10 @@ public class ViewRaceSelectorActivity extends AppCompatActivity implements RaceT
         mAdapter.notifyDataSetChanged();
     }
 
+    /**
+     * Triggered on creation of the race selector
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -66,10 +70,12 @@ public class ViewRaceSelectorActivity extends AppCompatActivity implements RaceT
             @Override
             public void onClick(View view, int position) {
                 RaceTrackerCompetition competition = competitions.getCompetitions().get(position);
+
                 /* Add competition class to intent so next activity can retrieve it */
                 Intent intent = new Intent(view.getContext(), ViewRaceActivity.class);
                 intent.putExtra("competition", competition);
-                startActivity(intent);
+                setResult(RESULT_OK, intent);
+                finish();
             }
 
             @Override

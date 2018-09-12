@@ -5,12 +5,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.WebView;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
 
 public class RaceTrackerCompetitorAdapter extends RecyclerView.Adapter<RaceTrackerCompetitorAdapter.ViewHolder>  {
-    ArrayList<RaceTrackerCompetitor> competitors;
+    private ArrayList<RaceTrackerCompetitor> competitors;
+    private boolean hideStats;
 
     /**
      * Provide a suitable constructor (depends on the kind of dataset)
@@ -18,6 +20,15 @@ public class RaceTrackerCompetitorAdapter extends RecyclerView.Adapter<RaceTrack
      */
     public RaceTrackerCompetitorAdapter(ArrayList<RaceTrackerCompetitor> competitors) {
         this.competitors = competitors;
+        hideStats = false;
+    }
+
+    public boolean isHideStats() {
+        return hideStats;
+    }
+
+    public void setHideStats(boolean hideStats) {
+        this.hideStats = hideStats;
     }
 
     /**
@@ -29,6 +40,7 @@ public class RaceTrackerCompetitorAdapter extends RecyclerView.Adapter<RaceTrack
         public TextView firstName, lastName, bibNumber, distance, elapsedTime, speed;
         public TextView heartRate, cadence;
         public WebView countryFlag;
+        public ImageView heartIcon, cadenceIcon;
 
         public ViewHolder(View v) {
             super(v);
@@ -41,6 +53,8 @@ public class RaceTrackerCompetitorAdapter extends RecyclerView.Adapter<RaceTrack
             elapsedTime = itemView.findViewById(R.id.CompetitorTimeElapsed);
             countryFlag = itemView.findViewById(R.id.CompetitorCountry);
             cadence = itemView.findViewById(R.id.CompetitorCadence);
+            heartIcon = itemView.findViewById(R.id.HeartIcon);
+            cadenceIcon = itemView.findViewById(R.id.CadenceIcon);
         }
     }
 
@@ -69,17 +83,31 @@ public class RaceTrackerCompetitorAdapter extends RecyclerView.Adapter<RaceTrack
     public void onBindViewHolder(RaceTrackerCompetitorAdapter.ViewHolder holder, int position) {
         holder.firstName.setText(competitors.get(position).getFirstName());
         holder.lastName.setText(competitors.get(position).getLastName());
-        holder.bibNumber.setText("#" + competitors.get(position).getBibNumber());
-        holder.heartRate.setText(Integer.toString(competitors.get(position).getCurrHeartRate()));
-        holder.cadence.setText(Integer.toString(competitors.get(position).getCurrCadence()));
-        holder.distance.setText(String.format("%.2f", competitors.get(position).getDistance()) + " km");
-        holder.speed.setText(String.format("%.1f", competitors.get(position).getSpeed()) + " min/km");
-        holder.elapsedTime.setText(String.format("%02d:%02d:%02d",
-                competitors.get(position).getElapsedTimeH(),
-                competitors.get(position).getElapsedTimeM(),
-                competitors.get(position).getElapsedTimeS()));
         if (competitors.get(position).getCountry() != null) {
             holder.countryFlag.loadData(competitors.get(position).getCountry().getCountryFlagXml(), "text/xml" , null);
+        }
+
+        if (hideStats) {
+            holder.bibNumber.setVisibility(View.GONE);
+            holder.heartRate.setVisibility(View.GONE);
+            holder.cadence.setVisibility(View.GONE);
+            holder.distance.setVisibility(View.GONE);
+            holder.speed.setVisibility(View.GONE);
+            holder.elapsedTime.setVisibility(View.GONE);
+            holder.bibNumber.setVisibility(View.GONE);
+            holder.cadenceIcon.setVisibility(View.GONE);
+            holder.heartIcon.setVisibility(View.GONE);
+            holder.countryFlag.setVisibility(View.GONE);
+        } else {
+            holder.bibNumber.setText("#" + competitors.get(position).getBibNumber());
+            holder.heartRate.setText(Integer.toString(competitors.get(position).getCurrHeartRate()));
+            holder.cadence.setText(Integer.toString(competitors.get(position).getCurrCadence()));
+            holder.distance.setText(String.format("%.2f", competitors.get(position).getDistance()) + " km");
+            holder.speed.setText(String.format("%.1f", competitors.get(position).getSpeed()) + " min/km");
+            holder.elapsedTime.setText(String.format("%02d:%02d:%02d",
+                    competitors.get(position).getElapsedTimeH(),
+                    competitors.get(position).getElapsedTimeM(),
+                    competitors.get(position).getElapsedTimeS()));
         }
     }
 

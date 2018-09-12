@@ -12,6 +12,7 @@ import java.util.ArrayList;
 
 import ch.heigvd.bisel.racetracker.R;
 import ch.heigvd.bisel.racetracker.RaceTrackerCompetitor;
+import ch.heigvd.bisel.racetracker.RaceTrackerCompetitors;
 import ch.heigvd.bisel.racetracker.RaceTrackerCountries;
 import ch.heigvd.bisel.racetracker.RaceTrackerCountry;
 import ch.heigvd.bisel.racetracker.RaceTrackerCountryAdapter;
@@ -24,6 +25,7 @@ public class CreateNewCompetitorActivity extends AppCompatActivity implements Ra
     private RecyclerView.LayoutManager mLayoutManager;
     private ArrayList<RaceTrackerCountry> countries;
     private RaceTrackerCountry competitorCountry;
+    private RaceTrackerDBConnection connection;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,7 +57,7 @@ public class CreateNewCompetitorActivity extends AppCompatActivity implements Ra
         }));
 
         /* Get list of countries */
-        RaceTrackerDBConnection connection = new RaceTrackerDBConnection(getApplicationContext(),
+        connection = new RaceTrackerDBConnection(getApplicationContext(),
                 getResources().getString(R.string.db_server_key),
                 getResources().getString(R.string.db_user_key),
                 getResources().getString(R.string.db_pwd_key));
@@ -81,9 +83,11 @@ public class CreateNewCompetitorActivity extends AppCompatActivity implements Ra
 
         RaceTrackerCompetitor competitor = new RaceTrackerCompetitor();
         competitor.setFirstName(((EditText)findViewById(R.id.competitorFirstName)).getText().toString());
-        competitor.setFirstName(((EditText)findViewById(R.id.competitorLastName)).getText().toString());
+        competitor.setLastName(((EditText)findViewById(R.id.competitorLastName)).getText().toString());
         competitor.setCountryCode(competitorCountry.getCountryCode());
-
-
+        RaceTrackerCompetitors competitors = new RaceTrackerCompetitors(connection);
+        competitors.insertNewCompetitor(competitor);
+        /* TODO Check insert is OK */
+        finish();
     }
 }

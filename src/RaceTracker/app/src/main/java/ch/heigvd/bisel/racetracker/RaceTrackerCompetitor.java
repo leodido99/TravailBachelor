@@ -1,9 +1,11 @@
 package ch.heigvd.bisel.racetracker;
 
 import android.location.Location;
+import android.os.Parcelable;
 
 import com.google.android.gms.maps.model.Marker;
 
+import java.io.Serializable;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
@@ -11,7 +13,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 
-public class RaceTrackerCompetitor {
+public class RaceTrackerCompetitor implements Serializable {
     private int competitorId;
     private String countryCode;
     private String firstName;
@@ -52,8 +54,18 @@ public class RaceTrackerCompetitor {
             countryCode = fromDB.getString("country_code");
             firstName = fromDB.getString("first_name");
             lastName = fromDB.getString("last_name");
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        try {
             bibNumber = fromDB.getInt("bib_number");
             sensorId = fromDB.getInt("sensor_id");
+        } catch (SQLException e) {
+            /* Assume that Bib and Sensor IDs are not part of resultSet */
+            bibNumber = 0;
+            sensorId = 0;
+        }
             distance = 0.0f;
             speed = 0.0f;
             elapsedTimeH = 0;
@@ -61,9 +73,6 @@ public class RaceTrackerCompetitor {
             elapsedTimeS = 0;
             currHeartRate = 0;
             currCadence = 0;
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
     }
 
     /**

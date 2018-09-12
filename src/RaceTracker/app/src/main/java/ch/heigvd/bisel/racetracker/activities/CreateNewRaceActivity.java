@@ -32,7 +32,7 @@ import ch.heigvd.bisel.racetracker.fragments.TimePickerFragment;
 public class CreateNewRaceActivity extends AppCompatActivity implements
         DatePickerDialog.OnDateSetListener,
         TimePickerDialog.OnTimeSetListener {
-    int PLACE_PICKER_REQUEST = 1;
+    final static int PLACE_PICKER_REQUEST = 1;
     private Calendar dateTime;
     private LatLngWrapper raceLocation;
     private float zoom;

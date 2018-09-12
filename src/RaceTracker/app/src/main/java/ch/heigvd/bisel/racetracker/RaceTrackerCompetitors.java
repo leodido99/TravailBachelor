@@ -9,6 +9,34 @@ public class RaceTrackerCompetitors implements OnQueryResultReady, OnQueryExecut
     private ArrayList<RaceTrackerCompetitor> competitors;
     private RaceTrackerCompetitors.OnCompetitorsReady callback;
     private RaceTrackerQuery query;
+    private RaceTrackerDBConnection connection;
+
+    /**
+     * Create a new instance
+     * @param connection Connection to DB
+     */
+    public RaceTrackerCompetitors(RaceTrackerDBConnection connection) {
+        this.connection = connection;
+    }
+
+    /**
+     * Create new instance providing all competitors
+     * @param connection Connection to DB
+     * @param callback Callback called on result ready
+     */
+    public RaceTrackerCompetitors(RaceTrackerDBConnection connection,
+                                  RaceTrackerCompetitors.OnCompetitorsReady callback) {
+        this(connection);
+        this.callback = callback;
+        competitors = new ArrayList<>();
+
+        /* Prepare and execute query */
+        query = new RaceTrackerQuery(connection);
+        query.setQuery("SELECT * FROM race_tracker.competitor;");
+        query.setCallbackResultReady(this);
+        query.setCallbackExecuted(this);
+        query.execute();
+    }
 
     /**
      * Create a new instance to retrieve the list of competitors
@@ -16,7 +44,10 @@ public class RaceTrackerCompetitors implements OnQueryResultReady, OnQueryExecut
      * @param callback Called when competitions are ready to be retrieved
      * @param competitionId Competition ID to retrieve the competitors
      */
-    public RaceTrackerCompetitors(RaceTrackerDBConnection connection, RaceTrackerCompetitors.OnCompetitorsReady callback, int competitionId) {
+    public RaceTrackerCompetitors(RaceTrackerDBConnection connection,
+                                  RaceTrackerCompetitors.OnCompetitorsReady callback,
+                                  int competitionId) {
+        this(connection);
         this.competitionId = competitionId;
         this.callback = callback;
         competitors = new ArrayList<>();
@@ -29,6 +60,21 @@ public class RaceTrackerCompetitors implements OnQueryResultReady, OnQueryExecut
                 "WHERE competitor_registration.competition_id = {0};", this.competitionId));
         query.setCallbackResultReady(this);
         query.setCallbackExecuted(this);
+        query.execute();
+    }
+
+    /**
+     * Insert new competitor
+     * @param competitor Competitor
+     */
+    public void insertNewCompetitor(RaceTrackerCompetitor competitor) {
+        RaceTrackerQuery query = new RaceTrackerQuery(connection);
+        query.setQuery(MessageFormat.format("INSERT INTO race_tracker.competitor " +
+                        "(first_name, last_name, country_code) VALUES (''{0}'', ''{1}'', ''{2}'');",
+                competitor.getFirstName(),
+                competitor.getLastName(),
+                competitor.getCountryCode()));
+        query.setUpdateQuery(true);
         query.execute();
     }
 

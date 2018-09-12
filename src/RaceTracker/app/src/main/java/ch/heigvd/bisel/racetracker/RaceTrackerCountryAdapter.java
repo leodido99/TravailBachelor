@@ -21,8 +21,6 @@ public class RaceTrackerCountryAdapter extends RecyclerView.Adapter<RaceTrackerC
     // Replace the contents of a view (invoked by the layout manager)
     @Override
     public void onBindViewHolder(RaceTrackerCountryAdapter.ViewHolder holder, int position) {
-        String activeText;
-
         /* - get element from your dataset at this position
            - replace the contents of the view with that element */
         holder.countryCode.setText(countries.get(position).getCountryCode());
