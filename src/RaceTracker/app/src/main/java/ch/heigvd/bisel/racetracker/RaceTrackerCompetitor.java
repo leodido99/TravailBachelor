@@ -1,24 +1,26 @@
 package ch.heigvd.bisel.racetracker;
 
 import android.location.Location;
+import android.os.Parcelable;
 
 import com.google.android.gms.maps.model.Marker;
 
+import java.io.Serializable;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 
-public class RaceTrackerCompetitor {
+public class RaceTrackerCompetitor implements Serializable {
     private int competitorId;
     private String countryCode;
     private String firstName;
     private String lastName;
     private int bibNumber;
     private int sensorId;
-    private RaceTrackerDataPoint prevLastDataPoint;
-    private RaceTrackerDataPoint lastDataPoint;
+
     private Marker mapMarker;
     private float distance;
     private float speed;
@@ -26,30 +28,51 @@ public class RaceTrackerCompetitor {
     private int elapsedTimeM;
     private int elapsedTimeS;
     private int currHeartRate;
+    private int currCadence;
     private Timestamp startTime;
     private RaceTrackerCountry country;
+
+    private ArrayList<RaceTrackerDataPoint> dataPoints;
+    private RaceTrackerDataPoint prevLastDataPoint;
+    private RaceTrackerDataPoint lastDataPoint;
+
+    /**
+     * Creates a new empty instance of RaceTrackerCompetitor
+     */
+    public RaceTrackerCompetitor() {
+        dataPoints = new ArrayList<>();
+    }
 
     /**
      * Construct a RaceTrackerCompetitor from the result of a query
      * @param fromDB Result from DB that contains all the expected columns
      */
     public RaceTrackerCompetitor(ResultSet fromDB) {
+        this();
         try {
             competitorId = fromDB.getInt("competitor_id");
             countryCode = fromDB.getString("country_code");
             firstName = fromDB.getString("first_name");
             lastName = fromDB.getString("last_name");
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        try {
             bibNumber = fromDB.getInt("bib_number");
             sensorId = fromDB.getInt("sensor_id");
+        } catch (SQLException e) {
+            /* Assume that Bib and Sensor IDs are not part of resultSet */
+            bibNumber = 0;
+            sensorId = 0;
+        }
             distance = 0.0f;
             speed = 0.0f;
             elapsedTimeH = 0;
             elapsedTimeM = 0;
             elapsedTimeS = 0;
             currHeartRate = 0;
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+            currCadence = 0;
     }
 
     /**
@@ -60,8 +83,8 @@ public class RaceTrackerCompetitor {
             return;
         }
 
-        mapMarker.setPosition(lastDataPoint.getPosition());
-        mapMarker.setVisible(true);
+        //mapMarker.setPosition(lastDataPoint.getPosition());
+        //mapMarker.setVisible(true);
         currHeartRate = lastDataPoint.getHeartRate();
 
         updateElapsedTime();
@@ -253,5 +276,41 @@ public class RaceTrackerCompetitor {
 
     public void setCountry(RaceTrackerCountry country) {
         this.country = country;
+    }
+
+    public int getCurrCadence() {
+        return currCadence;
+    }
+
+    public void setCurrCadence(int currCadence) {
+        this.currCadence = currCadence;
+    }
+
+    public boolean consumeDataPoint(RaceTrackerDataPoint dataPoint) {
+        if (lastDataPoint != null) {
+            /* If the data point is the same than the last one, silently skip */
+            if (lastDataPoint.getSequence() == dataPoint.getSequence()) {
+                return false;
+            }
+
+            /* Check sequence */
+            if (dataPoint.getSequence() < lastDataPoint.getSequence()) {
+                /* New data point is out of sequence */
+                throw new RuntimeException("Out of sequence data point!");
+            }
+        }
+
+        if (startTime == null) {
+            startTime = dataPoint.getTimeStamp();
+        }
+
+        if (lastDataPoint != null) {
+            prevLastDataPoint = lastDataPoint;
+        }
+
+        lastDataPoint = dataPoint;
+        update();
+
+        return true;
     }
 }

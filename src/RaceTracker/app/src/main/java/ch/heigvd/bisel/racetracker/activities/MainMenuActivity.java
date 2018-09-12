@@ -10,8 +10,10 @@ import android.view.MenuItem;
 import android.view.View;
 
 import ch.heigvd.bisel.racetracker.R;
+import ch.heigvd.bisel.racetracker.RaceTrackerCompetition;
 
 public class MainMenuActivity extends AppCompatActivity {
+    final static int SELECT_RACE = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,15 +41,29 @@ public class MainMenuActivity extends AppCompatActivity {
     }
 
     /**
-     * Go to view race activity
+     * Select a race
      * @param view
      */
-    public void goToViewRaces(View view) {
+    public void selectRace(View view) {
         Intent intent = new Intent(this, ViewRaceSelectorActivity.class);
-        /*EditText editText = (EditText) findViewById(R.id.editText);
-        String message = editText.getText().toString();
-        intent.putExtra(EXTRA_MESSAGE, message);*/
-        startActivity(intent);
+        startActivityForResult(intent, SELECT_RACE);
+    }
+
+    /**
+     * Triggered when user has selected a race
+     * @param requestCode Request code
+     * @param resultCode Result code
+     * @param data Data returned
+     */
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == SELECT_RACE) {
+            if (resultCode == RESULT_OK) {
+                RaceTrackerCompetition competition = (RaceTrackerCompetition)data.getSerializableExtra("competition");
+                Intent intent = new Intent(this, ViewRaceActivity.class);
+                intent.putExtra("competition", competition);
+                startActivity(intent);
+            }
+        }
     }
 
     /**
@@ -56,9 +72,6 @@ public class MainMenuActivity extends AppCompatActivity {
      */
     public void goToManageRaces(View view) {
         Intent intent = new Intent(this, ManageRaceSelectorActivity.class);
-        /*EditText editText = (EditText) findViewById(R.id.editText);
-        String message = editText.getText().toString();
-        intent.putExtra(EXTRA_MESSAGE, message);*/
         startActivity(intent);
     }
 
@@ -69,9 +82,6 @@ public class MainMenuActivity extends AppCompatActivity {
         Intent intent = new Intent(this, SettingsActivity.class);
         intent.putExtra(PreferenceActivity.EXTRA_SHOW_FRAGMENT, SettingsActivity.GeneralPreferenceFragment.class.getName());
         intent.putExtra(PreferenceActivity.EXTRA_NO_HEADERS,true);
-        /*EditText editText = (EditText) findViewById(R.id.editText);
-        String message = editText.getText().toString();
-        intent.putExtra(EXTRA_MESSAGE, message);*/
         startActivity(intent);
     }
 }

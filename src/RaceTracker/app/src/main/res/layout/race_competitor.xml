@@ -11,13 +11,13 @@
         android:id="@+id/CompetitorHR"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="16dp"
-        android:layout_marginStart="8dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginTop="8dp"
         android:text="HeartRate"
         android:textSize="14sp"
-        app:layout_constraintBaseline_toBaselineOf="@+id/CompetitorTimeElapsed"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/CompetitorTimeElapsed" />
+        app:layout_constraintStart_toEndOf="@+id/HeartIcon"
+        app:layout_constraintTop_toBottomOf="@+id/CompetitorDistance" />
 
     <TextView
         android:id="@+id/CompetitorLastName"
@@ -96,5 +96,40 @@
         android:layout_marginTop="8dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/HeartIcon"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/CompetitorTimeElapsed"
+        app:layout_constraintTop_toBottomOf="@+id/CompetitorSpeed"
+        app:srcCompat="@drawable/heart_rate" />
+
+    <ImageView
+        android:id="@+id/CadenceIcon"
+        android:layout_width="20sp"
+        android:layout_height="20sp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/CompetitorHR"
+        app:layout_constraintTop_toBottomOf="@+id/CompetitorSpeed"
+        app:srcCompat="@drawable/cadence" />
+
+    <TextView
+        android:id="@+id/CompetitorCadence"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_marginTop="8dp"
+        android:text="Cadence"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/CadenceIcon"
+        app:layout_constraintTop_toBottomOf="@+id/CompetitorSpeed" />
 
 </android.support.constraint.ConstraintLayout>

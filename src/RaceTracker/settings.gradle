@@ -1,1 +1,1 @@
-include ':app', ':postgresql-jdbc4'
+include ':app', ':postgresql-jdbc4', ':postgresql-42.2.5'

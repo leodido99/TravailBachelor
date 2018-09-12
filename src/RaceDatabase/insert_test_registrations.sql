@@ -1,6 +1,8 @@
 -- Course Test Planeyse
 INSERT INTO race_tracker.competitor_registration (competitor_id, competition_id, sensor_id, bib_number) VALUES (1, 1, x'BEEF'::int, 5);
 INSERT INTO race_tracker.competitor_registration (competitor_id, competition_id, sensor_id, bib_number) VALUES (2, 1, x'BEEF'::int, 13);
+INSERT INTO race_tracker.competitor_registration (competitor_id, competition_id, sensor_id, bib_number) VALUES (3, 1, x'BEEF'::int, 57);
+INSERT INTO race_tracker.competitor_registration (competitor_id, competition_id, sensor_id, bib_number) VALUES (4, 1, x'BEEF'::int, 25);
 -- Fyne Tera 2018
 INSERT INTO race_tracker.competitor_registration (competitor_id, competition_id, sensor_id, bib_number) VALUES (1, 2, x'BEEF'::int, 102);
 INSERT INTO race_tracker.competitor_registration (competitor_id, competition_id, sensor_id, bib_number) VALUES (2, 2, x'BEEF'::int, 87);

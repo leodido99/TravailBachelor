@@ -1,6 +1,6 @@
 package ch.heigvd.bisel.racetracker.activities;
 
-import android.Manifest;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.support.annotation.NonNull;
@@ -18,15 +18,19 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 
 import ch.heigvd.bisel.racetracker.R;
 
-public class RaceLocationPickerActivity extends AppCompatActivity implements OnMapReadyCallback {
+public class RaceLocationPickerActivity extends AppCompatActivity
+        implements OnMapReadyCallback,
+        GoogleMap.OnMapClickListener {
 
     private GoogleMap googleMap;
+    private Marker locationMarker;
     private FusedLocationProviderClient fusedLocationProviderClient;
     private boolean locationPermissionGranted;
     // The geographical location where the device is currently located. That is, the last-known
@@ -54,6 +58,12 @@ public class RaceLocationPickerActivity extends AppCompatActivity implements OnM
         fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
     }
 
+    @Override
+    public void onMapClick(LatLng point) {
+        /* Move marker */
+        locationMarker.setPosition(point);
+    }
+
     /**
      * Manipulates the map once available.
      * This callback is triggered when the map is ready to be used.
@@ -72,6 +82,9 @@ public class RaceLocationPickerActivity extends AppCompatActivity implements OnM
 
         // Get the current location of the device and set the position of the map.
         getDeviceLocation();
+
+        /* Add on touch listener */
+        googleMap.setOnMapClickListener(this);
     }
 
     /**
@@ -160,7 +173,7 @@ public class RaceLocationPickerActivity extends AppCompatActivity implements OnM
             if (locationPermissionGranted) {
                 // Add a marker to phone position
                 LatLng current = new LatLng(lastKnownLocation.getLatitude(), lastKnownLocation.getLongitude());
-                this.googleMap.addMarker(new MarkerOptions()
+                locationMarker = this.googleMap.addMarker(new MarkerOptions()
                         .position(current)
                         .title("Emplacement de la course")
                         .draggable(true));
@@ -174,7 +187,16 @@ public class RaceLocationPickerActivity extends AppCompatActivity implements OnM
         }
     }
 
+    /**
+     * Called upon location selection
+     * @param view
+     */
     public void selectLocation(View view) {
-
+        Intent raceLocation = new Intent();
+        raceLocation.putExtra("latitude", locationMarker.getPosition().latitude);
+        raceLocation.putExtra("longitude", locationMarker.getPosition().longitude);
+        raceLocation.putExtra("zoom", googleMap.getCameraPosition().zoom);
+        setResult(RESULT_OK, raceLocation);
+        finish();
     }
 }

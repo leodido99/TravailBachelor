@@ -1,4 +1,20 @@
-INSERT INTO race_tracker.track_point (competition_id, sequence, position) VALUES (3, 0, ST_MakePoint(longitude, altitude));
+-- Test Planeyse
+INSERT INTO race_tracker.track_point (competition_id, sequence, position) VALUES (1, 1, ST_MakePoint(46.962366, 6.852259));
+INSERT INTO race_tracker.track_point (competition_id, sequence, position) VALUES (1, 2, ST_MakePoint(46.961719, 6.853371));
+INSERT INTO race_tracker.track_point (competition_id, sequence, position) VALUES (1, 3, ST_MakePoint(46.961683, 6.853633));
+INSERT INTO race_tracker.track_point (competition_id, sequence, position) VALUES (1, 4, ST_MakePoint(46.961734, 6.853847));
+INSERT INTO race_tracker.track_point (competition_id, sequence, position) VALUES (1, 5, ST_MakePoint(46.961857, 6.853984));
+INSERT INTO race_tracker.track_point (competition_id, sequence, position) VALUES (1, 6, ST_MakePoint(46.961973, 6.854029));
+INSERT INTO race_tracker.track_point (competition_id, sequence, position) VALUES (1, 7, ST_MakePoint(46.962145, 6.853943));
+INSERT INTO race_tracker.track_point (competition_id, sequence, position) VALUES (1, 8, ST_MakePoint(46.962791, 6.852855));
+INSERT INTO race_tracker.track_point (competition_id, sequence, position) VALUES (1, 9, ST_MakePoint(46.962860, 6.852641));
+INSERT INTO race_tracker.track_point (competition_id, sequence, position) VALUES (1, 10, ST_MakePoint(46.962837, 6.852433));
+INSERT INTO race_tracker.track_point (competition_id, sequence, position) VALUES (1, 11, ST_MakePoint(46.962742, 6.852263));
+INSERT INTO race_tracker.track_point (competition_id, sequence, position) VALUES (1, 12, ST_MakePoint(46.962633, 6.852180));
+INSERT INTO race_tracker.track_point (competition_id, sequence, position) VALUES (1, 13, ST_MakePoint(46.962510, 6.852167));
+INSERT INTO race_tracker.track_point (competition_id, sequence, position) VALUES (1, 14, ST_MakePoint(46.962366, 6.852259));
+
+-- Fyne Tera 2018
 INSERT INTO race_tracker.track_point (competition_id, sequence, position) VALUES (3, 1, ST_MakePoint(46.785671000, 6.642499000));
 INSERT INTO race_tracker.track_point (competition_id, sequence, position) VALUES (3, 2, ST_MakePoint(46.785653000, 6.642478000));
 INSERT INTO race_tracker.track_point (competition_id, sequence, position) VALUES (3, 3, ST_MakePoint(46.785565000, 6.642408000));
