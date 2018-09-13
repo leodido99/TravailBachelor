@@ -30,11 +30,9 @@ public class StartEndRaceActivity extends AppCompatActivity implements OnUpdateD
 
         Button button = ((Button)findViewById(R.id.StartEndButton));
         if (competition.isActive()) {
-            button.setText(getResources().getString(R.string.managemenu_race_start_button_start));
-            start = false;
-        } else {
             button.setText(getResources().getString(R.string.managemenu_race_start_button_end));
-            start = true;
+        } else {
+            button.setText(getResources().getString(R.string.managemenu_race_start_button_start));
         }
     }
 
@@ -46,7 +44,7 @@ public class StartEndRaceActivity extends AppCompatActivity implements OnUpdateD
                 getResources().getString(R.string.db_pwd_key));
 
         RaceTrackerCompetitions competitions = new RaceTrackerCompetitions(connection);
-        competition.setActive(start);
+        competition.setActive(!competition.isActive());
         competitions.updateRace(competition, this);
     }
 
@@ -55,7 +53,6 @@ public class StartEndRaceActivity extends AppCompatActivity implements OnUpdateD
         if (exception != null) {
             Toast.makeText(getApplicationContext(), "Impossible de changer l'état de la course "
                     + exception.getMessage(), Toast.LENGTH_LONG).show();
-            return;
         } else {
             Toast.makeText(getApplicationContext(), "Course mise à jour", Toast.LENGTH_SHORT).show();
         }
