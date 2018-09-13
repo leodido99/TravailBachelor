@@ -51,11 +51,12 @@ public class RaceTrackerExecuteUpdate extends AsyncTask<RaceTrackerQuery, Void, 
             try (Connection conn = DriverManager.getConnection(connection, user, password);
                  PreparedStatement st = conn.prepareStatement(queries[i].getQuery())) {
                 queries[i].setNbUpdated(st.executeUpdate());
-                results.add(queries[i]);
             } catch (SQLException e) {
                 e.printStackTrace();
                 queries[i].setException(e);
             }
+
+            results.add(queries[i]);
         }
 
         return results;

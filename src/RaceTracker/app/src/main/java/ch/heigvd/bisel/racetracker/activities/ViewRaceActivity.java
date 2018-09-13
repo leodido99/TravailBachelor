@@ -10,7 +10,6 @@ import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
-import android.widget.Toast;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -23,7 +22,6 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.Polyline;
 import com.google.android.gms.maps.model.PolylineOptions;
 
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -31,7 +29,6 @@ import java.util.Map;
 import ch.heigvd.bisel.racetracker.R;
 import ch.heigvd.bisel.racetracker.RaceTrackerCompetition;
 import ch.heigvd.bisel.racetracker.RaceTrackerCompetitor;
-import ch.heigvd.bisel.racetracker.OnQueryResultReady;
 import ch.heigvd.bisel.racetracker.RaceTrackerCompetitorAdapter;
 import ch.heigvd.bisel.racetracker.RaceTrackerCompetitors;
 import ch.heigvd.bisel.racetracker.RaceTrackerCountries;
@@ -39,7 +36,6 @@ import ch.heigvd.bisel.racetracker.RaceTrackerCountry;
 import ch.heigvd.bisel.racetracker.RaceTrackerDBConnection;
 import ch.heigvd.bisel.racetracker.RaceTrackerDataPoint;
 import ch.heigvd.bisel.racetracker.RaceTrackerDataPoints;
-import ch.heigvd.bisel.racetracker.RaceTrackerQuery;
 import ch.heigvd.bisel.racetracker.RaceTrackerTrackPoint;
 import ch.heigvd.bisel.racetracker.RaceTrackerTrackPoints;
 
@@ -49,23 +45,20 @@ public class ViewRaceActivity extends AppCompatActivity implements OnMapReadyCal
         RaceTrackerDataPoints.OnDataPointsReady,
         RaceTrackerTrackPoints.OnTrackPointsReady {
     private GoogleMap mMap;
-    private Polyline track;
 
     private RaceTrackerDataPoints dataPointsDB;
 
     private RaceTrackerCompetition competition;
     private Map<Integer, RaceTrackerCompetitor> competitors;
     private Map<String, RaceTrackerCountry> countries;
-    private ArrayList<RaceTrackerDataPoint> dataPoints;
 
-    private int handlerInterval = 5000;
+    static final int HANDLER_INTERVAL = 5000;
     private Handler handler;
     private boolean handlerStarted = false;
     private boolean systemInit = false;
 
     private RecyclerView mRecyclerView;
     private RecyclerView.Adapter mAdapter;
-    private RecyclerView.LayoutManager mLayoutManager;
 
     /**
      * Called upon Activity creation
@@ -83,7 +76,7 @@ public class ViewRaceActivity extends AppCompatActivity implements OnMapReadyCal
         /* Setup RecyclerView */
         mRecyclerView = findViewById(R.id.CompetitorsRecycler);
 
-        mLayoutManager = new LinearLayoutManager(this);
+        RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(this);
         mRecyclerView.setLayoutManager(mLayoutManager);
 
         /* Add line between items */
@@ -116,72 +109,6 @@ public class ViewRaceActivity extends AppCompatActivity implements OnMapReadyCal
 
         /* Create handler */
         handler = new Handler();
-
-        /* Create list of all data points used by the replay mode */
-        dataPoints = new ArrayList<>();
-    }
-
-    public void handleDataPointLive(RaceTrackerDataPoint dataPoint) {
-        /* Check if competitor of the data point is known */
-        if (!competitors.containsKey(dataPoint.getCompetitorId())) {
-            Toast.makeText(getApplicationContext(), "Competitor of the data point is unknown", Toast.LENGTH_LONG).show();
-            return;
-        }
-
-        /* Check if the marker position needs updating */
-        /* TODO Check for jump in sequence i.e lost packet */
-        if (!competitors.get(dataPoint.getCompetitorId()).hasLastDataPoint() ||
-            dataPoint.getSequence() > competitors.get(dataPoint.getCompetitorId()).getLastDataPoint().getSequence()) {
-            /* Retrieve preferences manager */
-            SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-
-            /* In leave position trail mode, we create a new marker to save the last position */
-            if (competitors.get(dataPoint.getCompetitorId()).hasLastDataPoint() && sharedPref.getBoolean("leave_point_trail", false)) {
-                /* Create new marker at old position */
-                Marker oldpos = mMap.addMarker(new MarkerOptions().position(competitors.get(dataPoint.getCompetitorId()).getMapMarker().getPosition()));
-                oldpos.setIcon(BitmapDescriptorFactory.fromResource(R.drawable.competitor_marker_grey));
-                oldpos.setAnchor(0.5f, 0.5f);
-                oldpos.setTitle(competitors.get(dataPoint.getCompetitorId()).getMapMarker().getTitle()
-                        + " #" + competitors.get(dataPoint.getCompetitorId()).getLastDataPoint().getSequence());
-            }
-
-            /* Add data point to competitor and update the marker position */
-            competitors.get(dataPoint.getCompetitorId()).setLastDataPoint(dataPoint);
-        }
-    }
-
-    public void handleDataPointReplay(RaceTrackerDataPoint dataPoint) {
-
-    }
-
-    /**
-     * Class handling the result of the last data point query
-     * This query retrieves all the last data points (highest sequence number)
-     */
-    public class OnLastDataPointResults implements OnQueryResultReady {
-        private RaceTrackerQuery results;
-
-        public RaceTrackerQuery getResults() {
-            return results;
-        }
-
-        /* Callback when competitions are ready */
-        public void onQueryResultReady(RaceTrackerQuery results) throws SQLException {
-            this.results = results;
-
-            if (results.getException() != null) {
-                /* Exception during query */
-                Toast.makeText(getApplicationContext(), "Exception during query: " + results.getException().getMessage(), Toast.LENGTH_LONG).show();
-            } else {
-                while (results.getResult().next()) {
-                    RaceTrackerDataPoint dataPoint = new RaceTrackerDataPoint(results.getResult());
-                    handleDataPointLive(dataPoint);
-                }
-            }
-
-            /* Updates UI */
-            //mAdapter.notifyDataSetChanged();
-        }
     }
 
     /**
@@ -233,6 +160,9 @@ public class ViewRaceActivity extends AppCompatActivity implements OnMapReadyCal
         resetCamera();
     }
 
+    /**
+     * Runnable used to periodically query data points
+     */
     Runnable dataPointChecker = new Runnable() {
         @Override
         public void run() {
@@ -240,7 +170,7 @@ public class ViewRaceActivity extends AppCompatActivity implements OnMapReadyCal
                 dataPointsDB.getLastPoints();
             } finally {
                 /* Restart handler */
-                handler.postDelayed(dataPointChecker, handlerInterval);
+                handler.postDelayed(dataPointChecker, HANDLER_INTERVAL);
             }
         }
     };
@@ -333,7 +263,7 @@ public class ViewRaceActivity extends AppCompatActivity implements OnMapReadyCal
             trackPositions.add(trackPoint.getPosition());
         }
 
-        track = mMap.addPolyline(new PolylineOptions()
+        Polyline track = mMap.addPolyline(new PolylineOptions()
                 .width(5)
                 .color(Color.RED));
         track.setPoints(trackPositions);
@@ -349,8 +279,6 @@ public class ViewRaceActivity extends AppCompatActivity implements OnMapReadyCal
         Marker lastMarker = null;
         int cnt = 0;
         boolean consumed;
-
-        /* TODO Replay mode */
 
         /* Dispatch data points to the competitors */
         for (Map.Entry<Integer, ArrayList<RaceTrackerDataPoint>> entry : dataPoints.entrySet()) {

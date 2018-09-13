@@ -86,7 +86,9 @@
             android:label="@string/title_activity_view_race_google" />
         <activity android:name=".activities.CreateNewCompetitorActivity" />
         <activity android:name=".activities.RegistrationsActivity" />
-        <activity android:name=".activities.RegistrationEditActivity"></activity>
+        <activity android:name=".activities.RegistrationEditActivity" />
+        <activity android:name=".activities.StartEndRaceActivity" />
+        <activity android:name=".activities.ReplayRaceActivity"></activity>
     </application>
 
 </manifest>

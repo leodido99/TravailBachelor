@@ -1,5 +1,7 @@
 package ch.heigvd.bisel.racetracker;
 
+import android.graphics.Color;
+import android.support.v4.content.res.ResourcesCompat;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,6 +15,8 @@ import java.util.ArrayList;
 public class RaceTrackerCompetitorAdapter extends RecyclerView.Adapter<RaceTrackerCompetitorAdapter.ViewHolder>  {
     private ArrayList<RaceTrackerCompetitor> competitors;
     private boolean hideStats;
+    private boolean focusEnable;
+    private int focusedItem;
 
     /**
      * Provide a suitable constructor (depends on the kind of dataset)
@@ -21,6 +25,16 @@ public class RaceTrackerCompetitorAdapter extends RecyclerView.Adapter<RaceTrack
     public RaceTrackerCompetitorAdapter(ArrayList<RaceTrackerCompetitor> competitors) {
         this.competitors = competitors;
         hideStats = false;
+        focusEnable = true;
+        focusedItem = 0;
+    }
+
+    public boolean isFocusEnable() {
+        return focusEnable;
+    }
+
+    public void setFocusEnable(boolean focusEnable) {
+        this.focusEnable = focusEnable;
     }
 
     public boolean isHideStats() {
@@ -36,7 +50,7 @@ public class RaceTrackerCompetitorAdapter extends RecyclerView.Adapter<RaceTrack
      * Complex data items may need more than one view per item, and
      * you provide access to all the views for a data item in a view holder
      */
-    public static class ViewHolder extends RecyclerView.ViewHolder {
+    public class ViewHolder extends RecyclerView.ViewHolder {
         public TextView firstName, lastName, bibNumber, distance, elapsedTime, speed;
         public TextView heartRate, cadence;
         public WebView countryFlag;
@@ -55,6 +69,20 @@ public class RaceTrackerCompetitorAdapter extends RecyclerView.Adapter<RaceTrack
             cadence = itemView.findViewById(R.id.CompetitorCadence);
             heartIcon = itemView.findViewById(R.id.HeartIcon);
             cadenceIcon = itemView.findViewById(R.id.CadenceIcon);
+
+            /* Handle item click and set the selection */
+            if (focusEnable) {
+                itemView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        System.out.println("1 ViewHolder Focused " + focusedItem);
+                        notifyItemChanged(focusedItem);
+                        focusedItem = getLayoutPosition();
+                        System.out.println("2 ViewHolder Focused " + focusedItem);
+                        notifyItemChanged(focusedItem);
+                    }
+                });
+            }
         }
     }
 
@@ -108,6 +136,12 @@ public class RaceTrackerCompetitorAdapter extends RecyclerView.Adapter<RaceTrack
                     competitors.get(position).getElapsedTimeH(),
                     competitors.get(position).getElapsedTimeM(),
                     competitors.get(position).getElapsedTimeS()));
+        }
+
+        if (focusEnable) {
+            System.out.println("onBindViewHolder Focused " + focusedItem +
+            " Selected " + holder.itemView.isSelected());
+            holder.itemView.setSelected(focusedItem == position);
         }
     }
 

@@ -12,6 +12,9 @@
     <string name="pref_header_general">Général</string>
     <string name="managemenu_new_competitor">Créer un participant</string>
     <string name="managemenu_race_registration">Inscriptions</string>
+    <string name="managemenu_race_start">Début/Fin de course</string>
+    <string name="managemenu_race_start_button_start">Débuter la course</string>
+    <string name="managemenu_race_start_button_end">Terminer la course</string>
 
     <string name="create_new_race_default">Nom de la course</string>
     <string name="createnewrace_set_date">Date</string>

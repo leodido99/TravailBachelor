@@ -8,11 +8,14 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
+import ch.heigvd.bisel.racetracker.OnUpdateDone;
 import ch.heigvd.bisel.racetracker.R;
 import ch.heigvd.bisel.racetracker.RaceTrackerCompetition;
 import ch.heigvd.bisel.racetracker.RaceTrackerCompetitor;
@@ -24,7 +27,8 @@ import ch.heigvd.bisel.racetracker.RaceTrackerRegistrations;
 
 public class RegistrationsActivity extends AppCompatActivity implements
         RaceTrackerRegistrations.OnRegistrationsReady,
-        RaceTrackerCompetitors.OnCompetitorsReady {
+        RaceTrackerCompetitors.OnCompetitorsReady,
+        OnUpdateDone {
     final static int NEW_REGISTRATION = 0;
     final static int EDIT_REGISTRATION = 0;
     private RaceTrackerCompetition competition;
@@ -69,7 +73,6 @@ public class RegistrationsActivity extends AppCompatActivity implements
                 this);
         RaceTrackerRegistrations registration = new RaceTrackerRegistrations(connection,
                 this, competition.getCompetitionId());
-
     }
 
     /**
@@ -105,8 +108,10 @@ public class RegistrationsActivity extends AppCompatActivity implements
             registration.setCompetitor(competitorsMap.get(registration.getCompetitorId()));
         }
 
+        this.registrations = registrations;
+
         /* Initialize adapter and add it to view */
-        mAdapter = new RaceTrackerRegistrationAdapter(registrations);
+        mAdapter = new RaceTrackerRegistrationAdapter(this.registrations);
         mRecyclerView.setAdapter(mAdapter);
 
         mAdapter.notifyDataSetChanged();
@@ -125,8 +130,27 @@ public class RegistrationsActivity extends AppCompatActivity implements
                 registration.setCompetitionId(competition.getCompetitionId());
                 /* Write to DB */
                 RaceTrackerRegistrations registrations = new RaceTrackerRegistrations(connection);
-                registrations.insertNewRegistration(registration);
+                registrations.insertNewRegistration(registration, this);
+                /* Add the new registration to the list and update GUI */
+                registration.setCompetitor(competitorsMap.get(registration.getCompetitorId()));
+                this.registrations.add(registration);
+                mAdapter.notifyDataSetChanged();
             }
+        }
+    }
+
+    /**
+     * Triggered on insertion finished
+     * @param nbItems Number of items updated
+     * @param exception Exception if one occurred, otherwise null
+     */
+    @Override
+    public void onInsertDone(int nbItems, SQLException exception) {
+        if (exception != null) {
+            Toast.makeText(getApplicationContext(), "Impossible d'ajouter le participant "
+                    + exception.getMessage(), Toast.LENGTH_LONG).show();
+        } else {
+            Toast.makeText(getApplicationContext(), "Ajouté " + nbItems + " participant", Toast.LENGTH_SHORT).show();
         }
     }
 }

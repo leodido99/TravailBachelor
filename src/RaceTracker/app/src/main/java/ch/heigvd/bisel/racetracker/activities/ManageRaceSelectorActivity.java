@@ -9,7 +9,8 @@ import ch.heigvd.bisel.racetracker.R;
 import ch.heigvd.bisel.racetracker.RaceTrackerCompetition;
 
 public class ManageRaceSelectorActivity extends AppCompatActivity {
-    final static int SELECT_RACE = 0;
+    final static int SELECT_RACE_REGISTRATION = 0;
+    final static int SELECT_RACE_START_END = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,8 +23,9 @@ public class ManageRaceSelectorActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-    public void goToModifyRace(View view) {
-
+    public void goToStartEndRace(View view) {
+        Intent intent = new Intent(this, ViewRaceSelectorActivity.class);
+        startActivityForResult(intent, SELECT_RACE_START_END);
     }
 
     public void goToCreateCompetitor(View view) {
@@ -33,7 +35,7 @@ public class ManageRaceSelectorActivity extends AppCompatActivity {
 
     public void goToRegistrations(View view) {
         Intent intent = new Intent(this, ViewRaceSelectorActivity.class);
-        startActivityForResult(intent, SELECT_RACE);
+        startActivityForResult(intent, SELECT_RACE_REGISTRATION);
     }
 
     /**
@@ -43,13 +45,21 @@ public class ManageRaceSelectorActivity extends AppCompatActivity {
      * @param data Data returned
      */
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (requestCode == SELECT_RACE) {
-            if (resultCode == RESULT_OK) {
-                RaceTrackerCompetition competition = (RaceTrackerCompetition)data.getSerializableExtra("competition");
-                Intent intent = new Intent(this, RegistrationsActivity.class);
-                intent.putExtra("competition", competition);
-                startActivity(intent);
+        Intent intent = null;
+
+        if (resultCode == RESULT_OK) {
+            RaceTrackerCompetition competition = (RaceTrackerCompetition)data.getSerializableExtra("competition");
+            if (requestCode == SELECT_RACE_REGISTRATION) {
+                intent = new Intent(this, RegistrationsActivity.class);
+            } else if (requestCode == SELECT_RACE_START_END) {
+                intent = new Intent(this, StartEndRaceActivity.class);
+            } else {
+                throw new RuntimeException("Unknown selection");
             }
+
+            intent.putExtra("competition", competition);
+            startActivity(intent);
         }
     }
+
 }

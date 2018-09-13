@@ -2,6 +2,7 @@ package ch.heigvd.bisel.racetracker.activities;
 
 import android.app.DatePickerDialog;
 
+import java.sql.SQLException;
 import java.util.Date;
 import java.sql.Timestamp;
 import java.text.DateFormat;
@@ -22,6 +23,7 @@ import android.widget.TimePicker;
 import android.widget.Toast;
 
 import ch.heigvd.bisel.racetracker.LatLngWrapper;
+import ch.heigvd.bisel.racetracker.OnUpdateDone;
 import ch.heigvd.bisel.racetracker.R;
 import ch.heigvd.bisel.racetracker.RaceTrackerCompetition;
 import ch.heigvd.bisel.racetracker.RaceTrackerCompetitions;
@@ -31,7 +33,8 @@ import ch.heigvd.bisel.racetracker.fragments.TimePickerFragment;
 
 public class CreateNewRaceActivity extends AppCompatActivity implements
         DatePickerDialog.OnDateSetListener,
-        TimePickerDialog.OnTimeSetListener {
+        TimePickerDialog.OnTimeSetListener,
+        OnUpdateDone {
     final static int PLACE_PICKER_REQUEST = 1;
     private Calendar dateTime;
     private LatLngWrapper raceLocation;
@@ -159,7 +162,7 @@ public class CreateNewRaceActivity extends AppCompatActivity implements
         competition.setLocation(raceLocation);
         competition.setZoom(zoom);
 
-        competitions.insertNewRace(competition);
+        competitions.insertNewRace(competition, this);
 
         /* TODO Track Points */
 
@@ -182,6 +185,18 @@ public class CreateNewRaceActivity extends AppCompatActivity implements
                         " Lon: " + data.getDoubleExtra("longitude", 0) +
                         " Zoom: " + data.getFloatExtra("zoom", 0));
             }
+        }
+    }
+
+    @Override
+    public void onInsertDone(int nbItems, SQLException exception) {
+        if (exception != null) {
+            Toast.makeText(getApplicationContext(), "Impossible de créer une nouvelle course "
+                    + exception.getMessage(), Toast.LENGTH_LONG).show();
+            return;
+        } else {
+            Toast.makeText(getApplicationContext(), "Course créée avec succès",
+                    Toast.LENGTH_SHORT).show();
         }
     }
 }

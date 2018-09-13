@@ -8,6 +8,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -69,7 +70,6 @@ public class RegistrationEditActivity extends AppCompatActivity {
             @Override
             public void onClick(View view, int position) {
                 selectedCompetitor = competitors.get(position);
-                /* TODO Select in recycler view */
             }
 
             @Override
@@ -80,6 +80,25 @@ public class RegistrationEditActivity extends AppCompatActivity {
     }
 
     public void validate(View view) {
+        if (selectedCompetitor == null) {
+            Toast.makeText(this, "Vous devez séléctionner un participant", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        if (Integer.valueOf(((EditText)findViewById(R.id.RegistrationEditSensor)).getText().toString())
+                < 0 ||
+                Integer.valueOf(((EditText)findViewById(R.id.RegistrationEditSensor)).getText().toString()) > 2147483647) {
+            Toast.makeText(this, "Numéro de capteur invalide", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        if (Integer.valueOf(((EditText)findViewById(R.id.RegistrationEditBib)).getText().toString())
+                < 0 ||
+                Integer.valueOf(((EditText)findViewById(R.id.RegistrationEditBib)).getText().toString()) > 32767) {
+            Toast.makeText(this, "Numéro de dossard invalide", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
         /* Update fields */
         registration.setCompetitorId(selectedCompetitor.getCompetitorId());
         registration.setSensorId(Integer.valueOf(((EditText)findViewById(R.id.RegistrationEditSensor)).getText().toString()));

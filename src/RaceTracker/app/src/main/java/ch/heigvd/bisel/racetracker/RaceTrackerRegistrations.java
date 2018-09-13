@@ -7,6 +7,7 @@ import java.util.ArrayList;
 public class RaceTrackerRegistrations implements OnQueryResultReady, OnQueryExecuted {
     private ArrayList<RaceTrackerRegistration> registrations;
     private RaceTrackerRegistrations.OnRegistrationsReady callback;
+    private OnUpdateDone callbackInsert;
     private RaceTrackerQuery query;
     private RaceTrackerDBConnection connection;
 
@@ -45,16 +46,19 @@ public class RaceTrackerRegistrations implements OnQueryResultReady, OnQueryExec
      * Inserts a new registration
      * @param registration New registration
      */
-    public void insertNewRegistration(RaceTrackerRegistration registration) {
+    public void insertNewRegistration(RaceTrackerRegistration registration,
+                                      OnUpdateDone callback) {
         RaceTrackerQuery query = new RaceTrackerQuery(connection);
+        callbackInsert = callback;
         query.setQuery(MessageFormat.format("INSERT INTO race_tracker.competitor_registration " +
                         "(competitor_id, competition_id, sensor_id, bib_number) " +
-                        "VALUES ({1}, {2}, {3}, {4});",
-                registration.getCompetitorId(),
-                registration.getCompetitionId(),
-                registration.getSensorId(),
-                registration.getBibNumber()));
+                        "VALUES ({0}, {1}, {2}, {3});",
+                Long.toString(registration.getCompetitorId()),
+                Long.toString(registration.getCompetitionId()),
+                Long.toString(registration.getSensorId()),
+                Long.toString(registration.getBibNumber())));
         query.setUpdateQuery(true);
+        query.setCallbackExecuted(this);
         query.execute();
     }
 
@@ -64,7 +68,11 @@ public class RaceTrackerRegistrations implements OnQueryResultReady, OnQueryExec
      */
     @Override
     public void onQueryExecuted(RaceTrackerQuery query) {
-        this.callback.onRegistrationsReady(registrations);
+        if (query.isUpdateQuery()) {
+            callbackInsert.onInsertDone(query.getNbUpdated(), query.getException());
+        } else {
+            callback.onRegistrationsReady(registrations);
+        }
     }
 
     /**

@@ -6,6 +6,7 @@ import java.util.ArrayList;
 
 public class RaceTrackerCompetitions implements OnQueryResultReady, OnQueryExecuted {
     private RaceTrackerCompetitions.OnCompetitionsReady callback;
+    private OnUpdateDone callbackUpdate;
     private ArrayList<RaceTrackerCompetition> competitions;
     private RaceTrackerDBConnection connection;
 
@@ -38,8 +39,9 @@ public class RaceTrackerCompetitions implements OnQueryResultReady, OnQueryExecu
      * Insert a new race in the database
      * @param competition New race
      */
-    public void insertNewRace(RaceTrackerCompetition competition) {
+    public void insertNewRace(RaceTrackerCompetition competition, OnUpdateDone callback) {
         RaceTrackerQuery query = new RaceTrackerQuery(connection);
+        callbackUpdate = callback;
         query.setQuery(MessageFormat.format("INSERT INTO race_tracker.competition (name, location, event_date, active, zoom)" +
                 " VALUES (''{0}'', ST_MakePoint({1}, {2}), " +
                 "''{3}'', {4}, {5});",
@@ -50,6 +52,19 @@ public class RaceTrackerCompetitions implements OnQueryResultReady, OnQueryExecu
                 competition.isActive(),
                 competition.getZoom()));
         query.setUpdateQuery(true);
+        query.setCallbackExecuted(this);
+        query.execute();
+    }
+
+    public void updateRace(RaceTrackerCompetition competition, OnUpdateDone callback) {
+        RaceTrackerQuery query = new RaceTrackerQuery(connection);
+        callbackUpdate = callback;
+        query.setQuery(MessageFormat.format("UPDATE race_tracker.competition " +
+                "SET active = {0} WHERE competition_id = {1};",
+                competition.isActive(),
+                competition.getCompetitionId()));
+        query.setUpdateQuery(true);
+        query.setCallbackExecuted(this);
         query.execute();
     }
 
@@ -75,7 +90,11 @@ public class RaceTrackerCompetitions implements OnQueryResultReady, OnQueryExecu
      * @param query Query that was executed
      */
     public void onQueryExecuted(RaceTrackerQuery query) {
-        this.callback.onCompetitionsReady(competitions);
+        if (query.isUpdateQuery()) {
+            this.callbackUpdate.onInsertDone(query.getNbUpdated(), query.getException());
+        } else {
+            this.callback.onCompetitionsReady(competitions);
+        }
     }
 
     /**

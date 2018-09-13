@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.preference.PreferenceActivity;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.RecyclerView;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -15,12 +16,21 @@ import ch.heigvd.bisel.racetracker.RaceTrackerCompetition;
 public class MainMenuActivity extends AppCompatActivity {
     final static int SELECT_RACE = 1;
 
+    /**
+     * Triggered on activity creation
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_menu);
     }
 
+    /**
+     * Triggered on options menu creation
+     * @param menu
+     * @return
+     */
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
@@ -28,6 +38,11 @@ public class MainMenuActivity extends AppCompatActivity {
         return true;
     }
 
+    /**
+     * Triggered on options item selected
+     * @param item
+     * @return
+     */
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle item selection
@@ -56,10 +71,17 @@ public class MainMenuActivity extends AppCompatActivity {
      * @param data Data returned
      */
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        Intent intent;
+
         if (requestCode == SELECT_RACE) {
             if (resultCode == RESULT_OK) {
                 RaceTrackerCompetition competition = (RaceTrackerCompetition)data.getSerializableExtra("competition");
-                Intent intent = new Intent(this, ViewRaceActivity.class);
+                if (competition.isActive()) {
+                    intent = new Intent(this, ViewRaceActivity.class);
+                } else {
+                    intent = new Intent(this, ReplayRaceActivity.class);
+                }
+
                 intent.putExtra("competition", competition);
                 startActivity(intent);
             }
