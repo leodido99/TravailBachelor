@@ -127,9 +127,8 @@ public class ReplayRaceActivity extends ViewRaceActivity {
 
                     /* If the competitor is focused then update camera */
                     if (focusedCompetitor == competitors.get(lastDataPoint.getCompetitorId())) {
-                        CameraUpdate competitionLocation = CameraUpdateFactory.newLatLngZoom(
-                                next.getPosition(),
-                                FOCUSED_ZOOM);
+                        CameraUpdate competitionLocation = CameraUpdateFactory.newLatLng(
+                                next.getPosition());
                         mMap.animateCamera(competitionLocation);
                     }
 
