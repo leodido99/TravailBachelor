@@ -58,12 +58,27 @@ void read_AccMeter()
 {
     USB.print("x = ");
     USB.print(AccMeter.getX());
+    USB.print(" (");
+    USB.print(AccMeter.getXRaw());
+    USB.print(" ");
+    USB.print(AccMeter.getXRawUnsigned());
+    USB.print(" )");
 
-    USB.print("\ty = ");
+    USB.print(" y = ");
     USB.print(AccMeter.getY());
+    USB.print(" (");
+    USB.print(AccMeter.getYRaw());
+    USB.print(" ");
+    USB.print(AccMeter.getYRawUnsigned());    
+    USB.print(" )");    
 
-    USB.print("\tz = ");
-    USB.println(AccMeter.getZ());
+    USB.print(" z = ");
+    USB.print(AccMeter.getZ());
+    USB.print(" (");
+    USB.print(AccMeter.getZRaw());
+    USB.print(" ");
+    USB.print(AccMeter.getZRawUnsigned());    
+    USB.println(" )");
 }
 
 void interrupt_event()
