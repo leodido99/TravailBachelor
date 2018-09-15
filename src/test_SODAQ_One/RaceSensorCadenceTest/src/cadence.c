@@ -12,6 +12,8 @@
 
 #include "LSM303AGR.h"
 #include "leds.h"
+#include "sensor_config.h"
+
 #include "debug.h"
 
 #define DEBUG 1
@@ -157,6 +159,18 @@ static int configure_lsm303agr(const char* device)
 	if (err < 0) {
 		DBG_PRINTK("%s: Cannot configure interrupt 1", __func__);
 		return CADENCE_CONFIGURATION_ERROR;
+	}
+
+	/* Set interrupt threshold */
+	err = lsm303agr_set_interrupt_threshold(ACCELEROMETER_Z_THRESHOLD);
+	if (err < 0) {
+		DBG_PRINTK("%s: Cannot set threshold", __func__);
+	}
+
+	/* Set duration of the interrupt */
+	err = lsm303agr_set_interrupt_duration(ACCELEROMETER_INT_DURATION);
+	if (err < 0) {
+		DBG_PRINTK("%s: Cannot set duration", __func__);
 	}
 
 	/* Enable interrupt */
