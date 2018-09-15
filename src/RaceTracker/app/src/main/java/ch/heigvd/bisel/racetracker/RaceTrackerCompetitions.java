@@ -91,7 +91,7 @@ public class RaceTrackerCompetitions implements OnQueryResultReady, OnQueryExecu
      */
     public void onQueryExecuted(RaceTrackerQuery query) {
         if (query.isUpdateQuery()) {
-            this.callbackUpdate.onInsertDone(query.getNbUpdated(), query.getException());
+            this.callbackUpdate.onUpdateDone(query.getNbUpdated(), query.getException());
         } else {
             this.callback.onCompetitionsReady(competitions);
         }

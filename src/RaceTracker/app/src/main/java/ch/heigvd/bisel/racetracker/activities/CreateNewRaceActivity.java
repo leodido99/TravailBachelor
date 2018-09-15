@@ -189,7 +189,7 @@ public class CreateNewRaceActivity extends AppCompatActivity implements
     }
 
     @Override
-    public void onInsertDone(int nbItems, SQLException exception) {
+    public void onUpdateDone(int nbItems, SQLException exception) {
         if (exception != null) {
             Toast.makeText(getApplicationContext(), "Impossible de créer une nouvelle course "
                     + exception.getMessage(), Toast.LENGTH_LONG).show();

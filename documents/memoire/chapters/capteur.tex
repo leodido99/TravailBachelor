@@ -145,7 +145,7 @@ La figure \ref{fig:zephyr_archi} présente l'architecture du système d'exploita
 
 \begin{figure}[htb]
 \centering 
-\includegraphics[width=0.8\columnwidth]{zephyr_archi.png} 
+\includegraphics[width=1\columnwidth]{zephyr_archi.png} 
 \caption{Architecture du système d'exploitation Zephyr - http://www.zephyrproject.org}
 \label{fig:zephyr_archi}
 \end{figure}
@@ -262,10 +262,12 @@ La figure \ref{fig:sensor_dyn_archi} décrit les éléments dynamiques qui compo
 
 \begin{figure}[htb]
 \centering 
-\includegraphics[width=0.8\columnwidth]{sensor_dyn_archi.png} 
+\includegraphics[width=1\columnwidth]{sensor_dyn_archi.png} 
 \caption{Architecture dynamique du logiciel embarqué sur le capteur}
 \label{fig:sensor_dyn_archi}
 \end{figure}
+
+\todo{Add missing thread frequencies}
 
 Zephyr propose une implémentation de la priorité des threads intéressante qui permet en fonction de la valeur d'également modifier le comportement de l'ordonnanceur. La priorité d'un thread, valeur entière, peut être soit positive ou négative. Une valeur de priorité plus petite est plus importante qu'une valeur numériquement plus grande, ainsi un thread de priorité -2 est plus prioritaire qu'un de priorité 7.
 
@@ -330,11 +332,33 @@ Le thread va s'occuper de paquetiser et d'envoyer les données collectées régu
 
 \subsection{Heart Rate}
 
-\todo{}
+Le module Heart Rate est responsable de la gestion et du calcul du rythme cardiaque de l'athlète portant le capteur. Grâce au dispositif électronique permettant l'interfaçage avec la ceinture pectorale, ce module va placer une interruption, grâce au driver External Interrupt Controller et au driver GPIO de Zephyr, modifié pour l'occasion, sur la pin sur laquelle une impulsion est déclenchée lors d'un battement du cœur.  En mesurant le temps écoulé ainsi que le nombre de battement il est ensuite possible de calculer le rythme cardiaque qui est ensuite transmis dans les paquets à destination de la passerelle.
+
+La figure \ref{fig:heartrate_uml} montre le diagramme de classe du module Heart Rate.
+
+\begin{figure}[htb]
+\centering 
+\includegraphics[width=0.3\columnwidth]{heartrate_uml.png} 
+\caption{Diagrammede classe du module Heart Rate}
+\label{fig:heartrate_uml}
+\end{figure}
 
 \subsection{Cadence}
 
-\todo{}
+\todo{Finish this}
+
+La cadence du sportif est déterminé grâce à ce module. En se basant sur les données de l'accéléromètre, qui est capable de déterminer les accélérations sur les 3 axes x,y et z, il est possible de déterminer le moment ou un pas est effectué et donc de les compter. 
+
+Afin de pouvoir facilement compter le nombre de pas, l'accéléromètre LSM303AGR est configuré en utilisant le système de seuil qu'il propose. Cela permet de déclencher des interruptions lorsqu'une accélération d'une certaine force est détecté sur les axes.
+
+La figure \ref{fig:cadence_uml} montre le diagramme de classe du module Cadence.
+
+\begin{figure}[htb]
+\centering 
+\includegraphics[width=0.3\columnwidth]{cadence_uml.png} 
+\caption{Diagramme de classe du module Cadence}
+\label{fig:cadence_uml}
+\end{figure}
 
 \subsection{Debug}
 
@@ -349,7 +373,7 @@ La liste suivante montre les commandes disponible dans le shell du capteur:
 \begin{itemize}
 \item set\_lora\_sf: Permet de changer le facteur d'étalement de la couche radio LoRa
 \item set\_lora\_pwr: Permet de changer la puissance de sortie du signal de la couche radio LoRa
-\item set\_msg\_interval: Permet de modifier l'intervalle entre deux messages envoyé à la passerelle
+\item set\_msg\_interval: Permet de modifier l'intervalle entre l'envoie de deux messages
 \end{itemize}
 
 \section{Les drivers}\label{ch:drivers}

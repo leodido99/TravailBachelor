@@ -69,7 +69,7 @@ public class RaceTrackerRegistrations implements OnQueryResultReady, OnQueryExec
     @Override
     public void onQueryExecuted(RaceTrackerQuery query) {
         if (query.isUpdateQuery()) {
-            callbackInsert.onInsertDone(query.getNbUpdated(), query.getException());
+            callbackInsert.onUpdateDone(query.getNbUpdated(), query.getException());
         } else {
             callback.onRegistrationsReady(registrations);
         }

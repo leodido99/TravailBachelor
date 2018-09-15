@@ -49,7 +49,7 @@ public class StartEndRaceActivity extends AppCompatActivity implements OnUpdateD
     }
 
     @Override
-    public void onInsertDone(int nbItems, SQLException exception) {
+    public void onUpdateDone(int nbItems, SQLException exception) {
         if (exception != null) {
             Toast.makeText(getApplicationContext(), "Impossible de changer l'état de la course "
                     + exception.getMessage(), Toast.LENGTH_LONG).show();

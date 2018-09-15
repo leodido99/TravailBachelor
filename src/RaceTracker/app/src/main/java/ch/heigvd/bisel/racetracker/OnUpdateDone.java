@@ -3,5 +3,5 @@ package ch.heigvd.bisel.racetracker;
 import java.sql.SQLException;
 
 public interface OnUpdateDone {
-    void onInsertDone(int nbItems, SQLException exception);
+    void onUpdateDone(int nbItems, SQLException exception);
 }

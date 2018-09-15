@@ -145,7 +145,7 @@ public class RegistrationsActivity extends AppCompatActivity implements
      * @param exception Exception if one occurred, otherwise null
      */
     @Override
-    public void onInsertDone(int nbItems, SQLException exception) {
+    public void onUpdateDone(int nbItems, SQLException exception) {
         if (exception != null) {
             Toast.makeText(getApplicationContext(), "Impossible d'ajouter le participant "
                     + exception.getMessage(), Toast.LENGTH_LONG).show();
