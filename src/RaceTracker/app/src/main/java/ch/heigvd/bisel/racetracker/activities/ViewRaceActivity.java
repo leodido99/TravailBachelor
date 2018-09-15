@@ -353,9 +353,8 @@ public class ViewRaceActivity extends AppCompatActivity implements OnMapReadyCal
 
                 /* If the competitor is focused then update camera */
                 if (focusedCompetitor == competitors.get(entry.getKey())) {
-                    CameraUpdate competitionLocation = CameraUpdateFactory.newLatLngZoom(
-                            competitors.get(entry.getKey()).getMapMarker().getPosition(),
-                            FOCUSED_ZOOM);
+                    CameraUpdate competitionLocation = CameraUpdateFactory.newLatLng(
+                            competitors.get(entry.getKey()).getMapMarker().getPosition());
                     mMap.animateCamera(competitionLocation);
                 }
             }
