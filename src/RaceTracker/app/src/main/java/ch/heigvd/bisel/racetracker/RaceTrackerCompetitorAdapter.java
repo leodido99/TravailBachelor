@@ -45,6 +45,10 @@ public class RaceTrackerCompetitorAdapter extends RecyclerView.Adapter<RaceTrack
         this.hideStats = hideStats;
     }
 
+    public ArrayList<RaceTrackerCompetitor> getCompetitors() {
+        return competitors;
+    }
+
     /**
      * Provide a reference to the views for each data item
      * Complex data items may need more than one view per item, and

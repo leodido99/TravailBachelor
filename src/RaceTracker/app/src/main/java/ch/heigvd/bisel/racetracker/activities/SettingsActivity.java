@@ -159,6 +159,7 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
             bindPreferenceSummaryToValue(findPreference(getResources().getString(R.string.db_server_key)));
             bindPreferenceSummaryToValue(findPreference(getResources().getString(R.string.db_user_key)));
             bindPreferenceSummaryToValue(findPreference(getResources().getString(R.string.db_pwd_key)));
+            bindPreferenceSummaryToValue(findPreference(getResources().getString(R.string.replay_scale_key)));
         }
 
         @Override

@@ -86,6 +86,7 @@ public class RaceTrackerCompetitor implements Serializable {
         //mapMarker.setPosition(lastDataPoint.getPosition());
         //mapMarker.setVisible(true);
         currHeartRate = lastDataPoint.getHeartRate();
+        currCadence = lastDataPoint.getCadence();
 
         updateElapsedTime();
         updateDistance();

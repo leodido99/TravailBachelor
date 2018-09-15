@@ -1,4 +1,5 @@
-<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+<PreferenceScreen xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android">
 
     <!-- NOTE: EditTextPreference accepts EditText attributes. -->
     <!-- NOTE: EditTextPreference's summary should be set to its value by the activity code. -->
@@ -23,6 +24,13 @@
         android:selectAllOnFocus="true"
         android:singleLine="true"
         android:title="@string/pref_db_pwd" />
+    <EditTextPreference
+        android:defaultValue="@string/default_replay_scale"
+        android:inputType="numberDecimal"
+        android:key="@string/replay_scale_key"
+        android:selectAllOnFocus="true"
+        android:singleLine="true"
+        android:title="@string/pref_replay_scale" />
     <SwitchPreference
         android:defaultValue="@string/default_leave_trail"
         android:key="@string/leave_trail_key"

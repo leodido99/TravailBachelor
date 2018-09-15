@@ -11,6 +11,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
+import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapFragment;
@@ -38,18 +39,22 @@ import ch.heigvd.bisel.racetracker.RaceTrackerDataPoint;
 import ch.heigvd.bisel.racetracker.RaceTrackerDataPoints;
 import ch.heigvd.bisel.racetracker.RaceTrackerTrackPoint;
 import ch.heigvd.bisel.racetracker.RaceTrackerTrackPoints;
+import ch.heigvd.bisel.racetracker.RecyclerTouchListener;
 
 public class ViewRaceActivity extends AppCompatActivity implements OnMapReadyCallback,
         RaceTrackerCompetitors.OnCompetitorsReady,
         RaceTrackerCountries.OnCountriesReady,
         RaceTrackerDataPoints.OnDataPointsReady,
         RaceTrackerTrackPoints.OnTrackPointsReady {
-    private GoogleMap mMap;
+    protected GoogleMap mMap;
 
     private RaceTrackerDataPoints dataPointsDB;
 
     private RaceTrackerCompetition competition;
-    private Map<Integer, RaceTrackerCompetitor> competitors;
+    protected Map<Integer, RaceTrackerCompetitor> competitors;
+    protected ArrayList<RaceTrackerCompetitor> competitorsByIndex;
+    static final float FOCUSED_ZOOM = 18.0f;
+    protected RaceTrackerCompetitor focusedCompetitor;
     private Map<String, RaceTrackerCountry> countries;
 
     static final int HANDLER_INTERVAL = 5000;
@@ -58,7 +63,7 @@ public class ViewRaceActivity extends AppCompatActivity implements OnMapReadyCal
     private boolean systemInit = false;
 
     private RecyclerView mRecyclerView;
-    private RecyclerView.Adapter mAdapter;
+    protected RecyclerView.Adapter mAdapter;
 
     /**
      * Called upon Activity creation
@@ -109,6 +114,28 @@ public class ViewRaceActivity extends AppCompatActivity implements OnMapReadyCal
 
         /* Create handler */
         handler = new Handler();
+
+        /* Add on touch listener to detect competitor selection */
+        mRecyclerView.addOnItemTouchListener(new RecyclerTouchListener(getApplicationContext(), mRecyclerView, new RecyclerTouchListener.ClickListener() {
+            @Override
+            public void onClick(View view, int position) {
+                if (position< 0) {
+                    return;
+                }
+                RaceTrackerCompetitor prev = focusedCompetitor;
+                focusedCompetitor = competitorsByIndex.get(position);
+                if (focusedCompetitor.getMapMarker() != null) {
+                    mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(focusedCompetitor.getMapMarker().getPosition(), FOCUSED_ZOOM));
+                } else {
+                    focusedCompetitor = prev;
+                }
+            }
+
+            @Override
+            public void onLongClick(View view, int position) {
+
+            }
+        }));
     }
 
     /**
@@ -116,6 +143,7 @@ public class ViewRaceActivity extends AppCompatActivity implements OnMapReadyCal
      * @param view
      */
     public void onResetCameraOnClick(View view) {
+        focusedCompetitor = null;
         resetCamera();
     }
 
@@ -124,7 +152,9 @@ public class ViewRaceActivity extends AppCompatActivity implements OnMapReadyCal
      */
     public void resetCamera() {
         /* Move camera and zoom to competition position*/
-        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(competition.getLocation().getObject(), competition.getZoom()));
+        CameraUpdate competitionLocation = CameraUpdateFactory.newLatLngZoom(
+                competition.getLocation().getObject(), competition.getZoom());
+        mMap.animateCamera(competitionLocation);
     }
 
     /**
@@ -210,6 +240,7 @@ public class ViewRaceActivity extends AppCompatActivity implements OnMapReadyCal
      * @param competitors List of competitors
      */
     public void onCompetitorsReady(ArrayList<RaceTrackerCompetitor> competitors) {
+        competitorsByIndex = competitors;
         for (RaceTrackerCompetitor competitor : competitors) {
             /* Add competitors to hash map */
             this.competitors.put(competitor.getCompetitorId(), competitor);
@@ -219,7 +250,9 @@ public class ViewRaceActivity extends AppCompatActivity implements OnMapReadyCal
         }
 
         /* Initialize adapter and add it to view */
-        mAdapter = new RaceTrackerCompetitorAdapter(competitors);
+        mAdapter = new RaceTrackerCompetitorAdapter(competitors) {{
+                setFocusEnable(false);
+        }};
         mRecyclerView.setAdapter(mAdapter);
 
         /* Updates UI */
@@ -316,6 +349,14 @@ public class ViewRaceActivity extends AppCompatActivity implements OnMapReadyCal
                     competitors.get(entry.getKey()).setMapMarker(addMarker(competitors.get(entry.getKey()).getLastDataPoint().getPosition(), R.drawable.competitor_marker_blue,
                             competitors.get(entry.getKey()).getFirstName()
                                     + " " + competitors.get(entry.getKey()).getLastName()));
+                }
+
+                /* If the competitor is focused then update camera */
+                if (focusedCompetitor == competitors.get(entry.getKey())) {
+                    CameraUpdate competitionLocation = CameraUpdateFactory.newLatLngZoom(
+                            competitors.get(entry.getKey()).getMapMarker().getPosition(),
+                            FOCUSED_ZOOM);
+                    mMap.animateCamera(competitionLocation);
                 }
             }
         }
