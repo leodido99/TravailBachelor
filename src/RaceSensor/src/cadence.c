@@ -7,6 +7,10 @@
 
 #include "cadence.h"
 
+int cadence_init(const char* device) {
+
+}
+
 u8_t cadence_get(void)
 {
 	return 0;

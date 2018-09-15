@@ -10,7 +10,17 @@
 
 #include <zephyr.h>
 
-u8_t cadence_get(void);
+/**
+ * Initialize the cadence modle
+ * @param device Device on which the LSM303AGR is connected
+ * @return 0 if success, negative errorno otherwise
+ */
+int cadence_init(const char* device);
 
+/**
+ * Return the cadence in step per min
+ * @return Cadence
+ */
+u8_t cadence_get(void);
 
 #endif /* SRC_CADENCE_H_ */
