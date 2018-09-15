@@ -3,7 +3,7 @@ import argparse
 import re
 
 track_point_sql_query = 'INSERT INTO race_tracker.track_point (competition_id, sequence, position) VALUES ({}, {}, ST_MakePoint({}, {}));\n'
-data_point_sql_query = 'INSERT INTO race_tracker.data_point (competitor_id, competition_id, sequence, time_stamp, position, heart_rate, cadence, nb_satellites, position_dop, status) VALUES ({}, {}, {}, \'2018-05-26 08:30:00-00\', ST_MakePoint({}, {}), 130, 160, 5, 9.9, 0);\n'
+data_point_sql_query = 'INSERT INTO race_tracker.data_point (competitor_id, competition_id, sequence, time_stamp, position, heart_rate, cadence, nb_satellites, position_dop, status) VALUES ({}, {}, {}, \'{} {}\', ST_MakePoint({}, {}), {}, {}, 5, 9.9, 0);\n'
 
 parser = argparse.ArgumentParser(description='Extract GPS positions')
 
@@ -31,8 +31,10 @@ for file_name in args.file:
     with open(args.o, 'w') as f_out:
         for line in lines:
 	    line_data = re.split(' |	', line)
+	    if line_data[0] != "T":
+		continue
 	    if args.query[0] == '0':
 	            f_out.write(str.format(track_point_sql_query, args.competition[0], seq, line_data[3], line_data[4]))
 	    else:
-	            f_out.write(str.format(data_point_sql_query, args.competitor[0], args.competition[0], seq, line_data[3], line_data[4]))
+	            f_out.write(str.format(data_point_sql_query, args.competitor[0], args.competition[0], seq, line_data[1], line_data[2], line_data[3], line_data[4], line_data[6], line_data[7]))
 	    seq = seq + 1
