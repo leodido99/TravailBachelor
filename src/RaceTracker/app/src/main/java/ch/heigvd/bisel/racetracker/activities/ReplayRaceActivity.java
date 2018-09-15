@@ -86,9 +86,13 @@ public class ReplayRaceActivity extends ViewRaceActivity {
          */
         private RaceTrackerDataPoint getNextDataPoint() {
             RaceTrackerDataPoint next;
-            next = this.dataPoints.get(0);
-            this.dataPoints.remove(next);
-            return next;
+            if (this.dataPoints.size() > 0) {
+                next = this.dataPoints.get(0);
+                this.dataPoints.remove(next);
+                return next;
+            } else {
+                return null;
+            }
         }
 
         /**
@@ -107,6 +111,10 @@ public class ReplayRaceActivity extends ViewRaceActivity {
                     /* Give data point to be consumed to competitor */
                     competitors.get(lastDataPoint.getCompetitorId()).consumeDataPoint(lastDataPoint);
                     next = getNextDataPoint();
+                    if (next == null) {
+                        /* Reached end of race */
+                        return;
+                    }
                     System.out.println("DBG: Prevseq: " + lastDataPoint.getSequence() +
                     " Nextseq: " + next.getSequence());
                     /* Calculate time between data point */
