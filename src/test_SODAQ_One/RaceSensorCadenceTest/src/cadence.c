@@ -17,8 +17,7 @@
 #include "debug.h"
 
 #define DEBUG 1
-
-extern const k_tid_t cadence_thread_id;
+#define CADENCE_USE_SAMPLING 1
 
 struct cadence {
 	struct gpio_callback int1_cb;
@@ -28,8 +27,60 @@ struct cadence {
 
 struct cadence cadence_priv;
 
-//#define CADENCE_SAMPLING 0
-#ifdef CADENCE_SAMPLING
+#ifdef CADENCE_USE_SAMPLING
+
+extern const k_tid_t cadence_sampling_thread_id;
+
+/* See LSM303AGR 18000 / 64 * 4 / 1000 = 1.125g */
+#define CADENCE_THRESHOLD 18000
+
+/**
+ * Stack size allocated for the cadence sampling thread
+ */
+#define CADENCE_STACK_SIZE 1024
+
+/**
+ * Thread priority for the cadence sampling thread
+ */
+#define CADENCE_PRIORITY 5000
+
+/* 1 second of samples */
+#define CADENCE_NB_SAMPLE 20
+/* Interval between two samples */
+#define CADENCE_SAMPLING_INTERVAL K_MSEC(50)
+
+struct cadence_sample_t {
+	int16_t sample;
+};
+
+struct cadence_sampling_t {
+	uint16_t nb_samples;
+	uint8_t nb_occurances;
+	bool counted;
+	struct cadence_sample_t samples[CADENCE_NB_SAMPLE];
+	struct cadence_sample_t previous_sample;
+};
+
+struct cadence_sampling_t cadence_sampling = {
+	.nb_samples = 0,
+	.nb_occurances = 0,
+	.counted = false
+};
+
+#endif
+
+static void new_step(void)
+{
+	if (cadence_priv.start_time == 0) {
+		cadence_priv.start_time = k_uptime_get();
+	}
+
+	printk("step!\n");
+	cadence_priv.step_cnt++;
+}
+
+//#define CADENCE_TEST 0
+#ifdef CADENCE_TEST
 /**
  * Stack size allocated for the packet manager thread
  */
@@ -124,15 +175,85 @@ void cadence_print(void) {};
 void cadence_reset_samples(void) {};
 #endif
 
-void cadence_gpio_callback(struct device *port, struct gpio_callback *cb, u32_t pins)
+static int get_steps(void)
 {
-	if (cadence_priv.start_time == 0) {
-		cadence_priv.start_time = k_uptime_get();
+	return cadence_priv.step_cnt;
+}
+
+#ifdef CADENCE_USE_SAMPLING
+static int fetch_sample(int16_t *sample)
+{
+	int err;
+
+	err = lsm303agr_get_z_acceleration(sample);
+	if (err < 0) {
+		return err;
 	}
 
-	cadence_priv.step_cnt++;
+	return 0;
+}
 
-	printk("Step!\n");
+static bool is_overthreshold(struct cadence_sample_t sample)
+{
+	/* TODO Threshold negative? */
+	return (sample.sample > CADENCE_THRESHOLD);
+}
+
+static int process_samples(struct cadence_sampling_t *sampling)
+{
+	int i;
+
+	if (!sampling) {
+		DBG_PRINTK("Bad parameters\n");
+		return -EINVAL;
+	}
+
+	/* Detect step */
+	for (i = 0; i < sampling->nb_samples; i++) {
+		if (is_overthreshold(sampling->samples[i])) {
+			/* Only count once the sample is over the threashold
+			 * signal must come back under it to be counted again
+			 */
+			if (!sampling->counted) {
+				new_step();
+				sampling->counted = true;
+			}
+		} else {
+			sampling->counted = false;
+		}
+	}
+
+	return 0;
+}
+
+static void cadence_sampling_thread(void *arg1, void *arg2, void *arg3)
+{
+	struct cadence_sampling_t *sampling = arg1;
+
+	while (1) {
+		/* Get sample */
+		if (fetch_sample(&sampling->samples[sampling->nb_samples].sample) < 0) {
+			DBG_PRINTK("Cannot get sample\n");
+			continue;
+		}
+
+		sampling->nb_samples++;
+
+		if (sampling->nb_samples == CADENCE_NB_SAMPLE) {
+			printk("processing\n");
+			process_samples(sampling);
+			sampling->nb_samples = 0;
+			DBG_PRINTK("nb steps: %d\n", get_steps());
+		}
+
+		k_sleep(CADENCE_SAMPLING_INTERVAL);
+	}
+}
+#endif
+
+void cadence_gpio_callback(struct device *port, struct gpio_callback *cb, u32_t pins)
+{
+	new_step();
 }
 
 static int configure_lsm303agr(const char* device)
@@ -232,7 +353,11 @@ int cadence_init(const char* device, const char *irq_device, int irq_pin) {
 		return err;
 	}
 
-#ifdef CADENCE_SAMPLING
+#ifdef CADENCE_USE_SAMPLING
+	k_thread_start(cadence_sampling_thread_id);
+#endif
+
+#ifdef CADENCE_TEST
 	k_thread_start(cadence_thread_id);
 #endif
 
@@ -241,9 +366,23 @@ int cadence_init(const char* device, const char *irq_device, int irq_pin) {
 
 u8_t cadence_get(void)
 {
-	return 0;
+	u8_t spm;
+	s64_t elapsed_s = (k_uptime_get() - cadence_priv.start_time) / 1000;
+
+	spm = (60 * cadence_priv.step_cnt) / elapsed_s;
+
+	DBG_PRINTK("%s: PPM=%d steps=%d elapsed=%lld s\n", __func__, spm, cadence_priv.step_cnt, elapsed_s);
+
+	cadence_priv.step_cnt = 0;
+	cadence_priv.start_time = 0;
+
+	return spm;
 }
 
-#ifdef CADENCE_SAMPLING
+#ifdef CADENCE_USE_SAMPLING
+K_THREAD_DEFINE(cadence_sampling_thread_id, CADENCE_STACK_SIZE, cadence_sampling_thread, &cadence_sampling, NULL, NULL, CADENCE_PRIORITY, 0, K_FOREVER);
+#endif
+
+#ifdef CADENCE_TEST
 K_THREAD_DEFINE(cadence_thread_id, CADENCE_STACK_SIZE, cadence_thread, NULL, NULL, NULL, CADENCE_PRIORITY, 0, K_FOREVER);
 #endif
