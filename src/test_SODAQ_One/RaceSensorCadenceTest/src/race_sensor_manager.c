@@ -100,7 +100,7 @@ struct race_tracking_pkt  pkt_buffer;
 #ifdef DEBUG
 static void print_nav_pvt_msg(char *txt, ubloxeva8m_nav_pvt_t* msg)
 {
-	//DBG_PRINTK("UBX-NAV-PVT: %d.%d.%d %02d:%02d:%02d:%03d validity=%d fixType=%d numSV=%d lat=%d lon=%d \n", msg->day, msg->month, msg->year, msg->hour, msg->minute, msg->seconds, msg->nano, msg->valid, msg->fixType, msg->numSV, msg->lat, msg->lon);
+	DBG_PRINTK("UBX-NAV-PVT: %d.%d.%d %02d:%02d:%02d:%03d validity=%d fixType=%d numSV=%d lat=%d lon=%d \n", msg->day, msg->month, msg->year, msg->hour, msg->minute, msg->seconds, msg->nano, msg->valid, msg->fixType, msg->numSV, msg->lat, msg->lon);
 }
 #endif
 
@@ -129,8 +129,8 @@ static void wait_for_fix()
 
 	do {
 		wait_for_gps_update();
-		//leds_set(LED_GREEN, led_state);
-		//led_state = led_state ? false : true;
+		leds_set(LED_GREEN, led_state);
+		led_state = led_state ? false : true;
 	} while(race_sensor_mngr.last_pvt_msg.numSV < RACE_SENSOR_MNGR_GPS_FIX_NB_SV ||
 			(race_sensor_mngr.last_pvt_msg.fixType & RACE_SENSOR_MNGR_GPS_FIX_TYPE));
 
@@ -191,7 +191,7 @@ static void race_sensor_mngr_thread(void)
 #endif
 
 	/* Switch-on green LED to signify sensor has a GPS fix */
-	//leds_set(LED_GREEN, true);
+	leds_set(LED_GREEN, true);
 
 	while (1) {
 		k_sleep(msg_interval);
@@ -201,9 +201,9 @@ static void race_sensor_mngr_thread(void)
 		}
 
 		/* Send through LoRa */
-		/*if (rn2483_lora_radio_tx((u8_t*)&pkt_buffer, sizeof(struct race_tracking_pkt))) {
+		if (rn2483_lora_radio_tx((u8_t*)&pkt_buffer, sizeof(struct race_tracking_pkt))) {
 			DBG_PRINTK("Couldn't send packet\n");
-		}*/
+		}
 	}
 }
 
