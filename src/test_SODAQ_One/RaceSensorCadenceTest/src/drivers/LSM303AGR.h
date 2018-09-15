@@ -91,13 +91,13 @@ typedef enum {
 } lsm303agr_interrupt_directions_t;
 
 typedef enum {
-	LSM303AGR_INT_CLICK,
-	LSM303AGR_INT_AOI1,
-	LSM303AGR_INT_AOI2,
-	LSM303AGR_INT_DRDY1,
-	LSM303AGR_INT_DRDY2,
-	LSM303AGR_INT_WTM,
-	LSM303AGR_INT_OVERRUN
+	LSM303AGR_INT_CLICK = 7,
+	LSM303AGR_INT_AOI1 = 6,
+	LSM303AGR_INT_AOI2 = 5,
+	LSM303AGR_INT_DRDY1 = 4,
+	LSM303AGR_INT_DRDY2 = 3,
+	LSM303AGR_INT_WTM = 2,
+	LSM303AGR_INT_OVERRUN = 1
 } lsm303agr_interrupts_t;
 
 /**
@@ -138,7 +138,19 @@ int lsm303agr_accel_set_scale(lsm303agr_scales_t scale);
  */
 int lsm303agr_configure_interrupt1(lsm303agr_interrupt_modes_t interrupt_mode, uint8_t interrupt_directions);
 
+/**
+ * Sets the threshold at which the interrupt triggers
+ * @param value Threshold value see data sheet
+ * @return 0 on success, error code otherwise
+ */
 int lsm303agr_set_interrupt_threshold(uint8_t value);
+
+/**
+ * Sets the duration of the interrupt
+ * @param value Duration value see data sheet
+ * @return 0 on success, error code otherwise
+ */
+int lsm303agr_set_interrupt_duration(uint8_t value);
 
 /**
  * Enable the interrupt generation

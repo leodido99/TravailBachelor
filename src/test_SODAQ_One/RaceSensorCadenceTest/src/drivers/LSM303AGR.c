@@ -71,6 +71,8 @@
 
 #define LSM303AGR_ACCEL_INT1_THS_A 0x32
 
+#define LSM303AGR_ACCEL_INT1_DURATION_A 0x33
+
 #define LSM303AGR_ACCEL_STATUS_ADDR 0x27
 #define LSM303AGR_ACCEL_STATUS_ZYXOR_POS 7
 #define LSM303AGR_ACCEL_STATUS_ZOR_POS 6
@@ -275,7 +277,7 @@ int lsm303agr_enable_interrupt(lsm303agr_interrupts_t interrupt)
 	uint8_t reg = 0;
 
 	if (lsm303agr_priv.i2c_dev) {
-		reg = interrupt;
+		reg = 1 << interrupt;
 		if (i2c_reg_write_byte(lsm303agr_priv.i2c_dev, LSM303AGR_ACCEL_ADDR, LSM303AGR_ACCEL_CFG3_ADDR, reg)) {
 			DBG_PRINTK("%s: Register access failed\n", __func__);
 			return LSM303AGR_REG_ACCESS_FAILED;
@@ -310,6 +312,21 @@ int lsm303agr_set_interrupt_threshold(uint8_t value)
 {
 	if (lsm303agr_priv.i2c_dev) {
 		if (i2c_reg_write_byte(lsm303agr_priv.i2c_dev, LSM303AGR_ACCEL_ADDR, LSM303AGR_ACCEL_INT1_THS_A, value)) {
+			DBG_PRINTK("%s: Register access failed\n", __func__);
+			return LSM303AGR_REG_ACCESS_FAILED;
+		}
+	} else {
+		DBG_PRINTK("%s: I2C bus not initialized\n", __func__);
+		return LSM303AGR_NOT_INITIALIZED;
+	}
+
+	return 0;
+}
+
+int lsm303agr_set_interrupt_duration(uint8_t value)
+{
+	if (lsm303agr_priv.i2c_dev) {
+		if (i2c_reg_write_byte(lsm303agr_priv.i2c_dev, LSM303AGR_ACCEL_ADDR, LSM303AGR_ACCEL_INT1_DURATION_A, value)) {
 			DBG_PRINTK("%s: Register access failed\n", __func__);
 			return LSM303AGR_REG_ACCESS_FAILED;
 		}
