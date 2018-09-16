@@ -333,6 +333,12 @@ int race_sensor_mngr_init(void)
 		return err;
 	}
 
+	DBG_PRINTK("%s: Initializing Cadence\n", __func__);
+	err = cadence_init(CONFIG_I2C_SAM0_SERCOM3_LABEL, ACCEL_INT_DEV, ACCEL_INT1_PIN);
+	if (err < 0) {
+		return err;
+	}
+
 	race_sensor_mngr.initialized = true;
 
 	return RACE_SENSOR_MNGR_SUCCESS;

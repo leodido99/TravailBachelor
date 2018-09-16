@@ -31,6 +31,13 @@
 //#define GPIO_HR_DEV CONFIG_GPIO_SAM0_PORTA_LABEL
 //#define GPIO_HR_PIN 8
 
+/**
+ * Accelerometer interrupts connected on PA20 (INT2) and PA21 (INT1)
+ */
+#define ACCEL_INT_DEV CONFIG_GPIO_SAM0_PORTA_LABEL
+#define ACCEL_INT1_PIN 21
+#define ACCEL_INT2_PIN 20
+
 /* ************************************************************************* */
 /* LoRa									     */
 /* ************************************************************************* */
