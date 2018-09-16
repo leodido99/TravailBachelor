@@ -63,7 +63,7 @@ int race_tracker_data::insert_data_point(race_mode_record* data_point)
 	auto row = r[0];
 
 	for (auto row: r) {
-		log(logDEBUG) << "competitor_id = " << r["competitor_id"].c_str() << " competition_id = " << r["competition_id"].c_str();
+		log(logDEBUG) << "competitor_id = " << row["competitor_id"].c_str() << " competition_id = " << row["competition_id"].c_str();
 	}
 
 	/* Create timestamp */
