@@ -42,7 +42,7 @@ extern const k_tid_t cadence_sampling_thread_id;
 /**
  * Thread priority for the cadence sampling thread
  */
-#define CADENCE_PRIORITY 0
+#define CADENCE_PRIORITY 14
 
 /* 1 second of samples */
 #define CADENCE_NB_SAMPLE 20
@@ -173,6 +173,8 @@ static int process_samples(struct cadence_sampling_t *sampling)
 static void cadence_sampling_thread(void *arg1, void *arg2, void *arg3)
 {
 	struct cadence_sampling_t *sampling = arg1;
+
+	DBG_PRINTK("Cadence Sampling Thread\n");
 
 	while (1) {
 		/* Get sample */
