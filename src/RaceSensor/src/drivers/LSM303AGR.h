@@ -91,37 +91,42 @@ typedef enum {
 } lsm303agr_interrupt_directions_t;
 
 typedef enum {
-	LSM303AGR_INT_CLICK,
-	LSM303AGR_INT_AOI1,
-	LSM303AGR_INT_AOI2,
-	LSM303AGR_INT_DRDY1,
-	LSM303AGR_INT_DRDY2,
-	LSM303AGR_INT_WTM,
-	LSM303AGR_INT_OVERRUN
+	LSM303AGR_INT_CLICK = 7,
+	LSM303AGR_INT_AOI1 = 6,
+	LSM303AGR_INT_AOI2 = 5,
+	LSM303AGR_INT_DRDY1 = 4,
+	LSM303AGR_INT_DRDY2 = 3,
+	LSM303AGR_INT_WTM = 2,
+	LSM303AGR_INT_OVERRUN = 1
 } lsm303agr_interrupts_t;
 
 /**
  * Initialize the LSM303AGR Magnetometer and accelerometer module
  * @param device_name I2C device name
- * @return
+ * @return 0 on success, error code otherwise 0 on success, error code otherwise
  */
 int lsm303agr_init(const char *device_name);
 
 /**
  * Returns the accelerometer device ID
- * @return
+ * @return 0 on success, error code otherwise 0 on success, error code otherwise
  */
 uint8_t lsm303agr_accel_get_device_id();
 
 /**
  * Enable the LSM303AGR Accelerometer
+ * @param mode Mode of operation
+ * @param data_rate Data rate
+ * @param low_pwr_mode Low power mode
+ * @param axis_enable Axis to enable
+ * @return 0 on success, error code otherwise 0 on success, error code otherwise
  */
 int lsm303agr_accel_enable(lsm303agr_modes_t mode, lsm303agr_datarate_modes_t data_rate, bool low_pwr_mode, uint8_t axis_enable);
 
 /**
  * Sets the accelerometer scale
  * @param scale
- * @return
+ * @return 0 on success, error code otherwise 0 on success, error code otherwise
  */
 int lsm303agr_accel_set_scale(lsm303agr_scales_t scale);
 
@@ -129,48 +134,90 @@ int lsm303agr_accel_set_scale(lsm303agr_scales_t scale);
  * Configure interrupt 1 generation
  * @param interrupt_mode
  * @param interrupt_directions
- * @return
+ * @return 0 on success, error code otherwise
  */
 int lsm303agr_configure_interrupt1(lsm303agr_interrupt_modes_t interrupt_mode, uint8_t interrupt_directions);
 
 /**
+ * Sets the threshold at which the interrupt triggers
+ * @param value Threshold value see data sheet
+ * @return 0 on success, error code otherwise
+ */
+int lsm303agr_set_interrupt_threshold(uint8_t value);
+
+/**
+ * Sets the duration of the interrupt
+ * @param value Duration value see data sheet
+ * @return 0 on success, error code otherwise
+ */
+int lsm303agr_set_interrupt_duration(uint8_t value);
+
+/**
  * Enable the interrupt generation
  * @param interrupt
- * @return
+ * @return 0 on success, error code otherwise
  */
 int lsm303agr_enable_interrupt(lsm303agr_interrupts_t interrupt);
 
 /**
- * Returns the Z axis acceleration
- * @param acceleration
+ * Converts raw value to scaled value
+ * @param acceleration Acceleration as retrieved with lsm303agr_get_(x/y/z)_acceleration
  * @return
+ */
+double lsm303agr_get_scaled_value(int16_t acceleration);
+
+/**
+ * Returns the raw Z axis acceleration
+ * @param acceleration
+ * @return 0 on success, error code otherwise
  */
 int lsm303agr_get_z_acceleration(int16_t* acceleration);
 
 /**
+ * Returns the Z axis in Gs
+ * @param acceleration acceleration
+ * @return 0 on success, error code otherwise
+ */
+int lsm303agr_get_scaled_z_acceleration(double *acceleration);
+
+/**
  * Returns the Y axis acceleration
  * @param acceleration
- * @return
+ * @return 0 on success, error code otherwise
  */
 int lsm303agr_get_y_acceleration(int16_t* acceleration);
 
 /**
+ * Returns the Y axis in Gs
+ * @param acceleration acceleration
+ * @return 0 on success, error code otherwise
+ */
+int lsm303agr_get_scaled_y_acceleration(double *acceleration);
+
+/**
  * Returns the X axis acceleration
  * @param acceleration
- * @return
+ * @return 0 on success, error code otherwise
  */
 int lsm303agr_get_x_acceleration(int16_t* acceleration);
 
 /**
+ * Returns the X axis in Gs
+ * @param acceleration acceleration
+ * @return 0 on success, error code otherwise
+ */
+int lsm303agr_get_scaled_x_acceleration(double *acceleration);
+
+/**
  * Returns the status of the accelerometer
  * @param status
- * @return
+ * @return 0 on success, error code otherwise
  */
 int lsm303agr_get_status(lsm303agr_status_t* status);
 
 /**
  * Returns the magnetometerdevice ID
- * @return
+ * @return 0 on success, error code otherwise
  */
 uint8_t lsm303agr_mag_get_device_id();
 

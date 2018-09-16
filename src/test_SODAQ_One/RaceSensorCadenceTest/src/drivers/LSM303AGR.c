@@ -92,10 +92,8 @@
 #define LSM303AGR_ACCEL_OUT_Z_L_ADDR 0x2C
 #define LSM303AGR_ACCEL_OUT_Z_H_ADDR 0x2D
 
-
 /* Magnetometer */
 #define LSM303AGR_MAG_WHO_AM_I_REG_ADDR 0x4F
-
 
 typedef struct {
 	struct device *i2c_dev;
@@ -112,22 +110,6 @@ u8_t getAccelScaleMax(lsm303agr_scales_t scale)
 {
     return (1 << (scale + 1));
 }
-
-double map_double(int16_t x, double in_min, double in_max, double out_min, double out_max)
-{
-    return ((double)x - in_min) * (out_max - out_min) / (in_max - in_min) + out_min;
-}
-
-/*double getScaledAcceleration(int16_t acceleration)
-{
-	int8_t scale_max;
-
-	printk("%s: %d\n", __func__, acceleration);
-
-	scale_max = getAccelScaleMax(lsm303agr_priv.scale);
-
-	return map_double((int16_t)acceleration, INT16_MIN, INT16_MAX, (double)-scale_max, (double)scale_max);
-}*/
 
 double getScaledAcceleration(int16_t acceleration)
 {
@@ -178,7 +160,6 @@ double getScaledAcceleration(int16_t acceleration)
 
 double lsm303agr_get_scaled_value(int16_t acceleration)
 {
-	//printk("%s: %d\n", __func__, acceleration);
 	return getScaledAcceleration(acceleration);
 }
 
