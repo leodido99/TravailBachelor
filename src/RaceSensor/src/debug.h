@@ -20,6 +20,7 @@
 #define DEBUG_UBLOXEVA8M 0
 #define DEBUG_LEDS 1
 #define DEBUG_HR 1
+#define DEBUG_CADENCE 1
 
 #define DBG_PRINTK(fmt, ...) \
             do { if (DEBUG) printk(fmt, ## __VA_ARGS__); } while (0)
