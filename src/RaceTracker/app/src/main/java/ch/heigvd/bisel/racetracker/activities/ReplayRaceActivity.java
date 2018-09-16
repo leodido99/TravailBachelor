@@ -115,12 +115,12 @@ public class ReplayRaceActivity extends ViewRaceActivity {
                         /* Reached end of race */
                         return;
                     }
-                    System.out.println("DBG: Prevseq: " + lastDataPoint.getSequence() +
-                    " Nextseq: " + next.getSequence());
+                    //System.out.println("DBG: Prevseq: " + lastDataPoint.getSequence() +
+                    //" Nextseq: " + next.getSequence());
                     /* Calculate time between data point */
                     elapsedMs = next.getTimeStamp().getTime() - lastDataPoint.getTimeStamp().getTime();
                     elapsedMs *= timeScale;
-                    System.out.println("DBG: Next data point in " + elapsedMs/1000 + " s");
+                    //System.out.println("DBG: Next data point in " + elapsedMs/1000 + " s");
                     /* Create new marker if leave trail mode is on */
                     if (leaveTrail) {
                         addMarker(lastDataPoint.getPosition(), R.drawable.competitor_marker_grey,
@@ -142,7 +142,8 @@ public class ReplayRaceActivity extends ViewRaceActivity {
 
                     lastDataPoint = next;
                     /* Updates UI */
-                    mAdapter.notifyDataSetChanged();
+                    /* Notify update UI */
+                    mAdapter.notifyItemRangeChanged(competitorsByIndex.indexOf(competitors.get(lastDataPoint.getCompetitorId())), 1);
                 } finally {
                     /* Restart handler */
                     handler.postDelayed(dataPointProvider, elapsedMs);

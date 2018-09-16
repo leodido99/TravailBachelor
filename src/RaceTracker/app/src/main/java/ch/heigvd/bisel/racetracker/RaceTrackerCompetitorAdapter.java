@@ -75,7 +75,7 @@ public class RaceTrackerCompetitorAdapter extends RecyclerView.Adapter<RaceTrack
             cadenceIcon = itemView.findViewById(R.id.CadenceIcon);
 
             /* Handle item click and set the selection */
-            if (focusEnable) {
+            /*if (focusEnable) {
                 itemView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -86,7 +86,7 @@ public class RaceTrackerCompetitorAdapter extends RecyclerView.Adapter<RaceTrack
                         notifyItemChanged(focusedItem);
                     }
                 });
-            }
+            }*/
         }
     }
 
@@ -143,9 +143,7 @@ public class RaceTrackerCompetitorAdapter extends RecyclerView.Adapter<RaceTrack
         }
 
         if (focusEnable) {
-            System.out.println("onBindViewHolder Focused " + focusedItem +
-            " Selected " + holder.itemView.isSelected());
-            holder.itemView.setSelected(focusedItem == position);
+            holder.itemView.setActivated(focusedItem == position);
         }
     }
 

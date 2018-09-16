@@ -322,10 +322,14 @@ public class ViewRaceActivity extends AppCompatActivity implements OnMapReadyCal
             for (RaceTrackerDataPoint dataPoint : entry.getValue()) {
                 consumed = competitors.get(dataPoint.getCompetitorId()).consumeDataPoint(dataPoint);
                 if (consumed && leaveTrail) {
-                    lastMarker = addMarker(dataPoint.getPosition(), R.drawable.competitor_marker_grey,
-                            competitors.get(dataPoint.getCompetitorId()).getFirstName()
-                                    + " " + competitors.get(dataPoint.getCompetitorId()).getLastName() + " #"
-                                    + dataPoint.getSequence());
+                    /* Notify update UI */
+                    mAdapter.notifyItemRangeChanged(competitorsByIndex.indexOf(competitors.get(dataPoint.getCompetitorId())), 1);
+                    if (leaveTrail) {
+                        lastMarker = addMarker(dataPoint.getPosition(), R.drawable.competitor_marker_grey,
+                                competitors.get(dataPoint.getCompetitorId()).getFirstName()
+                                        + " " + competitors.get(dataPoint.getCompetitorId()).getLastName() + " #"
+                                        + dataPoint.getSequence());
+                    }
                 }
 
                 cnt++;
@@ -364,9 +368,6 @@ public class ViewRaceActivity extends AppCompatActivity implements OnMapReadyCal
 
         startDataPointChecker();
         systemInit = true;
-
-        /* Updates UI */
-        mAdapter.notifyDataSetChanged();
 
         System.out.println("DBG: Processed " + cnt + " data points");
     }
