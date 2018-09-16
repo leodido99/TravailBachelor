@@ -36,6 +36,7 @@
 #include "lora_pkt_fwd_parser.h"
 #include "lora_push_data_parser.h"
 #include "logger.h"
+#include "version.h"
 
 using namespace rapidjson;
 
@@ -82,8 +83,7 @@ void race_app_server::load_configuration(std::string configfile) {
 }
 
 void race_app_server::print_configuration() {
-	/* TODO Setup version */
-	std::cout << "Race Application Server version XX" << std::endl;
+	std::cout << "Race Application Server version " << RACEGATEWAY_VERSION << std::endl;
 	std::cout << "Configuration:" << std::endl;
 	std::cout << "\tListen Port: " << listen_port << std::endl;
 }
