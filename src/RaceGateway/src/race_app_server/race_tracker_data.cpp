@@ -59,9 +59,6 @@ int race_tracker_data::insert_data_point(race_mode_record* data_point)
 		log(logWARNING) << r.size() << " competition ids found instead of expected 1";
 	}
 
-	/* Only take the first result, if there are more than one it means the system is badly configured (Several sensors with the same ID) */
-	//auto row = r[0];
-
 	/* Create timestamp */
 	std::stringstream ts;
 	ts << unsigned(data_point->get_timestamp().get_year()) << "-" << unsigned(data_point->get_timestamp().get_month()) << "-";
@@ -83,24 +80,6 @@ int race_tracker_data::insert_data_point(race_mode_record* data_point)
 						       (data_point->get_hdop())
 						       (static_cast<uint16_t>(data_point->get_status())).exec();
 	}
-
-	/* Create timestamp */
-	/*std::stringstream ts;
-	ts << unsigned(data_point->get_timestamp().get_year()) << "-" << unsigned(data_point->get_timestamp().get_month()) << "-";
-	ts << unsigned(data_point->get_timestamp().get_day()) << " " << unsigned(data_point->get_timestamp().get_hour()) << ":" << unsigned(data_point->get_timestamp().get_min());
-	ts << ":" << unsigned(data_point->get_timestamp().get_sec()) << "-00";*/
-
-	/*t.prepared("insert_data_point")(row["competitor_id"].as<uint16_t>())
-				       (row["competition_id"].as<uint16_t>())
-				       (data_point->get_seq())
-				       (ts.str())
-				       (data_point->get_lat())
-				       (data_point->get_lon())
-				       (static_cast<uint16_t>(data_point->get_heart_rate()))
-				       (static_cast<uint16_t>(data_point->get_cadence()))
-				       (static_cast<uint16_t>(data_point->get_nb_sv()))
-				       (data_point->get_hdop())
-				       (static_cast<uint16_t>(data_point->get_status())).exec();*/
 
 	t.commit();
 
