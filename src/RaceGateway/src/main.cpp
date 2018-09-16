@@ -30,10 +30,7 @@ loglevel_e loglevel = logINFO;
 int main(int argc, char **argv) {
 	race_app_server myAppServer;
 	shell myShell;
-
-	/* TODO Check arguments for :
-	 * Config file
-	 * verbose lvl */
+	bool enableShell = true;
 
 	char cwd[1024];
 	if (getcwd(cwd, sizeof(cwd)) != NULL)
@@ -47,10 +44,16 @@ int main(int argc, char **argv) {
 		exit(EXIT_FAILURE);
 	}
 
+	if (argc > 1) {
+		if (strcmp(argv[1], "-noshell") == 0) {
+			enableShell = false;
+		}
+	}
+
 	/* Print configuration */
 	myAppServer.print_configuration();
-	/* Set verbose TODO From arguments */
 	myAppServer.set_verbose(true);
+
 	/* Test mode */
 	test_mode_handler* test_handler = new test_mode_handler();
 	race_mode_handler* race_handler = new race_mode_handler();
@@ -64,12 +67,14 @@ int main(int argc, char **argv) {
 		exit(EXIT_FAILURE);
 	}
 
-	/* Configure shell */
-	test_mode_cmd* test_cmd = new test_mode_cmd(test_handler);
-	myShell.add_cmd(test_cmd);
+	if (enableShell) {
+		/* Configure shell */
+		test_mode_cmd* test_cmd = new test_mode_cmd(test_handler);
+		myShell.add_cmd(test_cmd);
 
-	/* Start shell */
-	myShell.start();
+		/* Start shell */
+		myShell.start();
+	}
 
 	return EXIT_SUCCESS;
 }
