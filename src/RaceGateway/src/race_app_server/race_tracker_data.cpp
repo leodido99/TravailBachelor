@@ -53,7 +53,7 @@ int race_tracker_data::insert_data_point(race_mode_record* data_point)
 	pqxx::result r = t.prepared("get_ids")(data_point->get_id()).exec();
 
 	if (r.size() == 0) {
-		log(logWARNING) << "Cannot find competition id";
+		log(logWARNING) << "Cannot insert data point: no competition id found";
 		return -1;
 	} else if (r.size() > 1) {
 		log(logWARNING) << r.size() << " competition ids found instead of expected 1";
@@ -62,18 +62,20 @@ int race_tracker_data::insert_data_point(race_mode_record* data_point)
 	/* Only take the first result, if there are more than one it means the system is badly configured (Several sensors with the same ID) */
 	auto row = r[0];
 
-	log(logINFO) << "competitor_id = " << row["competitor_id"].c_str() << " competition_id = " << row["competition_id"].c_str();
+	for (auto row: r) {
+		log(logDEBUG) << "competitor_id = " << r["competitor_id"].c_str() << " competition_id = " << r["competition_id"].c_str();
+	}
 
 	/* Create timestamp */
-	std::stringstream mystr;
-	mystr << unsigned(data_point->get_timestamp().get_year()) << "-" << unsigned(data_point->get_timestamp().get_month()) << "-";
-	mystr << unsigned(data_point->get_timestamp().get_day()) << " " << unsigned(data_point->get_timestamp().get_hour()) << ":" << unsigned(data_point->get_timestamp().get_min());
-	mystr << ":" << unsigned(data_point->get_timestamp().get_sec()) << "-00";
+	std::stringstream ts;
+	ts << unsigned(data_point->get_timestamp().get_year()) << "-" << unsigned(data_point->get_timestamp().get_month()) << "-";
+	ts << unsigned(data_point->get_timestamp().get_day()) << " " << unsigned(data_point->get_timestamp().get_hour()) << ":" << unsigned(data_point->get_timestamp().get_min());
+	ts << ":" << unsigned(data_point->get_timestamp().get_sec()) << "-00";
 
 	t.prepared("insert_data_point")(row["competitor_id"].as<uint16_t>())
 				       (row["competition_id"].as<uint16_t>())
 				       (data_point->get_seq())
-				       (mystr.str())
+				       (ts.str())
 				       (data_point->get_lat())
 				       (data_point->get_lon())
 				       (static_cast<uint16_t>(data_point->get_heart_rate()))
