@@ -34,8 +34,8 @@
  * Accelerometer interrupts connected on PA20 and PA21
  */
 #define ACCEL_INT_DEV CONFIG_GPIO_SAM0_PORTA_LABEL
-#define ACCEL_INT1_PIN 20
-#define ACCEL_INT2_PIN 21
+#define ACCEL_INT1_PIN 21
+#define ACCEL_INT2_PIN 20
 
 /* ************************************************************************* */
 /* Accelerometer							     */
