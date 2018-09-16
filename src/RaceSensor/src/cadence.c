@@ -143,6 +143,8 @@ static int fetch_sample(int16_t *sample)
 {
 	int err;
 
+	/* TODO Fine tune step detection (depends on
+	 * sensor position etc...) */
 	err = lsm303agr_get_z_acceleration(sample);
 	if (err < 0) {
 		return err;
