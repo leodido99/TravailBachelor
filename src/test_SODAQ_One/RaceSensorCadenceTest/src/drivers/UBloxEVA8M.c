@@ -38,7 +38,7 @@
 /**
  * Amount of milliseconds the thread sleeps after each iteration
  */
-#define UBLOXEVA8M_THREAD_SLEEP_MS 500
+#define UBLOXEVA8M_THREAD_SLEEP_MS 100
 
 /**
  * I2C Device Address

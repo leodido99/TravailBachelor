@@ -23,6 +23,7 @@
 #include "heart_rate.h"
 #include "cadence.h"
 
+#include <pinmux.h>
 #include <string.h>
 #include <misc/byteorder.h>
 
@@ -206,32 +207,6 @@ static void race_sensor_mngr_thread(void)
 	}
 }
 
-static int configure_lsm303agr(void)
-{
-	int err;
-
-	/* Initialize the LSM303AGR module */
-	err = lsm303agr_init(CONFIG_I2C_SAM0_SERCOM3_LABEL);
-	if (err) {
-		DBG_PRINTK("%s: Can't init LSM303AGR %d\n", __func__, err);
-		return RACE_SENSOR_MNGR_ACCEL_DEVICE_FAILURE;
-	}
-
-	/* Enable the accelerometer */
-	err = lsm303agr_accel_enable(LSM303AGR_NORMAL_MODE, LSM303AGR_HIGH_RES_100HZ, false, (LSM303AGR_Z_AXIS | LSM303AGR_Y_AXIS | LSM303AGR_X_AXIS));
-	if (err) {
-		DBG_PRINTK("%s: Can't enable accelerometer %d\n", __func__, err);
-		return RACE_SENSOR_MNGR_ACCEL_DEVICE_FAILURE;
-	}
-
-	/* Set accelerometer scale */
-	if (lsm303agr_accel_set_scale(LSM303AGR_8G)) {
-		printk("Couldn't set accelerometer scale\n");
-	}
-
-	return RACE_SENSOR_MNGR_SUCCESS;
-}
-
 static int configure_rn2483(void)
 {
 	int err;
@@ -298,12 +273,45 @@ static int configure_gps(void)
 	return RACE_SENSOR_MNGR_SUCCESS;
 }
 
+static int update_pinmux(void)
+{
+	struct device *muxa;
+	int err;
+
+	muxa = device_get_binding(CONFIG_PINMUX_SAM0_A_LABEL);
+	if (!muxa) {
+		DBG_PRINTK("%s: Binding to pinmux failed\n", __func__);
+		return HR_BINDING_FAILED;
+	}
+
+	/* Accelerometer INT1_XL */
+	err = pinmux_pin_set(muxa, ACCEL_INT1_PIN, PINMUX_FUNC_A);
+	if (err < 0) {
+		DBG_PRINTK("%s: Cannot change pin function\n", __func__);
+		return err;
+	}
+
+	/* Accelerometer INT2_XL */
+	err = pinmux_pin_set(muxa, ACCEL_INT2_PIN, PINMUX_FUNC_A);
+	if (err < 0) {
+		DBG_PRINTK("%s: Cannot change pin function\n", __func__);
+		return err;
+	}
+
+	return 0;
+}
+
 int race_sensor_mngr_init(void)
 {
 	int err;
 
 	if (race_sensor_mngr.initialized) {
 		return RACE_SENSOR_MNGR_SUCCESS;
+	}
+
+	err = update_pinmux();
+	if (err < 0) {
+		return err;
 	}
 
 	DBG_PRINTK("%s: Initializing RN2483\n", __func__);
@@ -320,21 +328,14 @@ int race_sensor_mngr_init(void)
 		return err;
 	}
 
-	DBG_PRINTK("%s: Initializing LSM303AGR\n", __func__);
-	/* Configure the accelerometer */
-	err = configure_lsm303agr();
-	if (err) {
+	DBG_PRINTK("%s: Initializing Cadence\n", __func__);
+	err = cadence_init(CONFIG_I2C_SAM0_SERCOM3_LABEL, ACCEL_INT_DEV, ACCEL_INT1_PIN);
+	if (err < 0) {
 		return err;
 	}
 
 	DBG_PRINTK("%s: Initializing Heart_Rate\n", __func__);
 	err = hr_init(GPIO_HR_DEV, GPIO_HR_PIN);
-	if (err < 0) {
-		return err;
-	}
-
-	DBG_PRINTK("%s: Initializing Cadence\n", __func__);
-	err = cadence_init(CONFIG_I2C_SAM0_SERCOM3_LABEL, ACCEL_INT_DEV, ACCEL_INT1_PIN);
 	if (err < 0) {
 		return err;
 	}
