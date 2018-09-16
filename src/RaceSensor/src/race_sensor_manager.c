@@ -32,12 +32,6 @@
 #define DEBUG DEBUG_RACE_SENSOR_MNGR
 
 /**
- * If the module must wait for a valid GPS fix before
- * starting to send packets. Used for debug
- */
-#define RACE_SENSOR_DO_GPS_FIX 1
-
-/**
  * Marker used to signal the beginning of the packet
  */
 #define RACE_SENSOR_MNGR_SYNC_MARKER 0xF0CACC1A

@@ -18,6 +18,11 @@
  */
 #define SENSOR_ID 0x1
 
+/**
+ * Race managers wait for GPS fix before starting to send packets
+ */
+#define RACE_SENSOR_DO_GPS_FIX 0
+
 /* ************************************************************************* */
 /* GPIO									     */
 /* ************************************************************************* */
