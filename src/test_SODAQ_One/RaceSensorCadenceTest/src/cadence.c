@@ -8,6 +8,7 @@
 #include "cadence.h"
 
 #include <gpio.h>
+#include <pinmux.h>
 #include <stdio.h>
 
 #include "LSM303AGR.h"
@@ -17,7 +18,8 @@
 #include "debug.h"
 
 #define DEBUG 1
-#define CADENCE_USE_SAMPLING 1
+#define CADENCE_TEST 1
+//#define CADENCE_USE_SAMPLING 1
 
 struct cadence {
 	struct gpio_callback int1_cb;
@@ -26,6 +28,8 @@ struct cadence {
 };
 
 struct cadence cadence_priv;
+
+extern const k_tid_t cadence_thread_id;
 
 #ifdef CADENCE_USE_SAMPLING
 
@@ -79,8 +83,6 @@ static void new_step(void)
 	cadence_priv.step_cnt++;
 }
 
-//#define CADENCE_TEST 0
-#ifdef CADENCE_TEST
 /**
  * Stack size allocated for the packet manager thread
  */
@@ -89,7 +91,7 @@ static void new_step(void)
 /**
  * Thread priority for the packet manager thread
  */
-#define CADENCE_PRIORITY 5000
+#define CADENCE_PRIORITY 0
 
 #define CADENCE_INTERVAL K_MSEC(50)
 
@@ -119,12 +121,16 @@ void cadence_print(void)
 {
 	char buffer[256];
 
-	printk("Printing %d Cadence points:\ndevice\nx\ty\tz\n", data_points.nb_data_point);
+	printk("Printing %d Cadence points:\ndevice\ttime[ms]\tx scaled\ty scaled\tz scaled\tx\ty\tz\n", data_points.nb_data_point);
 
 	for (int i = 0; i < data_points.nb_data_point; i++) {
-		snprintf(buffer, 256, "%d\t%d\t%f\t%f\t%f\n", data_points.data[i].dev, data_points.data[i].ts, lsm303agr_get_scaled_value(data_points.data[i].accel_x),
+		snprintf(buffer, 256, "%d\t%d\t%f\t%f\t%f\t%d\t%d\t%d\n", data_points.data[i].dev, data_points.data[i].ts,
+				lsm303agr_get_scaled_value(data_points.data[i].accel_x),
 				lsm303agr_get_scaled_value(data_points.data[i].accel_y),
-				lsm303agr_get_scaled_value(data_points.data[i].accel_z));
+				lsm303agr_get_scaled_value(data_points.data[i].accel_z),
+				data_points.data[i].accel_x,
+				data_points.data[i].accel_y,
+				data_points.data[i].accel_z);
 		printk("%s", buffer);
 	}
 }
@@ -170,10 +176,6 @@ static void cadence_thread(void)
 		k_sleep(CADENCE_INTERVAL);
 	}
 }
-#else
-void cadence_print(void) {};
-void cadence_reset_samples(void) {};
-#endif
 
 static int get_steps(void)
 {
@@ -229,6 +231,7 @@ static int process_samples(struct cadence_sampling_t *sampling)
 static void cadence_sampling_thread(void *arg1, void *arg2, void *arg3)
 {
 	struct cadence_sampling_t *sampling = arg1;
+	int cnt = 0;
 
 	while (1) {
 		/* Get sample */
@@ -240,10 +243,13 @@ static void cadence_sampling_thread(void *arg1, void *arg2, void *arg3)
 		sampling->nb_samples++;
 
 		if (sampling->nb_samples == CADENCE_NB_SAMPLE) {
-			printk("processing\n");
 			process_samples(sampling);
+			cnt++;
 			sampling->nb_samples = 0;
-			DBG_PRINTK("nb steps: %d\n", get_steps());
+			if (cnt == 9) {
+				DBG_PRINTK("nb steps: %d\n", get_steps());
+				cnt = 0;
+			}
 		}
 
 		k_sleep(CADENCE_SAMPLING_INTERVAL);
@@ -253,6 +259,7 @@ static void cadence_sampling_thread(void *arg1, void *arg2, void *arg3)
 
 void cadence_gpio_callback(struct device *port, struct gpio_callback *cb, u32_t pins)
 {
+	DBG_PRINTK("GPIO ISR");
 	new_step();
 }
 
@@ -308,6 +315,27 @@ static int setup_gpio_irq(const char* device, int pin)
 {
 	struct device *dev;
 	int err;
+
+	/* Update pin function to EXTINT */
+	dev = device_get_binding(CONFIG_PINMUX_SAM0_A_LABEL);
+	if (!dev) {
+		DBG_PRINTK("%s: Binding to pinmux failed\n", __func__);
+		return CADENCE_BINDING_FAILED;
+	}
+
+	/* INT2 */
+	err = pinmux_pin_set(dev, 20, PINMUX_FUNC_A);
+	if (err < 0) {
+		DBG_PRINTK("%s: Cannot change pin function\n", __func__);
+		return err;
+	}
+
+	/* INT1 */
+	err = pinmux_pin_set(dev, 21, PINMUX_FUNC_A);
+	if (err < 0) {
+		DBG_PRINTK("%s: Cannot change pin function\n", __func__);
+		return err;
+	}
 
 	dev = device_get_binding(device);
 	if (!dev) {
