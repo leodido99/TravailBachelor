@@ -24,15 +24,23 @@
 struct cadence {
 	struct gpio_callback int1_cb;
 	int step_cnt;
+	s32_t last_step_time;
 	s64_t start_time;
 };
 
-struct cadence cadence_priv;
+struct cadence cadence_priv = {
+	.last_step_time = 0
+};
 
 extern const k_tid_t cadence_sampling_thread_id;
 
 /* See LSM303AGR 18000 / 64 * 4 / 1000 = 1.125g */
 #define CADENCE_THRESHOLD 18000
+
+/* Minimum time between two steps
+ * For fastest runners cadence is 200
+ * -> 60000 / 200 = 300ms */
+#define CADENCE_MIN_TIME_BETWEEN_STEPS K_MSEC(300)
 
 /**
  * Stack size allocated for the cadence sampling thread
@@ -117,7 +125,13 @@ static void new_step(void)
 	}
 
 	printk("step!\n");
-	cadence_priv.step_cnt++;
+
+	if (!cadence_priv.last_step_time ||
+			(k_uptime_get_32() - cadence_priv.last_step_time) >= CADENCE_MIN_TIME_BETWEEN_STEPS) {
+		cadence_priv.step_cnt++;
+	}
+
+	cadence_priv.last_step_time = k_uptime_get_32();
 }
 
 static int get_steps(void)
