@@ -98,6 +98,11 @@ class race_app_server {
 		void stop();
 
 		/**
+		 * Wait for the thread end of execution
+		 */
+		void join();
+
+		/**
 		 * Set the verbosity
 		 * @param verbose true = verbose mode on; false = verbose mode off
 		 */

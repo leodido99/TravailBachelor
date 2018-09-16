@@ -46,6 +46,7 @@ int main(int argc, char **argv) {
 
 	if (argc > 1) {
 		if (strcmp(argv[1], "-noshell") == 0) {
+			std::cout << "No shell mode enabled" << std::endl;
 			enableShell = false;
 		}
 	}
@@ -72,8 +73,10 @@ int main(int argc, char **argv) {
 		test_mode_cmd* test_cmd = new test_mode_cmd(test_handler);
 		myShell.add_cmd(test_cmd);
 
-		/* Start shell */
+		/* Start shell - blocking */
 		myShell.start();
+	} else {
+		myAppServer.join();
 	}
 
 	return EXIT_SUCCESS;

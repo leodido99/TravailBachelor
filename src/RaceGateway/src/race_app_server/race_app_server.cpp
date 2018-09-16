@@ -146,6 +146,12 @@ void race_app_server::start() {
 	this->listening_thread = new std::thread(&race_app_server::listen, this);
 }
 
+void race_app_server::join() {
+	if (this->listening_thread) {
+		this->listening_thread->join();
+	}
+}
+
 void race_app_server::end_listen() {
 	close(this->listen_socket);
 }
