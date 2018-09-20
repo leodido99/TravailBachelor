@@ -1,4 +1,3 @@
-
 \chapter{Description de l'application mobile}\label{ch:app_mobile}
 
 L'application mobile, aussi appelé RaceTracker dans ce document, permet de visualiser, en temps réel, les informations produites par les capteurs porté par les sportifs. En plus de cela elle permet également d'administrer les compétitions.
@@ -11,7 +10,7 @@ L'environnement de développement Android Studio a été utilisé pour le dével
 
 \section{Architecture logiciel}
 
-L'architecture logiciel de l'application mobile est présenté ci-dessous. Une application Android est composée de "Activities", qui représentent chacun des écrans disponibles dans l'application. Des "Fragments" sont également utilisés, ce sont des morceaux d'interface graphique qui peuvent être insérés dans des "Activities". Enfin l'application mobile utilise des classes qui sont responsable de la gestion de l'application et de l'accès à la base de données.
+L'architecture logiciel de l'application mobile est présentée ci-dessous. Une application Android est composée de "Activities", qui représentent chacun des écrans disponibles dans l'application. Des "Fragments" sont également utilisés, ce sont des morceaux d'interface graphique qui peuvent être insérés dans des "Activities". Enfin l'application mobile utilise des classes qui sont responsable de la gestion de l'application et de l'accès à la base de données.
 
 La figure \ref{fig:app_static_archi} présente l'architecture statique de l'application mobile Android.
 
@@ -22,7 +21,7 @@ La figure \ref{fig:app_static_archi} présente l'architecture statique de l'appl
 \label{fig:app_static_archi}
 \end{figure}
 
-Durant l'exécution de l'application mobile, le thread principal est entièrement géré par le système d'exploitation Android, il est en charge de la mise à jour de l'interface graphique et de tout ce qui en est en lien comme par exemple le changement d'activité lors de l'appui d'un bouton par exemple. Lorsque l'application désire envoyer des requêtes à la base de données, elle utilise la classe RaceTrackerDBAsyncTask qui hérite de AsyncTask. Cette classe permet d'effectuer une tâche en arrière plan de manière asynchrone et de gérer le résultat une fois la tâche terminée. Enfin lorsque l'utilisateur est en train de visionner une course, un objet de type Handler est utilisé pour faire la requête du dernier point de donnée à intervalle régulier.
+Durant l'exécution de l'application mobile, le thread principal est entièrement géré par le système d'exploitation Android, il est en charge de la mise à jour de l'interface graphique et de tout ce qui est en lien comme par exemple le changement d'activité lors de l'appui d'un bouton. Lorsque l'application désire envoyer des requêtes à la base de données, elle utilise la classe RaceTrackerDBAsyncTask qui hérite de AsyncTask. Cette classe permet d'effectuer une tâche en arrière-plan de manière asynchrone et de gérer le résultat une fois la tâche terminée. Enfin, lorsque l'utilisateur est en train de visionner une course, un objet de type Handler est utilisé pour faire la requête du dernier point de donnée à intervalle régulier.
 
 La figure \ref{fig:app_dyn_archi} montre l'architecture dynamique de l'application mobile. 
 
@@ -35,7 +34,7 @@ La figure \ref{fig:app_dyn_archi} montre l'architecture dynamique de l'applicati
 
 \section{Les librairies externes}
 
-L'application mobile utilise principalement deux librairies externes, la première est le "Maps for Android SDK", cette librairie permet d'ajouter à son application mobile une carte de type google maps et d'interagir avec elle. Elle permet d'ajouter des marqueurs à des position (latitude/longitude) spécifiques, de créer des lignes entre les points ou encore de modifier le comportement de la carte. La librairie est disponible sur \url{https://cloud.google.com/maps-platform/}.
+L'application mobile utilise principalement deux librairies externes. La première est le "Maps for Android SDK”. Cette librairie permet d'ajouter à son application mobile une carte de type google maps et d'interagir avec elle. Elle permet d'ajouter des marqueurs à des positions (latitude/longitude) spécifiques, de créer des lignes entre les points ou encore de modifier le comportement de la carte. La librairie est disponible sur \url{https://cloud.google.com/maps-platform/}.
 
 Un exemple d'utilisation est proposé ci-dessous.
 
@@ -68,7 +67,7 @@ public void onMapReady(GoogleMap googleMap) {
 ...
 \end{lstlisting}
 
-La deuxième librairie externe utilisée et un driver de type JDBC permettant de s'interfacer avec une base de données PostgreSQL. C'est grâce à ce composant que l'application mobile va interroger la base de données afin de récupérer la liste des compétiteurs, les données relatives aux compétitions ou encore les points de données à afficher sur la carte. Le driver JDBC est téléchargeable gratuitement à l'adresse \url{https://jdbc.postgresql.org/}.
+La deuxième librairie externe utilisée est un driver de type JDBC permettant de s'interfacer avec une base de données PostgreSQL. C'est grâce à ce composant que l'application mobile va interroger la base de données afin de récupérer la liste des compétiteurs, les données relatives aux compétitions ou encore les points de données à afficher sur la carte. Le driver JDBC est téléchargeable gratuitement à l'adresse \url{https://jdbc.postgresql.org/}.
 
 \begin{lstlisting}[style=JavaStyle]
 ...
@@ -111,7 +110,7 @@ Dans le monde Android, une activité est une chose singulière que l'utilisateur
 
 \subsection{MainMenuActivity}
 
-Le point d'entré de l'application Android, c'est le premier écran qui se lance et qui permet de choisir si l'on souhaite visionner une course ou alors faire des opérations d'administration sur la base de donnée. Lorsque l'utilisateur à fait son choix, elle lance l'activité suivante c'est à dire soit ViewRaceSelectorActivity ou ManageRaceSelectorActivity.
+Le point d'entrée de l'application Android est le premier écran qui se lance, et qui permet de choisir si l'on souhaite visionner une course ou alors faire des opérations d'administration sur la base de données. Lorsque l'utilisateur a fait son choix, elle lance l'activité, suivante c'est à dire soit ViewRaceSelectorActivity ou ManageRaceSelectorActivity.
 
 La figure \ref{fig:mainmenuactivity_uml} montre le diagramme de classe de MainMenuActivity.
 
@@ -134,7 +133,7 @@ La figure \ref{fig:mainmenuactivity_uml} montre le diagramme de classe de MainMe
 
 \subsection{ViewRaceSelectorActivity}
 
-Cette activité permet à l'utilisateur de sélectionner une course, lorsqu'elle se lance elle va allez interroger la base de données afin de récupérer la liste de toutes les compétitions et l'afficher à l'utilisateur qui peut ensuite sélectionner une course en cliquant sur l'objet de son choix. Une fois la course choisie, un objet de type RaceTrackerCompetition contenant les informations relatives à la course est renvoyé au créateur de cette activité.
+Cette activité permet à l'utilisateur de sélectionner une course. Lorsqu'elle se lance, elle va aller interroger la base de données afin de récupérer la liste de toutes les compétitions et l'afficher à l'utilisateur qui peut ensuite sélectionner une course en cliquant sur l'objet de son choix. Une fois la course choisie, un objet de type RaceTrackerCompetition contenant les informations relatives à la course est renvoyé au créateur de cette activité.
 
 La figure \ref{fig:viewraceselector_uml} montre le diagramme de classe de ViewRaceSelectorActivity.
 
@@ -157,7 +156,7 @@ La figure \ref{fig:viewraceselector_uml} montre le diagramme de classe de ViewRa
 
 \subsection{ViewRaceActivity}
 
-Lorsque l'utilisateur désire regarder une course, c'est cette activité qui va être lancé. Elle est responsable de la gestion de l'affichage des informations sur la carte et également de la liste des compétiteurs. Périodiquement cette activité va allez chercher dans la base de données les points de données relatif à une course et vérifier si de nouveau points ont été ajouté auquel cas elle met à jour la carte avec la nouvelle position. Toutes ses informations sont récupérés depuis la base de donnée.
+Lorsque l'utilisateur désire regarder une course, c'est cette activité qui va être lancée. Elle est responsable de la gestion de l'affichage des informations sur la carte et également de la liste des compétiteurs. Périodiquement cette activité va aller chercher dans la base de données les points de données relatifs à une course et vérifier si de nouveaux points ont été ajoutés, auquel cas elle met à jour la carte avec la nouvelle position. Toutes ces informations sont récupérées depuis la base de données.
 
 La figure \ref{fig:viewraceactivity_uml} montre le diagramme de classe de ViewRaceActivity.
 
@@ -180,7 +179,7 @@ La figure \ref{fig:viewraceactivity_uml} montre le diagramme de classe de ViewRa
 
 \subsection{ReplayRaceActivity}
 
-L'activité ReplayRaceActivity est très semblable et donc hérite de ViewRaceActivity. Son but est d'afficher une course déjà terminé et donc de reconstituer la course comme lorsqu'elle s'est passée. Elle va récupérer tout les points de données puis calculer le temps qu'il s'est passée entre chacun d'eux afin de pouvoir simuler l'évolution de la course comme en direct.
+L'activité ReplayRaceActivity est très semblable et donc hérite de ViewRaceActivity. Son but est d'afficher une course déjà terminée et donc de reconstituer la course comme lorsqu'elle s'est passée. Elle va récupérer tous les points de données puis calculer le temps qui est passé entre chacun d'eux afin de pouvoir simuler l'évolution de la course comme en direct.
 
 La figure \ref{fig:replayrace_uml} montre le diagramme de classe de ReplayRaceActivity.
 
@@ -205,7 +204,7 @@ La figure \ref{fig:replayrace_uml} montre le diagramme de classe de ReplayRaceAc
 
 \subsection{ManageRaceSelectorActivity}
 
-La classe ManageRaceSelectorActivity permet à l'utilisateur de sélectionner l'action d'administration qu'il désire effectuer. Une fois la sélection  faite l'activité correspondante est lancée.
+La classe ManageRaceSelectorActivity permet à l'utilisateur de sélectionner l'action d'administration qu'il désire effectuer. Une fois la sélection  faite, l'activité correspondante est lancée.
 
 La figure \ref{fig:manageraceselector_uml} montre le diagramme de classe de ManageRaceSelectorActivity.
 
@@ -228,7 +227,7 @@ La figure \ref{fig:manageraceselector_uml} montre le diagramme de classe de Mana
 
 \subsection{CreateNewRaceActivity}
 
-L'activité CreateNewRaceActivity permet à l'utilisateur de créer une nouvelle compétition dans la base de données. Une fois que l'utilisateur à rentré toutes les informations, une requête d'insertion est envoyé à la base de données.
+L'activité CreateNewRaceActivity permet à l'utilisateur de créer une nouvelle compétition dans la base de données. Une fois que l'utilisateur a rentré toutes les informations, une requête d'insertion est envoyée à la base de données.
 
 La figure \ref{fig:createnewrace_uml} montre le diagramme de classe de CreateNewRaceActivity.
 
@@ -251,7 +250,7 @@ La figure \ref{fig:createnewrace_uml} montre le diagramme de classe de CreateNew
 
 \subsection{RaceLocationPickerActivity}
 
-Permet la sélection de la position ou se tient la compétition lors de la création de nouvelles courses. Cette information est utilisé pour pouvoir centré la vue sur le bonne emplacement.
+Permet la sélection de la position où se tient la compétition lors de la création de nouvelles courses. Cette information est utilisée pour pouvoir centrer la vue sur le bon emplacement.
 
 La figure \ref{fig:racelocationpicker_uml} montre le diagramme de classe de RaceLocationPickerActivity.
 
@@ -274,7 +273,7 @@ La figure \ref{fig:racelocationpicker_uml} montre le diagramme de classe de Race
 
 \subsection{CreateNewCompetitorActivity}
 
-Cette activité permet la création d'un nouveau compétiteur et de son ajout dans la base de donnée. Une fois rajouté il pourra ensuite être inscris à des compétitions.
+Cette activité permet la création d'un nouveau compétiteur et de son ajout dans la base de données. Une fois rajouté, il pourra ensuite être inscrit à des compétitions.
 
 La figure \ref{fig:createnewcompetitor_uml} montre le diagramme de classe de CreateNewCompetitorActivity.
 
@@ -297,7 +296,7 @@ La figure \ref{fig:createnewcompetitor_uml} montre le diagramme de classe de Cre
 
 \subsection{RegistrationActivity}
 
-Liste les compétiteur déjà inscris à la compétition sélectionnée. En plus de cela il est possible d'ajouter un nouveau participant, ce qui sera géré par l'activité RegistrationEditActivity.
+Liste les compétiteur déjà inscrits à la compétition sélectionnée. En plus de cela il est possible d'ajouter un nouveau participant, ce qui sera géré par l'activité RegistrationEditActivity.
 
 La figure \ref{fig:registration_uml} montre le diagramme de classe de RegistrationActivity.
 
@@ -320,7 +319,7 @@ La figure \ref{fig:registration_uml} montre le diagramme de classe de Registrati
 
 \subsection{RegistrationEditActivity}
 
-Permet l'inscription des concurrents à une certaine course. Un numéro de dossard ainsi que le numéro du capteur qu'il vont porter durant la course sera également enregistré.
+Permet l'inscription des concurrents à une certaine course. Un numéro de dossard ainsi que le numéro du capteur qu'ils vont porter durant la course sera également enregistré.
 
 La figure \ref{fig:registrationedit_uml} montre le diagramme de classe de RegistrationEditActivity.
 
@@ -343,7 +342,7 @@ La figure \ref{fig:registrationedit_uml} montre le diagramme de classe de Regist
 
 \subsection{StartEndRaceActivity}
 
-Cette activité donne la possibilité d'altérer l'état d'une course. Il existe deux état possible, active ou inactive. Une course active est entrain de se dérouler en direct alors qu'une course inactive est terminé. Dans le cas d'une course en direct, l'activité ViewRaceActivity va alors rechercher les nouveaux points ajouté à la course et les mettre à jour en temps réel. Pour une course inactive, c'est à dire terminé, c'est une autre activité qui servira à sa visualisation, ReplayRaceActivity, elle simulera l'affichage des points comme lorsque la course s'est réellement passée ce qui permet de revoir l'évolution de la compétition.
+Cette activité donne la possibilité d'altérer l'état d'une course. Il existe deux états possibles, active ou inactive. Une course active est entrain de se dérouler en direct alors qu'une course inactive est terminée. Dans le cas d'une course en direct, l'activité ViewRaceActivity va alors rechercher les nouveaux points ajoutés à la course et les mettre à jour en temps réel. Pour une course inactive, c'est à dire terminée, c'est une autre activité qui servira à sa visualisation, ReplayRaceActivity. Elle simulera l'affichage des points comme lorsque la course s'est réellement passée, ce qui permet de revoir l'évolution de la compétition.
 
 La figure \ref{fig:startendrace_uml} montre le diagramme de classe de StartEndRaceActivity.
 
@@ -389,11 +388,11 @@ La figure \ref{fig:settingsactivity_uml} montre le diagramme de classe de Settin
 
 \section{Les fragments}
 
-Les fragments représente le comportement d'une partie de l'interface graphique. Il est possible d'avoir plusieurs fragments sur une même activité.
+Les fragments représentent le comportement d'une partie de l'interface graphique. Il est possible d'avoir plusieurs fragments sur une même activité.
 
 \subsection{DatePickerFragment}
 
-Le fragment DataPickerFragment est utilisé pour récupérer une date entrée par l'utilisateur, l'interface habituelle pour entrer une date est présenté à l'utilisateur et son choix est retourné.
+Le fragment DataPickerFragment est utilisé pour récupérer une date entrée par l'utilisateur, l'interface habituelle pour entrer une date est présentée à l'utilisateur et son choix est retourné.
 
 La figure \ref{fig:datapickerfragment_uml} montre le diagramme de classe de DatePickerFragment.
 
@@ -439,11 +438,11 @@ La figure \ref{fig:timepickerfragment_uml} montre le diagramme de classe de Time
 
 \section{Les classes}
 
-L'application mobile RaceTracker est composée de plusieurs classe qui lui permettent d'effectuer ses différentes tâches. Elles sont décrites dans cette section.
+L'application mobile RaceTracker est composée de plusieurs classes qui lui permettent d'effectuer ses différentes tâches. Elles sont décrites dans cette section.
 
 \subsection{RaceTrackerCompetition}
 
-Cette classe contient les données relatives à une compétition. Elle peut être initialisée directement en lui passant le résultat d'une requête à une base de donnée (ResultSet).
+Cette classe contient les données relatives à une compétition. Elle peut être initialisée directement en lui passant le résultat d'une requête à une base de données (ResultSet).
 
 La figure \ref{fig:racetrackercompetition_uml} montre le diagramme de classe de RaceTrackerCompetition.
 
@@ -508,7 +507,7 @@ La figure \ref{fig:racetrackercompetitoradapter_uml} montre le diagramme de clas
 
 \subsection{RaceTrackerCompetitors}
 
-Permet de faire la liaison avec la base de donnée. Elle permet la récupération de tout les compétiteurs existant dans la base ainsi que l'ajout de nouveau.
+Permet de faire la liaison avec la base de données. Elle permet la récupération de tous les compétiteurs existants dans la base ainsi que l'ajout de nouveaux compétiteurs.
 
 La figure \ref{fig:racetrackercompetitors_uml} montre le diagramme de classe de RaceTrackerCompetitors.
 
@@ -521,7 +520,7 @@ La figure \ref{fig:racetrackercompetitors_uml} montre le diagramme de classe de 
 
 \subsection{RaceTrackerCountry}
 
-Représente un pays dont un compétiteur peut être d'origine. Cette classe s'occupe également de la gestion de l'icône du drapeau du pays qui est directement récupéré depuis la base.
+Représente un pays dont un compétiteur peut être originaire. Cette classe s'occupe également de la gestion de l'icône du drapeau du pays qui est directement récupéré depuis la base.
 
 La figure \ref{fig:racetrackercountry_uml} montre le diagramme de classe de RaceTrackerCountry.
 
@@ -591,7 +590,7 @@ La figure \ref{fig:racetrackerregistrationadapter_uml} montre le diagramme de cl
 
 \subsection{RaceTrackerRegistrations}
 
-Permet la récupération d'une liste de RaceTrackerRegistration pour une certaine course depuis la base de donnée. C'est également cette classe qui permet l'insertion de nouvelles inscriptions.
+Permet la récupération d'une liste de RaceTrackerRegistration pour une certaine course depuis la base de données. C'est également cette classe qui permet l'insertion de nouvelles inscriptions.
 
 La figure \ref{fig:racetrackerregistrations_uml} montre le diagramme de classe de RaceTrackerRegistrations.
 
@@ -618,13 +617,13 @@ La figure \ref{fig:racetrackerdatapoint_uml} montre le diagramme de classe de Ra
 
 \subsection{RaceTrackerDataPoints}
 
-Permet de récupérer une liste de RaceTrackerDataPoint initialisée directement depuis les données reçu depuis la base de données.
+Permet de récupérer une liste de RaceTrackerDataPoint initialisée directement depuis les données reçues depuis la base de données.
 
 La figure \ref{fig:racetrackerdatapoints_uml} montre le diagramme de classe de RaceTrackerDataPoints.
 
 \subsection{RaceTrackerTrackPoint}
 
-Les track points représentent toutes les positions qui sont utilisées pour pouvoir dessiner le tracer du parcours de la course. Ils sont stocké dans la base de données et il est possible de les lire grâce à la classe RaceTrackerTrackPoints.
+Les track points représentent toutes les positions qui sont utilisées pour pouvoir dessiner le tracé du parcours de la course. Ils sont stockés dans la base de données et il est possible de les lire grâce à la classe RaceTrackerTrackPoints.
 
 La figure \ref{fig:racetrackertrackpoint_uml} montre le diagramme de classe de RaceTrackerTrackPoint.
  
@@ -645,13 +644,13 @@ La figure \ref{fig:racetrackertrackpoint_uml} montre le diagramme de classe de R
 
 \subsection{RaceTrackerTrackPoints}
 
-Cette classe permet la récupération de tous les points du parcours de la course depuis la base de données. Ils sont ensuite passé à la carte Google map afin d'y dessiner le parcours.
+Cette classe permet la récupération de tous les points du parcours de la course depuis la base de données. Ils sont ensuite passés à la carte Google map afin d'y dessiner le parcours.
 
 La figure \ref{fig:racetrackertrackpoints_uml} montre le diagramme de classe de RaceTrackerTrackPoints.
 
 \subsection{RaceTrackerDBConnection}
 
-La classe qui contient les informations relatives à la connection à la base de données, c'est à dire adresse, user name et mots de passe. Elle permet ensuite de construire la chaîne de caractère utilisée par le driver JDBC.
+La classe qui contient les informations relatives à la connexion à la base de données, c'est à dire adresse, user name et mots de passe. Elle permet ensuite de construire la chaîne de caractères utilisée par le driver JDBC.
 
 La figure \ref{fig:racetrackercompetitors_uml} montre le diagramme de classe de RaceTrackerCompetitors.
 
@@ -664,9 +663,9 @@ La figure \ref{fig:racetrackercompetitors_uml} montre le diagramme de classe de 
 
 \subsection{RaceTrackerQuery}
 
-Contient une requête pour la base de donnée, son résultat, la fonction de callback de l'utilisateur et éventuellement l'exception si la requête n'a pas pu être exécuté correctement. Cette classe permet d'exécuter deux types de requêtes, les requêtes dit de mise à jour (DELETE, UPDATE ou INSERT) ou de sélection (SELECT).
+Contient une requête pour la base de donnée, son résultat, la fonction de callback de l'utilisateur et éventuellement l'exception si la requête n'a pas pu être exécutée correctement. Cette classe permet d'exécuter deux types de requêtes, les requêtes dites de mise à jour (DELETE, UPDATE ou INSERT) ou de sélection (SELECT).
 
-Deux types de fonction callback sont utilisées pour informer l'utilisateur de l'évolution de la requête. OnQueryResultReady est déclenché lorsque les résultat d'une sélection sont prêt à être analysés. OnQueryExecuted est déclenché au terme de l'opération de sélection ou de mise à jour.
+Deux types de fonction callback sont utilisées pour informer l'utilisateur de l'évolution de la requête. OnQueryResultReady est déclenché lorsque les résultats d'une sélection sont prêts à être analysés. OnQueryExecuted est déclenché au terme de l'opération de sélection ou de mise à jour.
 
 La figure \ref{fig:racetrackerquery_uml} montre le diagramme de classe de RaceTrackerQuery.
 
@@ -692,19 +691,19 @@ La figure \ref{fig:racetrackerquery_uml} montre le diagramme de classe de RaceTr
 
 \subsection{RaceTrackerExecuteQuery}
 
-Cette classe, qui hérite de AsyncTask permet l'exécution d'une requête RaceTrackerQuery de type mise à jour de manière asynchrone dans le but de ne pas bloquer le thread principale d'affichage d'Android.
+Cette classe, qui hérite de AsyncTask, permet l'exécution d'une requête RaceTrackerQuery de type mise à jour de manière asynchrone dans le but de ne pas bloquer le thread principal d'affichage d'Android.
 
 La figure \ref{fig:racetrackerexecutequery_uml} montre le diagramme de classe de RaceTrackerExecuteQuery.
 
 \subsection{RaceTrackerExecuteUpdate}
 
-Cette classe, qui hérite de AsyncTask permet l'exécution d'une requête RaceTrackerQuery de type sélection de manière asynchrone dans le but de ne pas bloquer le thread principale d'affichage d'Android.
+Cette classe, qui hérite de AsyncTask permet l'exécution d'une requête RaceTrackerQuery de type sélection de manière asynchrone dans le but de ne pas bloquer le thread principal d'affichage d'Android.
 
 La figure \ref{fig:racetrackerexecutequery_uml} montre le diagramme de classe de RaceTrackerExecuteUpdate.
 
 \subsection{LatLngWraper}
 
-Cette classe permet d'encapsuler un objet de type LatLng. Cette classe est utilisé pour rendre un objet LatLng serializable.
+Cette classe permet d'encapsuler un objet de type LatLng. Cette classe est utilisée pour rendre un objet LatLng serialisable.
 
 La figure \ref{fig:latlngwraper_uml} montre le diagramme de classe de LatLngWraper.
 
@@ -732,7 +731,7 @@ La figure \ref{fig:recyclertouchlistener_uml} montre le diagramme de classe de R
 
 \subsection{OnQueryResultReady}
 
-OnQueryResultReady est une interface que l'utilisateur doit implémenter afin de pouvoir recevoir les résultats des requêtes envoyées à la base de données. La fonction est automatiquement appelé lorsque les résultats de la requête associée sont prêt à être consulté. Cette interface est appelé depuis le contexte d'exécution de AsyncTask, c'est à dire en arrière plan (et non sur le thread d'affichage de l'UI ce qui ne permet donc pas d'interagir avec les éléments graphiques lors de son appel).
+OnQueryResultReady est une interface que l'utilisateur doit implémenter afin de pouvoir recevoir les résultats des requêtes envoyées à la base de données. La fonction est automatiquement appelée lorsque les résultats de la requête associée sont prêts à être consultés. Cette interface est appelée depuis le contexte d'exécution de AsyncTask, c'est à dire en arrière-plan (et non sur le thread d'affichage de l'UI, ce qui ne permet donc pas d'interagir avec les éléments graphiques lors de son appel).
 
 La figure \ref{fig:onqueryresultready_uml} montre le diagramme de classe de OnQueryResultReady.
 
@@ -745,7 +744,7 @@ La figure \ref{fig:onqueryresultready_uml} montre le diagramme de classe de OnQu
 
 \subsection{OnQueryExecuted}
 
-Cette interface permet à l'utilisateur de savoir lorsque l'exécution d'une requête est terminée. L'interface OnQueryExecuted est appelé depuis le contexte d'exécution du thread d'affichage de l'UI et donc permet à l'utilisateur de modifier des éléments d'affichage ou de par exemple remplir des listes de type RecyclerView.
+Cette interface permet à l'utilisateur de savoir lorsque l'exécution d'une requête est terminée. L'interface OnQueryExecuted est appelée depuis le contexte d'exécution du thread d'affichage de l'UI et donc permet à l'utilisateur de modifier des éléments d'affichage ou de remplir des listes de type RecyclerView.
 
 La figure \ref{fig:onqueryexecuted_uml} montre le diagramme de classe de OnQueryExecuted.
 

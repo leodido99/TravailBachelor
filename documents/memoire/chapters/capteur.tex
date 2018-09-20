@@ -1,8 +1,8 @@
 \chapter{Description du capteur}\label{ch:capteur}
 
-Le travail du capteur et d'acquérir les données nécessaires, puis de les transmettre à intervalles réguliers par la couche radio LoRa à la passerelle. Le cœur du capteur est le micro-contrôleur, celui-ci permet l'exécution du firmware qui est en charge de la gestion des opérations. C'est cette application qui va effectuer aux moments voulus les acquisitions nécessaire et ensuite créer un paquet de données pour être  envoyé.
+Le travail du capteur et d'acquérir les données nécessaires, puis de les transmettre à intervalles réguliers par la couche radio LoRa à la passerelle. Le cœur du capteur est le micro-contrôleur, celui-ci permet l'exécution du firmware qui est en charge de la gestion des opérations. C'est cette application qui va effectuer aux moments voulus les acquisitions nécessaire et ensuite créer un paquet de données pour être envoyé.
 
-Pour se faire le capteur est munit de plusieurs modules permettant l'acquisition des différents paramètres. Il sont présentés dans la liste suivante.
+Pour ce faire, le capteur est muni de plusieurs modules permettant l'acquisition des différents paramètres. Il sont présentés dans la liste suivante.
 
 \begin{itemize}
 \item GPS: Il permettra de connaître la position (latitude/longitude) du capteur et également d'avoir une référence de temps. Voir la section \ref{ch:module_ubloxeva8m} pour plus de détails.
@@ -17,7 +17,7 @@ Dans le cadre du travail de Bachelor, un seul exemplaire de capteur sera assembl
 
 Le capteur est également soumis à des contraintes liées à son utilisation dans les conditions d'une compétition sportive.
 
-Afin de gêner au minimum le sportif pendant la course et afin que le capteur soit utilisable pour l'entièreté d'une compétition, il est soumis aux contraintes définit durant la pré-étude et listé ci-dessous.
+Afin de gêner au minimum le sportif pendant la course et afin que le capteur soit utilisable pour l'entièreté d'une compétition, il est soumis aux contraintes définies durant la pré-étude et listées ci-dessous.
 
 \begin{itemize}
 \item Veiller à ce que sa taille soit minimale
@@ -29,9 +29,9 @@ Afin de gêner au minimum le sportif pendant la course et afin que le capteur so
 
 \section{Le matériel}
 
-Lors de la pré-étude du projet, trois différentes cartes avaient été étudiée chacune avec leurs avantages et inconvénients. Pour la réalisation du projet, j'ai décidé d'utiliser la carte qui dispose de base du plus de module, c'est à dire la carte SODAQ One. En effet elle a l'immense avantage d'embarquer de base un module LoRa, un module GPS ainsi qu'un accéléromètre ce qui me permet de me focaliser sur le développement du logiciel embarqué. Il reste seulement à connecter sur une entrée du micro-contrôleur le module qui permettra de compter les battements du cœur en détectant les impulsions produite. Enfin afin de faciliter le debug de l'application embarquée, un UART et une sonde de debug seront également connectés pendant la phase de debug ce qui permettra d'afficher des messages et de permettre le debug du firmware. Un autre avantage de taille est que son micro-contrôleur est déjà disponible dans le système d'exploitation Zephyr ce qui facilitera le travail de portage.
+Lors de la pré-étude du projet, trois différentes cartes avaient été étudiées, chacune avec leurs avantages et inconvénients. Pour la réalisation du projet, j'ai décidé d'utiliser la carte qui dispose de base du plus grand nombre de modules, c'est à dire la carte SODAQ One. En effet, elle a l'immense avantage d'embarquer de base un module LoRa, un module GPS ainsi qu'un accéléromètre, ce qui me permet de me focaliser sur le développement du logiciel embarqué. Il reste seulement à connecter sur une entrée du micro-contrôleur le module qui permettra de compter les battements du cœur en détectant les impulsions produites. Enfin, afin de faciliter le debug de l'application embarquée, un UART et une sonde de debug seront également connectés pendant la phase de debug, ce qui permettra d'afficher des messages et de permettre le debug du firmware. Un autre avantage de taille est que son micro-contrôleur est déjà disponible dans le système d'exploitation Zephyr ce qui facilitera le travail de portage.
 
-Pour rappel, les caractéristiques du SODAQ One sont décrit dans la table~\ref{tab:sodaq_one_cara}.
+Pour rappel, les caractéristiques du SODAQ One sont décrites dans la table~\ref{tab:sodaq_one_cara}.
 
 \begin{table}[htb]
 \caption[Caractéristiques de la carte SODAQ One v3]{Caractéristiques de la carte SODAQ One v3}
@@ -60,11 +60,11 @@ Prix & 114 CHF\\
 \end{tabular}
 \end{table}
 
-Aux modules de base, comme expliqué précédemment, il faudra rajouter un module qui permettra de compter le nombre de battement du cœur. Il est développé par la société Adafruit sous le nom de "Adafruit Heart Rate Start Pack".
+Aux modules de base, comme expliqué précédemment, il faudra rajouter un module qui permettra de compter le nombre de battements du cœur. Il est développé par la société Adafruit sous le nom de "Adafruit Heart Rate Start Pack".
 
 \todo{PHOTO SODAQ}
 
-Le module LoRa RN2483 est connecté par un lien série UART et utilise une interface de type AT commands, c'est à dire qu'il est piloté avec l'envoie de chaînes de caractère représentant des commandes, dans la même idée les réponses reçues sont de type text. Le module GPS ainsi que l'accéléromètre sont quant à eux connecté sur le bus $I^{2}C$. Le module rythme cardiaque sera lui connecté simplement sur un General Purpose I/O.
+Le module LoRa RN2483 est connecté par un lien série UART et utilise une interface de type AT commands, c'est-à-dire qu'il est piloté avec l'envoi de chaînes de caractère représentant des commandes; dans la même idée les réponses reçues sont de type text. Le module GPS ainsi que l'accéléromètre sont quant à eux connectés sur le bus $I^{2}C$. Le module rythme cardiaque sera lui connecté simplement sur un General Purpose I/O.
 
 Le schéma block~\ref{fig:schema_block_sodaq} présente les différents modules et leurs connections avec le micro-contrôleur.
 
@@ -83,11 +83,9 @@ Le schéma block~\ref{fig:schema_block_sodaq} présente les différents modules 
 
 Le EVA8M de la compagnie UBlox est un module GPS à haute précision et qui propose 8 moteurs de positionnement avec des performances très intéressantes. Il est capable de gérer les signaux GPS, GLONASS, QZSS et SBAS et dispose d'une sensibilité très haute de -164 dBm. Son temps d'acquisition de la position est minime et il dispose de mécanisme d'optimisation de la consommation d'énergie.
 
-Ce module est très simple d'utilisation, dispose de son propre oscillateur et pour la plupart des applications il ne requiert qu'une antenne GNSS externe. De plus il propose plusieurs interfaces différentes, SPI, USB, $I^{2}C$ et UART.
+Ce module est très simple d'utilisation, dispose de son propre oscillateur et pour la plupart des applications il ne requiert qu'une antenne GNSS externe. De plus il propose plusieurs interfaces différentes, SPI, USB, $I^{2}C$ et UART. Il assure une précision de la position GPS à 2.5 m et de 4 m en GLONASS, il est capable de générer des messages jusqu'à une fréquence de 18 Hz et il propose 3 protocoles différents, NMEA, UBX et RTCM.
 
-Il assure une précision de la position GPS à 2.5 m et de 4 m en GLONASS, Il est capable de générer des messages jusqu'à une fréquence de 18 Hz et il propose 3 protocoles différents, NMEA, UBX et RTCM.
-
-Une fois le module configuré par l'utilisateur, il va générer les messages voulues à une certaine fréquence. En fonction des message différentes information seront disponible, le choix des messages sélectionnés dépend du type d'application que l'on souhaite réaliser. Lorsque la configuration est effectuée, il suffit à l'utilisateur de venir lire la queue de message du module périodiquement afin de pouvoir y récupérer les messages et d'y extraire les informations.
+Une fois le module configuré par l'utilisateur, il va générer les messages voulus à une certaine fréquence. En fonction des messages différentes informations seront disponibles. Le choix des messages sélectionnés dépend du type d'application que l'on souhaite réaliser. Lorsque la configuration est effectuée, il suffit à l'utilisateur de lire la queue de message du module périodiquement afin de pouvoir y récupérer les messages et d'y extraire les informations.
 
 Le module est détaillé dans le datasheet \cite{ublox-datasheet} ainsi que dans le document d'explication de son protocole \cite{ublox-protocol}.
 

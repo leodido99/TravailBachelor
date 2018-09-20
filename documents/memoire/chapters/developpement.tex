@@ -1,7 +1,7 @@
-
+﻿
 \chapter{Développement du projet}\label{ch:developpement}
 
-Durant la pré-étude, j'ai pris la décision de découper le développement du projet en trois phases distinctes afin de pouvoir gérer le travail au mieux et pouvoir réagir rapidement en cas d'imprévues ou de problèmes. Pour chaque phase des objectifs ont été établies afin de pouvoir, à son terme, en valider l'exécution et ainsi passer à la phase suivante.
+Durant la pré-étude, j'ai pris la décision de découper le développement du projet en trois phases distinctes afin de pouvoir gérer le travail au mieux et pouvoir réagir rapidement en cas d'imprévus ou de problèmes. Pour chaque phase des objectifs ont été établis afin de pouvoir, à son terme, en valider l'exécution et ainsi passer à la phase suivante.
 
 Les sections suivantes décrivent les trois phases de développement du projet.
 
@@ -20,9 +20,9 @@ Début & Validation \\
 \end{tabular}
 \end{table}
 
-La première phase de développement qui a commencé dès le début du projet, c'est à dire le 9 Juillet 2018, avait pour objectif la validation de la transmission des données avec la technologie LoRa et la solution matériel choisie pour le capteur et la passerelle. Durant cette phase seule le capteur et la passerelle ont été testés.
+La première phase de développement qui a commencé dès le début du projet, c'est à dire le 9 Juillet 2018, avait pour objectif la validation de la transmission des données avec la technologie LoRa et la solution matériel choisie pour le capteur et la passerelle. Durant cette phase, seule le capteur et la passerelle ont été testés. 
 
-Pour se faire un programme simple de test a été écrit pour le capteur en se basant sur le framework Arduino, facilitant et accélérant grandement le développement car déjà tout les modules et drivers nécessaires étaient disponible, le but étant de permettre de faire des tests de transmissions de paquet rapidement et efficacement. En ce qui concerne la passerelle, le début du serveur d'application a été développé qui permet la récupération des données transmises par le capteur. Un gestionnaire spéciale pour ce test a été développé qui permet de vérifier si des paquets ont été perdus lors de leur transmission afin de jauger de la qualité de la transmission LoRa.
+Pour ce faire, un programme simple de test a été écrit pour le capteur en se basant sur le framework Arduino, facilitant et accélérant grandement le développement car déjà tous les modules et drivers nécessaires étaient disponibles, le but étant de permettre de faire des tests de transmissions de paquet rapidement et efficacement. En ce qui concerne la passerelle, le début du serveur d'application a été développé qui permet la récupération des données transmises par le capteur. Un gestionnaire spéciale pour ce test a été développé qui permet de vérifier si des paquets ont été perdus lors de leur transmission afin de jauger de la qualité de la transmission LoRa.
 
 Au terme de se développement un test a été effectué en extérieur afin de s'assurer que la matériel était capable d'envoyer et de transmettre des paquets à des distances proches de l'utilisation finale du projet. Dans le cas ou les résultats du test ne serait pas satisfaisant alors une nouvelle étude sur le matériel devrait être faite afin de trouver une solution fonctionnant dans les conditions d'utilisation du projet. Le test a été effectué le 13 Juillet 2018 et a permis de valider la phase \#1 avec succès ouvrant ainsi le développement pour la deuxième phase.
 
