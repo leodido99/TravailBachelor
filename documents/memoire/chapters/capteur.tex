@@ -68,8 +68,6 @@ Le module LoRa RN2483 est connecté par un lien série UART et utilise une inter
 
 Le schéma block~\ref{fig:schema_block_sodaq} présente les différents modules et leurs connections avec le micro-contrôleur.
 
-\todo{Ajouter debug SEGGER}
-
 \begin{figure}[htb]
 \centering 
 \includegraphics[width=1\columnwidth]{sensor_schema.png} 
@@ -228,7 +226,7 @@ De manière général et de façon simplifié on peut définir le processus du c
 
 \begin{figure}[htb]
 \centering 
-\includegraphics[width=0.5\columnwidth]{sensor_process.png} 
+\includegraphics[width=0.4\columnwidth]{sensor_process.png} 
 \caption{Processus général du capteur}
 \label{fig:sensor_process}
 \end{figure}
@@ -239,7 +237,7 @@ La figure \ref{fig:sensor_static_archi} montre l'architecture statique du logici
 
 \begin{figure}[htb]
 \centering 
-\includegraphics[width=1.0\columnwidth]{sensor_static_archi.png} 
+\includegraphics[width=0.8\columnwidth]{sensor_static_archi.png} 
 \caption{Architecture statique du logiciel embarqué sur le capteur}
 \label{fig:sensor_static_archi}
 \end{figure}
@@ -256,16 +254,12 @@ Les éléments qui compose la couche application du logiciel embarqué sont déc
 
 La figure \ref{fig:sensor_dyn_archi} décrit les éléments dynamiques qui compose le logiciel du capteur.
 
-\todo{Update when finished}
-
 \begin{figure}[htb]
 \centering 
-\includegraphics[width=1\columnwidth]{sensor_dyn_archi.png} 
+\includegraphics[width=0.8\columnwidth]{sensor_dyn_archi.png} 
 \caption{Architecture dynamique du logiciel embarqué sur le capteur}
 \label{fig:sensor_dyn_archi}
 \end{figure}
-
-\todo{Add missing thread frequencies}
 
 Zephyr propose une implémentation de la priorité des threads intéressante qui permet en fonction de la valeur d'également modifier le comportement de l'ordonnanceur. La priorité d'un thread, valeur entière, peut être soit positive ou négative. Une valeur de priorité plus petite est plus importante qu'une valeur numériquement plus grande, ainsi un thread de priorité -2 est plus prioritaire qu'un de priorité 7.
 
@@ -287,8 +281,8 @@ Thread & Priorité & Période \\
 \midrule
 Race Sensor Manager & Haute - 0 & 15 s  \\
 RN2483 (LoRa) & 1 & 100 ms  \\
-Driver UBloxEVA8M (GPS) & 2 & 100 ms  \\
-Accéléromètre & Basse - 3 & 100 ms  \\
+Driver UBloxEVA8M (GPS) & 2 & 500 ms  \\
+Cadence sampling & Basse - 3 & 50 ms  \\
 \bottomrule 
 \end{tabular}
 \end{table}
@@ -337,17 +331,51 @@ La figure \ref{fig:heartrate_uml} montre le diagramme de classe du module Heart 
 \begin{figure}[htb]
 \centering 
 \includegraphics[width=0.3\columnwidth]{heartrate_uml.png} 
-\caption{Diagrammede classe du module Heart Rate}
+\caption{Diagramme de classe du module Heart Rate}
 \label{fig:heartrate_uml}
 \end{figure}
 
 \subsection{Cadence}
 
-\todo{Finish this}
+La cadence du sportif est déterminé grâce à ce module. En se basant sur les données de l'accéléromètre, qui est capable de déterminer les accélérations sur les 3 axes x,y et z, il est possible de trouver le moment ou un pas est effectué et donc de les compter. 
 
-La cadence du sportif est déterminé grâce à ce module. En se basant sur les données de l'accéléromètre, qui est capable de déterminer les accélérations sur les 3 axes x,y et z, il est possible de déterminer le moment ou un pas est effectué et donc de les compter. 
+Au début du projet, il était prévu d'utiliser une fonctionnalité de l'accéléromètre LSM303AGR afin de générer une interruption lors du dépassement d'un certain seuil d'accélération sur un des axe. Cependant à cause d'un problème récalcitrant que je n'ai pas eu le temps résoudre dans le temps imparti, j'ai décidé de me replier sur une technique d'échantillonnage. Un thread est alloué à la récupération des échantillons à une fréquence de 20 Hz, tous les 20 échantillons, une analyse des sample est faite afin d'essayer de détecter un pas.
 
-Afin de pouvoir facilement compter le nombre de pas, l'accéléromètre LSM303AGR est configuré en utilisant le système de seuil qu'il propose. Cela permet de déclencher des interruptions lorsqu'une accélération d'une certaine force est détecté sur les axes.
+Afin de déterminer la façon dont on va pouvoir détecter un pas, la première étape a été de récupérer des données permettant de visualiser la valeur des échantillons sur une période de temps lorsqu'une personne équipé du capteur marche. Pour se faire, une application permettant la récupération des valeurs de l'accéléromètre a été écrite. Elle permet de récupérer un nombre d'échantillons correspondant à 10 secondes de marche. Les données ont ensuite été envoyées par le port série afin de pouvoir les analyser dans un logiciel graphique, Matlab en l'occurrence. Lors de l'acquisition des échantillons, le capteur a été tenu sans modifier son orientation et en marchant normalement.
+
+Les résultats de ce test sont présenté dans la figure \ref{fig:graph_accel}.
+
+\begin{figure}[htb]
+\centering 
+\includegraphics[width=1\columnwidth]{accelerometer_samples.png} 
+\caption{Valeurs des échantillons de l'accéléromètre sur une période de 10 secondes}
+\label{fig:graph_accel}
+\end{figure}
+
+Lorsque le capteur est au repos, c'est à a dire sans mouvement, et posé à plat, c'est à dire avec l'axe Z perpendiculaire au sol, les axes X et Y ont des valeurs proche de 0 g, la valeur de l'axe Z est quand à elle au alentour de -1 g ce qui correspond à la force de gravité. Si l'inclinaison est modifiée alors la valeur de la gravité se distribue entre les axes sur lesquels le mouvement s'opère.
+
+La table \ref{tab:analysis_samples} présente les valeurs minimum, maximum et médiane pour chaque axe en g.
+
+\begin{table}[htb]
+\caption{Analyse des valeurs des échantillons}
+\label{tab:analysis_samples}
+\centering
+\begin{tabular}{ l l l l }
+\toprule
+Axe & Min & Médian & Max \\
+\midrule
+x & -0.288 & -0.092 & 0.216 \\
+y & -0.008 & 0.196 & 0.352 \\
+z & 0.708 & 0.938 & 1.444 \\
+\bottomrule 
+\end{tabular}
+\end{table}
+
+Si le capteur est posé à plat sans bouger et que l'on marche sans modifier son orientation la tâche consistant à compter le nombre de pas est assez facile, il suffit de détecter lorsque la valeur de l'axe donné dépasse un certain seuil. En l'occurrence si l'on analyse les données ont peut remarquer qu'une valeur dépassant les 1.125 g semble permettre de pouvoir compter le nombre de pas.
+
+Puisque le capteur sera porté sur le bras des sportifs on ne peut pas partir du principe que l'orientation fixe puisqu'elle sera à même de changer pendant les mouvements, ceci rend la tâche de détection des pas beaucoup plus ardue.
+
+Une approche qui peut être étudié est de calculer la moyenne des échantillons pour chaque axe, cette opération peut permettre de trouver quels sont les axes qui doivent être analysé afin de détecter les piques et également de connaître le seuil auquel on doit les compter comme pas.
 
 La figure \ref{fig:cadence_uml} montre le diagramme de classe du module Cadence.
 
@@ -573,8 +601,6 @@ Le composant LSM303AGR est configuré au travers d'une liste de registre, il est
 
 Puisque le composant LSM303AGR se trouve placé sur le bus $I^{2}C$, ce driver utilise également le driver pour ce bus afin de pouvoir communiquer avec le module. La majorité des opérations consiste à écrire ou lire des valeurs dans les différents registres à disposition afin de configurer ou de récupérer les données voulues. Il est à noté qu'il est également possible de configurer le module afin qu'il produise des interruptions lorsque certains seuils sont dépassés sur un certain axe. Cette fonctionnalité est utilisé afin de détecter les pas effectuer par le porteur de capteur.
 
-\todo{Revoir diagramme après implémentation finale}
-
 La figure \ref{fig:driver_lsm303agr_uml} présente le diagramme de classe du driver LSM303AGR.
 
 \begin{figure}[htb]
@@ -642,8 +668,6 @@ void main(void)
 	}	
 }
 \end{lstlisting}
-
-\todo{Add setup of IRQ}
 
 \subsection{Driver RN2483}
 
@@ -860,11 +884,37 @@ Cadence & 1 & uint & Cadence de l'athlète \\
 
 \section{Le boîtier}
 
-Afin de pouvoir contenir le capteur ainsi que les éléments associés, une boîte a été construite puis imprimée sur une imprimante 3D. Le logiciel utilisé pour la création des plans s'apelle Fusion 360 de la compagnie Autodesk.
+Afin de pouvoir contenir le capteur ainsi que les éléments associés, une boîte a été construite puis imprimée sur une imprimante 3D. Le logiciel utilisé pour la création des plans s'appelle Fusion 360 de la compagnie Autodesk.
 
-La boîte permet d'insérer la batterie dans un compartiment, fermable grâce à un clapet, afin de la protégé et d'éviter qu'elle ne bouge durant la course du sportif. Une bande en tissu élastique permet d'attacher le capteur à son bras ce qui permet de ne pas trop géner le porteur.
+La boîte permet d'insérer la batterie dans un compartiment, fermable grâce à un clapet, afin de la protégé et d'éviter qu'elle ne bouge durant la course du sportif. Une bande en tissu élastique permet d'attacher le capteur à son bras ce qui permet de ne pas trop gêner le porteur.
 
-\todo{Images}
+\begin{figure}[htb!]
+    \centering
+    \begin{subfigure}[htb]{0.49\textwidth}
+		\includegraphics[width=1\columnwidth]{sensor_box_1.png} 
+		\caption{Diagramme de classe}
+		\label{fig:sensor_box_1}
+    \end{subfigure}
+    ~ %add desired spacing between images, e. g. ~, \quad, \qquad, \hfill etc. 
+      %(or a blank line to force the subfigure onto a new line)
+    \begin{subfigure}[htb]{0.49\textwidth}
+		\includegraphics[width=1\columnwidth]{sensor_box_2.png} 
+		\caption{Aperçu de l'interface graphique de l'activité}
+		\label{fig:sensor_box_2}
+    \end{subfigure}
+    \begin{subfigure}[htb]{0.49\textwidth}
+		\includegraphics[width=1\columnwidth]{sensor_box_3.png} 
+		\caption{Diagramme de classe}
+		\label{fig:sensor_box_3}
+    \end{subfigure}
+    ~ %add desired spacing between images, e. g. ~, \quad, \qquad, \hfill etc. 
+      %(or a blank line to force the subfigure onto a new line)
+    \begin{subfigure}[htb]{0.49\textwidth}
+		\includegraphics[width=1\columnwidth]{sensor_box_4.png} 
+		\caption{Aperçu de l'interface graphique de l'activité}
+		\label{fig:sensor_box_4}
+    \end{subfigure}    
+    \caption{Image du concept de la boîte du capteur}\label{fig:sensor_box}
+\end{figure}
 
-
-
+\todo{Images vrai boîte}

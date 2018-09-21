@@ -1,0 +1,1626 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<graphml xmlns="http://graphml.graphdrawing.org/xmlns" xmlns:java="http://www.yworks.com/xml/yfiles-common/1.0/java" xmlns:sys="http://www.yworks.com/xml/yfiles-common/markup/primitives/2.0" xmlns:x="http://www.yworks.com/xml/yfiles-common/markup/2.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:y="http://www.yworks.com/xml/graphml" xmlns:yed="http://www.yworks.com/xml/yed/3" xsi:schemaLocation="http://graphml.graphdrawing.org/xmlns http://www.yworks.com/xml/schema/graphml/1.1/ygraphml.xsd">
+  <!--Created by yEd 3.18.1.1-->
+  <key attr.name="Description" attr.type="string" for="graph" id="d0"/>
+  <key for="port" id="d1" yfiles.type="portgraphics"/>
+  <key for="port" id="d2" yfiles.type="portgeometry"/>
+  <key for="port" id="d3" yfiles.type="portuserdata"/>
+  <key attr.name="url" attr.type="string" for="node" id="d4"/>
+  <key attr.name="description" attr.type="string" for="node" id="d5"/>
+  <key for="node" id="d6" yfiles.type="nodegraphics"/>
+  <key for="graphml" id="d7" yfiles.type="resources"/>
+  <key attr.name="url" attr.type="string" for="edge" id="d8"/>
+  <key attr.name="description" attr.type="string" for="edge" id="d9"/>
+  <key for="edge" id="d10" yfiles.type="edgegraphics"/>
+  <graph edgedefault="directed" id="G">
+    <data key="d0"/>
+    <node id="n0">
+      <data key="d6">
+        <y:SVGNode>
+          <y:Geometry height="57.5" width="31.5" x="395.12943466661807" y="135.01965592620508"/>
+          <y:Fill color="#CCCCFF" transparent="false"/>
+          <y:BorderStyle color="#000000" type="line" width="1.0"/>
+          <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="16" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" hasText="false" height="4.0" horizontalTextPosition="center" iconTextGap="4" modelName="sandwich" modelPosition="s" textColor="#000000" verticalTextPosition="bottom" visible="true" width="4.0" x="13.75" y="61.5"/>
+          <y:SVGNodeProperties usingVisualBounds="true"/>
+          <y:SVGModel svgBoundsPolicy="0">
+            <y:SVGContent refid="1"/>
+          </y:SVGModel>
+        </y:SVGNode>
+      </data>
+    </node>
+    <node id="n1">
+      <data key="d6">
+        <y:SVGNode>
+          <y:Geometry height="47.612998962402344" width="75.49240112304688" x="388.13323410509463" y="169.9631564450039"/>
+          <y:Fill color="#CCCCFF" transparent="false"/>
+          <y:BorderStyle color="#000000" type="line" width="1.0"/>
+          <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="16" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="22.84375" horizontalTextPosition="center" iconTextGap="4" modelName="sandwich" modelPosition="s" textColor="#000000" verticalTextPosition="bottom" visible="true" width="80.53125" x="-2.5194244384765625" xml:space="preserve" y="51.612998962402344">Passerelle</y:NodeLabel>
+          <y:SVGNodeProperties usingVisualBounds="true"/>
+          <y:SVGModel svgBoundsPolicy="0">
+            <y:SVGContent refid="2"/>
+          </y:SVGModel>
+        </y:SVGNode>
+      </data>
+    </node>
+    <node id="n2">
+      <data key="d6">
+        <y:SVGNode>
+          <y:Geometry height="72.04333864485372" width="35.97294998168945" x="140.01352500915527" y="70.0"/>
+          <y:Fill color="#CCCCFF" transparent="false"/>
+          <y:BorderStyle color="#000000" type="line" width="1.0"/>
+          <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="16" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="22.84375" horizontalTextPosition="center" iconTextGap="4" modelName="sandwich" modelPosition="s" textColor="#000000" verticalTextPosition="bottom" visible="true" width="54.5625" x="-9.294775009155273" xml:space="preserve" y="76.04333864485372">Noeud</y:NodeLabel>
+          <y:SVGNodeProperties usingVisualBounds="true"/>
+          <y:SVGModel svgBoundsPolicy="0">
+            <y:SVGContent refid="3"/>
+          </y:SVGModel>
+        </y:SVGNode>
+      </data>
+    </node>
+    <node id="n3">
+      <data key="d6">
+        <y:SVGNode>
+          <y:Geometry height="72.04333864485372" width="35.97294998168945" x="140.01352500915527" y="203.97833067757313"/>
+          <y:Fill color="#CCCCFF" transparent="false"/>
+          <y:BorderStyle color="#000000" type="line" width="1.0"/>
+          <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="16" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="22.84375" horizontalTextPosition="center" iconTextGap="4" modelName="sandwich" modelPosition="s" textColor="#000000" verticalTextPosition="bottom" visible="true" width="54.5625" x="-9.294775009155273" xml:space="preserve" y="76.04333864485375">Noeud</y:NodeLabel>
+          <y:SVGNodeProperties usingVisualBounds="true"/>
+          <y:SVGModel svgBoundsPolicy="0">
+            <y:SVGContent refid="3"/>
+          </y:SVGModel>
+        </y:SVGNode>
+      </data>
+    </node>
+    <node id="n4">
+      <data key="d6">
+        <y:SVGNode>
+          <y:Geometry height="72.04333864485372" width="35.97294998168945" x="140.01352500915527" y="337.95666135514625"/>
+          <y:Fill color="#CCCCFF" transparent="false"/>
+          <y:BorderStyle color="#000000" type="line" width="1.0"/>
+          <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="16" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="22.84375" horizontalTextPosition="center" iconTextGap="4" modelName="sandwich" modelPosition="s" textColor="#000000" verticalTextPosition="bottom" visible="true" width="54.5625" x="-9.294775009155273" xml:space="preserve" y="76.04333864485375">Noeud</y:NodeLabel>
+          <y:SVGNodeProperties usingVisualBounds="true"/>
+          <y:SVGModel svgBoundsPolicy="0">
+            <y:SVGContent refid="3"/>
+          </y:SVGModel>
+        </y:SVGNode>
+      </data>
+    </node>
+    <node id="n5">
+      <data key="d6">
+        <y:SVGNode>
+          <y:Geometry height="72.04333864485372" width="35.97294998168945" x="140.01352500915527" y="471.9349920327194"/>
+          <y:Fill color="#CCCCFF" transparent="false"/>
+          <y:BorderStyle color="#000000" type="line" width="1.0"/>
+          <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="16" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="22.84375" horizontalTextPosition="center" iconTextGap="4" modelName="sandwich" modelPosition="s" textColor="#000000" verticalTextPosition="bottom" visible="true" width="54.5625" x="-9.294775009155273" xml:space="preserve" y="76.04333864485375">Noeud</y:NodeLabel>
+          <y:SVGNodeProperties usingVisualBounds="true"/>
+          <y:SVGModel svgBoundsPolicy="0">
+            <y:SVGContent refid="3"/>
+          </y:SVGModel>
+        </y:SVGNode>
+      </data>
+    </node>
+    <node id="n6">
+      <data key="d6">
+        <y:SVGNode>
+          <y:Geometry height="57.5" width="31.5" x="395.12943466661807" y="418.53807770370315"/>
+          <y:Fill color="#CCCCFF" transparent="false"/>
+          <y:BorderStyle color="#000000" type="line" width="1.0"/>
+          <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="16" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" hasText="false" height="4.0" horizontalTextPosition="center" iconTextGap="4" modelName="sandwich" modelPosition="s" textColor="#000000" verticalTextPosition="bottom" visible="true" width="4.0" x="13.75" y="61.5"/>
+          <y:SVGNodeProperties usingVisualBounds="true"/>
+          <y:SVGModel svgBoundsPolicy="0">
+            <y:SVGContent refid="1"/>
+          </y:SVGModel>
+        </y:SVGNode>
+      </data>
+    </node>
+    <node id="n7">
+      <data key="d6">
+        <y:SVGNode>
+          <y:Geometry height="47.612998962402344" width="75.49240112304688" x="388.13323410509463" y="453.481578222502"/>
+          <y:Fill color="#CCCCFF" transparent="false"/>
+          <y:BorderStyle color="#000000" type="line" width="1.0"/>
+          <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="16" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="22.84375" horizontalTextPosition="center" iconTextGap="4" modelName="sandwich" modelPosition="s" textColor="#000000" verticalTextPosition="bottom" visible="true" width="80.53125" x="-2.5194244384765625" xml:space="preserve" y="51.612998962402344">Passerelle</y:NodeLabel>
+          <y:SVGNodeProperties usingVisualBounds="true"/>
+          <y:SVGModel svgBoundsPolicy="0">
+            <y:SVGContent refid="2"/>
+          </y:SVGModel>
+        </y:SVGNode>
+      </data>
+    </node>
+    <node id="n8">
+      <data key="d6">
+        <y:SVGNode>
+          <y:Geometry height="87.65377243007123" width="69.5411489773108" x="626.158855600326" y="311.9235743716865"/>
+          <y:Fill color="#CCCCFF" transparent="false"/>
+          <y:BorderStyle color="#000000" type="line" width="1.0"/>
+          <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="16" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="22.84375" horizontalTextPosition="center" iconTextGap="4" modelName="sandwich" modelPosition="s" textColor="#000000" verticalTextPosition="bottom" visible="true" width="118.109375" x="-24.28411301134463" xml:space="preserve" y="91.65377243007123">Serveur réseau</y:NodeLabel>
+          <y:SVGNodeProperties usingVisualBounds="true"/>
+          <y:SVGModel svgBoundsPolicy="0">
+            <y:SVGContent refid="4"/>
+          </y:SVGModel>
+        </y:SVGNode>
+      </data>
+    </node>
+    <node id="n9">
+      <data key="d6">
+        <y:SVGNode>
+          <y:Geometry height="87.65377243007123" width="69.5411489773108" x="895.2294255113447" y="444.79880466504767"/>
+          <y:Fill color="#CCCCFF" transparent="false"/>
+          <y:BorderStyle color="#000000" type="line" width="1.0"/>
+          <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="16" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="22.84375" horizontalTextPosition="center" iconTextGap="4" modelName="sandwich" modelPosition="s" textColor="#000000" verticalTextPosition="bottom" visible="true" width="152.4375" x="-41.44817551134463" xml:space="preserve" y="91.65377243007123">Serveur application</y:NodeLabel>
+          <y:SVGNodeProperties usingVisualBounds="true"/>
+          <y:SVGModel svgBoundsPolicy="0">
+            <y:SVGContent refid="4"/>
+          </y:SVGModel>
+        </y:SVGNode>
+      </data>
+    </node>
+    <node id="n10">
+      <data key="d6">
+        <y:SVGNode>
+          <y:Geometry height="87.65377243007123" width="69.5411489773108" x="895.2294255113447" y="179.04834407832547"/>
+          <y:Fill color="#CCCCFF" transparent="false"/>
+          <y:BorderStyle color="#000000" type="line" width="1.0"/>
+          <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="16" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="22.84375" horizontalTextPosition="center" iconTextGap="4" modelName="sandwich" modelPosition="s" textColor="#000000" verticalTextPosition="bottom" visible="true" width="152.4375" x="-41.44817551134463" xml:space="preserve" y="91.65377243007123">Serveur application</y:NodeLabel>
+          <y:SVGNodeProperties usingVisualBounds="true"/>
+          <y:SVGModel svgBoundsPolicy="0">
+            <y:SVGContent refid="4"/>
+          </y:SVGModel>
+        </y:SVGNode>
+      </data>
+    </node>
+    <node id="n11">
+      <data key="d6">
+        <y:SVGNode>
+          <y:Geometry height="87.65377243007123" width="69.5411489773108" x="895.2294255113446" y="311.9235743716865"/>
+          <y:Fill color="#CCCCFF" transparent="false"/>
+          <y:BorderStyle color="#000000" type="line" width="1.0"/>
+          <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="16" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="22.84375" horizontalTextPosition="center" iconTextGap="4" modelName="sandwich" modelPosition="s" textColor="#000000" verticalTextPosition="bottom" visible="true" width="152.4375" x="-41.44817551134463" xml:space="preserve" y="91.65377243007123">Serveur application</y:NodeLabel>
+          <y:SVGNodeProperties usingVisualBounds="true"/>
+          <y:SVGModel svgBoundsPolicy="0">
+            <y:SVGContent refid="4"/>
+          </y:SVGModel>
+        </y:SVGNode>
+      </data>
+    </node>
+    <node id="n12">
+      <data key="d5"/>
+      <data key="d6">
+        <y:ShapeNode>
+          <y:Geometry height="30.0" width="30.0" x="358.13323410509474" y="178.76965592620508"/>
+          <y:Fill hasColor="false" transparent="false"/>
+          <y:BorderStyle hasColor="false" raised="false" type="line" width="1.0"/>
+          <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="12" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" hasText="false" height="4.0" horizontalTextPosition="center" iconTextGap="4" modelName="custom" textColor="#000000" verticalTextPosition="bottom" visible="true" width="4.0" x="13.0" y="13.0">
+            <y:LabelModel>
+              <y:SmartNodeLabelModel distance="4.0"/>
+            </y:LabelModel>
+            <y:ModelParameter>
+              <y:SmartNodeLabelModelParameter labelRatioX="0.0" labelRatioY="0.0" nodeRatioX="0.0" nodeRatioY="0.0" offsetX="0.0" offsetY="0.0" upX="0.0" upY="-1.0"/>
+            </y:ModelParameter>
+          </y:NodeLabel>
+          <y:Shape type="ellipse"/>
+        </y:ShapeNode>
+      </data>
+    </node>
+    <node id="n13">
+      <data key="d5"/>
+      <data key="d6">
+        <y:ShapeNode>
+          <y:Geometry height="30.0" width="30.0" x="358.13323410509474" y="462.28807770370315"/>
+          <y:Fill hasColor="false" transparent="false"/>
+          <y:BorderStyle hasColor="false" raised="false" type="line" width="1.0"/>
+          <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="12" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" hasText="false" height="4.0" horizontalTextPosition="center" iconTextGap="4" modelName="custom" textColor="#000000" verticalTextPosition="bottom" visible="true" width="4.0" x="13.0" y="13.0">
+            <y:LabelModel>
+              <y:SmartNodeLabelModel distance="4.0"/>
+            </y:LabelModel>
+            <y:ModelParameter>
+              <y:SmartNodeLabelModelParameter labelRatioX="0.0" labelRatioY="0.0" nodeRatioX="0.0" nodeRatioY="0.0" offsetX="0.0" offsetY="0.0" upX="0.0" upY="-1.0"/>
+            </y:ModelParameter>
+          </y:NodeLabel>
+          <y:Shape type="ellipse"/>
+        </y:ShapeNode>
+      </data>
+    </node>
+    <node id="n14">
+      <data key="d5"/>
+      <data key="d6">
+        <y:ShapeNode>
+          <y:Geometry height="30.0" width="30.0" x="165.0" y="492.5761554074063"/>
+          <y:Fill hasColor="false" transparent="false"/>
+          <y:BorderStyle hasColor="false" raised="false" type="line" width="1.0"/>
+          <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="12" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" hasText="false" height="4.0" horizontalTextPosition="center" iconTextGap="4" modelName="custom" textColor="#000000" verticalTextPosition="bottom" visible="true" width="4.0" x="13.0" y="13.0">
+            <y:LabelModel>
+              <y:SmartNodeLabelModel distance="4.0"/>
+            </y:LabelModel>
+            <y:ModelParameter>
+              <y:SmartNodeLabelModelParameter labelRatioX="0.0" labelRatioY="0.0" nodeRatioX="0.0" nodeRatioY="0.0" offsetX="0.0" offsetY="0.0" upX="0.0" upY="-1.0"/>
+            </y:ModelParameter>
+          </y:NodeLabel>
+          <y:Shape type="ellipse"/>
+        </y:ShapeNode>
+      </data>
+    </node>
+    <node id="n15">
+      <data key="d5"/>
+      <data key="d6">
+        <y:ShapeNode>
+          <y:Geometry height="30.0" width="30.0" x="165.0" y="358.9783306775731"/>
+          <y:Fill hasColor="false" transparent="false"/>
+          <y:BorderStyle hasColor="false" raised="false" type="line" width="1.0"/>
+          <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="12" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" hasText="false" height="4.0" horizontalTextPosition="center" iconTextGap="4" modelName="custom" textColor="#000000" verticalTextPosition="bottom" visible="true" width="4.0" x="13.0" y="13.0">
+            <y:LabelModel>
+              <y:SmartNodeLabelModel distance="4.0"/>
+            </y:LabelModel>
+            <y:ModelParameter>
+              <y:SmartNodeLabelModelParameter labelRatioX="0.0" labelRatioY="0.0" nodeRatioX="0.0" nodeRatioY="0.0" offsetX="0.0" offsetY="0.0" upX="0.0" upY="-1.0"/>
+            </y:ModelParameter>
+          </y:NodeLabel>
+          <y:Shape type="ellipse"/>
+        </y:ShapeNode>
+      </data>
+    </node>
+    <node id="n16">
+      <data key="d5"/>
+      <data key="d6">
+        <y:ShapeNode>
+          <y:Geometry height="30.0" width="30.0" x="165.0" y="225.0"/>
+          <y:Fill hasColor="false" transparent="false"/>
+          <y:BorderStyle hasColor="false" raised="false" type="line" width="1.0"/>
+          <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="12" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" hasText="false" height="4.0" horizontalTextPosition="center" iconTextGap="4" modelName="custom" textColor="#000000" verticalTextPosition="bottom" visible="true" width="4.0" x="13.0" y="13.0">
+            <y:LabelModel>
+              <y:SmartNodeLabelModel distance="4.0"/>
+            </y:LabelModel>
+            <y:ModelParameter>
+              <y:SmartNodeLabelModelParameter labelRatioX="0.0" labelRatioY="0.0" nodeRatioX="0.0" nodeRatioY="0.0" offsetX="0.0" offsetY="0.0" upX="0.0" upY="-1.0"/>
+            </y:ModelParameter>
+          </y:NodeLabel>
+          <y:Shape type="ellipse"/>
+        </y:ShapeNode>
+      </data>
+    </node>
+    <node id="n17">
+      <data key="d5"/>
+      <data key="d6">
+        <y:ShapeNode>
+          <y:Geometry height="30.0" width="30.0" x="165.0" y="91.02166932242687"/>
+          <y:Fill hasColor="false" transparent="false"/>
+          <y:BorderStyle hasColor="false" raised="false" type="line" width="1.0"/>
+          <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="12" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" hasText="false" height="4.0" horizontalTextPosition="center" iconTextGap="4" modelName="custom" textColor="#000000" verticalTextPosition="bottom" visible="true" width="4.0" x="13.0" y="13.0">
+            <y:LabelModel>
+              <y:SmartNodeLabelModel distance="4.0"/>
+            </y:LabelModel>
+            <y:ModelParameter>
+              <y:SmartNodeLabelModelParameter labelRatioX="0.0" labelRatioY="0.0" nodeRatioX="0.0" nodeRatioY="0.0" offsetX="0.0" offsetY="0.0" upX="0.0" upY="-1.0"/>
+            </y:ModelParameter>
+          </y:NodeLabel>
+          <y:Shape type="ellipse"/>
+        </y:ShapeNode>
+      </data>
+    </node>
+    <node id="n18">
+      <data key="d5"/>
+      <data key="d6">
+        <y:ShapeNode>
+          <y:Geometry height="30.0" width="30.0" x="418.13323410509474" y="453.481578222502"/>
+          <y:Fill hasColor="false" transparent="false"/>
+          <y:BorderStyle hasColor="false" raised="false" type="line" width="1.0"/>
+          <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="12" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" hasText="false" height="4.0" horizontalTextPosition="center" iconTextGap="4" modelName="custom" textColor="#000000" verticalTextPosition="bottom" visible="true" width="4.0" x="13.0" y="13.0">
+            <y:LabelModel>
+              <y:SmartNodeLabelModel distance="4.0"/>
+            </y:LabelModel>
+            <y:ModelParameter>
+              <y:SmartNodeLabelModelParameter labelRatioX="0.0" labelRatioY="0.0" nodeRatioX="0.0" nodeRatioY="0.0" offsetX="0.0" offsetY="0.0" upX="0.0" upY="-1.0"/>
+            </y:ModelParameter>
+          </y:NodeLabel>
+          <y:Shape type="ellipse"/>
+        </y:ShapeNode>
+      </data>
+    </node>
+    <node id="n19">
+      <data key="d5"/>
+      <data key="d6">
+        <y:ShapeNode>
+          <y:Geometry height="30.0" width="30.0" x="435.0" y="217.57615540740625"/>
+          <y:Fill hasColor="false" transparent="false"/>
+          <y:BorderStyle hasColor="false" raised="false" type="line" width="1.0"/>
+          <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="12" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" hasText="false" height="4.0" horizontalTextPosition="center" iconTextGap="4" modelName="custom" textColor="#000000" verticalTextPosition="bottom" visible="true" width="4.0" x="13.0" y="13.0">
+            <y:LabelModel>
+              <y:SmartNodeLabelModel distance="4.0"/>
+            </y:LabelModel>
+            <y:ModelParameter>
+              <y:SmartNodeLabelModelParameter labelRatioX="0.0" labelRatioY="0.0" nodeRatioX="0.0" nodeRatioY="0.0" offsetX="0.0" offsetY="0.0" upX="0.0" upY="-1.0"/>
+            </y:ModelParameter>
+          </y:NodeLabel>
+          <y:Shape type="ellipse"/>
+        </y:ShapeNode>
+      </data>
+    </node>
+    <node id="n20">
+      <data key="d5"/>
+      <data key="d6">
+        <y:ShapeNode>
+          <y:Geometry height="30.0" width="30.0" x="615.0" y="345.0"/>
+          <y:Fill hasColor="false" transparent="false"/>
+          <y:BorderStyle hasColor="false" raised="false" type="line" width="1.0"/>
+          <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="12" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" hasText="false" height="4.0" horizontalTextPosition="center" iconTextGap="4" modelName="custom" textColor="#000000" verticalTextPosition="bottom" visible="true" width="4.0" x="13.0" y="13.0">
+            <y:LabelModel>
+              <y:SmartNodeLabelModel distance="4.0"/>
+            </y:LabelModel>
+            <y:ModelParameter>
+              <y:SmartNodeLabelModelParameter labelRatioX="0.0" labelRatioY="0.0" nodeRatioX="0.0" nodeRatioY="0.0" offsetX="0.0" offsetY="0.0" upX="0.0" upY="-1.0"/>
+            </y:ModelParameter>
+          </y:NodeLabel>
+          <y:Shape type="ellipse"/>
+        </y:ShapeNode>
+      </data>
+    </node>
+    <node id="n21">
+      <data key="d5"/>
+      <data key="d6">
+        <y:ShapeNode>
+          <y:Geometry height="30.0" width="30.0" x="675.0" y="345.0"/>
+          <y:Fill hasColor="false" transparent="false"/>
+          <y:BorderStyle hasColor="false" raised="false" type="line" width="1.0"/>
+          <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="12" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" hasText="false" height="4.0" horizontalTextPosition="center" iconTextGap="4" modelName="custom" textColor="#000000" verticalTextPosition="bottom" visible="true" width="4.0" x="13.0" y="13.0">
+            <y:LabelModel>
+              <y:SmartNodeLabelModel distance="4.0"/>
+            </y:LabelModel>
+            <y:ModelParameter>
+              <y:SmartNodeLabelModelParameter labelRatioX="0.0" labelRatioY="0.0" nodeRatioX="0.0" nodeRatioY="0.0" offsetX="0.0" offsetY="0.0" upX="0.0" upY="-1.0"/>
+            </y:ModelParameter>
+          </y:NodeLabel>
+          <y:Shape type="ellipse"/>
+        </y:ShapeNode>
+      </data>
+    </node>
+    <node id="n22">
+      <data key="d5"/>
+      <data key="d6">
+        <y:ShapeNode>
+          <y:Geometry height="30.0" width="30.0" x="855.0" y="225.0"/>
+          <y:Fill hasColor="false" transparent="false"/>
+          <y:BorderStyle hasColor="false" raised="false" type="line" width="1.0"/>
+          <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="12" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" hasText="false" height="4.0" horizontalTextPosition="center" iconTextGap="4" modelName="custom" textColor="#000000" verticalTextPosition="bottom" visible="true" width="4.0" x="13.0" y="13.0">
+            <y:LabelModel>
+              <y:SmartNodeLabelModel distance="4.0"/>
+            </y:LabelModel>
+            <y:ModelParameter>
+              <y:SmartNodeLabelModelParameter labelRatioX="0.0" labelRatioY="0.0" nodeRatioX="0.0" nodeRatioY="0.0" offsetX="0.0" offsetY="0.0" upX="0.0" upY="-1.0"/>
+            </y:ModelParameter>
+          </y:NodeLabel>
+          <y:Shape type="ellipse"/>
+        </y:ShapeNode>
+      </data>
+    </node>
+    <node id="n23">
+      <data key="d5"/>
+      <data key="d6">
+        <y:ShapeNode>
+          <y:Geometry height="30.0" width="30.0" x="855.0" y="369.57734680175776"/>
+          <y:Fill hasColor="false" transparent="false"/>
+          <y:BorderStyle hasColor="false" raised="false" type="line" width="1.0"/>
+          <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="12" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" hasText="false" height="4.0" horizontalTextPosition="center" iconTextGap="4" modelName="custom" textColor="#000000" verticalTextPosition="bottom" visible="true" width="4.0" x="13.0" y="13.0">
+            <y:LabelModel>
+              <y:SmartNodeLabelModel distance="4.0"/>
+            </y:LabelModel>
+            <y:ModelParameter>
+              <y:SmartNodeLabelModelParameter labelRatioX="0.0" labelRatioY="0.0" nodeRatioX="0.0" nodeRatioY="0.0" offsetX="0.0" offsetY="0.0" upX="0.0" upY="-1.0"/>
+            </y:ModelParameter>
+          </y:NodeLabel>
+          <y:Shape type="ellipse"/>
+        </y:ShapeNode>
+      </data>
+    </node>
+    <node id="n24">
+      <data key="d5"/>
+      <data key="d6">
+        <y:ShapeNode>
+          <y:Geometry height="30.0" width="30.0" x="855.0" y="492.5761554074063"/>
+          <y:Fill hasColor="false" transparent="false"/>
+          <y:BorderStyle hasColor="false" raised="false" type="line" width="1.0"/>
+          <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="12" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" hasText="false" height="4.0" horizontalTextPosition="center" iconTextGap="4" modelName="custom" textColor="#000000" verticalTextPosition="bottom" visible="true" width="4.0" x="13.0" y="13.0">
+            <y:LabelModel>
+              <y:SmartNodeLabelModel distance="4.0"/>
+            </y:LabelModel>
+            <y:ModelParameter>
+              <y:SmartNodeLabelModelParameter labelRatioX="0.0" labelRatioY="0.0" nodeRatioX="0.0" nodeRatioY="0.0" offsetX="0.0" offsetY="0.0" upX="0.0" upY="-1.0"/>
+            </y:ModelParameter>
+          </y:NodeLabel>
+          <y:Shape type="ellipse"/>
+        </y:ShapeNode>
+      </data>
+    </node>
+    <node id="n25">
+      <data key="d5"/>
+      <data key="d6">
+        <y:ShapeNode>
+          <y:Geometry height="30.0" width="30.0" x="105.0" y="585.0"/>
+          <y:Fill hasColor="false" transparent="false"/>
+          <y:BorderStyle hasColor="false" raised="false" type="line" width="1.0"/>
+          <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="12" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" hasText="false" height="4.0" horizontalTextPosition="center" iconTextGap="4" modelName="custom" textColor="#000000" verticalTextPosition="bottom" visible="true" width="4.0" x="13.0" y="13.0">
+            <y:LabelModel>
+              <y:SmartNodeLabelModel distance="4.0"/>
+            </y:LabelModel>
+            <y:ModelParameter>
+              <y:SmartNodeLabelModelParameter labelRatioX="0.0" labelRatioY="0.0" nodeRatioX="0.0" nodeRatioY="0.0" offsetX="0.0" offsetY="0.0" upX="0.0" upY="-1.0"/>
+            </y:ModelParameter>
+          </y:NodeLabel>
+          <y:Shape type="ellipse"/>
+        </y:ShapeNode>
+      </data>
+    </node>
+    <node id="n26">
+      <data key="d5"/>
+      <data key="d6">
+        <y:ShapeNode>
+          <y:Geometry height="30.0" width="30.0" x="405.0" y="585.0"/>
+          <y:Fill hasColor="false" transparent="false"/>
+          <y:BorderStyle hasColor="false" raised="false" type="line" width="1.0"/>
+          <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="12" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" hasText="false" height="4.0" horizontalTextPosition="center" iconTextGap="4" modelName="custom" textColor="#000000" verticalTextPosition="bottom" visible="true" width="4.0" x="13.0" y="13.0">
+            <y:LabelModel>
+              <y:SmartNodeLabelModel distance="4.0"/>
+            </y:LabelModel>
+            <y:ModelParameter>
+              <y:SmartNodeLabelModelParameter labelRatioX="0.0" labelRatioY="0.0" nodeRatioX="0.0" nodeRatioY="0.0" offsetX="0.0" offsetY="0.0" upX="0.0" upY="-1.0"/>
+            </y:ModelParameter>
+          </y:NodeLabel>
+          <y:Shape type="ellipse"/>
+        </y:ShapeNode>
+      </data>
+    </node>
+    <node id="n27">
+      <data key="d5"/>
+      <data key="d6">
+        <y:ShapeNode>
+          <y:Geometry height="30.0" width="30.0" x="1155.0" y="585.0"/>
+          <y:Fill hasColor="false" transparent="false"/>
+          <y:BorderStyle hasColor="false" raised="false" type="line" width="1.0"/>
+          <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="12" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" hasText="false" height="4.0" horizontalTextPosition="center" iconTextGap="4" modelName="custom" textColor="#000000" verticalTextPosition="bottom" visible="true" width="4.0" x="13.0" y="13.0">
+            <y:LabelModel>
+              <y:SmartNodeLabelModel distance="4.0"/>
+            </y:LabelModel>
+            <y:ModelParameter>
+              <y:SmartNodeLabelModelParameter labelRatioX="0.0" labelRatioY="0.0" nodeRatioX="0.0" nodeRatioY="0.0" offsetX="0.0" offsetY="0.0" upX="0.0" upY="-1.0"/>
+            </y:ModelParameter>
+          </y:NodeLabel>
+          <y:Shape type="ellipse"/>
+        </y:ShapeNode>
+      </data>
+    </node>
+    <node id="n28">
+      <data key="d6">
+        <y:SVGNode>
+          <y:Geometry height="46.21524620056152" width="30.0" x="1125.0" y="187.78475379943848"/>
+          <y:Fill color="#CCCCFF" transparent="false"/>
+          <y:BorderStyle color="#000000" type="line" width="1.0"/>
+          <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="14" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="20.48828125" horizontalTextPosition="center" iconTextGap="4" modelName="sandwich" modelPosition="s" textColor="#000000" verticalTextPosition="bottom" visible="true" width="80.849609375" x="-25.4248046875" xml:space="preserve" y="50.21524620056152">Application</y:NodeLabel>
+          <y:SVGNodeProperties usingVisualBounds="true"/>
+          <y:SVGModel svgBoundsPolicy="0">
+            <y:SVGContent refid="5"/>
+          </y:SVGModel>
+        </y:SVGNode>
+      </data>
+    </node>
+    <node id="n29">
+      <data key="d6">
+        <y:SVGNode>
+          <y:Geometry height="46.21524620056152" width="30.0" x="1125.0" y="96.89237689971924"/>
+          <y:Fill color="#CCCCFF" transparent="false"/>
+          <y:BorderStyle color="#000000" type="line" width="1.0"/>
+          <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="14" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="20.48828125" horizontalTextPosition="center" iconTextGap="4" modelName="sandwich" modelPosition="s" textColor="#000000" verticalTextPosition="bottom" visible="true" width="80.849609375" x="-25.4248046875" xml:space="preserve" y="50.21524620056152">Application</y:NodeLabel>
+          <y:SVGNodeProperties usingVisualBounds="true"/>
+          <y:SVGModel svgBoundsPolicy="0">
+            <y:SVGContent refid="5"/>
+          </y:SVGModel>
+        </y:SVGNode>
+      </data>
+    </node>
+    <node id="n30">
+      <data key="d6">
+        <y:SVGNode>
+          <y:Geometry height="46.21524620056152" width="30.0" x="1125.0" y="396.89237689971924"/>
+          <y:Fill color="#CCCCFF" transparent="false"/>
+          <y:BorderStyle color="#000000" type="line" width="1.0"/>
+          <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="14" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="20.48828125" horizontalTextPosition="center" iconTextGap="4" modelName="sandwich" modelPosition="s" textColor="#000000" verticalTextPosition="bottom" visible="true" width="80.849609375" x="-25.4248046875" xml:space="preserve" y="50.21524620056152">Application</y:NodeLabel>
+          <y:SVGNodeProperties usingVisualBounds="true"/>
+          <y:SVGModel svgBoundsPolicy="0">
+            <y:SVGContent refid="5"/>
+          </y:SVGModel>
+        </y:SVGNode>
+      </data>
+    </node>
+    <node id="n31">
+      <data key="d6">
+        <y:SVGNode>
+          <y:Geometry height="46.21524620056152" width="30.0" x="1125.0" y="292.33856534957886"/>
+          <y:Fill color="#CCCCFF" transparent="false"/>
+          <y:BorderStyle color="#000000" type="line" width="1.0"/>
+          <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="14" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="20.48828125" horizontalTextPosition="center" iconTextGap="4" modelName="sandwich" modelPosition="s" textColor="#000000" verticalTextPosition="bottom" visible="true" width="80.849609375" x="-25.4248046875" xml:space="preserve" y="50.21524620056152">Application</y:NodeLabel>
+          <y:SVGNodeProperties usingVisualBounds="true"/>
+          <y:SVGModel svgBoundsPolicy="0">
+            <y:SVGContent refid="5"/>
+          </y:SVGModel>
+        </y:SVGNode>
+      </data>
+    </node>
+    <node id="n32">
+      <data key="d6">
+        <y:SVGNode>
+          <y:Geometry height="46.21524620056152" width="30.0" x="1125.0" y="516.8923768997192"/>
+          <y:Fill color="#CCCCFF" transparent="false"/>
+          <y:BorderStyle color="#000000" type="line" width="1.0"/>
+          <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="14" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="20.48828125" horizontalTextPosition="center" iconTextGap="4" modelName="sandwich" modelPosition="s" textColor="#000000" verticalTextPosition="bottom" visible="true" width="80.849609375" x="-25.4248046875" xml:space="preserve" y="50.21524620056152">Application</y:NodeLabel>
+          <y:SVGNodeProperties usingVisualBounds="true"/>
+          <y:SVGModel svgBoundsPolicy="0">
+            <y:SVGContent refid="5"/>
+          </y:SVGModel>
+        </y:SVGNode>
+      </data>
+    </node>
+    <node id="n33">
+      <data key="d5"/>
+      <data key="d6">
+        <y:ShapeNode>
+          <y:Geometry height="30.0" width="30.0" x="1095.0" y="113.10762310028076"/>
+          <y:Fill hasColor="false" transparent="false"/>
+          <y:BorderStyle hasColor="false" raised="false" type="line" width="1.0"/>
+          <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="12" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" hasText="false" height="4.0" horizontalTextPosition="center" iconTextGap="4" modelName="custom" textColor="#000000" verticalTextPosition="bottom" visible="true" width="4.0" x="13.0" y="13.0">
+            <y:LabelModel>
+              <y:SmartNodeLabelModel distance="4.0"/>
+            </y:LabelModel>
+            <y:ModelParameter>
+              <y:SmartNodeLabelModelParameter labelRatioX="0.0" labelRatioY="0.0" nodeRatioX="0.0" nodeRatioY="0.0" offsetX="0.0" offsetY="0.0" upX="0.0" upY="-1.0"/>
+            </y:ModelParameter>
+          </y:NodeLabel>
+          <y:Shape type="ellipse"/>
+        </y:ShapeNode>
+      </data>
+    </node>
+    <node id="n34">
+      <data key="d5"/>
+      <data key="d6">
+        <y:ShapeNode>
+          <y:Geometry height="30.0" width="30.0" x="1095.0" y="204.0"/>
+          <y:Fill hasColor="false" transparent="false"/>
+          <y:BorderStyle hasColor="false" raised="false" type="line" width="1.0"/>
+          <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="12" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" hasText="false" height="4.0" horizontalTextPosition="center" iconTextGap="4" modelName="custom" textColor="#000000" verticalTextPosition="bottom" visible="true" width="4.0" x="13.0" y="13.0">
+            <y:LabelModel>
+              <y:SmartNodeLabelModel distance="4.0"/>
+            </y:LabelModel>
+            <y:ModelParameter>
+              <y:SmartNodeLabelModelParameter labelRatioX="0.0" labelRatioY="0.0" nodeRatioX="0.0" nodeRatioY="0.0" offsetX="0.0" offsetY="0.0" upX="0.0" upY="-1.0"/>
+            </y:ModelParameter>
+          </y:NodeLabel>
+          <y:Shape type="ellipse"/>
+        </y:ShapeNode>
+      </data>
+    </node>
+    <node id="n35">
+      <data key="d5"/>
+      <data key="d6">
+        <y:ShapeNode>
+          <y:Geometry height="30.0" width="30.0" x="1095.0" y="315.0"/>
+          <y:Fill hasColor="false" transparent="false"/>
+          <y:BorderStyle hasColor="false" raised="false" type="line" width="1.0"/>
+          <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="12" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" hasText="false" height="4.0" horizontalTextPosition="center" iconTextGap="4" modelName="custom" textColor="#000000" verticalTextPosition="bottom" visible="true" width="4.0" x="13.0" y="13.0">
+            <y:LabelModel>
+              <y:SmartNodeLabelModel distance="4.0"/>
+            </y:LabelModel>
+            <y:ModelParameter>
+              <y:SmartNodeLabelModelParameter labelRatioX="0.0" labelRatioY="0.0" nodeRatioX="0.0" nodeRatioY="0.0" offsetX="0.0" offsetY="0.0" upX="0.0" upY="-1.0"/>
+            </y:ModelParameter>
+          </y:NodeLabel>
+          <y:Shape type="ellipse"/>
+        </y:ShapeNode>
+      </data>
+    </node>
+    <node id="n36">
+      <data key="d5"/>
+      <data key="d6">
+        <y:ShapeNode>
+          <y:Geometry height="30.0" width="30.0" x="1095.0" y="418.53807770370315"/>
+          <y:Fill hasColor="false" transparent="false"/>
+          <y:BorderStyle hasColor="false" raised="false" type="line" width="1.0"/>
+          <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="12" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" hasText="false" height="4.0" horizontalTextPosition="center" iconTextGap="4" modelName="custom" textColor="#000000" verticalTextPosition="bottom" visible="true" width="4.0" x="13.0" y="13.0">
+            <y:LabelModel>
+              <y:SmartNodeLabelModel distance="4.0"/>
+            </y:LabelModel>
+            <y:ModelParameter>
+              <y:SmartNodeLabelModelParameter labelRatioX="0.0" labelRatioY="0.0" nodeRatioX="0.0" nodeRatioY="0.0" offsetX="0.0" offsetY="0.0" upX="0.0" upY="-1.0"/>
+            </y:ModelParameter>
+          </y:NodeLabel>
+          <y:Shape type="ellipse"/>
+        </y:ShapeNode>
+      </data>
+    </node>
+    <node id="n37">
+      <data key="d5"/>
+      <data key="d6">
+        <y:ShapeNode>
+          <y:Geometry height="30.0" width="30.0" x="1095.0" y="533.1076231002808"/>
+          <y:Fill hasColor="false" transparent="false"/>
+          <y:BorderStyle hasColor="false" raised="false" type="line" width="1.0"/>
+          <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="12" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" hasText="false" height="4.0" horizontalTextPosition="center" iconTextGap="4" modelName="custom" textColor="#000000" verticalTextPosition="bottom" visible="true" width="4.0" x="13.0" y="13.0">
+            <y:LabelModel>
+              <y:SmartNodeLabelModel distance="4.0"/>
+            </y:LabelModel>
+            <y:ModelParameter>
+              <y:SmartNodeLabelModelParameter labelRatioX="0.0" labelRatioY="0.0" nodeRatioX="0.0" nodeRatioY="0.0" offsetX="0.0" offsetY="0.0" upX="0.0" upY="-1.0"/>
+            </y:ModelParameter>
+          </y:NodeLabel>
+          <y:Shape type="ellipse"/>
+        </y:ShapeNode>
+      </data>
+    </node>
+    <node id="n38">
+      <data key="d5"/>
+      <data key="d6">
+        <y:ShapeNode>
+          <y:Geometry height="30.0" width="30.0" x="945.0" y="473.6256908800833"/>
+          <y:Fill hasColor="false" transparent="false"/>
+          <y:BorderStyle hasColor="false" raised="false" type="line" width="1.0"/>
+          <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="12" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" hasText="false" height="4.0" horizontalTextPosition="center" iconTextGap="4" modelName="custom" textColor="#000000" verticalTextPosition="bottom" visible="true" width="4.0" x="13.0" y="13.0">
+            <y:LabelModel>
+              <y:SmartNodeLabelModel distance="4.0"/>
+            </y:LabelModel>
+            <y:ModelParameter>
+              <y:SmartNodeLabelModelParameter labelRatioX="0.0" labelRatioY="0.0" nodeRatioX="0.0" nodeRatioY="0.0" offsetX="0.0" offsetY="0.0" upX="0.0" upY="-1.0"/>
+            </y:ModelParameter>
+          </y:NodeLabel>
+          <y:Shape type="ellipse"/>
+        </y:ShapeNode>
+      </data>
+    </node>
+    <node id="n39">
+      <data key="d5"/>
+      <data key="d6">
+        <y:ShapeNode>
+          <y:Geometry height="30.0" width="30.0" x="945.0" y="340.75046058672217"/>
+          <y:Fill hasColor="false" transparent="false"/>
+          <y:BorderStyle hasColor="false" raised="false" type="line" width="1.0"/>
+          <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="12" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" hasText="false" height="4.0" horizontalTextPosition="center" iconTextGap="4" modelName="custom" textColor="#000000" verticalTextPosition="bottom" visible="true" width="4.0" x="13.0" y="13.0">
+            <y:LabelModel>
+              <y:SmartNodeLabelModel distance="4.0"/>
+            </y:LabelModel>
+            <y:ModelParameter>
+              <y:SmartNodeLabelModelParameter labelRatioX="0.0" labelRatioY="0.0" nodeRatioX="0.0" nodeRatioY="0.0" offsetX="0.0" offsetY="0.0" upX="0.0" upY="-1.0"/>
+            </y:ModelParameter>
+          </y:NodeLabel>
+          <y:Shape type="ellipse"/>
+        </y:ShapeNode>
+      </data>
+    </node>
+    <node id="n40">
+      <data key="d5"/>
+      <data key="d6">
+        <y:ShapeNode>
+          <y:Geometry height="30.0" width="30.0" x="945.0" y="204.0"/>
+          <y:Fill hasColor="false" transparent="false"/>
+          <y:BorderStyle hasColor="false" raised="false" type="line" width="1.0"/>
+          <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="12" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" hasText="false" height="4.0" horizontalTextPosition="center" iconTextGap="4" modelName="custom" textColor="#000000" verticalTextPosition="bottom" visible="true" width="4.0" x="13.0" y="13.0">
+            <y:LabelModel>
+              <y:SmartNodeLabelModel distance="4.0"/>
+            </y:LabelModel>
+            <y:ModelParameter>
+              <y:SmartNodeLabelModelParameter labelRatioX="0.0" labelRatioY="0.0" nodeRatioX="0.0" nodeRatioY="0.0" offsetX="0.0" offsetY="0.0" upX="0.0" upY="-1.0"/>
+            </y:ModelParameter>
+          </y:NodeLabel>
+          <y:Shape type="ellipse"/>
+        </y:ShapeNode>
+      </data>
+    </node>
+    <node id="n41">
+      <data key="d5"/>
+      <data key="d6">
+        <y:ShapeNode>
+          <y:Geometry height="30.0" width="30.0" x="1155.0" y="585.0"/>
+          <y:Fill hasColor="false" transparent="false"/>
+          <y:BorderStyle hasColor="false" raised="false" type="line" width="1.0"/>
+          <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="12" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" hasText="false" height="4.0" horizontalTextPosition="center" iconTextGap="4" modelName="custom" textColor="#000000" verticalTextPosition="bottom" visible="true" width="4.0" x="13.0" y="13.0">
+            <y:LabelModel>
+              <y:SmartNodeLabelModel distance="4.0"/>
+            </y:LabelModel>
+            <y:ModelParameter>
+              <y:SmartNodeLabelModelParameter labelRatioX="0.0" labelRatioY="0.0" nodeRatioX="0.0" nodeRatioY="0.0" offsetX="0.0" offsetY="0.0" upX="0.0" upY="-1.0"/>
+            </y:ModelParameter>
+          </y:NodeLabel>
+          <y:Shape type="ellipse"/>
+        </y:ShapeNode>
+      </data>
+    </node>
+    <node id="n42">
+      <data key="d5"/>
+      <data key="d6">
+        <y:ShapeNode>
+          <y:Geometry height="30.0" width="30.0" x="105.0" y="645.0"/>
+          <y:Fill hasColor="false" transparent="false"/>
+          <y:BorderStyle hasColor="false" raised="false" type="line" width="1.0"/>
+          <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="12" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" hasText="false" height="4.0" horizontalTextPosition="center" iconTextGap="4" modelName="custom" textColor="#000000" verticalTextPosition="bottom" visible="true" width="4.0" x="13.0" y="13.0">
+            <y:LabelModel>
+              <y:SmartNodeLabelModel distance="4.0"/>
+            </y:LabelModel>
+            <y:ModelParameter>
+              <y:SmartNodeLabelModelParameter labelRatioX="0.0" labelRatioY="0.0" nodeRatioX="0.0" nodeRatioY="0.0" offsetX="0.0" offsetY="0.0" upX="0.0" upY="-1.0"/>
+            </y:ModelParameter>
+          </y:NodeLabel>
+          <y:Shape type="ellipse"/>
+        </y:ShapeNode>
+      </data>
+    </node>
+    <node id="n43">
+      <data key="d5"/>
+      <data key="d6">
+        <y:ShapeNode>
+          <y:Geometry height="30.0" width="30.0" x="645.9294300889812" y="645.0"/>
+          <y:Fill hasColor="false" transparent="false"/>
+          <y:BorderStyle hasColor="false" raised="false" type="line" width="1.0"/>
+          <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="12" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" hasText="false" height="4.0" horizontalTextPosition="center" iconTextGap="4" modelName="custom" textColor="#000000" verticalTextPosition="bottom" visible="true" width="4.0" x="13.0" y="13.0">
+            <y:LabelModel>
+              <y:SmartNodeLabelModel distance="4.0"/>
+            </y:LabelModel>
+            <y:ModelParameter>
+              <y:SmartNodeLabelModelParameter labelRatioX="0.0" labelRatioY="0.0" nodeRatioX="0.0" nodeRatioY="0.0" offsetX="0.0" offsetY="0.0" upX="0.0" upY="-1.0"/>
+            </y:ModelParameter>
+          </y:NodeLabel>
+          <y:Shape type="ellipse"/>
+        </y:ShapeNode>
+      </data>
+    </node>
+    <edge id="e0" source="n17" target="n12">
+      <data key="d9"/>
+      <data key="d10">
+        <y:BezierEdge>
+          <y:Path sx="0.0" sy="0.0" tx="0.0" ty="0.0"/>
+          <y:LineStyle color="#000000" type="line" width="3.0"/>
+          <y:Arrows source="standard" target="standard"/>
+        </y:BezierEdge>
+      </data>
+    </edge>
+    <edge id="e1" source="n16" target="n12">
+      <data key="d9"/>
+      <data key="d10">
+        <y:QuadCurveEdge straightness="0.1">
+          <y:Path sx="0.0" sy="0.0" tx="0.0" ty="0.0"/>
+          <y:LineStyle color="#000000" type="line" width="3.0"/>
+          <y:Arrows source="standard" target="standard"/>
+        </y:QuadCurveEdge>
+      </data>
+    </edge>
+    <edge id="e2" source="n15" target="n12">
+      <data key="d9"/>
+      <data key="d10">
+        <y:SplineEdge>
+          <y:Path sx="0.0" sy="0.0" tx="0.0" ty="0.0"/>
+          <y:LineStyle color="#000000" type="line" width="3.0"/>
+          <y:Arrows source="standard" target="standard"/>
+        </y:SplineEdge>
+      </data>
+    </edge>
+    <edge id="e3" source="n15" target="n13">
+      <data key="d9"/>
+      <data key="d10">
+        <y:SplineEdge>
+          <y:Path sx="0.0" sy="0.0" tx="0.0" ty="0.0"/>
+          <y:LineStyle color="#000000" type="line" width="3.0"/>
+          <y:Arrows source="standard" target="standard"/>
+        </y:SplineEdge>
+      </data>
+    </edge>
+    <edge id="e4" source="n14" target="n13">
+      <data key="d9"/>
+      <data key="d10">
+        <y:SplineEdge>
+          <y:Path sx="0.0" sy="0.0" tx="0.0" ty="0.0"/>
+          <y:LineStyle color="#000000" type="line" width="3.0"/>
+          <y:Arrows source="standard" target="standard"/>
+        </y:SplineEdge>
+      </data>
+    </edge>
+    <edge id="e5" source="n19" target="n20">
+      <data key="d9"/>
+      <data key="d10">
+        <y:SplineEdge>
+          <y:Path sx="0.0" sy="0.0" tx="0.0" ty="0.0"/>
+          <y:LineStyle color="#000000" type="line" width="3.0"/>
+          <y:Arrows source="standard" target="standard"/>
+        </y:SplineEdge>
+      </data>
+    </edge>
+    <edge id="e6" source="n18" target="n20">
+      <data key="d9"/>
+      <data key="d10">
+        <y:SplineEdge>
+          <y:Path sx="0.0" sy="0.0" tx="0.0" ty="0.0"/>
+          <y:LineStyle color="#000000" type="line" width="3.0"/>
+          <y:Arrows source="standard" target="standard"/>
+        </y:SplineEdge>
+      </data>
+    </edge>
+    <edge id="e7" source="n21" target="n22">
+      <data key="d9"/>
+      <data key="d10">
+        <y:SplineEdge>
+          <y:Path sx="0.0" sy="0.0" tx="0.0" ty="0.0"/>
+          <y:LineStyle color="#000000" type="line" width="3.0"/>
+          <y:Arrows source="standard" target="standard"/>
+        </y:SplineEdge>
+      </data>
+    </edge>
+    <edge id="e8" source="n21" target="n23">
+      <data key="d9"/>
+      <data key="d10">
+        <y:SplineEdge>
+          <y:Path sx="0.0" sy="0.0" tx="0.0" ty="0.0"/>
+          <y:LineStyle color="#000000" type="line" width="3.0"/>
+          <y:Arrows source="standard" target="standard"/>
+        </y:SplineEdge>
+      </data>
+    </edge>
+    <edge id="e9" source="n21" target="n24">
+      <data key="d9"/>
+      <data key="d10">
+        <y:SplineEdge>
+          <y:Path sx="0.0" sy="0.0" tx="0.0" ty="0.0"/>
+          <y:LineStyle color="#000000" type="line" width="3.0"/>
+          <y:Arrows source="standard" target="standard"/>
+        </y:SplineEdge>
+      </data>
+    </edge>
+    <edge id="e10" source="n26" target="n25">
+      <data key="d9"/>
+      <data key="d10">
+        <y:SplineEdge>
+          <y:Path sx="0.0" sy="0.0" tx="0.0" ty="0.0">
+            <y:Point x="150.0" y="601.3852345561498"/>
+          </y:Path>
+          <y:LineStyle color="#000000" type="line" width="4.0"/>
+          <y:Arrows source="delta" target="delta"/>
+          <y:EdgeLabel alignment="center" configuration="AutoFlippingLabel" distance="2.0" fontFamily="Dialog" fontSize="18" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="25.19921875" horizontalTextPosition="center" iconTextGap="4" modelName="custom" preferredPlacement="anywhere" ratio="0.5" textColor="#000000" verticalTextPosition="bottom" visible="true" width="45.9765625" x="-164.40561800036681" xml:space="preserve" y="18.135168324440656">LoRa<y:LabelModel><y:SmartEdgeLabelModel autoRotationEnabled="false" defaultAngle="0.0" defaultDistance="10.0"/></y:LabelModel><y:ModelParameter><y:SmartEdgeLabelModelParameter angle="0.0" distance="30.0" distanceToCenter="true" position="left" ratio="0.5" segment="0"/></y:ModelParameter><y:PreferredPlacementDescriptor angle="0.0" angleOffsetOnRightSide="0" angleReference="absolute" angleRotationOnRightSide="co" distance="-1.0" frozen="true" placement="anywhere" side="anywhere" sideReference="relative_to_edge_flow"/></y:EdgeLabel>
+        </y:SplineEdge>
+      </data>
+    </edge>
+    <edge id="e11" source="n40" target="n33">
+      <data key="d9"/>
+      <data key="d10">
+        <y:SplineEdge>
+          <y:Path sx="0.0" sy="0.0" tx="0.0" ty="0.0"/>
+          <y:LineStyle color="#000000" type="line" width="3.0"/>
+          <y:Arrows source="standard" target="standard"/>
+        </y:SplineEdge>
+      </data>
+    </edge>
+    <edge id="e12" source="n40" target="n34">
+      <data key="d9"/>
+      <data key="d10">
+        <y:SplineEdge>
+          <y:Path sx="0.0" sy="0.0" tx="0.0" ty="0.0"/>
+          <y:LineStyle color="#000000" type="line" width="3.0"/>
+          <y:Arrows source="standard" target="standard"/>
+        </y:SplineEdge>
+      </data>
+    </edge>
+    <edge id="e13" source="n39" target="n35">
+      <data key="d9"/>
+      <data key="d10">
+        <y:SplineEdge>
+          <y:Path sx="0.0" sy="0.0" tx="0.0" ty="0.0"/>
+          <y:LineStyle color="#000000" type="line" width="3.0"/>
+          <y:Arrows source="standard" target="standard"/>
+        </y:SplineEdge>
+      </data>
+    </edge>
+    <edge id="e14" source="n39" target="n34">
+      <data key="d9"/>
+      <data key="d10">
+        <y:SplineEdge>
+          <y:Path sx="0.0" sy="0.0" tx="0.0" ty="0.0"/>
+          <y:LineStyle color="#000000" type="line" width="3.0"/>
+          <y:Arrows source="standard" target="standard"/>
+        </y:SplineEdge>
+      </data>
+    </edge>
+    <edge id="e15" source="n39" target="n36">
+      <data key="d9"/>
+      <data key="d10">
+        <y:SplineEdge>
+          <y:Path sx="0.0" sy="0.0" tx="0.0" ty="0.0"/>
+          <y:LineStyle color="#000000" type="line" width="3.0"/>
+          <y:Arrows source="standard" target="standard"/>
+        </y:SplineEdge>
+      </data>
+    </edge>
+    <edge id="e16" source="n37" target="n38">
+      <data key="d9"/>
+      <data key="d10">
+        <y:SplineEdge>
+          <y:Path sx="0.0" sy="0.0" tx="0.0" ty="0.0"/>
+          <y:LineStyle color="#000000" type="line" width="3.0"/>
+          <y:Arrows source="standard" target="standard"/>
+        </y:SplineEdge>
+      </data>
+    </edge>
+    <edge id="e17" source="n26" target="n41">
+      <data key="d9"/>
+      <data key="d10">
+        <y:SplineEdge>
+          <y:Path sx="0.0" sy="0.0" tx="0.0" ty="0.0"/>
+          <y:LineStyle color="#000000" type="line" width="4.0"/>
+          <y:Arrows source="delta" target="delta"/>
+          <y:EdgeLabel alignment="center" configuration="AutoFlippingLabel" distance="2.0" fontFamily="Dialog" fontSize="16" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="22.84375" horizontalTextPosition="center" iconTextGap="4" modelName="custom" preferredPlacement="anywhere" ratio="0.5" textColor="#000000" verticalTextPosition="bottom" visible="true" width="17.453125" x="351.2734375" xml:space="preserve" y="18.578125">IP<y:LabelModel><y:SmartEdgeLabelModel autoRotationEnabled="false" defaultAngle="0.0" defaultDistance="10.0"/></y:LabelModel><y:ModelParameter><y:SmartEdgeLabelModelParameter angle="0.0" distance="30.0" distanceToCenter="true" position="right" ratio="0.5" segment="0"/></y:ModelParameter><y:PreferredPlacementDescriptor angle="0.0" angleOffsetOnRightSide="0" angleReference="absolute" angleRotationOnRightSide="co" distance="-1.0" frozen="true" placement="anywhere" side="anywhere" sideReference="relative_to_edge_flow"/></y:EdgeLabel>
+        </y:SplineEdge>
+      </data>
+    </edge>
+    <edge id="e18" source="n42" target="n43">
+      <data key="d9"/>
+      <data key="d10">
+        <y:SplineEdge>
+          <y:Path sx="0.0" sy="0.0" tx="0.0" ty="0.0"/>
+          <y:LineStyle color="#000000" type="line" width="4.0"/>
+          <y:Arrows source="delta" target="delta"/>
+          <y:EdgeLabel alignment="center" configuration="AutoFlippingLabel" distance="2.0" fontFamily="Dialog" fontSize="16" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="22.84375" horizontalTextPosition="center" iconTextGap="4" modelName="custom" preferredPlacement="anywhere" ratio="0.5" textColor="#000000" verticalTextPosition="bottom" visible="true" width="143.765625" x="183.58190254449062" xml:space="preserve" y="18.578125">Données chiffrées<y:LabelModel><y:SmartEdgeLabelModel autoRotationEnabled="false" defaultAngle="0.0" defaultDistance="10.0"/></y:LabelModel><y:ModelParameter><y:SmartEdgeLabelModelParameter angle="0.0" distance="30.0" distanceToCenter="true" position="right" ratio="0.5" segment="0"/></y:ModelParameter><y:PreferredPlacementDescriptor angle="0.0" angleOffsetOnRightSide="0" angleReference="absolute" angleRotationOnRightSide="co" distance="-1.0" frozen="true" placement="anywhere" side="anywhere" sideReference="relative_to_edge_flow"/></y:EdgeLabel>
+        </y:SplineEdge>
+      </data>
+    </edge>
+  </graph>
+  <data key="d7">
+    <y:Resources>
+      <y:Resource id="1" xml:space="preserve">&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+
+&lt;svg version="1.2" baseProfile="tiny" width="17.81mm" height="32.41mm" viewBox="8361 14585 1781 3241" preserveAspectRatio="xMidYMid" fill-rule="evenodd" stroke-width="28.222" stroke-linejoin="round" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve"&gt;
+ &lt;g visibility="visible" id="Slide_1"&gt;
+  &lt;g id="DrawingGroup_1"&gt;
+   &lt;g&gt;
+    &lt;path fill="rgb(221,221,221)" stroke="none" d="M 9133,17825 C 9376,17825 9929,17825 10106,17467 10282,17109 9752,17109 9664,17109 9664,17262 9133,17620 9133,17825 Z"/&gt;
+    &lt;path fill="none" stroke="rgb(221,221,221)" id="Drawing_1_0" stroke-linejoin="round" d="M 9133,17825 C 9376,17825 9929,17825 10106,17467 10282,17109 9752,17109 9664,17109 9664,17262 9133,17620 9133,17825 Z"/&gt;
+   &lt;/g&gt;
+   &lt;g id="DrawingGroup_2"&gt;
+    &lt;g&gt;
+     &lt;path fill="rgb(51,51,51)" stroke="none" d="M 9705,17456 L 8517,17456 8514,17416 8691,16138 8694,16166 8701,16192 8713,16216 8729,16239 8749,16259 8773,16278 8799,16295 8829,16311 8896,16336 8971,16354 9051,16365 9133,16368 9215,16365 9295,16354 9370,16336 9437,16311 9467,16295 9493,16278 9517,16259 9537,16239 9553,16216 9565,16192 9572,16166 9575,16138 9705,17077 9705,17456 Z"/&gt;
+     &lt;path fill="rgb(52,52,52)" stroke="none" d="M 9705,17456 L 9705,17077 9752,17416 9748,17462 9738,17506 9721,17546 9699,17584 9671,17618 9638,17650 9600,17678 9559,17703 9465,17745 9360,17775 9248,17793 9133,17799 9018,17793 8906,17775 8801,17745 8707,17703 8666,17678 8628,17650 8595,17618 8567,17584 8545,17546 8528,17506 8518,17462 8517,17456 9705,17456 Z M 9695,17446 L 8517,17446 8514,17416 8691,16138 8694,16166 8701,16192 8713,16216 8729,16239 8749,16259 8773,16278 8799,16295 8829,16311 8896,16336 8971,16354 9051,16365 9133,16368 9215,16365 9295,16354 9370,16336 9437,16311 9467,16295 9493,16278 9517,16259 9537,16239 9553,16216 9565,16192 9572,16166 9575,16138 9695,17004 9695,17446 Z"/&gt;
+     &lt;path fill="rgb(53,53,53)" stroke="none" d="M 9695,17446 L 9695,17004 9752,17416 9748,17462 9738,17506 9721,17546 9699,17584 9671,17618 9638,17650 9600,17678 9559,17703 9465,17745 9360,17775 9248,17793 9133,17799 9018,17793 8906,17775 8801,17745 8707,17703 8666,17678 8628,17650 8595,17618 8567,17584 8545,17546 8528,17506 8518,17462 8517,17446 9695,17446 Z M 9685,17436 L 8516,17436 8514,17416 8691,16138 8694,16166 8701,16192 8713,16216 8729,16239 8749,16259 8773,16278 8799,16295 8829,16311 8896,16336 8971,16354 9051,16365 9133,16368 9215,16365 9295,16354 9370,16336 9437,16311 9467,16295 9493,16278 9517,16259 9537,16239 9553,16216 9565,16192 9572,16166 9575,16138 9685,16932 9685,17436 Z"/&gt;
+     &lt;path fill="rgb(54,54,54)" stroke="none" d="M 9685,17436 L 9685,16932 9752,17416 9748,17462 9738,17506 9721,17546 9699,17584 9671,17618 9638,17650 9600,17678 9559,17703 9465,17745 9360,17775 9248,17793 9133,17799 9018,17793 8906,17775 8801,17745 8707,17703 8666,17678 8628,17650 8595,17618 8567,17584 8545,17546 8528,17506 8518,17462 8516,17436 9685,17436 Z M 9675,17426 L 8515,17426 8514,17416 8691,16138 8694,16166 8701,16192 8713,16216 8729,16239 8749,16259 8773,16278 8799,16295 8829,16311 8896,16336 8971,16354 9051,16365 9133,16368 9215,16365 9295,16354 9370,16336 9437,16311 9467,16295 9493,16278 9517,16259 9537,16239 9553,16216 9565,16192 9572,16166 9575,16138 9675,16860 9675,17426 Z"/&gt;
+     &lt;path fill="rgb(55,55,55)" stroke="none" d="M 9675,17426 L 9675,16860 9752,17416 9748,17462 9738,17506 9721,17546 9699,17584 9671,17618 9638,17650 9600,17678 9559,17703 9465,17745 9360,17775 9248,17793 9133,17799 9018,17793 8906,17775 8801,17745 8707,17703 8666,17678 8628,17650 8595,17618 8567,17584 8545,17546 8528,17506 8518,17462 8515,17426 9675,17426 Z M 9665,17416 L 8514,17416 8691,16138 8694,16166 8701,16192 8713,16216 8729,16239 8749,16259 8773,16278 8799,16295 8829,16311 8896,16336 8971,16354 9051,16365 9133,16368 9215,16365 9295,16354 9370,16336 9437,16311 9467,16295 9493,16278 9517,16259 9537,16239 9553,16216 9565,16192 9572,16166 9575,16138 9665,16788 9665,17416 Z"/&gt;
+     &lt;path fill="rgb(57,57,57)" stroke="none" d="M 9665,17416 L 9665,16788 9752,17416 9748,17462 9738,17506 9721,17546 9699,17584 9671,17618 9638,17650 9600,17678 9559,17703 9465,17745 9360,17775 9248,17793 9133,17799 9018,17793 8906,17775 8801,17745 8707,17703 8666,17678 8628,17650 8595,17618 8567,17584 8545,17546 8528,17506 8518,17462 8514,17416 9665,17416 Z M 9655,17406 L 8515,17406 8691,16138 8694,16166 8701,16192 8713,16216 8729,16239 8749,16259 8773,16278 8799,16295 8829,16311 8896,16336 8971,16354 9051,16365 9133,16368 9215,16365 9295,16354 9370,16336 9437,16311 9467,16295 9493,16278 9517,16259 9537,16239 9553,16216 9565,16192 9572,16166 9575,16138 9655,16716 9655,17406 Z"/&gt;
+     &lt;path fill="rgb(58,58,58)" stroke="none" d="M 9655,17406 L 9655,16716 9752,17416 9748,17462 9738,17506 9721,17546 9699,17584 9671,17618 9638,17650 9600,17678 9559,17703 9465,17745 9360,17775 9248,17793 9133,17799 9018,17793 8906,17775 8801,17745 8707,17703 8666,17678 8628,17650 8595,17618 8567,17584 8545,17546 8528,17506 8518,17462 8514,17416 8515,17406 9655,17406 Z M 9645,17396 L 8517,17396 8691,16138 8694,16166 8701,16192 8713,16216 8729,16239 8749,16259 8773,16278 8799,16295 8829,16311 8896,16336 8971,16354 9051,16365 9133,16368 9215,16365 9295,16354 9370,16336 9437,16311 9467,16295 9493,16278 9517,16259 9537,16239 9553,16216 9565,16192 9572,16166 9575,16138 9645,16643 9645,17396 Z"/&gt;
+     &lt;path fill="rgb(59,59,59)" stroke="none" d="M 9645,17396 L 9645,16643 9752,17416 9748,17462 9738,17506 9721,17546 9699,17584 9671,17618 9638,17650 9600,17678 9559,17703 9465,17745 9360,17775 9248,17793 9133,17799 9018,17793 8906,17775 8801,17745 8707,17703 8666,17678 8628,17650 8595,17618 8567,17584 8545,17546 8528,17506 8518,17462 8514,17416 8517,17396 9645,17396 Z M 9635,17386 L 8518,17386 8691,16138 8694,16166 8701,16192 8713,16216 8729,16239 8749,16259 8773,16278 8799,16295 8829,16311 8896,16336 8971,16354 9051,16365 9133,16368 9215,16365 9295,16354 9370,16336 9437,16311 9467,16295 9493,16278 9517,16259 9537,16239 9553,16216 9565,16192 9572,16166 9575,16138 9635,16571 9635,17386 Z"/&gt;
+     &lt;path fill="rgb(60,60,60)" stroke="none" d="M 9635,17386 L 9635,16571 9752,17416 9748,17462 9738,17506 9721,17546 9699,17584 9671,17618 9638,17650 9600,17678 9559,17703 9465,17745 9360,17775 9248,17793 9133,17799 9018,17793 8906,17775 8801,17745 8707,17703 8666,17678 8628,17650 8595,17618 8567,17584 8545,17546 8528,17506 8518,17462 8514,17416 8518,17386 9635,17386 Z M 9625,17376 L 8520,17376 8691,16138 8694,16166 8701,16192 8713,16216 8729,16239 8749,16259 8773,16278 8799,16295 8829,16311 8896,16336 8971,16354 9051,16365 9133,16368 9215,16365 9295,16354 9370,16336 9437,16311 9467,16295 9493,16278 9517,16259 9537,16239 9553,16216 9565,16192 9572,16166 9575,16138 9625,16499 9625,17376 Z"/&gt;
+     &lt;path fill="rgb(62,62,62)" stroke="none" d="M 9625,17376 L 9625,16499 9752,17416 9748,17462 9738,17506 9721,17546 9699,17584 9671,17618 9638,17650 9600,17678 9559,17703 9465,17745 9360,17775 9248,17793 9133,17799 9018,17793 8906,17775 8801,17745 8707,17703 8666,17678 8628,17650 8595,17618 8567,17584 8545,17546 8528,17506 8518,17462 8514,17416 8520,17376 9625,17376 Z M 9615,17366 L 8521,17366 8691,16138 8694,16166 8701,16192 8713,16216 8729,16239 8749,16259 8773,16278 8799,16295 8829,16311 8896,16336 8971,16354 9051,16365 9133,16368 9215,16365 9295,16354 9370,16336 9437,16311 9467,16295 9493,16278 9517,16259 9537,16239 9553,16216 9565,16192 9572,16166 9575,16138 9615,16427 9615,17366 Z"/&gt;
+     &lt;path fill="rgb(63,63,63)" stroke="none" d="M 9615,17366 L 9615,16427 9752,17416 9748,17462 9738,17506 9721,17546 9699,17584 9671,17618 9638,17650 9600,17678 9559,17703 9465,17745 9360,17775 9248,17793 9133,17799 9018,17793 8906,17775 8801,17745 8707,17703 8666,17678 8628,17650 8595,17618 8567,17584 8545,17546 8528,17506 8518,17462 8514,17416 8521,17366 9615,17366 Z M 9605,17356 L 8522,17356 8691,16138 8694,16166 8701,16192 8713,16216 8729,16239 8749,16259 8773,16278 8799,16295 8829,16311 8896,16336 8971,16354 9051,16365 9133,16368 9215,16365 9295,16354 9370,16336 9437,16311 9467,16295 9493,16278 9517,16259 9537,16239 9553,16216 9565,16192 9572,16166 9575,16138 9605,16355 9605,17356 Z"/&gt;
+     &lt;path fill="rgb(64,64,64)" stroke="none" d="M 9605,17356 L 9605,16355 9752,17416 9748,17462 9738,17506 9721,17546 9699,17584 9671,17618 9638,17650 9600,17678 9559,17703 9465,17745 9360,17775 9248,17793 9133,17799 9018,17793 8906,17775 8801,17745 8707,17703 8666,17678 8628,17650 8595,17618 8567,17584 8545,17546 8528,17506 8518,17462 8514,17416 8522,17356 9605,17356 Z M 9595,17346 L 8524,17346 8691,16138 8694,16166 8701,16192 8713,16216 8729,16239 8749,16259 8773,16278 8799,16295 8829,16311 8896,16336 8971,16354 9051,16365 9133,16368 9215,16365 9295,16354 9370,16336 9437,16311 9467,16295 9493,16278 9517,16259 9537,16239 9553,16216 9565,16192 9572,16166 9575,16138 9595,16282 9595,17346 Z"/&gt;
+     &lt;path fill="rgb(65,65,65)" stroke="none" d="M 9595,17346 L 9595,16282 9752,17416 9748,17462 9738,17506 9721,17546 9699,17584 9671,17618 9638,17650 9600,17678 9559,17703 9465,17745 9360,17775 9248,17793 9133,17799 9018,17793 8906,17775 8801,17745 8707,17703 8666,17678 8628,17650 8595,17618 8567,17584 8545,17546 8528,17506 8518,17462 8514,17416 8524,17346 9595,17346 Z M 9585,17336 L 8525,17336 8691,16138 8694,16166 8701,16192 8713,16216 8729,16239 8749,16259 8773,16278 8799,16295 8829,16311 8896,16336 8971,16354 9051,16365 9133,16368 9215,16365 9295,16354 9370,16336 9437,16311 9467,16295 9493,16278 9517,16259 9537,16239 9553,16216 9565,16192 9572,16166 9575,16138 9585,16210 9585,17336 Z"/&gt;
+     &lt;path fill="rgb(66,66,66)" stroke="none" d="M 9585,17336 L 9585,16210 9752,17416 9748,17462 9738,17506 9721,17546 9699,17584 9671,17618 9638,17650 9600,17678 9559,17703 9465,17745 9360,17775 9248,17793 9133,17799 9018,17793 8906,17775 8801,17745 8707,17703 8666,17678 8628,17650 8595,17618 8567,17584 8545,17546 8528,17506 8518,17462 8514,17416 8525,17336 9585,17336 Z M 9575,17326 L 8526,17326 8691,16138 8694,16166 8701,16192 8713,16216 8729,16239 8749,16259 8773,16278 8799,16295 8829,16311 8896,16336 8971,16354 9051,16365 9133,16368 9215,16365 9295,16354 9370,16336 9437,16311 9467,16295 9493,16278 9517,16259 9537,16239 9553,16216 9565,16192 9572,16166 9575,16138 9575,17326 Z"/&gt;
+     &lt;path fill="rgb(68,68,68)" stroke="none" d="M 9575,17326 L 9575,16138 9752,17416 9748,17462 9738,17506 9721,17546 9699,17584 9671,17618 9638,17650 9600,17678 9559,17703 9465,17745 9360,17775 9248,17793 9133,17799 9018,17793 8906,17775 8801,17745 8707,17703 8666,17678 8628,17650 8595,17618 8567,17584 8545,17546 8528,17506 8518,17462 8514,17416 8526,17326 9575,17326 Z M 9565,17316 L 8528,17316 8691,16138 8694,16166 8701,16192 8713,16216 8729,16239 8749,16259 8773,16278 8799,16295 8829,16311 8896,16336 8971,16354 9051,16365 9133,16368 9215,16365 9295,16354 9370,16336 9437,16311 9467,16295 9493,16278 9517,16259 9537,16239 9553,16216 9565,16192 9565,17316 Z"/&gt;
+     &lt;path fill="rgb(69,69,69)" stroke="none" d="M 9565,17316 L 9565,16192 9572,16166 9575,16138 9752,17416 9748,17462 9738,17506 9721,17546 9699,17584 9671,17618 9638,17650 9600,17678 9559,17703 9465,17745 9360,17775 9248,17793 9133,17799 9018,17793 8906,17775 8801,17745 8707,17703 8666,17678 8628,17650 8595,17618 8567,17584 8545,17546 8528,17506 8518,17462 8514,17416 8528,17316 9565,17316 Z M 9555,17306 L 8529,17306 8691,16138 8694,16166 8701,16192 8713,16216 8729,16239 8749,16259 8773,16278 8799,16295 8829,16311 8896,16336 8971,16354 9051,16365 9133,16368 9215,16365 9295,16354 9370,16336 9437,16311 9467,16295 9493,16278 9517,16259 9537,16239 9553,16216 9555,16212 9555,17306 Z"/&gt;
+     &lt;path fill="rgb(70,70,70)" stroke="none" d="M 9555,17306 L 9555,16212 9565,16192 9572,16166 9575,16138 9752,17416 9748,17462 9738,17506 9721,17546 9699,17584 9671,17618 9638,17650 9600,17678 9559,17703 9465,17745 9360,17775 9248,17793 9133,17799 9018,17793 8906,17775 8801,17745 8707,17703 8666,17678 8628,17650 8595,17618 8567,17584 8545,17546 8528,17506 8518,17462 8514,17416 8529,17306 9555,17306 Z M 9545,17296 L 8531,17296 8691,16138 8694,16166 8701,16192 8713,16216 8729,16239 8749,16259 8773,16278 8799,16295 8829,16311 8896,16336 8971,16354 9051,16365 9133,16368 9215,16365 9295,16354 9370,16336 9437,16311 9467,16295 9493,16278 9517,16259 9537,16239 9545,16228 9545,17296 Z"/&gt;
+     &lt;path fill="rgb(71,71,71)" stroke="none" d="M 9545,17296 L 9545,16228 9553,16216 9565,16192 9572,16166 9575,16138 9752,17416 9748,17462 9738,17506 9721,17546 9699,17584 9671,17618 9638,17650 9600,17678 9559,17703 9465,17745 9360,17775 9248,17793 9133,17799 9018,17793 8906,17775 8801,17745 8707,17703 8666,17678 8628,17650 8595,17618 8567,17584 8545,17546 8528,17506 8518,17462 8514,17416 8531,17296 9545,17296 Z M 9535,17286 L 8532,17286 8691,16138 8694,16166 8701,16192 8713,16216 8729,16239 8749,16259 8773,16278 8799,16295 8829,16311 8896,16336 8971,16354 9051,16365 9133,16368 9215,16365 9295,16354 9370,16336 9437,16311 9467,16295 9493,16278 9517,16259 9535,16241 9535,17286 Z"/&gt;
+     &lt;path fill="rgb(73,73,73)" stroke="none" d="M 9535,17286 L 9535,16241 9537,16239 9553,16216 9565,16192 9572,16166 9575,16138 9752,17416 9748,17462 9738,17506 9721,17546 9699,17584 9671,17618 9638,17650 9600,17678 9559,17703 9465,17745 9360,17775 9248,17793 9133,17799 9018,17793 8906,17775 8801,17745 8707,17703 8666,17678 8628,17650 8595,17618 8567,17584 8545,17546 8528,17506 8518,17462 8514,17416 8532,17286 9535,17286 Z M 9525,17276 L 8533,17276 8691,16138 8694,16166 8701,16192 8713,16216 8729,16239 8749,16259 8773,16278 8799,16295 8829,16311 8896,16336 8971,16354 9051,16365 9133,16368 9215,16365 9295,16354 9370,16336 9437,16311 9467,16295 9493,16278 9517,16259 9525,16251 9525,17276 Z"/&gt;
+     &lt;path fill="rgb(74,74,74)" stroke="none" d="M 9525,17276 L 9525,16251 9537,16239 9553,16216 9565,16192 9572,16166 9575,16138 9752,17416 9748,17462 9738,17506 9721,17546 9699,17584 9671,17618 9638,17650 9600,17678 9559,17703 9465,17745 9360,17775 9248,17793 9133,17799 9018,17793 8906,17775 8801,17745 8707,17703 8666,17678 8628,17650 8595,17618 8567,17584 8545,17546 8528,17506 8518,17462 8514,17416 8533,17276 9525,17276 Z M 9515,17266 L 8535,17266 8691,16138 8694,16166 8701,16192 8713,16216 8729,16239 8749,16259 8773,16278 8799,16295 8829,16311 8896,16336 8971,16354 9051,16365 9133,16368 9215,16365 9295,16354 9370,16336 9437,16311 9467,16295 9493,16278 9515,16261 9515,17266 Z"/&gt;
+     &lt;path fill="rgb(75,75,75)" stroke="none" d="M 9515,17266 L 9515,16261 9517,16259 9537,16239 9553,16216 9565,16192 9572,16166 9575,16138 9752,17416 9748,17462 9738,17506 9721,17546 9699,17584 9671,17618 9638,17650 9600,17678 9559,17703 9465,17745 9360,17775 9248,17793 9133,17799 9018,17793 8906,17775 8801,17745 8707,17703 8666,17678 8628,17650 8595,17618 8567,17584 8545,17546 8528,17506 8518,17462 8514,17416 8535,17266 9515,17266 Z M 9505,17256 L 8536,17256 8691,16138 8694,16166 8701,16192 8713,16216 8729,16239 8749,16259 8773,16278 8799,16295 8829,16311 8896,16336 8971,16354 9051,16365 9133,16368 9215,16365 9295,16354 9370,16336 9437,16311 9467,16295 9493,16278 9505,16269 9505,17256 Z"/&gt;
+     &lt;path fill="rgb(76,76,76)" stroke="none" d="M 9505,17256 L 9505,16269 9517,16259 9537,16239 9553,16216 9565,16192 9572,16166 9575,16138 9752,17416 9748,17462 9738,17506 9721,17546 9699,17584 9671,17618 9638,17650 9600,17678 9559,17703 9465,17745 9360,17775 9248,17793 9133,17799 9018,17793 8906,17775 8801,17745 8707,17703 8666,17678 8628,17650 8595,17618 8567,17584 8545,17546 8528,17506 8518,17462 8514,17416 8536,17256 9505,17256 Z M 9495,17246 L 8538,17246 8691,16138 8694,16166 8701,16192 8713,16216 8729,16239 8749,16259 8773,16278 8799,16295 8829,16311 8896,16336 8971,16354 9051,16365 9133,16368 9215,16365 9295,16354 9370,16336 9437,16311 9467,16295 9493,16278 9495,16276 9495,17246 Z"/&gt;
+     &lt;path fill="rgb(78,78,78)" stroke="none" d="M 9495,17246 L 9495,16276 9517,16259 9537,16239 9553,16216 9565,16192 9572,16166 9575,16138 9752,17416 9748,17462 9738,17506 9721,17546 9699,17584 9671,17618 9638,17650 9600,17678 9559,17703 9465,17745 9360,17775 9248,17793 9133,17799 9018,17793 8906,17775 8801,17745 8707,17703 8666,17678 8628,17650 8595,17618 8567,17584 8545,17546 8528,17506 8518,17462 8514,17416 8538,17246 9495,17246 Z M 9485,17236 L 8539,17236 8691,16138 8694,16166 8701,16192 8713,16216 8729,16239 8749,16259 8773,16278 8799,16295 8829,16311 8896,16336 8971,16354 9051,16365 9133,16368 9215,16365 9295,16354 9370,16336 9437,16311 9467,16295 9485,16283 9485,17236 Z"/&gt;
+     &lt;path fill="rgb(79,79,79)" stroke="none" d="M 9485,17236 L 9485,16283 9493,16278 9517,16259 9537,16239 9553,16216 9565,16192 9572,16166 9575,16138 9752,17416 9748,17462 9738,17506 9721,17546 9699,17584 9671,17618 9638,17650 9600,17678 9559,17703 9465,17745 9360,17775 9248,17793 9133,17799 9018,17793 8906,17775 8801,17745 8707,17703 8666,17678 8628,17650 8595,17618 8567,17584 8545,17546 8528,17506 8518,17462 8514,17416 8539,17236 9485,17236 Z M 9475,17226 L 8540,17226 8691,16138 8694,16166 8701,16192 8713,16216 8729,16239 8749,16259 8773,16278 8799,16295 8829,16311 8896,16336 8971,16354 9051,16365 9133,16368 9215,16365 9295,16354 9370,16336 9437,16311 9467,16295 9475,16290 9475,17226 Z"/&gt;
+     &lt;path fill="rgb(80,80,80)" stroke="none" d="M 9475,17226 L 9475,16290 9493,16278 9517,16259 9537,16239 9553,16216 9565,16192 9572,16166 9575,16138 9752,17416 9748,17462 9738,17506 9721,17546 9699,17584 9671,17618 9638,17650 9600,17678 9559,17703 9465,17745 9360,17775 9248,17793 9133,17799 9018,17793 8906,17775 8801,17745 8707,17703 8666,17678 8628,17650 8595,17618 8567,17584 8545,17546 8528,17506 8518,17462 8514,17416 8540,17226 9475,17226 Z M 9465,17216 L 8542,17216 8691,16138 8694,16166 8701,16192 8713,16216 8729,16239 8749,16259 8773,16278 8799,16295 8829,16311 8896,16336 8971,16354 9051,16365 9133,16368 9215,16365 9295,16354 9370,16336 9437,16311 9465,16296 9465,17216 Z"/&gt;
+     &lt;path fill="rgb(81,81,81)" stroke="none" d="M 9465,17216 L 9465,16296 9467,16295 9493,16278 9517,16259 9537,16239 9553,16216 9565,16192 9572,16166 9575,16138 9752,17416 9748,17462 9738,17506 9721,17546 9699,17584 9671,17618 9638,17650 9600,17678 9559,17703 9465,17745 9360,17775 9248,17793 9133,17799 9018,17793 8906,17775 8801,17745 8707,17703 8666,17678 8628,17650 8595,17618 8567,17584 8545,17546 8528,17506 8518,17462 8514,17416 8542,17216 9465,17216 Z M 9455,17206 L 8543,17206 8691,16138 8694,16166 8701,16192 8713,16216 8729,16239 8749,16259 8773,16278 8799,16295 8829,16311 8896,16336 8971,16354 9051,16365 9133,16368 9215,16365 9295,16354 9370,16336 9437,16311 9455,16301 9455,17206 Z"/&gt;
+     &lt;path fill="rgb(82,82,82)" stroke="none" d="M 9455,17206 L 9455,16301 9467,16295 9493,16278 9517,16259 9537,16239 9553,16216 9565,16192 9572,16166 9575,16138 9752,17416 9748,17462 9738,17506 9721,17546 9699,17584 9671,17618 9638,17650 9600,17678 9559,17703 9465,17745 9360,17775 9248,17793 9133,17799 9018,17793 8906,17775 8801,17745 8707,17703 8666,17678 8628,17650 8595,17618 8567,17584 8545,17546 8528,17506 8518,17462 8514,17416 8543,17206 9455,17206 Z M 9445,17196 L 8544,17196 8691,16138 8694,16166 8701,16192 8713,16216 8729,16239 8749,16259 8773,16278 8799,16295 8829,16311 8896,16336 8971,16354 9051,16365 9133,16368 9215,16365 9295,16354 9370,16336 9437,16311 9445,16307 9445,17196 Z"/&gt;
+     &lt;path fill="rgb(84,84,84)" stroke="none" d="M 9445,17196 L 9445,16307 9467,16295 9493,16278 9517,16259 9537,16239 9553,16216 9565,16192 9572,16166 9575,16138 9752,17416 9748,17462 9738,17506 9721,17546 9699,17584 9671,17618 9638,17650 9600,17678 9559,17703 9465,17745 9360,17775 9248,17793 9133,17799 9018,17793 8906,17775 8801,17745 8707,17703 8666,17678 8628,17650 8595,17618 8567,17584 8545,17546 8528,17506 8518,17462 8514,17416 8544,17196 9445,17196 Z M 9435,17186 L 8546,17186 8691,16138 8694,16166 8701,16192 8713,16216 8729,16239 8749,16259 8773,16278 8799,16295 8829,16311 8896,16336 8971,16354 9051,16365 9133,16368 9215,16365 9295,16354 9370,16336 9435,16312 9435,17186 Z"/&gt;
+     &lt;path fill="rgb(85,85,85)" stroke="none" d="M 9435,17186 L 9435,16312 9437,16311 9467,16295 9493,16278 9517,16259 9537,16239 9553,16216 9565,16192 9572,16166 9575,16138 9752,17416 9748,17462 9738,17506 9721,17546 9699,17584 9671,17618 9638,17650 9600,17678 9559,17703 9465,17745 9360,17775 9248,17793 9133,17799 9018,17793 8906,17775 8801,17745 8707,17703 8666,17678 8628,17650 8595,17618 8567,17584 8545,17546 8528,17506 8518,17462 8514,17416 8546,17186 9435,17186 Z M 9425,17176 L 8547,17176 8691,16138 8694,16166 8701,16192 8713,16216 8729,16239 8749,16259 8773,16278 8799,16295 8829,16311 8896,16336 8971,16354 9051,16365 9133,16368 9215,16365 9295,16354 9370,16336 9425,16315 9425,17176 Z"/&gt;
+     &lt;path fill="rgb(86,86,86)" stroke="none" d="M 9425,17176 L 9425,16315 9437,16311 9467,16295 9493,16278 9517,16259 9537,16239 9553,16216 9565,16192 9572,16166 9575,16138 9752,17416 9748,17462 9738,17506 9721,17546 9699,17584 9671,17618 9638,17650 9600,17678 9559,17703 9465,17745 9360,17775 9248,17793 9133,17799 9018,17793 8906,17775 8801,17745 8707,17703 8666,17678 8628,17650 8595,17618 8567,17584 8545,17546 8528,17506 8518,17462 8514,17416 8547,17176 9425,17176 Z M 9415,17166 L 8549,17166 8691,16138 8694,16166 8701,16192 8713,16216 8729,16239 8749,16259 8773,16278 8799,16295 8829,16311 8896,16336 8971,16354 9051,16365 9133,16368 9215,16365 9295,16354 9370,16336 9415,16319 9415,17166 Z"/&gt;
+     &lt;path fill="rgb(87,87,87)" stroke="none" d="M 9415,17166 L 9415,16319 9437,16311 9467,16295 9493,16278 9517,16259 9537,16239 9553,16216 9565,16192 9572,16166 9575,16138 9752,17416 9748,17462 9738,17506 9721,17546 9699,17584 9671,17618 9638,17650 9600,17678 9559,17703 9465,17745 9360,17775 9248,17793 9133,17799 9018,17793 8906,17775 8801,17745 8707,17703 8666,17678 8628,17650 8595,17618 8567,17584 8545,17546 8528,17506 8518,17462 8514,17416 8549,17166 9415,17166 Z M 9405,17156 L 8550,17156 8691,16138 8694,16166 8701,16192 8713,16216 8729,16239 8749,16259 8773,16278 8799,16295 8829,16311 8896,16336 8971,16354 9051,16365 9133,16368 9215,16365 9295,16354 9370,16336 9405,16323 9405,17156 Z"/&gt;
+     &lt;path fill="rgb(89,89,89)" stroke="none" d="M 9405,17156 L 9405,16323 9437,16311 9467,16295 9493,16278 9517,16259 9537,16239 9553,16216 9565,16192 9572,16166 9575,16138 9752,17416 9748,17462 9738,17506 9721,17546 9699,17584 9671,17618 9638,17650 9600,17678 9559,17703 9465,17745 9360,17775 9248,17793 9133,17799 9018,17793 8906,17775 8801,17745 8707,17703 8666,17678 8628,17650 8595,17618 8567,17584 8545,17546 8528,17506 8518,17462 8514,17416 8550,17156 9405,17156 Z M 9395,17146 L 8551,17146 8691,16138 8694,16166 8701,16192 8713,16216 8729,16239 8749,16259 8773,16278 8799,16295 8829,16311 8896,16336 8971,16354 9051,16365 9133,16368 9215,16365 9295,16354 9370,16336 9395,16327 9395,17146 Z"/&gt;
+     &lt;path fill="rgb(90,90,90)" stroke="none" d="M 9395,17146 L 9395,16327 9437,16311 9467,16295 9493,16278 9517,16259 9537,16239 9553,16216 9565,16192 9572,16166 9575,16138 9752,17416 9748,17462 9738,17506 9721,17546 9699,17584 9671,17618 9638,17650 9600,17678 9559,17703 9465,17745 9360,17775 9248,17793 9133,17799 9018,17793 8906,17775 8801,17745 8707,17703 8666,17678 8628,17650 8595,17618 8567,17584 8545,17546 8528,17506 8518,17462 8514,17416 8551,17146 9395,17146 Z M 9385,17136 L 8553,17136 8691,16138 8694,16166 8701,16192 8713,16216 8729,16239 8749,16259 8773,16278 8799,16295 8829,16311 8896,16336 8971,16354 9051,16365 9133,16368 9215,16365 9295,16354 9370,16336 9385,16330 9385,17136 Z"/&gt;
+     &lt;path fill="rgb(91,91,91)" stroke="none" d="M 9385,17136 L 9385,16330 9437,16311 9467,16295 9493,16278 9517,16259 9537,16239 9553,16216 9565,16192 9572,16166 9575,16138 9752,17416 9748,17462 9738,17506 9721,17546 9699,17584 9671,17618 9638,17650 9600,17678 9559,17703 9465,17745 9360,17775 9248,17793 9133,17799 9018,17793 8906,17775 8801,17745 8707,17703 8666,17678 8628,17650 8595,17618 8567,17584 8545,17546 8528,17506 8518,17462 8514,17416 8553,17136 9385,17136 Z M 8692,16144 L 8694,16166 8701,16192 8713,16216 8729,16239 8749,16259 8773,16278 8799,16295 8829,16311 8896,16336 8971,16354 9051,16365 9133,16368 9215,16365 9295,16354 9370,16336 9375,16334 9375,17126 8554,17126 8690,16144 8692,16144 Z"/&gt;
+     &lt;path fill="rgb(92,92,92)" stroke="none" d="M 9375,17126 L 9375,16334 9437,16311 9467,16295 9493,16278 9517,16259 9537,16239 9553,16216 9565,16192 9572,16166 9575,16138 9752,17416 9748,17462 9738,17506 9721,17546 9699,17584 9671,17618 9638,17650 9600,17678 9559,17703 9465,17745 9360,17775 9248,17793 9133,17799 9018,17793 8906,17775 8801,17745 8707,17703 8666,17678 8628,17650 8595,17618 8567,17584 8545,17546 8528,17506 8518,17462 8514,17416 8554,17126 9375,17126 Z M 8690,16144 L 8691,16138 8692,16144 8690,16144 Z M 8693,16154 L 8694,16166 8701,16192 8713,16216 8729,16239 8749,16259 8773,16278 8799,16295 8829,16311 8896,16336 8971,16354 9051,16365 9133,16368 9215,16365 9295,16354 9365,16337 9365,17116 8556,17116 8689,16154 8693,16154 Z"/&gt;
+     &lt;path fill="rgb(94,94,94)" stroke="none" d="M 9365,17116 L 9365,16337 9370,16336 9437,16311 9467,16295 9493,16278 9517,16259 9537,16239 9553,16216 9565,16192 9572,16166 9575,16138 9752,17416 9748,17462 9738,17506 9721,17546 9699,17584 9671,17618 9638,17650 9600,17678 9559,17703 9465,17745 9360,17775 9248,17793 9133,17799 9018,17793 8906,17775 8801,17745 8707,17703 8666,17678 8628,17650 8595,17618 8567,17584 8545,17546 8528,17506 8518,17462 8514,17416 8556,17116 9365,17116 Z M 8689,16154 L 8691,16138 8693,16154 8689,16154 Z M 8694,16164 L 8694,16166 8701,16192 8713,16216 8729,16239 8749,16259 8773,16278 8799,16295 8829,16311 8896,16336 8971,16354 9051,16365 9133,16368 9215,16365 9295,16354 9355,16340 9355,17106 8557,17106 8687,16164 8694,16164 Z"/&gt;
+     &lt;path fill="rgb(95,95,95)" stroke="none" d="M 9355,17106 L 9355,16340 9370,16336 9437,16311 9467,16295 9493,16278 9517,16259 9537,16239 9553,16216 9565,16192 9572,16166 9575,16138 9752,17416 9748,17462 9738,17506 9721,17546 9699,17584 9671,17618 9638,17650 9600,17678 9559,17703 9465,17745 9360,17775 9248,17793 9133,17799 9018,17793 8906,17775 8801,17745 8707,17703 8666,17678 8628,17650 8595,17618 8567,17584 8545,17546 8528,17506 8518,17462 8514,17416 8557,17106 9355,17106 Z M 8687,16164 L 8691,16138 8694,16164 8687,16164 Z M 8696,16174 L 8701,16192 8713,16216 8729,16239 8749,16259 8773,16278 8799,16295 8829,16311 8896,16336 8971,16354 9051,16365 9133,16368 9215,16365 9295,16354 9345,16342 9345,17096 8558,17096 8686,16174 8696,16174 Z"/&gt;
+     &lt;path fill="rgb(96,96,96)" stroke="none" d="M 9345,17096 L 9345,16342 9370,16336 9437,16311 9467,16295 9493,16278 9517,16259 9537,16239 9553,16216 9565,16192 9572,16166 9575,16138 9752,17416 9748,17462 9738,17506 9721,17546 9699,17584 9671,17618 9638,17650 9600,17678 9559,17703 9465,17745 9360,17775 9248,17793 9133,17799 9018,17793 8906,17775 8801,17745 8707,17703 8666,17678 8628,17650 8595,17618 8567,17584 8545,17546 8528,17506 8518,17462 8514,17416 8558,17096 9345,17096 Z M 8686,16174 L 8691,16138 8694,16166 8696,16174 8686,16174 Z M 8699,16184 L 8701,16192 8713,16216 8729,16239 8749,16259 8773,16278 8799,16295 8829,16311 8896,16336 8971,16354 9051,16365 9133,16368 9215,16365 9295,16354 9335,16344 9335,17086 8560,17086 8685,16184 8699,16184 Z"/&gt;
+     &lt;path fill="rgb(97,97,97)" stroke="none" d="M 9335,17086 L 9335,16344 9370,16336 9437,16311 9467,16295 9493,16278 9517,16259 9537,16239 9553,16216 9565,16192 9572,16166 9575,16138 9752,17416 9748,17462 9738,17506 9721,17546 9699,17584 9671,17618 9638,17650 9600,17678 9559,17703 9465,17745 9360,17775 9248,17793 9133,17799 9018,17793 8906,17775 8801,17745 8707,17703 8666,17678 8628,17650 8595,17618 8567,17584 8545,17546 8528,17506 8518,17462 8514,17416 8560,17086 9335,17086 Z M 8685,16184 L 8691,16138 8694,16166 8699,16184 8685,16184 Z M 8702,16194 L 8713,16216 8729,16239 8749,16259 8773,16278 8799,16295 8829,16311 8896,16336 8971,16354 9051,16365 9133,16368 9215,16365 9295,16354 9325,16347 9325,17076 8561,17076 8683,16194 8702,16194 Z"/&gt;
+     &lt;path fill="rgb(98,98,98)" stroke="none" d="M 9325,17076 L 9325,16347 9370,16336 9437,16311 9467,16295 9493,16278 9517,16259 9537,16239 9553,16216 9565,16192 9572,16166 9575,16138 9752,17416 9748,17462 9738,17506 9721,17546 9699,17584 9671,17618 9638,17650 9600,17678 9559,17703 9465,17745 9360,17775 9248,17793 9133,17799 9018,17793 8906,17775 8801,17745 8707,17703 8666,17678 8628,17650 8595,17618 8567,17584 8545,17546 8528,17506 8518,17462 8514,17416 8561,17076 9325,17076 Z M 8683,16194 L 8691,16138 8694,16166 8701,16192 8702,16194 8683,16194 Z M 8707,16204 L 8713,16216 8729,16239 8749,16259 8773,16278 8799,16295 8829,16311 8896,16336 8971,16354 9051,16365 9133,16368 9215,16365 9295,16354 9315,16349 9315,17066 8562,17066 8682,16204 8707,16204 Z"/&gt;
+     &lt;path fill="rgb(100,100,100)" stroke="none" d="M 9315,17066 L 9315,16349 9370,16336 9437,16311 9467,16295 9493,16278 9517,16259 9537,16239 9553,16216 9565,16192 9572,16166 9575,16138 9752,17416 9748,17462 9738,17506 9721,17546 9699,17584 9671,17618 9638,17650 9600,17678 9559,17703 9465,17745 9360,17775 9248,17793 9133,17799 9018,17793 8906,17775 8801,17745 8707,17703 8666,17678 8628,17650 8595,17618 8567,17584 8545,17546 8528,17506 8518,17462 8514,17416 8562,17066 9315,17066 Z M 8682,16204 L 8691,16138 8694,16166 8701,16192 8707,16204 8682,16204 Z M 8712,16214 L 8713,16216 8729,16239 8749,16259 8773,16278 8799,16295 8829,16311 8896,16336 8971,16354 9051,16365 9133,16368 9215,16365 9295,16354 9305,16352 9305,17056 8564,17056 8680,16214 8712,16214 Z"/&gt;
+     &lt;path fill="rgb(101,101,101)" stroke="none" d="M 9305,17056 L 9305,16352 9370,16336 9437,16311 9467,16295 9493,16278 9517,16259 9537,16239 9553,16216 9565,16192 9572,16166 9575,16138 9752,17416 9748,17462 9738,17506 9721,17546 9699,17584 9671,17618 9638,17650 9600,17678 9559,17703 9465,17745 9360,17775 9248,17793 9133,17799 9018,17793 8906,17775 8801,17745 8707,17703 8666,17678 8628,17650 8595,17618 8567,17584 8545,17546 8528,17506 8518,17462 8514,17416 8564,17056 9305,17056 Z M 8680,16214 L 8691,16138 8694,16166 8701,16192 8712,16214 8680,16214 Z M 8719,16225 L 8729,16239 8749,16259 8773,16278 8799,16295 8829,16311 8896,16336 8971,16354 9051,16365 9133,16368 9215,16365 9294,16354 9294,17045 8565,17045 8679,16225 8719,16225 Z"/&gt;
+     &lt;path fill="rgb(102,102,102)" stroke="none" d="M 9294,17045 L 9294,16354 9295,16354 9370,16336 9437,16311 9467,16295 9493,16278 9517,16259 9537,16239 9553,16216 9565,16192 9572,16166 9575,16138 9752,17416 9748,17462 9738,17506 9721,17546 9699,17584 9671,17618 9638,17650 9600,17678 9559,17703 9465,17745 9360,17775 9248,17793 9133,17799 9018,17793 8906,17775 8801,17745 8707,17703 8666,17678 8628,17650 8595,17618 8567,17584 8545,17546 8528,17506 8518,17462 8514,17416 8565,17045 9294,17045 Z M 8679,16225 L 8691,16138 8694,16166 8701,16192 8713,16216 8719,16225 8679,16225 Z M 8726,16235 L 8729,16239 8749,16259 8773,16278 8799,16295 8829,16311 8896,16336 8971,16354 9051,16365 9133,16368 9215,16365 9284,16356 9284,17035 8567,17035 8678,16235 8726,16235 Z"/&gt;
+     &lt;path fill="rgb(103,103,103)" stroke="none" d="M 9284,17035 L 9284,16356 9295,16354 9370,16336 9437,16311 9467,16295 9493,16278 9517,16259 9537,16239 9553,16216 9565,16192 9572,16166 9575,16138 9752,17416 9748,17462 9738,17506 9721,17546 9699,17584 9671,17618 9638,17650 9600,17678 9559,17703 9465,17745 9360,17775 9248,17793 9133,17799 9018,17793 8906,17775 8801,17745 8707,17703 8666,17678 8628,17650 8595,17618 8567,17584 8545,17546 8528,17506 8518,17462 8514,17416 8567,17035 9284,17035 Z M 8678,16235 L 8691,16138 8694,16166 8701,16192 8713,16216 8726,16235 8678,16235 Z M 8735,16245 L 8749,16259 8773,16278 8799,16295 8829,16311 8896,16336 8971,16354 9051,16365 9133,16368 9215,16365 9274,16357 9274,17025 8568,17025 8676,16245 8735,16245 Z"/&gt;
+     &lt;path fill="rgb(105,105,105)" stroke="none" d="M 9274,17025 L 9274,16357 9295,16354 9370,16336 9437,16311 9467,16295 9493,16278 9517,16259 9537,16239 9553,16216 9565,16192 9572,16166 9575,16138 9752,17416 9748,17462 9738,17506 9721,17546 9699,17584 9671,17618 9638,17650 9600,17678 9559,17703 9465,17745 9360,17775 9248,17793 9133,17799 9018,17793 8906,17775 8801,17745 8707,17703 8666,17678 8628,17650 8595,17618 8567,17584 8545,17546 8528,17506 8518,17462 8514,17416 8568,17025 9274,17025 Z M 8676,16245 L 8691,16138 8694,16166 8701,16192 8713,16216 8729,16239 8735,16245 8676,16245 Z M 8745,16255 L 8749,16259 8773,16278 8799,16295 8829,16311 8896,16336 8971,16354 9051,16365 9133,16368 9215,16365 9264,16358 9264,17015 8570,17015 8675,16255 8745,16255 Z"/&gt;
+     &lt;path fill="rgb(106,106,106)" stroke="none" d="M 9264,17015 L 9264,16358 9295,16354 9370,16336 9437,16311 9467,16295 9493,16278 9517,16259 9537,16239 9553,16216 9565,16192 9572,16166 9575,16138 9752,17416 9748,17462 9738,17506 9721,17546 9699,17584 9671,17618 9638,17650 9600,17678 9559,17703 9465,17745 9360,17775 9248,17793 9133,17799 9018,17793 8906,17775 8801,17745 8707,17703 8666,17678 8628,17650 8595,17618 8567,17584 8545,17546 8528,17506 8518,17462 8514,17416 8570,17015 9264,17015 Z M 8675,16255 L 8691,16138 8694,16166 8701,16192 8713,16216 8729,16239 8745,16255 8675,16255 Z M 8757,16265 L 8773,16278 8799,16295 8829,16311 8896,16336 8971,16354 9051,16365 9133,16368 9215,16365 9254,16360 9254,17005 8571,17005 8673,16265 8757,16265 Z"/&gt;
+     &lt;path fill="rgb(107,107,107)" stroke="none" d="M 9254,17005 L 9254,16360 9295,16354 9370,16336 9437,16311 9467,16295 9493,16278 9517,16259 9537,16239 9553,16216 9565,16192 9572,16166 9575,16138 9752,17416 9748,17462 9738,17506 9721,17546 9699,17584 9671,17618 9638,17650 9600,17678 9559,17703 9465,17745 9360,17775 9248,17793 9133,17799 9018,17793 8906,17775 8801,17745 8707,17703 8666,17678 8628,17650 8595,17618 8567,17584 8545,17546 8528,17506 8518,17462 8514,17416 8571,17005 9254,17005 Z M 8673,16265 L 8691,16138 8694,16166 8701,16192 8713,16216 8729,16239 8749,16259 8757,16265 8673,16265 Z M 8769,16275 L 8773,16278 8799,16295 8829,16311 8896,16336 8971,16354 9051,16365 9133,16368 9215,16365 9244,16361 9244,16995 8572,16995 8672,16275 8769,16275 Z"/&gt;
+     &lt;path fill="rgb(108,108,108)" stroke="none" d="M 9244,16995 L 9244,16361 9295,16354 9370,16336 9437,16311 9467,16295 9493,16278 9517,16259 9537,16239 9553,16216 9565,16192 9572,16166 9575,16138 9752,17416 9748,17462 9738,17506 9721,17546 9699,17584 9671,17618 9638,17650 9600,17678 9559,17703 9465,17745 9360,17775 9248,17793 9133,17799 9018,17793 8906,17775 8801,17745 8707,17703 8666,17678 8628,17650 8595,17618 8567,17584 8545,17546 8528,17506 8518,17462 8514,17416 8572,16995 9244,16995 Z M 8672,16275 L 8691,16138 8694,16166 8701,16192 8713,16216 8729,16239 8749,16259 8769,16275 8672,16275 Z M 8784,16285 L 8799,16295 8829,16311 8896,16336 8971,16354 9051,16365 9133,16368 9215,16365 9234,16362 9234,16985 8574,16985 8671,16285 8784,16285 Z"/&gt;
+     &lt;path fill="rgb(109,109,109)" stroke="none" d="M 9234,16985 L 9234,16362 9295,16354 9370,16336 9437,16311 9467,16295 9493,16278 9517,16259 9537,16239 9553,16216 9565,16192 9572,16166 9575,16138 9752,17416 9748,17462 9738,17506 9721,17546 9699,17584 9671,17618 9638,17650 9600,17678 9559,17703 9465,17745 9360,17775 9248,17793 9133,17799 9018,17793 8906,17775 8801,17745 8707,17703 8666,17678 8628,17650 8595,17618 8567,17584 8545,17546 8528,17506 8518,17462 8514,17416 8574,16985 9234,16985 Z M 8671,16285 L 8691,16138 8694,16166 8701,16192 8713,16216 8729,16239 8749,16259 8773,16278 8784,16285 8671,16285 Z M 8799,16295 L 8829,16311 8896,16336 8971,16354 9051,16365 9133,16368 9215,16365 9224,16364 9224,16975 8575,16975 8669,16295 8799,16295 Z"/&gt;
+     &lt;path fill="rgb(111,111,111)" stroke="none" d="M 9224,16975 L 9224,16364 9295,16354 9370,16336 9437,16311 9467,16295 9493,16278 9517,16259 9537,16239 9553,16216 9565,16192 9572,16166 9575,16138 9752,17416 9748,17462 9738,17506 9721,17546 9699,17584 9671,17618 9638,17650 9600,17678 9559,17703 9465,17745 9360,17775 9248,17793 9133,17799 9018,17793 8906,17775 8801,17745 8707,17703 8666,17678 8628,17650 8595,17618 8567,17584 8545,17546 8528,17506 8518,17462 8514,17416 8575,16975 9224,16975 Z M 8669,16295 L 8691,16138 8694,16166 8701,16192 8713,16216 8729,16239 8749,16259 8773,16278 8799,16295 8669,16295 Z M 8818,16305 L 8829,16311 8896,16336 8971,16354 9051,16365 9133,16368 9214,16365 9214,16965 8576,16965 8668,16305 8818,16305 Z"/&gt;
+     &lt;path fill="rgb(112,112,112)" stroke="none" d="M 9214,16965 L 9214,16365 9215,16365 9295,16354 9370,16336 9437,16311 9467,16295 9493,16278 9517,16259 9537,16239 9553,16216 9565,16192 9572,16166 9575,16138 9752,17416 9748,17462 9738,17506 9721,17546 9699,17584 9671,17618 9638,17650 9600,17678 9559,17703 9465,17745 9360,17775 9248,17793 9133,17799 9018,17793 8906,17775 8801,17745 8707,17703 8666,17678 8628,17650 8595,17618 8567,17584 8545,17546 8528,17506 8518,17462 8514,17416 8576,16965 9214,16965 Z M 8668,16305 L 8691,16138 8694,16166 8701,16192 8713,16216 8729,16239 8749,16259 8773,16278 8799,16295 8818,16305 8668,16305 Z M 8840,16315 L 8896,16336 8971,16354 9051,16365 9133,16368 9204,16365 9204,16955 8578,16955 8666,16315 8840,16315 Z"/&gt;
+     &lt;path fill="rgb(113,113,113)" stroke="none" d="M 9204,16955 L 9204,16365 9215,16365 9295,16354 9370,16336 9437,16311 9467,16295 9493,16278 9517,16259 9537,16239 9553,16216 9565,16192 9572,16166 9575,16138 9752,17416 9748,17462 9738,17506 9721,17546 9699,17584 9671,17618 9638,17650 9600,17678 9559,17703 9465,17745 9360,17775 9248,17793 9133,17799 9018,17793 8906,17775 8801,17745 8707,17703 8666,17678 8628,17650 8595,17618 8567,17584 8545,17546 8528,17506 8518,17462 8514,17416 8578,16955 9204,16955 Z M 8666,16315 L 8691,16138 8694,16166 8701,16192 8713,16216 8729,16239 8749,16259 8773,16278 8799,16295 8829,16311 8840,16315 8666,16315 Z M 8867,16325 L 8896,16336 8971,16354 9051,16365 9133,16368 9194,16366 9194,16945 8579,16945 8665,16325 8867,16325 Z"/&gt;
+     &lt;path fill="rgb(114,114,114)" stroke="none" d="M 9194,16945 L 9194,16366 9215,16365 9295,16354 9370,16336 9437,16311 9467,16295 9493,16278 9517,16259 9537,16239 9553,16216 9565,16192 9572,16166 9575,16138 9752,17416 9748,17462 9738,17506 9721,17546 9699,17584 9671,17618 9638,17650 9600,17678 9559,17703 9465,17745 9360,17775 9248,17793 9133,17799 9018,17793 8906,17775 8801,17745 8707,17703 8666,17678 8628,17650 8595,17618 8567,17584 8545,17546 8528,17506 8518,17462 8514,17416 8579,16945 9194,16945 Z M 8665,16325 L 8691,16138 8694,16166 8701,16192 8713,16216 8729,16239 8749,16259 8773,16278 8799,16295 8829,16311 8867,16325 8665,16325 Z M 8893,16335 L 8896,16336 8971,16354 9051,16365 9133,16368 9184,16366 9184,16935 8584,16935 8584,16911 8664,16335 8893,16335 Z"/&gt;
+     &lt;path fill="rgb(116,116,116)" stroke="none" d="M 8584,16935 L 9184,16935 9184,16366 9215,16365 9295,16354 9370,16336 9437,16311 9467,16295 9493,16278 9517,16259 9537,16239 9553,16216 9565,16192 9572,16166 9575,16138 9752,17416 9748,17462 9738,17506 9721,17546 9699,17584 9671,17618 9638,17650 9600,17678 9559,17703 9465,17745 9360,17775 9248,17793 9133,17799 9018,17793 8906,17775 8801,17745 8707,17703 8666,17678 8628,17650 8595,17618 8567,17584 8545,17546 8528,17506 8518,17462 8514,17416 8584,16911 8584,16935 Z M 8664,16335 L 8691,16138 8694,16166 8701,16192 8713,16216 8729,16239 8749,16259 8773,16278 8799,16295 8829,16311 8893,16335 8664,16335 Z M 8934,16345 L 8971,16354 9051,16365 9133,16368 9174,16367 9174,16925 8594,16925 8594,16838 8662,16345 8934,16345 Z"/&gt;
+     &lt;path fill="rgb(117,117,117)" stroke="none" d="M 8594,16925 L 9174,16925 9174,16367 9215,16365 9295,16354 9370,16336 9437,16311 9467,16295 9493,16278 9517,16259 9537,16239 9553,16216 9565,16192 9572,16166 9575,16138 9752,17416 9748,17462 9738,17506 9721,17546 9699,17584 9671,17618 9638,17650 9600,17678 9559,17703 9465,17745 9360,17775 9248,17793 9133,17799 9018,17793 8906,17775 8801,17745 8707,17703 8666,17678 8628,17650 8595,17618 8567,17584 8545,17546 8528,17506 8518,17462 8514,17416 8594,16838 8594,16925 Z M 8662,16345 L 8691,16138 8694,16166 8701,16192 8713,16216 8729,16239 8749,16259 8773,16278 8799,16295 8829,16311 8896,16336 8934,16345 8662,16345 Z M 8978,16355 L 9051,16365 9133,16368 9164,16367 9164,16915 8604,16915 8604,16766 8661,16355 8978,16355 Z"/&gt;
+     &lt;path fill="rgb(118,118,118)" stroke="none" d="M 8604,16915 L 9164,16915 9164,16367 9215,16365 9295,16354 9370,16336 9437,16311 9467,16295 9493,16278 9517,16259 9537,16239 9553,16216 9565,16192 9572,16166 9575,16138 9752,17416 9748,17462 9738,17506 9721,17546 9699,17584 9671,17618 9638,17650 9600,17678 9559,17703 9465,17745 9360,17775 9248,17793 9133,17799 9018,17793 8906,17775 8801,17745 8707,17703 8666,17678 8628,17650 8595,17618 8567,17584 8545,17546 8528,17506 8518,17462 8514,17416 8604,16766 8604,16915 Z M 8661,16355 L 8691,16138 8694,16166 8701,16192 8713,16216 8729,16239 8749,16259 8773,16278 8799,16295 8829,16311 8896,16336 8971,16354 8978,16355 8661,16355 Z M 9051,16365 L 9133,16368 9154,16367 9154,16905 8614,16905 8614,16694 8660,16365 9051,16365 Z"/&gt;
+     &lt;path fill="rgb(119,119,119)" stroke="none" d="M 8614,16905 L 9154,16905 9154,16367 9215,16365 9295,16354 9370,16336 9437,16311 9467,16295 9493,16278 9517,16259 9537,16239 9553,16216 9565,16192 9572,16166 9575,16138 9752,17416 9748,17462 9738,17506 9721,17546 9699,17584 9671,17618 9638,17650 9600,17678 9559,17703 9465,17745 9360,17775 9248,17793 9133,17799 9018,17793 8906,17775 8801,17745 8707,17703 8666,17678 8628,17650 8595,17618 8567,17584 8545,17546 8528,17506 8518,17462 8514,17416 8614,16694 8614,16905 Z M 8660,16365 L 8691,16138 8694,16166 8701,16192 8713,16216 8729,16239 8749,16259 8773,16278 8799,16295 8829,16311 8896,16336 8971,16354 9051,16365 8660,16365 Z M 9144,16375 L 9144,16895 8624,16895 8624,16622 8658,16375 9144,16375 Z"/&gt;
+     &lt;path fill="rgb(121,121,121)" stroke="none" d="M 8624,16895 L 9144,16895 9144,16375 8658,16375 8691,16138 8694,16166 8701,16192 8713,16216 8729,16239 8749,16259 8773,16278 8799,16295 8829,16311 8896,16336 8971,16354 9051,16365 9133,16368 9215,16365 9295,16354 9370,16336 9437,16311 9467,16295 9493,16278 9517,16259 9537,16239 9553,16216 9565,16192 9572,16166 9575,16138 9752,17416 9748,17462 9738,17506 9721,17546 9699,17584 9671,17618 9638,17650 9600,17678 9559,17703 9465,17745 9360,17775 9248,17793 9133,17799 9018,17793 8906,17775 8801,17745 8707,17703 8666,17678 8628,17650 8595,17618 8567,17584 8545,17546 8528,17506 8518,17462 8514,17416 8624,16622 8624,16895 Z M 9134,16385 L 9134,16885 8634,16885 8634,16550 8657,16385 9134,16385 Z"/&gt;
+     &lt;path fill="rgb(122,122,122)" stroke="none" d="M 8634,16885 L 9134,16885 9134,16385 8657,16385 8691,16138 8694,16166 8701,16192 8713,16216 8729,16239 8749,16259 8773,16278 8799,16295 8829,16311 8896,16336 8971,16354 9051,16365 9133,16368 9215,16365 9295,16354 9370,16336 9437,16311 9467,16295 9493,16278 9517,16259 9537,16239 9553,16216 9565,16192 9572,16166 9575,16138 9752,17416 9748,17462 9738,17506 9721,17546 9699,17584 9671,17618 9638,17650 9600,17678 9559,17703 9465,17745 9360,17775 9248,17793 9133,17799 9018,17793 8906,17775 8801,17745 8707,17703 8666,17678 8628,17650 8595,17618 8567,17584 8545,17546 8528,17506 8518,17462 8514,17416 8634,16550 8634,16885 Z M 9124,16395 L 9124,16875 8644,16875 8644,16477 8655,16395 9124,16395 Z"/&gt;
+     &lt;path fill="rgb(123,123,123)" stroke="none" d="M 8644,16875 L 9124,16875 9124,16395 8655,16395 8691,16138 8694,16166 8701,16192 8713,16216 8729,16239 8749,16259 8773,16278 8799,16295 8829,16311 8896,16336 8971,16354 9051,16365 9133,16368 9215,16365 9295,16354 9370,16336 9437,16311 9467,16295 9493,16278 9517,16259 9537,16239 9553,16216 9565,16192 9572,16166 9575,16138 9752,17416 9748,17462 9738,17506 9721,17546 9699,17584 9671,17618 9638,17650 9600,17678 9559,17703 9465,17745 9360,17775 9248,17793 9133,17799 9018,17793 8906,17775 8801,17745 8707,17703 8666,17678 8628,17650 8595,17618 8567,17584 8545,17546 8528,17506 8518,17462 8514,17416 8644,16477 8644,16875 Z M 9114,16405 L 9114,16865 8654,16865 8654,16405 8654,16405 9114,16405 Z"/&gt;
+     &lt;path fill="rgb(124,124,124)" stroke="none" d="M 8654,16865 L 9114,16865 9114,16405 8654,16405 8691,16138 8694,16166 8701,16192 8713,16216 8729,16239 8749,16259 8773,16278 8799,16295 8829,16311 8896,16336 8971,16354 9051,16365 9133,16368 9215,16365 9295,16354 9370,16336 9437,16311 9467,16295 9493,16278 9517,16259 9537,16239 9553,16216 9565,16192 9572,16166 9575,16138 9752,17416 9748,17462 9738,17506 9721,17546 9699,17584 9671,17618 9638,17650 9600,17678 9559,17703 9465,17745 9360,17775 9248,17793 9133,17799 9018,17793 8906,17775 8801,17745 8707,17703 8666,17678 8628,17650 8595,17618 8567,17584 8545,17546 8528,17506 8518,17462 8514,17416 8654,16405 8654,16865 Z M 8664,16415 L 9104,16415 9104,16855 8664,16855 8664,16415 Z"/&gt;
+     &lt;path fill="rgb(125,125,125)" stroke="none" d="M 8664,16415 L 8664,16855 9104,16855 9104,16415 8664,16415 Z M 8674,16425 L 9094,16425 9094,16845 8674,16845 8674,16425 Z M 8514,17416 L 8691,16138 8694,16166 8701,16192 8713,16216 8729,16239 8749,16259 8773,16278 8799,16295 8829,16311 8896,16336 8971,16354 9051,16365 9133,16368 9215,16365 9295,16354 9370,16336 9437,16311 9467,16295 9493,16278 9517,16259 9537,16239 9553,16216 9565,16192 9572,16166 9575,16138 9752,17416 9748,17462 9738,17506 9721,17546 9699,17584 9671,17618 9638,17650 9600,17678 9559,17703 9465,17745 9360,17775 9248,17793 9133,17799 9018,17793 8906,17775 8801,17745 8707,17703 8666,17678 8628,17650 8595,17618 8567,17584 8545,17546 8528,17506 8518,17462 8514,17416 Z"/&gt;
+     &lt;path fill="rgb(127,127,127)" stroke="none" d="M 8674,16425 L 8674,16845 9094,16845 9094,16425 8674,16425 Z M 8684,16435 L 9084,16435 9084,16835 8684,16835 8684,16435 Z M 8514,17416 L 8691,16138 8694,16166 8701,16192 8713,16216 8729,16239 8749,16259 8773,16278 8799,16295 8829,16311 8896,16336 8971,16354 9051,16365 9133,16368 9215,16365 9295,16354 9370,16336 9437,16311 9467,16295 9493,16278 9517,16259 9537,16239 9553,16216 9565,16192 9572,16166 9575,16138 9752,17416 9748,17462 9738,17506 9721,17546 9699,17584 9671,17618 9638,17650 9600,17678 9559,17703 9465,17745 9360,17775 9248,17793 9133,17799 9018,17793 8906,17775 8801,17745 8707,17703 8666,17678 8628,17650 8595,17618 8567,17584 8545,17546 8528,17506 8518,17462 8514,17416 Z"/&gt;
+     &lt;path fill="rgb(128,128,128)" stroke="none" d="M 8684,16435 L 8684,16835 9084,16835 9084,16435 8684,16435 Z M 8694,16445 L 9074,16445 9074,16825 8694,16825 8694,16445 Z M 8514,17416 L 8691,16138 8694,16166 8701,16192 8713,16216 8729,16239 8749,16259 8773,16278 8799,16295 8829,16311 8896,16336 8971,16354 9051,16365 9133,16368 9215,16365 9295,16354 9370,16336 9437,16311 9467,16295 9493,16278 9517,16259 9537,16239 9553,16216 9565,16192 9572,16166 9575,16138 9752,17416 9748,17462 9738,17506 9721,17546 9699,17584 9671,17618 9638,17650 9600,17678 9559,17703 9465,17745 9360,17775 9248,17793 9133,17799 9018,17793 8906,17775 8801,17745 8707,17703 8666,17678 8628,17650 8595,17618 8567,17584 8545,17546 8528,17506 8518,17462 8514,17416 Z"/&gt;
+     &lt;path fill="rgb(129,129,129)" stroke="none" d="M 8694,16445 L 8694,16825 9074,16825 9074,16445 8694,16445 Z M 8704,16455 L 9064,16455 9064,16815 8704,16815 8704,16455 Z M 8514,17416 L 8691,16138 8694,16166 8701,16192 8713,16216 8729,16239 8749,16259 8773,16278 8799,16295 8829,16311 8896,16336 8971,16354 9051,16365 9133,16368 9215,16365 9295,16354 9370,16336 9437,16311 9467,16295 9493,16278 9517,16259 9537,16239 9553,16216 9565,16192 9572,16166 9575,16138 9752,17416 9748,17462 9738,17506 9721,17546 9699,17584 9671,17618 9638,17650 9600,17678 9559,17703 9465,17745 9360,17775 9248,17793 9133,17799 9018,17793 8906,17775 8801,17745 8707,17703 8666,17678 8628,17650 8595,17618 8567,17584 8545,17546 8528,17506 8518,17462 8514,17416 Z"/&gt;
+     &lt;path fill="rgb(130,130,130)" stroke="none" d="M 8704,16455 L 8704,16815 9064,16815 9064,16455 8704,16455 Z M 8714,16465 L 9054,16465 9054,16805 8714,16805 8714,16465 Z M 8514,17416 L 8691,16138 8694,16166 8701,16192 8713,16216 8729,16239 8749,16259 8773,16278 8799,16295 8829,16311 8896,16336 8971,16354 9051,16365 9133,16368 9215,16365 9295,16354 9370,16336 9437,16311 9467,16295 9493,16278 9517,16259 9537,16239 9553,16216 9565,16192 9572,16166 9575,16138 9752,17416 9748,17462 9738,17506 9721,17546 9699,17584 9671,17618 9638,17650 9600,17678 9559,17703 9465,17745 9360,17775 9248,17793 9133,17799 9018,17793 8906,17775 8801,17745 8707,17703 8666,17678 8628,17650 8595,17618 8567,17584 8545,17546 8528,17506 8518,17462 8514,17416 Z"/&gt;
+     &lt;path fill="rgb(132,132,132)" stroke="none" d="M 8714,16465 L 8714,16805 9054,16805 9054,16465 8714,16465 Z M 8724,16475 L 9044,16475 9044,16795 8724,16795 8724,16475 Z M 8514,17416 L 8691,16138 8694,16166 8701,16192 8713,16216 8729,16239 8749,16259 8773,16278 8799,16295 8829,16311 8896,16336 8971,16354 9051,16365 9133,16368 9215,16365 9295,16354 9370,16336 9437,16311 9467,16295 9493,16278 9517,16259 9537,16239 9553,16216 9565,16192 9572,16166 9575,16138 9752,17416 9748,17462 9738,17506 9721,17546 9699,17584 9671,17618 9638,17650 9600,17678 9559,17703 9465,17745 9360,17775 9248,17793 9133,17799 9018,17793 8906,17775 8801,17745 8707,17703 8666,17678 8628,17650 8595,17618 8567,17584 8545,17546 8528,17506 8518,17462 8514,17416 Z"/&gt;
+     &lt;path fill="rgb(133,133,133)" stroke="none" d="M 8724,16475 L 8724,16795 9044,16795 9044,16475 8724,16475 Z M 8734,16485 L 9034,16485 9034,16785 8734,16785 8734,16485 Z M 8514,17416 L 8691,16138 8694,16166 8701,16192 8713,16216 8729,16239 8749,16259 8773,16278 8799,16295 8829,16311 8896,16336 8971,16354 9051,16365 9133,16368 9215,16365 9295,16354 9370,16336 9437,16311 9467,16295 9493,16278 9517,16259 9537,16239 9553,16216 9565,16192 9572,16166 9575,16138 9752,17416 9748,17462 9738,17506 9721,17546 9699,17584 9671,17618 9638,17650 9600,17678 9559,17703 9465,17745 9360,17775 9248,17793 9133,17799 9018,17793 8906,17775 8801,17745 8707,17703 8666,17678 8628,17650 8595,17618 8567,17584 8545,17546 8528,17506 8518,17462 8514,17416 Z"/&gt;
+     &lt;path fill="rgb(134,134,134)" stroke="none" d="M 8734,16485 L 8734,16785 9034,16785 9034,16485 8734,16485 Z M 8744,16495 L 9024,16495 9024,16775 8744,16775 8744,16495 Z M 8514,17416 L 8691,16138 8694,16166 8701,16192 8713,16216 8729,16239 8749,16259 8773,16278 8799,16295 8829,16311 8896,16336 8971,16354 9051,16365 9133,16368 9215,16365 9295,16354 9370,16336 9437,16311 9467,16295 9493,16278 9517,16259 9537,16239 9553,16216 9565,16192 9572,16166 9575,16138 9752,17416 9748,17462 9738,17506 9721,17546 9699,17584 9671,17618 9638,17650 9600,17678 9559,17703 9465,17745 9360,17775 9248,17793 9133,17799 9018,17793 8906,17775 8801,17745 8707,17703 8666,17678 8628,17650 8595,17618 8567,17584 8545,17546 8528,17506 8518,17462 8514,17416 Z"/&gt;
+     &lt;path fill="rgb(135,135,135)" stroke="none" d="M 8744,16495 L 8744,16775 9024,16775 9024,16495 8744,16495 Z M 8754,16505 L 9014,16505 9014,16765 8754,16765 8754,16505 Z M 8514,17416 L 8691,16138 8694,16166 8701,16192 8713,16216 8729,16239 8749,16259 8773,16278 8799,16295 8829,16311 8896,16336 8971,16354 9051,16365 9133,16368 9215,16365 9295,16354 9370,16336 9437,16311 9467,16295 9493,16278 9517,16259 9537,16239 9553,16216 9565,16192 9572,16166 9575,16138 9752,17416 9748,17462 9738,17506 9721,17546 9699,17584 9671,17618 9638,17650 9600,17678 9559,17703 9465,17745 9360,17775 9248,17793 9133,17799 9018,17793 8906,17775 8801,17745 8707,17703 8666,17678 8628,17650 8595,17618 8567,17584 8545,17546 8528,17506 8518,17462 8514,17416 Z"/&gt;
+     &lt;path fill="rgb(137,137,137)" stroke="none" d="M 8754,16505 L 8754,16765 9014,16765 9014,16505 8754,16505 Z M 8764,16515 L 9004,16515 9004,16755 8764,16755 8764,16515 Z M 8514,17416 L 8691,16138 8694,16166 8701,16192 8713,16216 8729,16239 8749,16259 8773,16278 8799,16295 8829,16311 8896,16336 8971,16354 9051,16365 9133,16368 9215,16365 9295,16354 9370,16336 9437,16311 9467,16295 9493,16278 9517,16259 9537,16239 9553,16216 9565,16192 9572,16166 9575,16138 9752,17416 9748,17462 9738,17506 9721,17546 9699,17584 9671,17618 9638,17650 9600,17678 9559,17703 9465,17745 9360,17775 9248,17793 9133,17799 9018,17793 8906,17775 8801,17745 8707,17703 8666,17678 8628,17650 8595,17618 8567,17584 8545,17546 8528,17506 8518,17462 8514,17416 Z"/&gt;
+     &lt;path fill="rgb(138,138,138)" stroke="none" d="M 8764,16515 L 8764,16755 9004,16755 9004,16515 8764,16515 Z M 8774,16525 L 8994,16525 8994,16745 8774,16745 8774,16525 Z M 8514,17416 L 8691,16138 8694,16166 8701,16192 8713,16216 8729,16239 8749,16259 8773,16278 8799,16295 8829,16311 8896,16336 8971,16354 9051,16365 9133,16368 9215,16365 9295,16354 9370,16336 9437,16311 9467,16295 9493,16278 9517,16259 9537,16239 9553,16216 9565,16192 9572,16166 9575,16138 9752,17416 9748,17462 9738,17506 9721,17546 9699,17584 9671,17618 9638,17650 9600,17678 9559,17703 9465,17745 9360,17775 9248,17793 9133,17799 9018,17793 8906,17775 8801,17745 8707,17703 8666,17678 8628,17650 8595,17618 8567,17584 8545,17546 8528,17506 8518,17462 8514,17416 Z"/&gt;
+     &lt;path fill="rgb(139,139,139)" stroke="none" d="M 8774,16525 L 8774,16745 8994,16745 8994,16525 8774,16525 Z M 8784,16535 L 8984,16535 8984,16735 8784,16735 8784,16535 Z M 8514,17416 L 8691,16138 8694,16166 8701,16192 8713,16216 8729,16239 8749,16259 8773,16278 8799,16295 8829,16311 8896,16336 8971,16354 9051,16365 9133,16368 9215,16365 9295,16354 9370,16336 9437,16311 9467,16295 9493,16278 9517,16259 9537,16239 9553,16216 9565,16192 9572,16166 9575,16138 9752,17416 9748,17462 9738,17506 9721,17546 9699,17584 9671,17618 9638,17650 9600,17678 9559,17703 9465,17745 9360,17775 9248,17793 9133,17799 9018,17793 8906,17775 8801,17745 8707,17703 8666,17678 8628,17650 8595,17618 8567,17584 8545,17546 8528,17506 8518,17462 8514,17416 Z"/&gt;
+     &lt;path fill="rgb(140,140,140)" stroke="none" d="M 8784,16535 L 8784,16735 8984,16735 8984,16535 8784,16535 Z M 8794,16545 L 8974,16545 8974,16725 8794,16725 8794,16545 Z M 8514,17416 L 8691,16138 8694,16166 8701,16192 8713,16216 8729,16239 8749,16259 8773,16278 8799,16295 8829,16311 8896,16336 8971,16354 9051,16365 9133,16368 9215,16365 9295,16354 9370,16336 9437,16311 9467,16295 9493,16278 9517,16259 9537,16239 9553,16216 9565,16192 9572,16166 9575,16138 9752,17416 9748,17462 9738,17506 9721,17546 9699,17584 9671,17618 9638,17650 9600,17678 9559,17703 9465,17745 9360,17775 9248,17793 9133,17799 9018,17793 8906,17775 8801,17745 8707,17703 8666,17678 8628,17650 8595,17618 8567,17584 8545,17546 8528,17506 8518,17462 8514,17416 Z"/&gt;
+     &lt;path fill="rgb(141,141,141)" stroke="none" d="M 8794,16545 L 8794,16725 8974,16725 8974,16545 8794,16545 Z M 8804,16555 L 8964,16555 8964,16715 8804,16715 8804,16555 Z M 8514,17416 L 8691,16138 8694,16166 8701,16192 8713,16216 8729,16239 8749,16259 8773,16278 8799,16295 8829,16311 8896,16336 8971,16354 9051,16365 9133,16368 9215,16365 9295,16354 9370,16336 9437,16311 9467,16295 9493,16278 9517,16259 9537,16239 9553,16216 9565,16192 9572,16166 9575,16138 9752,17416 9748,17462 9738,17506 9721,17546 9699,17584 9671,17618 9638,17650 9600,17678 9559,17703 9465,17745 9360,17775 9248,17793 9133,17799 9018,17793 8906,17775 8801,17745 8707,17703 8666,17678 8628,17650 8595,17618 8567,17584 8545,17546 8528,17506 8518,17462 8514,17416 Z"/&gt;
+     &lt;path fill="rgb(143,143,143)" stroke="none" d="M 8804,16555 L 8804,16715 8964,16715 8964,16555 8804,16555 Z M 8814,16565 L 8954,16565 8954,16705 8814,16705 8814,16565 Z M 8514,17416 L 8691,16138 8694,16166 8701,16192 8713,16216 8729,16239 8749,16259 8773,16278 8799,16295 8829,16311 8896,16336 8971,16354 9051,16365 9133,16368 9215,16365 9295,16354 9370,16336 9437,16311 9467,16295 9493,16278 9517,16259 9537,16239 9553,16216 9565,16192 9572,16166 9575,16138 9752,17416 9748,17462 9738,17506 9721,17546 9699,17584 9671,17618 9638,17650 9600,17678 9559,17703 9465,17745 9360,17775 9248,17793 9133,17799 9018,17793 8906,17775 8801,17745 8707,17703 8666,17678 8628,17650 8595,17618 8567,17584 8545,17546 8528,17506 8518,17462 8514,17416 Z"/&gt;
+     &lt;path fill="rgb(144,144,144)" stroke="none" d="M 8814,16565 L 8814,16705 8954,16705 8954,16565 8814,16565 Z M 8824,16575 L 8944,16575 8944,16695 8824,16695 8824,16575 Z M 8514,17416 L 8691,16138 8694,16166 8701,16192 8713,16216 8729,16239 8749,16259 8773,16278 8799,16295 8829,16311 8896,16336 8971,16354 9051,16365 9133,16368 9215,16365 9295,16354 9370,16336 9437,16311 9467,16295 9493,16278 9517,16259 9537,16239 9553,16216 9565,16192 9572,16166 9575,16138 9752,17416 9748,17462 9738,17506 9721,17546 9699,17584 9671,17618 9638,17650 9600,17678 9559,17703 9465,17745 9360,17775 9248,17793 9133,17799 9018,17793 8906,17775 8801,17745 8707,17703 8666,17678 8628,17650 8595,17618 8567,17584 8545,17546 8528,17506 8518,17462 8514,17416 Z"/&gt;
+     &lt;path fill="rgb(145,145,145)" stroke="none" d="M 8824,16575 L 8824,16695 8944,16695 8944,16575 8824,16575 Z M 8834,16585 L 8934,16585 8934,16685 8834,16685 8834,16585 Z M 8514,17416 L 8691,16138 8694,16166 8701,16192 8713,16216 8729,16239 8749,16259 8773,16278 8799,16295 8829,16311 8896,16336 8971,16354 9051,16365 9133,16368 9215,16365 9295,16354 9370,16336 9437,16311 9467,16295 9493,16278 9517,16259 9537,16239 9553,16216 9565,16192 9572,16166 9575,16138 9752,17416 9748,17462 9738,17506 9721,17546 9699,17584 9671,17618 9638,17650 9600,17678 9559,17703 9465,17745 9360,17775 9248,17793 9133,17799 9018,17793 8906,17775 8801,17745 8707,17703 8666,17678 8628,17650 8595,17618 8567,17584 8545,17546 8528,17506 8518,17462 8514,17416 Z"/&gt;
+     &lt;path fill="rgb(146,146,146)" stroke="none" d="M 8834,16585 L 8834,16685 8934,16685 8934,16585 8834,16585 Z M 8844,16595 L 8924,16595 8924,16675 8844,16675 8844,16595 Z M 8514,17416 L 8691,16138 8694,16166 8701,16192 8713,16216 8729,16239 8749,16259 8773,16278 8799,16295 8829,16311 8896,16336 8971,16354 9051,16365 9133,16368 9215,16365 9295,16354 9370,16336 9437,16311 9467,16295 9493,16278 9517,16259 9537,16239 9553,16216 9565,16192 9572,16166 9575,16138 9752,17416 9748,17462 9738,17506 9721,17546 9699,17584 9671,17618 9638,17650 9600,17678 9559,17703 9465,17745 9360,17775 9248,17793 9133,17799 9018,17793 8906,17775 8801,17745 8707,17703 8666,17678 8628,17650 8595,17618 8567,17584 8545,17546 8528,17506 8518,17462 8514,17416 Z"/&gt;
+     &lt;path fill="rgb(148,148,148)" stroke="none" d="M 8844,16595 L 8844,16675 8924,16675 8924,16595 8844,16595 Z M 8854,16605 L 8914,16605 8914,16665 8854,16665 8854,16605 Z M 8514,17416 L 8691,16138 8694,16166 8701,16192 8713,16216 8729,16239 8749,16259 8773,16278 8799,16295 8829,16311 8896,16336 8971,16354 9051,16365 9133,16368 9215,16365 9295,16354 9370,16336 9437,16311 9467,16295 9493,16278 9517,16259 9537,16239 9553,16216 9565,16192 9572,16166 9575,16138 9752,17416 9748,17462 9738,17506 9721,17546 9699,17584 9671,17618 9638,17650 9600,17678 9559,17703 9465,17745 9360,17775 9248,17793 9133,17799 9018,17793 8906,17775 8801,17745 8707,17703 8666,17678 8628,17650 8595,17618 8567,17584 8545,17546 8528,17506 8518,17462 8514,17416 Z"/&gt;
+     &lt;path fill="rgb(149,149,149)" stroke="none" d="M 8854,16605 L 8854,16665 8914,16665 8914,16605 8854,16605 Z M 8864,16615 L 8904,16615 8904,16655 8864,16655 8864,16615 Z M 8514,17416 L 8691,16138 8694,16166 8701,16192 8713,16216 8729,16239 8749,16259 8773,16278 8799,16295 8829,16311 8896,16336 8971,16354 9051,16365 9133,16368 9215,16365 9295,16354 9370,16336 9437,16311 9467,16295 9493,16278 9517,16259 9537,16239 9553,16216 9565,16192 9572,16166 9575,16138 9752,17416 9748,17462 9738,17506 9721,17546 9699,17584 9671,17618 9638,17650 9600,17678 9559,17703 9465,17745 9360,17775 9248,17793 9133,17799 9018,17793 8906,17775 8801,17745 8707,17703 8666,17678 8628,17650 8595,17618 8567,17584 8545,17546 8528,17506 8518,17462 8514,17416 Z"/&gt;
+     &lt;path fill="rgb(150,150,150)" stroke="none" d="M 8864,16615 L 8864,16655 8904,16655 8904,16615 8864,16615 Z M 8874,16625 L 8894,16625 8894,16645 8874,16645 8874,16625 Z M 8514,17416 L 8691,16138 8694,16166 8701,16192 8713,16216 8729,16239 8749,16259 8773,16278 8799,16295 8829,16311 8896,16336 8971,16354 9051,16365 9133,16368 9215,16365 9295,16354 9370,16336 9437,16311 9467,16295 9493,16278 9517,16259 9537,16239 9553,16216 9565,16192 9572,16166 9575,16138 9752,17416 9748,17462 9738,17506 9721,17546 9699,17584 9671,17618 9638,17650 9600,17678 9559,17703 9465,17745 9360,17775 9248,17793 9133,17799 9018,17793 8906,17775 8801,17745 8707,17703 8666,17678 8628,17650 8595,17618 8567,17584 8545,17546 8528,17506 8518,17462 8514,17416 Z"/&gt;
+     &lt;path fill="rgb(153,153,153)" stroke="none" d="M 8874,16625 L 8874,16645 8894,16645 8894,16625 8874,16625 Z M 8514,17416 L 8691,16138 8694,16166 8701,16192 8713,16216 8729,16239 8749,16259 8773,16278 8799,16295 8829,16311 8896,16336 8971,16354 9051,16365 9133,16368 9215,16365 9295,16354 9370,16336 9437,16311 9467,16295 9493,16278 9517,16259 9537,16239 9553,16216 9565,16192 9572,16166 9575,16138 9752,17416 9748,17462 9738,17506 9721,17546 9699,17584 9671,17618 9638,17650 9600,17678 9559,17703 9465,17745 9360,17775 9248,17793 9133,17799 9018,17793 8906,17775 8801,17745 8707,17703 8666,17678 8628,17650 8595,17618 8567,17584 8545,17546 8528,17506 8518,17462 8514,17416 Z"/&gt;
+     &lt;path fill="none" stroke="rgb(178,178,178)" id="Drawing_2_0" stroke-width="40" stroke-linejoin="round" d="M 8514,17416 L 8691,16138 C 8691,16445 9575,16445 9575,16138 L 9752,17416 C 9752,17927 8514,17927 8514,17416 Z"/&gt;
+    &lt;/g&gt;
+    &lt;g&gt;
+     &lt;defs&gt;
+      &lt;linearGradient id="Gradient_1129" gradientUnits="userSpaceOnUse" x1="9133" y1="15883" x2="9133" y2="16394"&gt;
+       &lt;stop offset="0.1" stop-color="rgb(51,51,51)"/&gt;
+       &lt;stop offset="1" stop-color="rgb(153,153,153)"/&gt;
+      &lt;/linearGradient&gt;
+     &lt;/defs&gt;
+     &lt;path fill="url(#Gradient_1129)" stroke="none" id="Drawing_3_0" d="M 9454,15953 L 9482,15971 9507,15992 9527,16014 9544,16037 9558,16061 9567,16086 9573,16112 9575,16138 9573,16164 9567,16190 9558,16215 9544,16240 9527,16263 9507,16285 9482,16305 9454,16324 9422,16340 9387,16354 9348,16366 9308,16376 9266,16384 9222,16389 9132,16394 9043,16389 8999,16384 8957,16376 8917,16366 8879,16354 8844,16340 8812,16324 8783,16305 8759,16285 8738,16263 8721,16240 8708,16215 8699,16190 8693,16164 8691,16138 8693,16112 8699,16086 8708,16061 8721,16037 8738,16014 8759,15992 8783,15971 8812,15953 8844,15936 8879,15922 8917,15910 8957,15900 9000,15893 9043,15887 9133,15883 9223,15887 9266,15893 9309,15900 9349,15910 9387,15922 9422,15936 9454,15953 Z"/&gt;
+     &lt;path fill="none" stroke="rgb(178,178,178)" id="Drawing_3_1" stroke-width="40" stroke-linejoin="round" d="M 9454,15953 C 9615,16046 9615,16231 9454,16324 9293,16417 8972,16417 8812,16324 8651,16231 8651,16046 8812,15953 8973,15860 9294,15860 9454,15953 Z"/&gt;
+    &lt;/g&gt;
+    &lt;g&gt;
+     &lt;path fill="none" stroke="rgb(0,0,0)" id="Drawing_4_0" stroke-width="40" stroke-linejoin="round" d="M 8514,17416 L 8691,16139 C 8691,15780 9575,15780 9575,16139 L 9752,17416 C 9752,17927 8514,17927 8514,17416 Z"/&gt;
+    &lt;/g&gt;
+    &lt;g&gt;
+     &lt;path fill="rgb(102,102,102)" stroke="none" d="M 9132,16139 L 9132,15167 9044,15065 9132,14963 9221,15065 9132,15167 9132,16139 Z"/&gt;
+     &lt;path fill="none" stroke="rgb(0,0,0)" id="Drawing_5_0" stroke-width="40" stroke-linejoin="round" d="M 9132,16139 L 9132,15167 9044,15065 9132,14963 9221,15065 9132,15167 9132,16139 Z"/&gt;
+    &lt;/g&gt;
+    &lt;g&gt;
+     &lt;path fill="none" stroke="rgb(51,51,51)" id="Drawing_6_0" stroke-width="40" stroke-linejoin="round" d="M 9221,14861 C 9398,14963 9398,15168 9221,15270"/&gt;
+    &lt;/g&gt;
+    &lt;g&gt;
+     &lt;path fill="none" stroke="rgb(51,51,51)" id="Drawing_7_0" stroke-width="40" stroke-linejoin="round" d="M 9044,14861 C 8868,14963 8868,15168 9044,15270"/&gt;
+    &lt;/g&gt;
+    &lt;g&gt;
+     &lt;path fill="none" stroke="rgb(51,51,51)" id="Drawing_8_0" stroke-width="40" stroke-linejoin="round" d="M 8867,14809 C 8691,14911 8691,15217 8868,15320"/&gt;
+    &lt;/g&gt;
+    &lt;g&gt;
+     &lt;path fill="none" stroke="rgb(51,51,51)" id="Drawing_9_0" stroke-width="40" stroke-linejoin="round" d="M 9398,14809 C 9575,14911 9575,15217 9398,15320"/&gt;
+    &lt;/g&gt;
+    &lt;g&gt;
+     &lt;path fill="none" stroke="rgb(51,51,51)" id="Drawing_10_0" stroke-width="40" stroke-linejoin="round" d="M 8690,14707 C 8514,14809 8514,15320 8690,15423"/&gt;
+    &lt;/g&gt;
+    &lt;g&gt;
+     &lt;path fill="none" stroke="rgb(51,51,51)" id="Drawing_11_0" stroke-width="40" stroke-linejoin="round" d="M 9575,14707 C 9752,14809 9752,15320 9575,15423"/&gt;
+    &lt;/g&gt;
+    &lt;g&gt;
+     &lt;path fill="none" stroke="rgb(51,51,51)" id="Drawing_12_0" stroke-width="40" stroke-linejoin="round" d="M 8514,14605 C 8337,14707 8337,15423 8513,15525"/&gt;
+    &lt;/g&gt;
+    &lt;g&gt;
+     &lt;path fill="none" stroke="rgb(51,51,51)" id="Drawing_13_0" stroke-width="40" stroke-linejoin="round" d="M 9752,14605 C 9929,14707 9929,15423 9752,15524"/&gt;
+    &lt;/g&gt;
+   &lt;/g&gt;
+  &lt;/g&gt;
+ &lt;/g&gt;
+&lt;/svg&gt;</y:Resource>
+      <y:Resource id="2" xml:space="preserve">&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+
+&lt;svg version="1.2" baseProfile="tiny" width="69.31mm" height="48.67mm" viewBox="4727 11514 6931 4867" preserveAspectRatio="xMidYMid" fill-rule="evenodd" stroke-width="28.222" stroke-linejoin="round" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve"&gt;
+ &lt;g visibility="visible" id="Slide_1"&gt;
+  &lt;g id="DrawingGroup_1"&gt;
+   &lt;g&gt;
+    &lt;path fill="rgb(221,221,221)" stroke="none" d="M 8491,16361 C 8754,16361 11658,15085 11658,14696 11658,14308 11250,14308 10986,14308 10986,14474 8395,15140 8491,16361 Z"/&gt;
+    &lt;path fill="none" stroke="rgb(221,221,221)" id="Drawing_1_0" stroke-linejoin="round" d="M 8491,16361 C 8754,16361 11658,15085 11658,14696 11658,14308 11250,14308 10986,14308 10986,14474 8395,15140 8491,16361 Z"/&gt;
+   &lt;/g&gt;
+   &lt;g id="DrawingGroup_2"&gt;
+    &lt;g&gt;
+     &lt;defs&gt;
+      &lt;linearGradient id="Gradient_878" gradientUnits="userSpaceOnUse" x1="4935" y1="14720" x2="8300" y2="14726"&gt;
+       &lt;stop offset="0.1" stop-color="rgb(179,179,179)"/&gt;
+       &lt;stop offset="1" stop-color="rgb(229,229,229)"/&gt;
+      &lt;/linearGradient&gt;
+     &lt;/defs&gt;
+     &lt;path fill="url(#Gradient_878)" stroke="rgb(255,255,255)" id="Drawing_2_0" stroke-width="40" stroke-linejoin="round" d="M 4939,14308 L 4939,13198 8298,15140 8298,16249 4939,14308 Z"/&gt;
+    &lt;/g&gt;
+    &lt;g&gt;
+     &lt;path fill="rgb(179,179,179)" stroke="none" d="M 10572,14936 L 9217,15719 8298,15719 8298,15140 10572,13826 10572,14936 Z"/&gt;
+     &lt;path fill="rgb(180,180,180)" stroke="none" d="M 9217,15719 L 8298,16250 8298,15719 9217,15719 Z M 10572,13826 L 11177,13476 11177,14586 10572,14936 10572,13826 Z M 10543,14952 L 9267,15690 8298,15690 8298,15140 10543,13842 10543,14952 Z"/&gt;
+     &lt;path fill="rgb(181,181,181)" stroke="none" d="M 9267,15690 L 8298,16250 8298,15690 9267,15690 Z M 10543,13842 L 11177,13476 11177,14586 10543,14952 10543,13842 Z M 10514,14969 L 9317,15661 8298,15661 8298,15140 10514,13859 10514,14969 Z"/&gt;
+     &lt;path fill="rgb(182,182,182)" stroke="none" d="M 9317,15661 L 8298,16250 8298,15661 9317,15661 Z M 10514,13859 L 11177,13476 11177,14586 10514,14969 10514,13859 Z M 10485,14986 L 9367,15632 8298,15632 8298,15140 10485,13876 10485,14986 Z"/&gt;
+     &lt;path fill="rgb(183,183,183)" stroke="none" d="M 9367,15632 L 8298,16250 8298,15632 9367,15632 Z M 10485,13876 L 11177,13476 11177,14586 10485,14986 10485,13876 Z M 10456,15003 L 9417,15603 8298,15603 8298,15140 10456,13893 10456,15003 Z"/&gt;
+     &lt;path fill="rgb(184,184,184)" stroke="none" d="M 9417,15603 L 8298,16250 8298,15603 9417,15603 Z M 10456,13893 L 11177,13476 11177,14586 10456,15003 10456,13893 Z M 10428,15019 L 9466,15575 8298,15575 8298,15140 10428,13909 10428,15019 Z"/&gt;
+     &lt;path fill="rgb(185,185,185)" stroke="none" d="M 9466,15575 L 8298,16250 8298,15575 9466,15575 Z M 10428,13909 L 11177,13476 11177,14586 10428,15019 10428,13909 Z M 10399,15036 L 9516,15546 8298,15546 8298,15140 10399,13926 10399,15036 Z"/&gt;
+     &lt;path fill="rgb(186,186,186)" stroke="none" d="M 9516,15546 L 8298,16250 8298,15546 9516,15546 Z M 10399,13926 L 11177,13476 11177,14586 10399,15036 10399,13926 Z M 10370,15052 L 9566,15517 8298,15517 8298,15140 10370,13942 10370,15052 Z"/&gt;
+     &lt;path fill="rgb(187,187,187)" stroke="none" d="M 9566,15517 L 8298,16250 8298,15517 9566,15517 Z M 10370,13942 L 11177,13476 11177,14586 10370,15052 10370,13942 Z M 10341,15069 L 9616,15488 8298,15488 8298,15140 10341,13959 10341,15069 Z"/&gt;
+     &lt;path fill="rgb(188,188,188)" stroke="none" d="M 9616,15488 L 8298,16250 8298,15488 9616,15488 Z M 10341,13959 L 11177,13476 11177,14586 10341,15069 10341,13959 Z M 10312,15086 L 9667,15459 8298,15459 8298,15140 10312,13976 10312,15086 Z"/&gt;
+     &lt;path fill="rgb(189,189,189)" stroke="none" d="M 9667,15459 L 8298,16250 8298,15459 9667,15459 Z M 10312,13976 L 11177,13476 11177,14586 10312,15086 10312,13976 Z M 10283,15103 L 9717,15430 8298,15430 8298,15140 10283,13993 10283,15103 Z"/&gt;
+     &lt;path fill="rgb(190,190,190)" stroke="none" d="M 9717,15430 L 8298,16250 8298,15430 9717,15430 Z M 10283,13993 L 11177,13476 11177,14586 10283,15103 10283,13993 Z M 10255,15119 L 9765,15402 8298,15402 8298,15140 10255,14009 10255,15119 Z"/&gt;
+     &lt;path fill="rgb(191,191,191)" stroke="none" d="M 9765,15402 L 8298,16250 8298,15402 9765,15402 Z M 10255,14009 L 11177,13476 11177,14586 10255,15119 10255,14009 Z M 10226,15136 L 9815,15373 8298,15373 8298,15140 10226,14026 10226,15136 Z"/&gt;
+     &lt;path fill="rgb(192,192,192)" stroke="none" d="M 9815,15373 L 8298,16250 8298,15373 9815,15373 Z M 10226,14026 L 11177,13476 11177,14586 10226,15136 10226,14026 Z M 10197,15152 L 9866,15344 8298,15344 8298,15140 10197,14042 10197,15152 Z"/&gt;
+     &lt;path fill="rgb(193,193,193)" stroke="none" d="M 9866,15344 L 8298,16250 8298,15344 9866,15344 Z M 10197,14042 L 11177,13476 11177,14586 10197,15152 10197,14042 Z M 10168,15169 L 9916,15315 8298,15315 8298,15140 10168,14059 10168,15169 Z"/&gt;
+     &lt;path fill="rgb(194,194,194)" stroke="none" d="M 9916,15315 L 8298,16250 8298,15315 9916,15315 Z M 10168,14059 L 11177,13476 11177,14586 10168,15169 10168,14059 Z M 10139,15186 L 9966,15286 8298,15286 8298,15140 10139,14076 10139,15186 Z"/&gt;
+     &lt;path fill="rgb(195,195,195)" stroke="none" d="M 9966,15286 L 8298,16250 8298,15286 9966,15286 Z M 10139,14076 L 11177,13476 11177,14586 10139,15186 10139,14076 Z M 10111,15202 L 10014,15258 8298,15258 8298,15140 10111,14092 10111,15202 Z"/&gt;
+     &lt;path fill="rgb(196,196,196)" stroke="none" d="M 10014,15258 L 8298,16250 8298,15258 10014,15258 Z M 10111,14092 L 11177,13476 11177,14586 10111,15202 10111,14092 Z M 10082,15219 L 10065,15229 8298,15229 8298,15140 10082,14109 10082,15219 Z"/&gt;
+     &lt;path fill="rgb(197,197,197)" stroke="none" d="M 10065,15229 L 8298,16250 8298,15229 10065,15229 Z M 10082,14109 L 11177,13476 11177,14586 10082,15219 10082,14109 Z M 10053,15200 L 8298,15200 8298,15140 10053,14126 10053,15200 Z"/&gt;
+     &lt;path fill="rgb(198,198,198)" stroke="none" d="M 10053,15200 L 10053,14126 11177,13476 11177,14586 8298,16250 8298,15200 10053,15200 Z M 10024,15171 L 8298,15171 8298,15140 10024,14142 10024,15171 Z"/&gt;
+     &lt;path fill="rgb(199,199,199)" stroke="none" d="M 10024,15171 L 10024,14142 11177,13476 11177,14586 8298,16250 8298,15171 10024,15171 Z M 9995,15142 L 8325,15142 8325,15124 9995,14159 9995,15142 Z"/&gt;
+     &lt;path fill="rgb(200,200,200)" stroke="none" d="M 8325,15142 L 9995,15142 9995,14159 11177,13476 11177,14586 8298,16250 8298,15140 8325,15124 8325,15142 Z M 9966,15113 L 8354,15113 8354,15108 9966,14176 9966,15113 Z"/&gt;
+     &lt;path fill="rgb(201,201,201)" stroke="none" d="M 8354,15113 L 9966,15113 9966,14176 11177,13476 11177,14586 8298,16250 8298,15140 8354,15108 8354,15113 Z M 9938,15085 L 8393,15085 9938,14192 9938,15085 Z"/&gt;
+     &lt;path fill="rgb(202,202,202)" stroke="none" d="M 9938,15085 L 9938,14192 11177,13476 11177,14586 8298,16250 8298,15140 8393,15085 9938,15085 Z M 9909,15056 L 8443,15056 9909,14209 9909,15056 Z"/&gt;
+     &lt;path fill="rgb(203,203,203)" stroke="none" d="M 9909,15056 L 9909,14209 11177,13476 11177,14586 8298,16250 8298,15140 8443,15056 9909,15056 Z M 9880,15027 L 8494,15027 9880,14226 9880,15027 Z"/&gt;
+     &lt;path fill="rgb(204,204,204)" stroke="none" d="M 9880,15027 L 9880,14226 11177,13476 11177,14586 8298,16250 8298,15140 8494,15027 9880,15027 Z M 9851,14998 L 8544,14998 9851,14242 9851,14998 Z"/&gt;
+     &lt;path fill="rgb(205,205,205)" stroke="none" d="M 9851,14998 L 9851,14242 11177,13476 11177,14586 8298,16250 8298,15140 8544,14998 9851,14998 Z M 9822,14969 L 8594,14969 9822,14259 9822,14969 Z"/&gt;
+     &lt;path fill="rgb(206,206,206)" stroke="none" d="M 9822,14969 L 9822,14259 11177,13476 11177,14586 8298,16250 8298,15140 8594,14969 9822,14969 Z M 9794,14941 L 8642,14941 9794,14275 9794,14941 Z"/&gt;
+     &lt;path fill="rgb(207,207,207)" stroke="none" d="M 9794,14941 L 9794,14275 11177,13476 11177,14586 8298,16250 8298,15140 8642,14941 9794,14941 Z M 9765,14912 L 8692,14912 9765,14292 9765,14912 Z"/&gt;
+     &lt;path fill="rgb(208,208,208)" stroke="none" d="M 9765,14912 L 9765,14292 11177,13476 11177,14586 8298,16250 8298,15140 8692,14912 9765,14912 Z M 9736,14883 L 8743,14883 9736,14309 9736,14883 Z"/&gt;
+     &lt;path fill="rgb(209,209,209)" stroke="none" d="M 9736,14883 L 9736,14309 11177,13476 11177,14586 8298,16250 8298,15140 8743,14883 9736,14883 Z M 9707,14854 L 8793,14854 9707,14326 9707,14854 Z"/&gt;
+     &lt;path fill="rgb(210,210,210)" stroke="none" d="M 9707,14854 L 9707,14326 11177,13476 11177,14586 8298,16250 8298,15140 8793,14854 9707,14854 Z M 9678,14825 L 8843,14825 9678,14342 9678,14825 Z"/&gt;
+     &lt;path fill="rgb(211,211,211)" stroke="none" d="M 9678,14825 L 9678,14342 11177,13476 11177,14586 8298,16250 8298,15140 8843,14825 9678,14825 Z M 9649,14796 L 8893,14796 9649,14359 9649,14796 Z"/&gt;
+     &lt;path fill="rgb(212,212,212)" stroke="none" d="M 9649,14796 L 9649,14359 11177,13476 11177,14586 8298,16250 8298,15140 8893,14796 9649,14796 Z M 9621,14768 L 8942,14768 9621,14375 9621,14768 Z"/&gt;
+     &lt;path fill="rgb(213,213,213)" stroke="none" d="M 9621,14768 L 9621,14375 11177,13476 11177,14586 8298,16250 8298,15140 8942,14768 9621,14768 Z M 9592,14739 L 8992,14739 9592,14392 9592,14739 Z"/&gt;
+     &lt;path fill="rgb(214,214,214)" stroke="none" d="M 9592,14739 L 9592,14392 11177,13476 11177,14586 8298,16250 8298,15140 8992,14739 9592,14739 Z M 9563,14710 L 9042,14710 9563,14409 9563,14710 Z"/&gt;
+     &lt;path fill="rgb(215,215,215)" stroke="none" d="M 9563,14710 L 9563,14409 11177,13476 11177,14586 8298,16250 8298,15140 9042,14710 9563,14710 Z M 9534,14681 L 9092,14681 9534,14426 9534,14681 Z"/&gt;
+     &lt;path fill="rgb(216,216,216)" stroke="none" d="M 9534,14681 L 9534,14426 11177,13476 11177,14586 8298,16250 8298,15140 9092,14681 9534,14681 Z M 9505,14652 L 9142,14652 9505,14442 9505,14652 Z"/&gt;
+     &lt;path fill="rgb(217,217,217)" stroke="none" d="M 9505,14652 L 9505,14442 11177,13476 11177,14586 8298,16250 8298,15140 9142,14652 9505,14652 Z M 9477,14624 L 9191,14624 9477,14459 9477,14624 Z"/&gt;
+     &lt;path fill="rgb(218,218,218)" stroke="none" d="M 9477,14624 L 9477,14459 11177,13476 11177,14586 8298,16250 8298,15140 9191,14624 9477,14624 Z M 9448,14595 L 9241,14595 9448,14475 9448,14595 Z"/&gt;
+     &lt;path fill="rgb(219,219,219)" stroke="none" d="M 9448,14595 L 9448,14475 11177,13476 11177,14586 8298,16250 8298,15140 9241,14595 9448,14595 Z M 9419,14566 L 9291,14566 9419,14492 9419,14566 Z"/&gt;
+     &lt;path fill="rgb(220,220,220)" stroke="none" d="M 9419,14566 L 9419,14492 11177,13476 11177,14586 8298,16250 8298,15140 9291,14566 9419,14566 Z M 9390,14537 L 9341,14537 9390,14509 9390,14537 Z"/&gt;
+     &lt;path fill="rgb(221,221,221)" stroke="none" d="M 9390,14537 L 9390,14509 11177,13476 11177,14586 8298,16250 8298,15140 9341,14537 9390,14537 Z"/&gt;
+     &lt;path fill="rgb(222,222,222)" stroke="none" d="M 8298,16250 L 8298,15140 11177,13476 11177,14586 8298,16250 Z"/&gt;
+     &lt;path fill="rgb(223,223,223)" stroke="none" d="M 8298,16250 L 8298,15140 11177,13476 11177,14586 8298,16250 Z"/&gt;
+     &lt;path fill="rgb(224,224,224)" stroke="none" d="M 8298,16250 L 8298,15140 11177,13476 11177,14586 8298,16250 Z"/&gt;
+     &lt;path fill="rgb(225,225,225)" stroke="none" d="M 8298,16250 L 8298,15140 11177,13476 11177,14586 8298,16250 Z"/&gt;
+     &lt;path fill="rgb(226,226,226)" stroke="none" d="M 8298,16250 L 8298,15140 11177,13476 11177,14586 8298,16250 Z"/&gt;
+     &lt;path fill="rgb(227,227,227)" stroke="none" d="M 8298,16250 L 8298,15140 11177,13476 11177,14586 8298,16250 Z"/&gt;
+     &lt;path fill="rgb(229,229,229)" stroke="none" d="M 8298,16250 L 8298,15140 11177,13476 11177,14586 8298,16250 Z"/&gt;
+     &lt;path fill="none" stroke="rgb(255,255,255)" id="Drawing_3_0" stroke-width="40" stroke-linejoin="round" d="M 8298,16250 L 8298,15140 11177,13476 11177,14586 8298,16250 Z"/&gt;
+    &lt;/g&gt;
+    &lt;g&gt;
+     &lt;defs&gt;
+      &lt;linearGradient id="Gradient_879" gradientUnits="userSpaceOnUse" x1="8058" y1="11534" x2="8058" y2="15140"&gt;
+       &lt;stop offset="0.1" stop-color="rgb(179,179,179)"/&gt;
+       &lt;stop offset="1" stop-color="rgb(229,229,229)"/&gt;
+      &lt;/linearGradient&gt;
+     &lt;/defs&gt;
+     &lt;path fill="url(#Gradient_879)" stroke="rgb(255,255,255)" id="Drawing_4_0" stroke-width="40" stroke-linejoin="round" d="M 8298,15140 L 4939,13198 7818,11534 11178,13476 8298,15140 Z"/&gt;
+    &lt;/g&gt;
+    &lt;g&gt;
+     &lt;path fill="none" stroke="rgb(127,127,127)" id="Drawing_5_0" stroke-width="40" stroke-linejoin="round" d="M 6091,14086 L 6091,14752"/&gt;
+    &lt;/g&gt;
+    &lt;g&gt;
+     &lt;path fill="none" stroke="rgb(255,255,255)" id="Drawing_6_0" stroke-width="40" stroke-linejoin="round" d="M 8203,15507 L 6667,14619"/&gt;
+    &lt;/g&gt;
+    &lt;g&gt;
+     &lt;path fill="none" stroke="rgb(255,255,255)" id="Drawing_7_0" stroke-width="40" stroke-linejoin="round" d="M 6658,14419 L 6658,14641"/&gt;
+    &lt;/g&gt;
+    &lt;g&gt;
+     &lt;path fill="none" stroke="rgb(0,0,0)" id="Drawing_8_0" stroke-width="40" stroke-linejoin="round" d="M 8194,15307 L 8194,15529"/&gt;
+    &lt;/g&gt;
+    &lt;g&gt;
+     &lt;path fill="none" stroke="rgb(0,0,0)" id="Drawing_9_0" stroke-width="40" stroke-linejoin="round" d="M 8194,15307 L 6658,14419"/&gt;
+    &lt;/g&gt;
+    &lt;g&gt;
+     &lt;path fill="rgb(57,181,74)" stroke="none" d="M 6283,14419 L 6283,14197 6475,14308 6475,14530 6283,14419 Z"/&gt;
+     &lt;path fill="none" stroke="rgb(0,0,0)" id="Drawing_10_0" stroke-width="40" stroke-linejoin="round" d="M 6283,14419 L 6283,14197 6475,14308 6475,14530 6283,14419 Z"/&gt;
+    &lt;/g&gt;
+    &lt;g&gt;
+     &lt;path fill="none" stroke="rgb(127,127,127)" id="Drawing_11_0" stroke-width="40" stroke-linejoin="round" d="M 5899,13975 L 5899,14641"/&gt;
+    &lt;/g&gt;
+    &lt;g&gt;
+     &lt;path fill="none" stroke="rgb(127,127,127)" id="Drawing_12_0" stroke-width="40" stroke-linejoin="round" d="M 5707,13864 L 5707,14530"/&gt;
+    &lt;/g&gt;
+    &lt;g&gt;
+     &lt;path fill="none" stroke="rgb(127,127,127)" id="Drawing_13_0" stroke-width="40" stroke-linejoin="round" d="M 5515,13753 L 5515,14419"/&gt;
+    &lt;/g&gt;
+    &lt;g&gt;
+     &lt;path fill="none" stroke="rgb(127,127,127)" id="Drawing_14_0" stroke-width="40" stroke-linejoin="round" d="M 5323,13642 L 5323,14308"/&gt;
+    &lt;/g&gt;
+    &lt;g&gt;
+     &lt;path fill="none" stroke="rgb(127,127,127)" id="Drawing_15_0" stroke-width="40" stroke-linejoin="round" d="M 5131,13531 L 5131,14197"/&gt;
+    &lt;/g&gt;
+    &lt;g&gt;
+     &lt;defs&gt;
+      &lt;linearGradient id="Gradient_880" gradientUnits="userSpaceOnUse" x1="4746" y1="13697" x2="4940" y2="13697"&gt;
+       &lt;stop offset="0.1" stop-color="rgb(179,179,179)"/&gt;
+       &lt;stop offset="1" stop-color="rgb(229,229,229)"/&gt;
+      &lt;/linearGradient&gt;
+     &lt;/defs&gt;
+     &lt;path fill="url(#Gradient_880)" stroke="rgb(255,255,255)" id="Drawing_16_0" stroke-width="40" stroke-linejoin="round" d="M 4747,14197 L 4747,13087 4939,13198 4939,14308 4747,14197 Z"/&gt;
+    &lt;/g&gt;
+    &lt;g&gt;
+     &lt;defs&gt;
+      &lt;linearGradient id="Gradient_881" gradientUnits="userSpaceOnUse" x1="8297" y1="15750" x2="8491" y2="15750"&gt;
+       &lt;stop offset="0.1" stop-color="rgb(179,179,179)"/&gt;
+       &lt;stop offset="1" stop-color="rgb(229,229,229)"/&gt;
+      &lt;/linearGradient&gt;
+     &lt;/defs&gt;
+     &lt;path fill="url(#Gradient_881)" stroke="rgb(255,255,255)" id="Drawing_17_0" stroke-width="40" stroke-linejoin="round" d="M 8298,16250 L 8298,15140 8490,15251 8490,16361 8298,16250 Z"/&gt;
+    &lt;/g&gt;
+    &lt;g&gt;
+     &lt;path fill="none" stroke="rgb(0,0,0)" id="Drawing_18_0" stroke-width="40" stroke-linejoin="round" d="M 4747,14197 L 4747,13087 4939,13198 7818,11534 11178,13476 11178,14585 8490,16139 8490,16361 4747,14197 Z"/&gt;
+    &lt;/g&gt;
+   &lt;/g&gt;
+  &lt;/g&gt;
+ &lt;/g&gt;
+&lt;/svg&gt;</y:Resource>
+      <y:Resource id="3" xml:space="preserve">&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+
+&lt;svg version="1.2" baseProfile="tiny" width="20.64mm" height="47.3mm" viewBox="9732 7197 2064 4730" preserveAspectRatio="xMidYMid" fill-rule="evenodd" stroke-width="28.222" stroke-linejoin="round" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve"&gt;
+ &lt;g visibility="visible" id="Slide_1"&gt;
+  &lt;g id="DrawingGroup_1"&gt;
+   &lt;g&gt;
+    &lt;path fill="rgb(221,221,221)" stroke="none" d="M 10130,11906 C 10511,11906 11208,11650 11571,11417 11934,11184 11830,10787 11449,10787 11449,10787 10116,11907 10130,11906 Z"/&gt;
+    &lt;path fill="none" stroke="rgb(221,221,221)" id="Drawing_1_0" stroke-linejoin="round" d="M 10130,11906 C 10511,11906 11208,11650 11571,11417 11934,11184 11830,10787 11449,10787 11449,10787 10116,11907 10130,11906 Z"/&gt;
+   &lt;/g&gt;
+   &lt;g id="DrawingGroup_2"&gt;
+    &lt;g&gt;
+     &lt;path fill="rgb(179,179,179)" stroke="none" d="M 10116,11245 L 10116,9527 11449,8757 11449,11137 11262,11245 10116,11245 Z"/&gt;
+     &lt;path fill="rgb(180,180,180)" stroke="none" d="M 11262,11245 L 10116,11907 10116,11245 11262,11245 Z M 10116,11213 L 10116,9527 11449,8757 11449,11137 11317,11213 10116,11213 Z"/&gt;
+     &lt;path fill="rgb(181,181,181)" stroke="none" d="M 11317,11213 L 10116,11907 10116,11213 11317,11213 Z M 10116,11182 L 10116,9527 11449,8757 11449,11137 11371,11182 10116,11182 Z"/&gt;
+     &lt;path fill="rgb(182,182,182)" stroke="none" d="M 11371,11182 L 10116,11907 10116,11182 11371,11182 Z M 10116,11150 L 10116,9527 11449,8757 11449,11137 11426,11150 10116,11150 Z"/&gt;
+     &lt;path fill="rgb(183,183,183)" stroke="none" d="M 11426,11150 L 10116,11907 10116,11150 11426,11150 Z M 10116,11119 L 10116,9527 11449,8757 11449,11119 10116,11119 Z"/&gt;
+     &lt;path fill="rgb(184,184,184)" stroke="none" d="M 11449,11119 L 11449,11137 10116,11907 10116,11119 11449,11119 Z M 10116,11087 L 10116,9527 11449,8757 11449,11087 10116,11087 Z"/&gt;
+     &lt;path fill="rgb(185,185,185)" stroke="none" d="M 11449,11087 L 11449,11137 10116,11907 10116,11087 11449,11087 Z M 10116,11056 L 10116,9527 11449,8757 11449,11056 10116,11056 Z"/&gt;
+     &lt;path fill="rgb(186,186,186)" stroke="none" d="M 11449,11056 L 11449,11137 10116,11907 10116,11056 11449,11056 Z M 10116,11024 L 10116,9527 11449,8757 11449,11024 10116,11024 Z"/&gt;
+     &lt;path fill="rgb(187,187,187)" stroke="none" d="M 11449,11024 L 11449,11137 10116,11907 10116,11024 11449,11024 Z M 10116,10993 L 10116,9527 11449,8757 11449,10993 10116,10993 Z"/&gt;
+     &lt;path fill="rgb(188,188,188)" stroke="none" d="M 11449,10993 L 11449,11137 10116,11907 10116,10993 11449,10993 Z M 10116,10961 L 10116,9527 11449,8757 11449,10961 10116,10961 Z"/&gt;
+     &lt;path fill="rgb(189,189,189)" stroke="none" d="M 11449,10961 L 11449,11137 10116,11907 10116,10961 11449,10961 Z M 10116,10930 L 10116,9527 11449,8757 11449,10930 10116,10930 Z"/&gt;
+     &lt;path fill="rgb(190,190,190)" stroke="none" d="M 11449,10930 L 11449,11137 10116,11907 10116,10930 11449,10930 Z M 10116,10898 L 10116,9527 11449,8757 11449,10898 10116,10898 Z"/&gt;
+     &lt;path fill="rgb(191,191,191)" stroke="none" d="M 11449,10898 L 11449,11137 10116,11907 10116,10898 11449,10898 Z M 10116,10867 L 10116,9527 11449,8757 11449,10867 10116,10867 Z"/&gt;
+     &lt;path fill="rgb(192,192,192)" stroke="none" d="M 11449,10867 L 11449,11137 10116,11907 10116,10867 11449,10867 Z M 10116,10835 L 10116,9527 11449,8757 11449,10835 10116,10835 Z"/&gt;
+     &lt;path fill="rgb(193,193,193)" stroke="none" d="M 11449,10835 L 11449,11137 10116,11907 10116,10835 11449,10835 Z M 10116,10804 L 10116,9527 11449,8757 11449,10804 10116,10804 Z"/&gt;
+     &lt;path fill="rgb(194,194,194)" stroke="none" d="M 11449,10804 L 11449,11137 10116,11907 10116,10804 11449,10804 Z M 10116,10772 L 10116,9527 11449,8757 11449,10772 10116,10772 Z"/&gt;
+     &lt;path fill="rgb(195,195,195)" stroke="none" d="M 11449,10772 L 11449,11137 10116,11907 10116,10772 11449,10772 Z M 10116,10740 L 10116,9527 11449,8757 11449,10740 10116,10740 Z"/&gt;
+     &lt;path fill="rgb(196,196,196)" stroke="none" d="M 11449,10740 L 11449,11137 10116,11907 10116,10740 11449,10740 Z M 10116,10709 L 10116,9527 11449,8757 11449,10709 10116,10709 Z"/&gt;
+     &lt;path fill="rgb(197,197,197)" stroke="none" d="M 11449,10709 L 11449,11137 10116,11907 10116,10709 11449,10709 Z M 10116,10677 L 10116,9527 11449,8757 11449,10677 10116,10677 Z"/&gt;
+     &lt;path fill="rgb(198,198,198)" stroke="none" d="M 11449,10677 L 11449,11137 10116,11907 10116,10677 11449,10677 Z M 10116,10646 L 10116,9527 11449,8757 11449,10646 10116,10646 Z"/&gt;
+     &lt;path fill="rgb(199,199,199)" stroke="none" d="M 11449,10646 L 11449,11137 10116,11907 10116,10646 11449,10646 Z M 11428,8787 L 11428,10614 10116,10614 10116,9527 11397,8787 11428,8787 Z"/&gt;
+     &lt;path fill="rgb(200,200,200)" stroke="none" d="M 11428,10614 L 11428,8787 11397,8787 11449,8757 11449,11137 10116,11907 10116,10614 11428,10614 Z M 11397,8818 L 11397,10583 10116,10583 10116,9527 11343,8818 11397,8818 Z"/&gt;
+     &lt;path fill="rgb(201,201,201)" stroke="none" d="M 11397,10583 L 11397,8818 11343,8818 11449,8757 11449,11137 10116,11907 10116,10583 11397,10583 Z M 11365,8850 L 11365,10551 10116,10551 10116,9527 11288,8850 11365,8850 Z"/&gt;
+     &lt;path fill="rgb(202,202,202)" stroke="none" d="M 11365,10551 L 11365,8850 11288,8850 11449,8757 11449,11137 10116,11907 10116,10551 11365,10551 Z M 11334,8881 L 11334,10520 10116,10520 10116,9527 11234,8881 11334,8881 Z"/&gt;
+     &lt;path fill="rgb(203,203,203)" stroke="none" d="M 11334,10520 L 11334,8881 11234,8881 11449,8757 11449,11137 10116,11907 10116,10520 11334,10520 Z M 11302,8913 L 11302,10488 10116,10488 10116,9527 11179,8913 11302,8913 Z"/&gt;
+     &lt;path fill="rgb(204,204,204)" stroke="none" d="M 11302,10488 L 11302,8913 11179,8913 11449,8757 11449,11137 10116,11907 10116,10488 11302,10488 Z M 11271,8944 L 11271,10457 10116,10457 10116,9527 11125,8944 11271,8944 Z"/&gt;
+     &lt;path fill="rgb(205,205,205)" stroke="none" d="M 11271,10457 L 11271,8944 11125,8944 11449,8757 11449,11137 10116,11907 10116,10457 11271,10457 Z M 11239,8976 L 11239,10425 10116,10425 10116,9527 11070,8976 11239,8976 Z"/&gt;
+     &lt;path fill="rgb(206,206,206)" stroke="none" d="M 11239,10425 L 11239,8976 11070,8976 11449,8757 11449,11137 10116,11907 10116,10425 11239,10425 Z M 11208,9007 L 11208,10394 10116,10394 10116,9527 11016,9007 11208,9007 Z"/&gt;
+     &lt;path fill="rgb(207,207,207)" stroke="none" d="M 11208,10394 L 11208,9007 11016,9007 11449,8757 11449,11137 10116,11907 10116,10394 11208,10394 Z M 11176,9039 L 11176,10362 10116,10362 10116,9527 10961,9039 11176,9039 Z"/&gt;
+     &lt;path fill="rgb(208,208,208)" stroke="none" d="M 11176,10362 L 11176,9039 10961,9039 11449,8757 11449,11137 10116,11907 10116,10362 11176,10362 Z M 11145,9070 L 11145,10331 10116,10331 10116,9527 10907,9070 11145,9070 Z"/&gt;
+     &lt;path fill="rgb(209,209,209)" stroke="none" d="M 11145,10331 L 11145,9070 10907,9070 11449,8757 11449,11137 10116,11907 10116,10331 11145,10331 Z M 11113,9102 L 11113,10299 10116,10299 10116,9527 10852,9102 11113,9102 Z"/&gt;
+     &lt;path fill="rgb(210,210,210)" stroke="none" d="M 11113,10299 L 11113,9102 10852,9102 11449,8757 11449,11137 10116,11907 10116,10299 11113,10299 Z M 11082,9133 L 11082,10268 10116,10268 10116,9527 10798,9133 11082,9133 Z"/&gt;
+     &lt;path fill="rgb(211,211,211)" stroke="none" d="M 11082,10268 L 11082,9133 10798,9133 11449,8757 11449,11137 10116,11907 10116,10268 11082,10268 Z M 11050,9165 L 11050,10236 10116,10236 10116,9527 10743,9165 11050,9165 Z"/&gt;
+     &lt;path fill="rgb(212,212,212)" stroke="none" d="M 11050,10236 L 11050,9165 10743,9165 11449,8757 11449,11137 10116,11907 10116,10236 11050,10236 Z M 11018,9197 L 11018,10204 10116,10204 10116,9527 10687,9197 11018,9197 Z"/&gt;
+     &lt;path fill="rgb(213,213,213)" stroke="none" d="M 11018,10204 L 11018,9197 10687,9197 11449,8757 11449,11137 10116,11907 10116,10204 11018,10204 Z M 10987,9228 L 10987,10173 10116,10173 10116,9527 10634,9228 10987,9228 Z"/&gt;
+     &lt;path fill="rgb(214,214,214)" stroke="none" d="M 10987,10173 L 10987,9228 10634,9228 11449,8757 11449,11137 10116,11907 10116,10173 10987,10173 Z M 10955,9260 L 10955,10141 10116,10141 10116,9527 10578,9260 10955,9260 Z"/&gt;
+     &lt;path fill="rgb(215,215,215)" stroke="none" d="M 10955,10141 L 10955,9260 10578,9260 11449,8757 11449,11137 10116,11907 10116,10141 10955,10141 Z M 10924,9291 L 10924,10110 10116,10110 10116,9527 10525,9291 10924,9291 Z"/&gt;
+     &lt;path fill="rgb(216,216,216)" stroke="none" d="M 10924,10110 L 10924,9291 10525,9291 11449,8757 11449,11137 10116,11907 10116,10110 10924,10110 Z M 10892,9323 L 10892,10078 10137,10078 10137,9515 10469,9323 10892,9323 Z"/&gt;
+     &lt;path fill="rgb(217,217,217)" stroke="none" d="M 10137,10078 L 10892,10078 10892,9323 10469,9323 11449,8757 11449,11137 10116,11907 10116,9527 10137,9515 10137,10078 Z M 10861,9354 L 10861,10047 10168,10047 10168,9497 10415,9354 10861,9354 Z"/&gt;
+     &lt;path fill="rgb(218,218,218)" stroke="none" d="M 10168,10047 L 10861,10047 10861,9354 10415,9354 11449,8757 11449,11137 10116,11907 10116,9527 10168,9497 10168,10047 Z M 10829,9386 L 10829,10015 10200,10015 10200,9478 10360,9386 10829,9386 Z"/&gt;
+     &lt;path fill="rgb(219,219,219)" stroke="none" d="M 10200,10015 L 10829,10015 10829,9386 10360,9386 11449,8757 11449,11137 10116,11907 10116,9527 10200,9478 10200,10015 Z M 10798,9417 L 10798,9984 10231,9984 10231,9461 10306,9417 10798,9417 Z"/&gt;
+     &lt;path fill="rgb(220,220,220)" stroke="none" d="M 10231,9984 L 10798,9984 10798,9417 10306,9417 11449,8757 11449,11137 10116,11907 10116,9527 10231,9461 10231,9984 Z M 10263,9449 L 10766,9449 10766,9952 10263,9952 10263,9449 Z"/&gt;
+     &lt;path fill="rgb(221,221,221)" stroke="none" d="M 10263,9449 L 10263,9952 10766,9952 10766,9449 10263,9449 Z M 10294,9480 L 10735,9480 10735,9921 10294,9921 10294,9480 Z M 10116,11907 L 10116,9527 11449,8757 11449,11137 10116,11907 Z"/&gt;
+     &lt;path fill="rgb(222,222,222)" stroke="none" d="M 10294,9480 L 10294,9921 10735,9921 10735,9480 10294,9480 Z M 10326,9512 L 10703,9512 10703,9889 10326,9889 10326,9512 Z M 10116,11907 L 10116,9527 11449,8757 11449,11137 10116,11907 Z"/&gt;
+     &lt;path fill="rgb(223,223,223)" stroke="none" d="M 10326,9512 L 10326,9889 10703,9889 10703,9512 10326,9512 Z M 10357,9543 L 10672,9543 10672,9858 10357,9858 10357,9543 Z M 10116,11907 L 10116,9527 11449,8757 11449,11137 10116,11907 Z"/&gt;
+     &lt;path fill="rgb(224,224,224)" stroke="none" d="M 10357,9543 L 10357,9858 10672,9858 10672,9543 10357,9543 Z M 10389,9575 L 10640,9575 10640,9826 10389,9826 10389,9575 Z M 10116,11907 L 10116,9527 11449,8757 11449,11137 10116,11907 Z"/&gt;
+     &lt;path fill="rgb(225,225,225)" stroke="none" d="M 10389,9575 L 10389,9826 10640,9826 10640,9575 10389,9575 Z M 10420,9606 L 10609,9606 10609,9795 10420,9795 10420,9606 Z M 10116,11907 L 10116,9527 11449,8757 11449,11137 10116,11907 Z"/&gt;
+     &lt;path fill="rgb(226,226,226)" stroke="none" d="M 10420,9606 L 10420,9795 10609,9795 10609,9606 10420,9606 Z M 10452,9638 L 10577,9638 10577,9763 10452,9763 10452,9638 Z M 10116,11907 L 10116,9527 11449,8757 11449,11137 10116,11907 Z"/&gt;
+     &lt;path fill="rgb(227,227,227)" stroke="none" d="M 10452,9638 L 10452,9763 10577,9763 10577,9638 10452,9638 Z M 10483,9669 L 10546,9669 10546,9732 10483,9732 10483,9669 Z M 10116,11907 L 10116,9527 11449,8757 11449,11137 10116,11907 Z"/&gt;
+     &lt;path fill="rgb(229,229,229)" stroke="none" d="M 10483,9669 L 10483,9732 10546,9732 10546,9669 10483,9669 Z M 10116,11907 L 10116,9527 11449,8757 11449,11137 10116,11907 Z"/&gt;
+     &lt;path fill="none" stroke="rgb(255,255,255)" id="Drawing_2_0" stroke-width="40" stroke-linejoin="round" d="M 10116,11907 L 10116,9527 11449,8757 11449,11137 10116,11907 Z"/&gt;
+    &lt;/g&gt;
+    &lt;g&gt;
+     &lt;defs&gt;
+      &lt;linearGradient id="Gradient_1194" gradientUnits="userSpaceOnUse" x1="10600" y1="8547" x2="10600" y2="9527"&gt;
+       &lt;stop offset="0.1" stop-color="rgb(179,179,179)"/&gt;
+       &lt;stop offset="1" stop-color="rgb(229,229,229)"/&gt;
+      &lt;/linearGradient&gt;
+     &lt;/defs&gt;
+     &lt;path fill="url(#Gradient_1194)" stroke="rgb(255,255,255)" id="Drawing_3_0" stroke-width="40" stroke-linejoin="round" d="M 10116,9527 L 9752,9317 11086,8547 11449,8757 10116,9527 Z"/&gt;
+    &lt;/g&gt;
+    &lt;g&gt;
+     &lt;defs&gt;
+      &lt;linearGradient id="Gradient_1195" gradientUnits="userSpaceOnUse" x1="9750" y1="10612" x2="10118" y2="10612"&gt;
+       &lt;stop offset="0.1" stop-color="rgb(179,179,179)"/&gt;
+       &lt;stop offset="1" stop-color="rgb(229,229,229)"/&gt;
+      &lt;/linearGradient&gt;
+     &lt;/defs&gt;
+     &lt;path fill="url(#Gradient_1195)" stroke="rgb(255,255,255)" id="Drawing_4_0" stroke-width="40" stroke-linejoin="round" d="M 9752,11697 L 9752,9317 10116,9527 10116,11907 9752,11697 Z"/&gt;
+    &lt;/g&gt;
+    &lt;g&gt;
+     &lt;path fill="none" stroke="rgb(0,0,0)" id="Drawing_5_0" stroke-width="40" stroke-linejoin="round" d="M 9752,11697 L 9752,9317 11086,8547 11449,8757 11449,11137 10116,11907 9752,11697 Z"/&gt;
+    &lt;/g&gt;
+    &lt;g&gt;
+     &lt;path fill="rgb(153,255,102)" stroke="none" d="M 9873,9947 L 9873,9807 9994,9877 9994,10017 9873,9947 Z"/&gt;
+     &lt;path fill="none" stroke="rgb(51,51,51)" id="Drawing_6_0" stroke-width="40" stroke-linejoin="round" d="M 9873,9947 L 9873,9807 9994,9877 9994,10017 9873,9947 Z"/&gt;
+    &lt;/g&gt;
+    &lt;g&gt;
+     &lt;path fill="rgb(204,204,204)" stroke="none" d="M 11207,8617 L 11207,7217 11328,7217 11328,8687 11207,8617 Z"/&gt;
+     &lt;path fill="none" stroke="rgb(0,0,0)" id="Drawing_7_0" stroke-width="40" stroke-linejoin="round" d="M 11207,8617 L 11207,7217 11328,7217 11328,8687 11207,8617 Z"/&gt;
+    &lt;/g&gt;
+   &lt;/g&gt;
+  &lt;/g&gt;
+ &lt;/g&gt;
+&lt;/svg&gt;</y:Resource>
+      <y:Resource id="4" xml:space="preserve">&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+
+&lt;svg version="1.2" baseProfile="tiny" width="28.09mm" height="36.8mm" viewBox="9812 6966 2809 3680" preserveAspectRatio="xMidYMid" fill-rule="evenodd" stroke-width="28.222" stroke-linejoin="round" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve"&gt;
+ &lt;g visibility="visible" id="Slide_1"&gt;
+  &lt;g id="DrawingGroup_1"&gt;
+   &lt;g&gt;
+    &lt;path fill="rgb(221,221,221)" stroke="none" d="M 11287,10346 C 11522,10346 12439,10018 12586,9902 12733,9786 12369,9506 12244,9506 12244,9654 11287,10098 11287,10346 Z"/&gt;
+    &lt;path fill="none" stroke="rgb(221,221,221)" id="Drawing_1_0" stroke-linejoin="round" d="M 11287,10346 C 11522,10346 12439,10018 12586,9902 12733,9786 12369,9506 12244,9506 12244,9654 11287,10098 11287,10346 Z"/&gt;
+   &lt;/g&gt;
+   &lt;g id="DrawingGroup_2"&gt;
+    &lt;g&gt;
+     &lt;defs&gt;
+      &lt;linearGradient id="Gradient_696" gradientUnits="userSpaceOnUse" x1="9830" y1="9225" x2="10804" y2="9227"&gt;
+       &lt;stop offset="0.1" stop-color="rgb(51,51,51)"/&gt;
+       &lt;stop offset="1" stop-color="rgb(153,153,153)"/&gt;
+      &lt;/linearGradient&gt;
+     &lt;/defs&gt;
+     &lt;path fill="url(#Gradient_696)" stroke="rgb(178,178,178)" id="Drawing_2_0" stroke-width="40" stroke-linejoin="round" d="M 9832,10066 L 9832,7826 10802,8386 10802,10626 9832,10066 Z"/&gt;
+    &lt;/g&gt;
+    &lt;g&gt;
+     &lt;path fill="rgb(51,51,51)" stroke="none" d="M 10801,9994 L 10802,8386 12258,7546 12257,9786 11896,9994 10801,9994 Z"/&gt;
+     &lt;path fill="rgb(52,52,52)" stroke="none" d="M 11896,9994 L 10801,10626 10801,9994 11896,9994 Z M 10801,9979 L 10802,8386 12258,7546 12257,9786 11922,9979 10801,9979 Z"/&gt;
+     &lt;path fill="rgb(53,53,53)" stroke="none" d="M 11922,9979 L 10801,10626 10801,9979 11922,9979 Z M 10801,9964 L 10802,8386 12258,7546 12257,9786 11948,9964 10801,9964 Z"/&gt;
+     &lt;path fill="rgb(54,54,54)" stroke="none" d="M 11948,9964 L 10801,10626 10801,9964 11948,9964 Z M 10801,9949 L 10802,8386 12258,7546 12257,9786 11974,9949 10801,9949 Z"/&gt;
+     &lt;path fill="rgb(55,55,55)" stroke="none" d="M 11974,9949 L 10801,10626 10801,9949 11974,9949 Z M 10801,9934 L 10802,8386 12258,7546 12257,9786 12000,9934 10801,9934 Z"/&gt;
+     &lt;path fill="rgb(56,56,56)" stroke="none" d="M 12000,9934 L 10801,10626 10801,9934 12000,9934 Z M 10801,9919 L 10802,8386 12258,7546 12257,9786 12026,9919 10801,9919 Z"/&gt;
+     &lt;path fill="rgb(57,57,57)" stroke="none" d="M 12026,9919 L 10801,10626 10801,9919 12026,9919 Z M 10801,9904 L 10802,8386 12258,7546 12257,9786 12052,9904 10801,9904 Z"/&gt;
+     &lt;path fill="rgb(58,58,58)" stroke="none" d="M 12052,9904 L 10801,10626 10801,9904 12052,9904 Z M 10801,9889 L 10802,8386 12258,7546 12257,9786 12078,9889 10801,9889 Z"/&gt;
+     &lt;path fill="rgb(59,59,59)" stroke="none" d="M 12078,9889 L 10801,10626 10801,9889 12078,9889 Z M 10801,9873 L 10802,8386 12258,7546 12257,9786 12106,9873 10801,9873 Z"/&gt;
+     &lt;path fill="rgb(60,60,60)" stroke="none" d="M 12106,9873 L 10801,10626 10801,9873 12106,9873 Z M 10801,9858 L 10802,8386 12258,7546 12257,9786 12132,9858 10801,9858 Z"/&gt;
+     &lt;path fill="rgb(61,61,61)" stroke="none" d="M 12132,9858 L 10801,10626 10801,9858 12132,9858 Z M 10801,9843 L 10802,8386 12258,7546 12257,9786 12158,9843 10801,9843 Z"/&gt;
+     &lt;path fill="rgb(62,62,62)" stroke="none" d="M 12158,9843 L 10801,10626 10801,9843 12158,9843 Z M 10801,9828 L 10802,8386 12258,7546 12257,9786 12184,9828 10801,9828 Z"/&gt;
+     &lt;path fill="rgb(63,63,63)" stroke="none" d="M 12184,9828 L 10801,10626 10801,9828 12184,9828 Z M 10801,9813 L 10802,8386 12258,7546 12257,9786 12210,9813 10801,9813 Z"/&gt;
+     &lt;path fill="rgb(64,64,64)" stroke="none" d="M 12210,9813 L 10801,10626 10801,9813 12210,9813 Z M 10801,9798 L 10802,8386 12258,7546 12257,9786 12236,9798 10801,9798 Z"/&gt;
+     &lt;path fill="rgb(65,65,65)" stroke="none" d="M 12236,9798 L 10801,10626 10801,9798 12236,9798 Z M 10801,9783 L 10802,8386 12258,7546 12257,9783 10801,9783 Z"/&gt;
+     &lt;path fill="rgb(66,66,66)" stroke="none" d="M 12257,9783 L 12257,9786 10801,10626 10801,9783 12257,9783 Z M 10801,9768 L 10802,8386 12258,7546 12257,9768 10801,9768 Z"/&gt;
+     &lt;path fill="rgb(67,67,67)" stroke="none" d="M 12257,9768 L 12257,9786 10801,10626 10801,9768 12257,9768 Z M 10801,9753 L 10802,8386 12258,7546 12257,9753 10801,9753 Z"/&gt;
+     &lt;path fill="rgb(68,68,68)" stroke="none" d="M 12257,9753 L 12257,9786 10801,10626 10801,9753 12257,9753 Z M 10801,9737 L 10802,8386 12258,7546 12257,9737 10801,9737 Z"/&gt;
+     &lt;path fill="rgb(69,69,69)" stroke="none" d="M 12257,9737 L 12257,9786 10801,10626 10801,9737 12257,9737 Z M 10801,9722 L 10802,8386 12258,7546 12257,9722 10801,9722 Z"/&gt;
+     &lt;path fill="rgb(70,70,70)" stroke="none" d="M 12257,9722 L 12257,9786 10801,10626 10801,9722 12257,9722 Z M 10801,9707 L 10802,8386 12258,7546 12257,9707 10801,9707 Z"/&gt;
+     &lt;path fill="rgb(71,71,71)" stroke="none" d="M 12257,9707 L 12257,9786 10801,10626 10801,9707 12257,9707 Z M 10801,9692 L 10802,8386 12258,7546 12257,9692 10801,9692 Z"/&gt;
+     &lt;path fill="rgb(72,72,72)" stroke="none" d="M 12257,9692 L 12257,9786 10801,10626 10801,9692 12257,9692 Z M 10801,9677 L 10802,8386 12258,7546 12257,9677 10801,9677 Z"/&gt;
+     &lt;path fill="rgb(73,73,73)" stroke="none" d="M 12257,9677 L 12257,9786 10801,10626 10801,9677 12257,9677 Z M 10801,9662 L 10802,8386 12258,7546 12257,9662 10801,9662 Z"/&gt;
+     &lt;path fill="rgb(74,74,74)" stroke="none" d="M 12257,9662 L 12257,9786 10801,10626 10801,9662 12257,9662 Z M 10801,9647 L 10802,8386 12258,7546 12257,9647 10801,9647 Z"/&gt;
+     &lt;path fill="rgb(75,75,75)" stroke="none" d="M 12257,9647 L 12257,9786 10801,10626 10801,9647 12257,9647 Z M 10801,9632 L 10802,8386 12258,7546 12257,9632 10801,9632 Z"/&gt;
+     &lt;path fill="rgb(76,76,76)" stroke="none" d="M 12257,9632 L 12257,9786 10801,10626 10801,9632 12257,9632 Z M 10801,9617 L 10802,8386 12258,7546 12257,9617 10801,9617 Z"/&gt;
+     &lt;path fill="rgb(77,77,77)" stroke="none" d="M 12257,9617 L 12257,9786 10801,10626 10801,9617 12257,9617 Z M 10801,9601 L 10802,8386 12258,7546 12257,9601 10801,9601 Z"/&gt;
+     &lt;path fill="rgb(78,78,78)" stroke="none" d="M 12257,9601 L 12257,9786 10801,10626 10801,9601 12257,9601 Z M 10801,9586 L 10802,8386 12258,7546 12257,9586 10801,9586 Z"/&gt;
+     &lt;path fill="rgb(79,79,79)" stroke="none" d="M 12257,9586 L 12257,9786 10801,10626 10801,9586 12257,9586 Z M 10801,9571 L 10802,8386 12258,7546 12257,9571 10801,9571 Z"/&gt;
+     &lt;path fill="rgb(80,80,80)" stroke="none" d="M 12257,9571 L 12257,9786 10801,10626 10801,9571 12257,9571 Z M 10801,9556 L 10802,8386 12258,7546 12257,9556 10801,9556 Z"/&gt;
+     &lt;path fill="rgb(81,81,81)" stroke="none" d="M 12257,9556 L 12257,9786 10801,10626 10801,9556 12257,9556 Z M 10801,9541 L 10802,8386 12258,7546 12257,9541 10801,9541 Z"/&gt;
+     &lt;path fill="rgb(82,82,82)" stroke="none" d="M 12257,9541 L 12257,9786 10801,10626 10801,9541 12257,9541 Z M 10801,9526 L 10802,8386 12258,7546 12257,9526 10801,9526 Z"/&gt;
+     &lt;path fill="rgb(83,83,83)" stroke="none" d="M 12257,9526 L 12257,9786 10801,10626 10801,9526 12257,9526 Z M 10801,9511 L 10802,8386 12258,7546 12257,9511 10801,9511 Z"/&gt;
+     &lt;path fill="rgb(84,84,84)" stroke="none" d="M 12257,9511 L 12257,9786 10801,10626 10801,9511 12257,9511 Z M 10802,9496 L 10802,8386 12258,7546 12257,9496 10802,9496 Z"/&gt;
+     &lt;path fill="rgb(85,85,85)" stroke="none" d="M 12257,9496 L 12257,9786 10801,10626 10802,9496 12257,9496 Z M 12250,9481 L 10802,9481 10802,8386 12250,7551 12250,9481 Z"/&gt;
+     &lt;path fill="rgb(86,86,86)" stroke="none" d="M 12250,9481 L 12250,7551 12258,7546 12257,9786 10801,10626 10802,9481 12250,9481 Z M 12234,9465 L 10802,9465 10802,8386 12234,7560 12234,9465 Z"/&gt;
+     &lt;path fill="rgb(87,87,87)" stroke="none" d="M 12234,9465 L 12234,7560 12258,7546 12257,9786 10801,10626 10802,9465 12234,9465 Z M 12219,9450 L 10802,9450 10802,8386 12219,7569 12219,9450 Z"/&gt;
+     &lt;path fill="rgb(88,88,88)" stroke="none" d="M 12219,9450 L 12219,7569 12258,7546 12257,9786 10801,10626 10802,9450 12219,9450 Z M 12204,9435 L 10802,9435 10802,8386 12204,7577 12204,9435 Z"/&gt;
+     &lt;path fill="rgb(89,89,89)" stroke="none" d="M 12204,9435 L 12204,7577 12258,7546 12257,9786 10801,10626 10802,9435 12204,9435 Z M 12189,9420 L 10802,9420 10802,8386 12189,7586 12189,9420 Z"/&gt;
+     &lt;path fill="rgb(90,90,90)" stroke="none" d="M 12189,9420 L 12189,7586 12258,7546 12257,9786 10801,10626 10802,9420 12189,9420 Z M 12174,9405 L 10802,9405 10802,8386 12174,7594 12174,9405 Z"/&gt;
+     &lt;path fill="rgb(91,91,91)" stroke="none" d="M 12174,9405 L 12174,7594 12258,7546 12257,9786 10801,10626 10802,9405 12174,9405 Z M 12159,9390 L 10802,9390 10802,8386 12159,7603 12159,9390 Z"/&gt;
+     &lt;path fill="rgb(92,92,92)" stroke="none" d="M 12159,9390 L 12159,7603 12258,7546 12257,9786 10801,10626 10802,9390 12159,9390 Z M 12144,9375 L 10802,9375 10802,8386 12144,7612 12144,9375 Z"/&gt;
+     &lt;path fill="rgb(93,93,93)" stroke="none" d="M 12144,9375 L 12144,7612 12258,7546 12257,9786 10801,10626 10802,9375 12144,9375 Z M 12129,9360 L 10802,9360 10802,8386 12129,7620 12129,9360 Z"/&gt;
+     &lt;path fill="rgb(94,94,94)" stroke="none" d="M 12129,9360 L 12129,7620 12258,7546 12257,9786 10801,10626 10802,9360 12129,9360 Z M 12114,9345 L 10802,9345 10802,8386 12114,7629 12114,9345 Z"/&gt;
+     &lt;path fill="rgb(95,95,95)" stroke="none" d="M 12114,9345 L 12114,7629 12258,7546 12257,9786 10801,10626 10802,9345 12114,9345 Z M 12098,9329 L 10802,9329 10802,8386 12098,7638 12098,9329 Z"/&gt;
+     &lt;path fill="rgb(96,96,96)" stroke="none" d="M 12098,9329 L 12098,7638 12258,7546 12257,9786 10801,10626 10802,9329 12098,9329 Z M 12083,9314 L 10802,9314 10802,8386 12083,7647 12083,9314 Z"/&gt;
+     &lt;path fill="rgb(97,97,97)" stroke="none" d="M 12083,9314 L 12083,7647 12258,7546 12257,9786 10801,10626 10802,9314 12083,9314 Z M 12068,9299 L 10802,9299 10802,8386 12068,7656 12068,9299 Z"/&gt;
+     &lt;path fill="rgb(98,98,98)" stroke="none" d="M 12068,9299 L 12068,7656 12258,7546 12257,9786 10801,10626 10802,9299 12068,9299 Z M 12053,9284 L 10802,9284 10802,8386 12053,7664 12053,9284 Z"/&gt;
+     &lt;path fill="rgb(99,99,99)" stroke="none" d="M 12053,9284 L 12053,7664 12258,7546 12257,9786 10801,10626 10802,9284 12053,9284 Z M 12038,9269 L 10802,9269 10802,8386 12038,7673 12038,9269 Z"/&gt;
+     &lt;path fill="rgb(100,100,100)" stroke="none" d="M 12038,9269 L 12038,7673 12258,7546 12257,9786 10801,10626 10802,9269 12038,9269 Z M 12023,7683 L 12023,9254 10802,9254 10802,8386 12021,7683 12023,7683 Z"/&gt;
+     &lt;path fill="rgb(101,101,101)" stroke="none" d="M 12023,9254 L 12023,7683 12021,7683 12258,7546 12257,9786 10801,10626 10802,9254 12023,9254 Z M 12008,7698 L 12008,9239 10802,9239 10802,8386 11995,7698 12008,7698 Z"/&gt;
+     &lt;path fill="rgb(102,102,102)" stroke="none" d="M 12008,9239 L 12008,7698 11995,7698 12258,7546 12257,9786 10801,10626 10802,9239 12008,9239 Z M 11993,7713 L 11993,9224 10802,9224 10802,8386 11969,7713 11993,7713 Z"/&gt;
+     &lt;path fill="rgb(103,103,103)" stroke="none" d="M 11993,9224 L 11993,7713 11969,7713 12258,7546 12257,9786 10801,10626 10802,9224 11993,9224 Z M 11978,7728 L 11978,9209 10802,9209 10802,8386 11943,7728 11978,7728 Z"/&gt;
+     &lt;path fill="rgb(104,104,104)" stroke="none" d="M 11978,9209 L 11978,7728 11943,7728 12258,7546 12257,9786 10801,10626 10802,9209 11978,9209 Z M 11962,7744 L 11962,9193 10802,9193 10802,8386 11915,7744 11962,7744 Z"/&gt;
+     &lt;path fill="rgb(105,105,105)" stroke="none" d="M 11962,9193 L 11962,7744 11915,7744 12258,7546 12257,9786 10801,10626 10802,9193 11962,9193 Z M 11947,7759 L 11947,9178 10802,9178 10802,8386 11889,7759 11947,7759 Z"/&gt;
+     &lt;path fill="rgb(106,106,106)" stroke="none" d="M 11947,9178 L 11947,7759 11889,7759 12258,7546 12257,9786 10801,10626 10802,9178 11947,9178 Z M 11932,7774 L 11932,9163 10802,9163 10802,8386 11863,7774 11932,7774 Z"/&gt;
+     &lt;path fill="rgb(107,107,107)" stroke="none" d="M 11932,9163 L 11932,7774 11863,7774 12258,7546 12257,9786 10801,10626 10802,9163 11932,9163 Z M 11917,7789 L 11917,9148 10802,9148 10802,8386 11837,7789 11917,7789 Z"/&gt;
+     &lt;path fill="rgb(108,108,108)" stroke="none" d="M 11917,9148 L 11917,7789 11837,7789 12258,7546 12257,9786 10801,10626 10802,9148 11917,9148 Z M 11902,7804 L 11902,9133 10802,9133 10802,8386 11811,7804 11902,7804 Z"/&gt;
+     &lt;path fill="rgb(109,109,109)" stroke="none" d="M 11902,9133 L 11902,7804 11811,7804 12258,7546 12257,9786 10801,10626 10802,9133 11902,9133 Z M 11887,7819 L 11887,9118 10802,9118 10802,8386 11785,7819 11887,7819 Z"/&gt;
+     &lt;path fill="rgb(110,110,110)" stroke="none" d="M 11887,9118 L 11887,7819 11785,7819 12258,7546 12257,9786 10801,10626 10802,9118 11887,9118 Z M 11872,7834 L 11872,9103 10802,9103 10802,8386 11759,7834 11872,7834 Z"/&gt;
+     &lt;path fill="rgb(111,111,111)" stroke="none" d="M 11872,9103 L 11872,7834 11759,7834 12258,7546 12257,9786 10801,10626 10802,9103 11872,9103 Z M 11857,7849 L 11857,9088 10802,9088 10802,8386 11733,7849 11857,7849 Z"/&gt;
+     &lt;path fill="rgb(112,112,112)" stroke="none" d="M 11857,9088 L 11857,7849 11733,7849 12258,7546 12257,9786 10801,10626 10802,9088 11857,9088 Z M 11842,7864 L 11842,9073 10802,9073 10802,8386 11707,7864 11842,7864 Z"/&gt;
+     &lt;path fill="rgb(113,113,113)" stroke="none" d="M 11842,9073 L 11842,7864 11707,7864 12258,7546 12257,9786 10801,10626 10802,9073 11842,9073 Z M 11826,7880 L 11826,9057 10802,9057 10802,8386 11679,7880 11826,7880 Z"/&gt;
+     &lt;path fill="rgb(114,114,114)" stroke="none" d="M 11826,9057 L 11826,7880 11679,7880 12258,7546 12257,9786 10801,10626 10802,9057 11826,9057 Z M 11811,7895 L 11811,9042 10802,9042 10802,8386 11653,7895 11811,7895 Z"/&gt;
+     &lt;path fill="rgb(115,115,115)" stroke="none" d="M 11811,9042 L 11811,7895 11653,7895 12258,7546 12257,9786 10801,10626 10802,9042 11811,9042 Z M 11796,7910 L 11796,9027 10802,9027 10802,8386 11627,7910 11796,7910 Z"/&gt;
+     &lt;path fill="rgb(116,116,116)" stroke="none" d="M 11796,9027 L 11796,7910 11627,7910 12258,7546 12257,9786 10801,10626 10802,9027 11796,9027 Z M 11781,7925 L 11781,9012 10802,9012 10802,8386 11601,7925 11781,7925 Z"/&gt;
+     &lt;path fill="rgb(117,117,117)" stroke="none" d="M 11781,9012 L 11781,7925 11601,7925 12258,7546 12257,9786 10801,10626 10802,9012 11781,9012 Z M 11766,7940 L 11766,8997 10802,8997 10802,8386 11575,7940 11766,7940 Z"/&gt;
+     &lt;path fill="rgb(118,118,118)" stroke="none" d="M 11766,8997 L 11766,7940 11575,7940 12258,7546 12257,9786 10801,10626 10802,8997 11766,8997 Z M 11751,7955 L 11751,8982 10802,8982 10802,8386 11549,7955 11751,7955 Z"/&gt;
+     &lt;path fill="rgb(119,119,119)" stroke="none" d="M 11751,8982 L 11751,7955 11549,7955 12258,7546 12257,9786 10801,10626 10802,8982 11751,8982 Z M 11736,7970 L 11736,8967 10802,8967 10802,8386 11523,7970 11736,7970 Z"/&gt;
+     &lt;path fill="rgb(120,120,120)" stroke="none" d="M 11736,8967 L 11736,7970 11523,7970 12258,7546 12257,9786 10801,10626 10802,8967 11736,8967 Z M 11721,7985 L 11721,8952 10802,8952 10802,8386 11497,7985 11721,7985 Z"/&gt;
+     &lt;path fill="rgb(121,121,121)" stroke="none" d="M 11721,8952 L 11721,7985 11497,7985 12258,7546 12257,9786 10801,10626 10802,8952 11721,8952 Z M 11705,8001 L 11705,8936 10802,8936 10802,8386 11469,8001 11705,8001 Z"/&gt;
+     &lt;path fill="rgb(122,122,122)" stroke="none" d="M 11705,8936 L 11705,8001 11469,8001 12258,7546 12257,9786 10801,10626 10802,8936 11705,8936 Z M 11690,8016 L 11690,8921 10802,8921 10802,8386 11443,8016 11690,8016 Z"/&gt;
+     &lt;path fill="rgb(123,123,123)" stroke="none" d="M 11690,8921 L 11690,8016 11443,8016 12258,7546 12257,9786 10801,10626 10802,8921 11690,8921 Z M 11675,8031 L 11675,8906 10802,8906 10802,8386 11417,8031 11675,8031 Z"/&gt;
+     &lt;path fill="rgb(124,124,124)" stroke="none" d="M 11675,8906 L 11675,8031 11417,8031 12258,7546 12257,9786 10801,10626 10802,8906 11675,8906 Z M 11660,8046 L 11660,8891 10815,8891 10815,8379 11391,8046 11660,8046 Z"/&gt;
+     &lt;path fill="rgb(125,125,125)" stroke="none" d="M 10815,8891 L 11660,8891 11660,8046 11391,8046 12258,7546 12257,9786 10801,10626 10802,8386 10815,8379 10815,8891 Z M 11645,8061 L 11645,8876 10830,8876 10830,8370 11365,8061 11645,8061 Z"/&gt;
+     &lt;path fill="rgb(126,126,126)" stroke="none" d="M 10830,8876 L 11645,8876 11645,8061 11365,8061 12258,7546 12257,9786 10801,10626 10802,8386 10830,8370 10830,8876 Z M 11630,8076 L 11630,8861 10845,8861 10845,8361 11339,8076 11630,8076 Z"/&gt;
+     &lt;path fill="rgb(127,127,127)" stroke="none" d="M 10845,8861 L 11630,8861 11630,8076 11339,8076 12258,7546 12257,9786 10801,10626 10802,8386 10845,8361 10845,8861 Z M 11615,8091 L 11615,8846 10860,8846 10860,8353 11313,8091 11615,8091 Z"/&gt;
+     &lt;path fill="rgb(128,128,128)" stroke="none" d="M 10860,8846 L 11615,8846 11615,8091 11313,8091 12258,7546 12257,9786 10801,10626 10802,8386 10860,8353 10860,8846 Z M 11600,8106 L 11600,8831 10875,8831 10875,8344 11287,8106 11600,8106 Z"/&gt;
+     &lt;path fill="rgb(129,129,129)" stroke="none" d="M 10875,8831 L 11600,8831 11600,8106 11287,8106 12258,7546 12257,9786 10801,10626 10802,8386 10875,8344 10875,8831 Z M 11585,8121 L 11585,8816 10890,8816 10890,8335 11261,8121 11585,8121 Z"/&gt;
+     &lt;path fill="rgb(130,130,130)" stroke="none" d="M 10890,8816 L 11585,8816 11585,8121 11261,8121 12258,7546 12257,9786 10801,10626 10802,8386 10890,8335 10890,8816 Z M 11569,8137 L 11569,8800 10906,8800 10906,8326 11234,8137 11569,8137 Z"/&gt;
+     &lt;path fill="rgb(131,131,131)" stroke="none" d="M 10906,8800 L 11569,8800 11569,8137 11234,8137 12258,7546 12257,9786 10801,10626 10802,8386 10906,8326 10906,8800 Z M 11554,8152 L 11554,8785 10921,8785 10921,8317 11208,8152 11554,8152 Z"/&gt;
+     &lt;path fill="rgb(132,132,132)" stroke="none" d="M 10921,8785 L 11554,8785 11554,8152 11208,8152 12258,7546 12257,9786 10801,10626 10802,8386 10921,8317 10921,8785 Z M 11539,8167 L 11539,8770 10936,8770 10936,8309 11182,8167 11539,8167 Z"/&gt;
+     &lt;path fill="rgb(133,133,133)" stroke="none" d="M 10936,8770 L 11539,8770 11539,8167 11182,8167 12258,7546 12257,9786 10801,10626 10802,8386 10936,8309 10936,8770 Z M 11524,8182 L 11524,8755 10951,8755 10951,8300 11156,8182 11524,8182 Z"/&gt;
+     &lt;path fill="rgb(134,134,134)" stroke="none" d="M 10951,8755 L 11524,8755 11524,8182 11156,8182 12258,7546 12257,9786 10801,10626 10802,8386 10951,8300 10951,8755 Z M 11509,8197 L 11509,8740 10966,8740 10966,8291 11130,8197 11509,8197 Z"/&gt;
+     &lt;path fill="rgb(135,135,135)" stroke="none" d="M 10966,8740 L 11509,8740 11509,8197 11130,8197 12258,7546 12257,9786 10801,10626 10802,8386 10966,8291 10966,8740 Z M 11494,8212 L 11494,8725 10981,8725 10981,8283 11104,8212 11494,8212 Z"/&gt;
+     &lt;path fill="rgb(136,136,136)" stroke="none" d="M 10981,8725 L 11494,8725 11494,8212 11104,8212 12258,7546 12257,9786 10801,10626 10802,8386 10981,8283 10981,8725 Z M 11479,8227 L 11479,8710 10996,8710 10996,8274 11078,8227 11479,8227 Z"/&gt;
+     &lt;path fill="rgb(137,137,137)" stroke="none" d="M 10996,8710 L 11479,8710 11479,8227 11078,8227 12258,7546 12257,9786 10801,10626 10802,8386 10996,8274 10996,8710 Z M 11464,8242 L 11464,8695 11011,8695 11011,8265 11052,8242 11464,8242 Z"/&gt;
+     &lt;path fill="rgb(138,138,138)" stroke="none" d="M 11011,8695 L 11464,8695 11464,8242 11052,8242 12258,7546 12257,9786 10801,10626 10802,8386 11011,8265 11011,8695 Z M 11026,8257 L 11449,8257 11449,8680 11026,8680 11026,8257 Z"/&gt;
+     &lt;path fill="rgb(139,139,139)" stroke="none" d="M 11026,8257 L 11026,8680 11449,8680 11449,8257 11026,8257 Z M 11042,8273 L 11433,8273 11433,8664 11042,8664 11042,8273 Z M 10801,10626 L 10802,8386 12258,7546 12257,9786 10801,10626 Z"/&gt;
+     &lt;path fill="rgb(140,140,140)" stroke="none" d="M 11042,8273 L 11042,8664 11433,8664 11433,8273 11042,8273 Z M 11057,8288 L 11418,8288 11418,8649 11057,8649 11057,8288 Z M 10801,10626 L 10802,8386 12258,7546 12257,9786 10801,10626 Z"/&gt;
+     &lt;path fill="rgb(141,141,141)" stroke="none" d="M 11057,8288 L 11057,8649 11418,8649 11418,8288 11057,8288 Z M 11072,8303 L 11403,8303 11403,8634 11072,8634 11072,8303 Z M 10801,10626 L 10802,8386 12258,7546 12257,9786 10801,10626 Z"/&gt;
+     &lt;path fill="rgb(142,142,142)" stroke="none" d="M 11072,8303 L 11072,8634 11403,8634 11403,8303 11072,8303 Z M 11087,8318 L 11388,8318 11388,8619 11087,8619 11087,8318 Z M 10801,10626 L 10802,8386 12258,7546 12257,9786 10801,10626 Z"/&gt;
+     &lt;path fill="rgb(143,143,143)" stroke="none" d="M 11087,8318 L 11087,8619 11388,8619 11388,8318 11087,8318 Z M 11102,8333 L 11373,8333 11373,8604 11102,8604 11102,8333 Z M 10801,10626 L 10802,8386 12258,7546 12257,9786 10801,10626 Z"/&gt;
+     &lt;path fill="rgb(144,144,144)" stroke="none" d="M 11102,8333 L 11102,8604 11373,8604 11373,8333 11102,8333 Z M 11117,8348 L 11358,8348 11358,8589 11117,8589 11117,8348 Z M 10801,10626 L 10802,8386 12258,7546 12257,9786 10801,10626 Z"/&gt;
+     &lt;path fill="rgb(145,145,145)" stroke="none" d="M 11117,8348 L 11117,8589 11358,8589 11358,8348 11117,8348 Z M 11132,8363 L 11343,8363 11343,8574 11132,8574 11132,8363 Z M 10801,10626 L 10802,8386 12258,7546 12257,9786 10801,10626 Z"/&gt;
+     &lt;path fill="rgb(146,146,146)" stroke="none" d="M 11132,8363 L 11132,8574 11343,8574 11343,8363 11132,8363 Z M 11147,8378 L 11328,8378 11328,8559 11147,8559 11147,8378 Z M 10801,10626 L 10802,8386 12258,7546 12257,9786 10801,10626 Z"/&gt;
+     &lt;path fill="rgb(147,147,147)" stroke="none" d="M 11147,8378 L 11147,8559 11328,8559 11328,8378 11147,8378 Z M 11162,8393 L 11313,8393 11313,8544 11162,8544 11162,8393 Z M 10801,10626 L 10802,8386 12258,7546 12257,9786 10801,10626 Z"/&gt;
+     &lt;path fill="rgb(148,148,148)" stroke="none" d="M 11162,8393 L 11162,8544 11313,8544 11313,8393 11162,8393 Z M 11178,8409 L 11297,8409 11297,8528 11178,8528 11178,8409 Z M 10801,10626 L 10802,8386 12258,7546 12257,9786 10801,10626 Z"/&gt;
+     &lt;path fill="rgb(149,149,149)" stroke="none" d="M 11178,8409 L 11178,8528 11297,8528 11297,8409 11178,8409 Z M 11193,8424 L 11282,8424 11282,8513 11193,8513 11193,8424 Z M 10801,10626 L 10802,8386 12258,7546 12257,9786 10801,10626 Z"/&gt;
+     &lt;path fill="rgb(150,150,150)" stroke="none" d="M 11193,8424 L 11193,8513 11282,8513 11282,8424 11193,8424 Z M 11208,8439 L 11267,8439 11267,8498 11208,8498 11208,8439 Z M 10801,10626 L 10802,8386 12258,7546 12257,9786 10801,10626 Z"/&gt;
+     &lt;path fill="rgb(151,151,151)" stroke="none" d="M 11208,8439 L 11208,8498 11267,8498 11267,8439 11208,8439 Z M 11223,8454 L 11252,8454 11252,8483 11223,8483 11223,8454 Z M 10801,10626 L 10802,8386 12258,7546 12257,9786 10801,10626 Z"/&gt;
+     &lt;path fill="rgb(153,153,153)" stroke="none" d="M 11223,8454 L 11223,8483 11252,8483 11252,8454 11223,8454 Z M 10801,10626 L 10802,8386 12258,7546 12257,9786 10801,10626 Z"/&gt;
+     &lt;path fill="none" stroke="rgb(178,178,178)" id="Drawing_3_0" stroke-width="40" stroke-linejoin="round" d="M 10801,10626 L 10802,8386 12258,7546 12257,9786 10801,10626 Z"/&gt;
+    &lt;/g&gt;
+    &lt;g&gt;
+     &lt;defs&gt;
+      &lt;linearGradient id="Gradient_697" gradientUnits="userSpaceOnUse" x1="11044" y1="6986" x2="11044" y2="8386"&gt;
+       &lt;stop offset="0.1" stop-color="rgb(51,51,51)"/&gt;
+       &lt;stop offset="1" stop-color="rgb(153,153,153)"/&gt;
+      &lt;/linearGradient&gt;
+     &lt;/defs&gt;
+     &lt;path fill="url(#Gradient_697)" stroke="rgb(178,178,178)" id="Drawing_4_0" stroke-width="40" stroke-linejoin="round" d="M 10802,8386 L 9832,7826 11287,6986 12257,7546 10802,8386 Z"/&gt;
+    &lt;/g&gt;
+    &lt;g&gt;
+     &lt;path fill="none" stroke="rgb(0,0,0)" id="Drawing_5_0" stroke-width="40" stroke-linejoin="round" d="M 9832,10066 L 9833,7826 11289,6986 12258,7546 12257,9786 10801,10626 9832,10066 Z"/&gt;
+    &lt;/g&gt;
+    &lt;g&gt;
+     &lt;path fill="rgb(57,181,74)" stroke="none" d="M 10559,8526 L 10559,8386 10680,8456 10680,8596 10559,8526 Z"/&gt;
+     &lt;path fill="none" stroke="rgb(102,102,102)" id="Drawing_6_0" stroke-width="40" stroke-linejoin="round" d="M 10559,8526 L 10559,8386 10680,8456 10680,8596 10559,8526 Z"/&gt;
+    &lt;/g&gt;
+    &lt;g&gt;
+     &lt;path fill="rgb(209,97,108)" stroke="none" d="M 10317,8386 L 10317,8246 10439,8316 10439,8456 10317,8386 Z"/&gt;
+     &lt;path fill="none" stroke="rgb(102,102,102)" id="Drawing_7_0" stroke-width="40" stroke-linejoin="round" d="M 10317,8386 L 10317,8246 10439,8316 10439,8456 10317,8386 Z"/&gt;
+    &lt;/g&gt;
+    &lt;g&gt;
+     &lt;path fill="rgb(0,0,0)" stroke="none" d="M 10074,10066 L 10074,9716 10195,9786 10195,10136 10074,10066 Z"/&gt;
+     &lt;path fill="none" stroke="rgb(178,178,178)" id="Drawing_8_0" stroke-width="40" stroke-linejoin="round" d="M 10074,10066 L 10074,9716 10195,9786 10195,10136 10074,10066 Z"/&gt;
+    &lt;/g&gt;
+    &lt;g&gt;
+     &lt;path fill="rgb(0,0,0)" stroke="none" d="M 10317,9786 L 10317,9436 10438,9506 10438,9856 10317,9786 Z"/&gt;
+     &lt;path fill="none" stroke="rgb(178,178,178)" id="Drawing_9_0" stroke-width="40" stroke-linejoin="round" d="M 10317,9786 L 10317,9436 10438,9506 10438,9856 10317,9786 Z"/&gt;
+    &lt;/g&gt;
+    &lt;g&gt;
+     &lt;path fill="rgb(0,0,0)" stroke="none" d="M 10074,9086 L 10074,8876 10195,8946 10195,9156 10074,9086 Z"/&gt;
+     &lt;path fill="none" stroke="rgb(178,178,178)" id="Drawing_10_0" stroke-width="40" stroke-linejoin="round" d="M 10074,9086 L 10074,8876 10195,8946 10195,9156 10074,9086 Z"/&gt;
+    &lt;/g&gt;
+    &lt;g&gt;
+     &lt;path fill="rgb(0,0,0)" stroke="none" d="M 10074,8736 L 10074,8596 10195,8666 10195,8806 10074,8736 Z"/&gt;
+     &lt;path fill="none" stroke="rgb(178,178,178)" id="Drawing_11_0" stroke-width="40" stroke-linejoin="round" d="M 10074,8736 L 10074,8596 10195,8666 10195,8806 10074,8736 Z"/&gt;
+    &lt;/g&gt;
+    &lt;g&gt;
+     &lt;path fill="rgb(0,0,0)" stroke="none" d="M 10074,9646 L 10074,9296 10195,9366 10195,9716 10074,9646 Z"/&gt;
+     &lt;path fill="none" stroke="rgb(178,178,178)" id="Drawing_12_0" stroke-width="40" stroke-linejoin="round" d="M 10074,9646 L 10074,9296 10195,9366 10195,9716 10074,9646 Z"/&gt;
+    &lt;/g&gt;
+    &lt;g&gt;
+     &lt;path fill="rgb(0,0,0)" stroke="none" d="M 10317,10206 L 10317,9856 10438,9926 10438,10276 10317,10206 Z"/&gt;
+     &lt;path fill="none" stroke="rgb(178,178,178)" id="Drawing_13_0" stroke-width="40" stroke-linejoin="round" d="M 10317,10206 L 10317,9856 10438,9926 10438,10276 10317,10206 Z"/&gt;
+    &lt;/g&gt;
+    &lt;g&gt;
+     &lt;path fill="rgb(0,0,0)" stroke="none" d="M 10317,9226 L 10317,9016 10438,9086 10438,9296 10317,9226 Z"/&gt;
+     &lt;path fill="none" stroke="rgb(178,178,178)" id="Drawing_14_0" stroke-width="40" stroke-linejoin="round" d="M 10317,9226 L 10317,9016 10438,9086 10438,9296 10317,9226 Z"/&gt;
+    &lt;/g&gt;
+    &lt;g&gt;
+     &lt;path fill="rgb(0,0,0)" stroke="none" d="M 10317,8876 L 10317,8736 10438,8806 10438,8946 10317,8876 Z"/&gt;
+     &lt;path fill="none" stroke="rgb(178,178,178)" id="Drawing_15_0" stroke-width="40" stroke-linejoin="round" d="M 10317,8876 L 10317,8736 10438,8806 10438,8946 10317,8876 Z"/&gt;
+    &lt;/g&gt;
+   &lt;/g&gt;
+  &lt;/g&gt;
+ &lt;/g&gt;
+&lt;/svg&gt;</y:Resource>
+      <y:Resource id="5" xml:space="preserve">&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+
+&lt;svg version="1.2" baseProfile="tiny" width="9.65mm" height="16.5mm" viewBox="8401 9947 965 1650" preserveAspectRatio="xMidYMid" fill-rule="evenodd" stroke-width="28.222" stroke-linejoin="round" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve"&gt;
+ &lt;g visibility="visible" id="Slide_1"&gt;
+  &lt;g id="DrawingGroup_1"&gt;
+   &lt;g&gt;
+    &lt;path fill="rgb(221,221,221)" stroke="none" d="M 8712,11442 C 8798,11437 9168,11367 9289,11297 9410,11227 9318,11022 9197,11022 9076,11022 8677,11444 8712,11442 Z"/&gt;
+    &lt;path fill="none" stroke="rgb(221,221,221)" id="Drawing_1_0" stroke-width="40" stroke-linejoin="round" d="M 8712,11442 C 8798,11437 9168,11367 9289,11297 9410,11227 9318,11022 9197,11022 9076,11022 8677,11444 8712,11442 Z"/&gt;
+   &lt;/g&gt;
+   &lt;g id="DrawingGroup_2"&gt;
+    &lt;g&gt;
+     &lt;path fill="rgb(102,102,102)" stroke="none" d="M 8511,11250 L 8511,10383 9140,10019 9140,11214 9078,11250 8511,11250 Z"/&gt;
+     &lt;path fill="rgb(103,103,103)" stroke="none" d="M 9078,11250 L 8511,11577 8511,11250 9078,11250 Z M 8511,11235 L 8511,10383 9140,10019 9140,11214 9104,11235 8511,11235 Z"/&gt;
+     &lt;path fill="rgb(104,104,104)" stroke="none" d="M 9104,11235 L 8511,11577 8511,11235 9104,11235 Z M 8511,11220 L 8511,10383 9140,10019 9140,11214 9130,11220 8511,11220 Z"/&gt;
+     &lt;path fill="rgb(105,105,105)" stroke="none" d="M 9130,11220 L 8511,11577 8511,11220 9130,11220 Z M 8511,11204 L 8511,10383 9140,10019 9140,11204 8511,11204 Z"/&gt;
+     &lt;path fill="rgb(106,106,106)" stroke="none" d="M 9140,11204 L 9140,11214 8511,11577 8511,11204 9140,11204 Z M 8511,11189 L 8511,10383 9140,10019 9140,11189 8511,11189 Z"/&gt;
+     &lt;path fill="rgb(107,107,107)" stroke="none" d="M 9140,11189 L 9140,11214 8511,11577 8511,11189 9140,11189 Z M 8511,11174 L 8511,10383 9140,10019 9140,11174 8511,11174 Z"/&gt;
+     &lt;path fill="rgb(108,108,108)" stroke="none" d="M 9140,11174 L 9140,11214 8511,11577 8511,11174 9140,11174 Z M 8511,11158 L 8511,10383 9140,10019 9140,11158 8511,11158 Z"/&gt;
+     &lt;path fill="rgb(109,109,109)" stroke="none" d="M 9140,11158 L 9140,11214 8511,11577 8511,11158 9140,11158 Z M 8511,11143 L 8511,10383 9140,10019 9140,11143 8511,11143 Z"/&gt;
+     &lt;path fill="rgb(110,110,110)" stroke="none" d="M 9140,11143 L 9140,11214 8511,11577 8511,11143 9140,11143 Z M 8511,11128 L 8511,10383 9140,10019 9140,11128 8511,11128 Z"/&gt;
+     &lt;path fill="rgb(111,111,111)" stroke="none" d="M 9140,11128 L 9140,11214 8511,11577 8511,11128 9140,11128 Z M 8511,11112 L 8511,10383 9140,10019 9140,11112 8511,11112 Z"/&gt;
+     &lt;path fill="rgb(112,112,112)" stroke="none" d="M 9140,11112 L 9140,11214 8511,11577 8511,11112 9140,11112 Z M 8511,11097 L 8511,10383 9140,10019 9140,11097 8511,11097 Z"/&gt;
+     &lt;path fill="rgb(113,113,113)" stroke="none" d="M 9140,11097 L 9140,11214 8511,11577 8511,11097 9140,11097 Z M 8511,11082 L 8511,10383 9140,10019 9140,11082 8511,11082 Z"/&gt;
+     &lt;path fill="rgb(114,114,114)" stroke="none" d="M 9140,11082 L 9140,11214 8511,11577 8511,11082 9140,11082 Z M 8511,11067 L 8511,10383 9140,10019 9140,11067 8511,11067 Z"/&gt;
+     &lt;path fill="rgb(115,115,115)" stroke="none" d="M 9140,11067 L 9140,11214 8511,11577 8511,11067 9140,11067 Z M 8511,11051 L 8511,10383 9140,10019 9140,11051 8511,11051 Z"/&gt;
+     &lt;path fill="rgb(116,116,116)" stroke="none" d="M 9140,11051 L 9140,11214 8511,11577 8511,11051 9140,11051 Z M 8511,11036 L 8511,10383 9140,10019 9140,11036 8511,11036 Z"/&gt;
+     &lt;path fill="rgb(117,117,117)" stroke="none" d="M 9140,11036 L 9140,11214 8511,11577 8511,11036 9140,11036 Z M 8511,11021 L 8511,10383 9140,10019 9140,11021 8511,11021 Z"/&gt;
+     &lt;path fill="rgb(118,118,118)" stroke="none" d="M 9140,11021 L 9140,11214 8511,11577 8511,11021 9140,11021 Z M 8511,11005 L 8511,10383 9140,10019 9140,11005 8511,11005 Z"/&gt;
+     &lt;path fill="rgb(119,119,119)" stroke="none" d="M 9140,11005 L 9140,11214 8511,11577 8511,11005 9140,11005 Z M 8511,10990 L 8511,10383 9140,10019 9140,10990 8511,10990 Z"/&gt;
+     &lt;path fill="rgb(120,120,120)" stroke="none" d="M 9140,10990 L 9140,11214 8511,11577 8511,10990 9140,10990 Z M 8511,10975 L 8511,10383 9140,10019 9140,10975 8511,10975 Z"/&gt;
+     &lt;path fill="rgb(121,121,121)" stroke="none" d="M 9140,10975 L 9140,11214 8511,11577 8511,10975 9140,10975 Z M 8511,10959 L 8511,10383 9140,10019 9140,10959 8511,10959 Z"/&gt;
+     &lt;path fill="rgb(122,122,122)" stroke="none" d="M 9140,10959 L 9140,11214 8511,11577 8511,10959 9140,10959 Z M 9140,10027 L 9140,10944 8511,10944 8511,10383 9126,10027 9140,10027 Z"/&gt;
+     &lt;path fill="rgb(123,123,123)" stroke="none" d="M 9140,10944 L 9140,11214 8511,11577 8511,10944 9140,10944 Z M 9126,10027 L 9140,10019 9140,10027 9126,10027 Z M 9140,10042 L 9140,10929 8511,10929 8511,10383 9100,10042 9140,10042 Z"/&gt;
+     &lt;path fill="rgb(124,124,124)" stroke="none" d="M 9140,10929 L 9140,11214 8511,11577 8511,10929 9140,10929 Z M 9100,10042 L 9140,10019 9140,10042 9100,10042 Z M 9127,10057 L 9127,10914 8511,10914 8511,10383 9074,10057 9127,10057 Z"/&gt;
+     &lt;path fill="rgb(125,125,125)" stroke="none" d="M 9127,10914 L 9127,10057 9074,10057 9140,10019 9140,11214 8511,11577 8511,10914 9127,10914 Z M 9111,10073 L 9111,10898 8511,10898 8511,10383 9047,10073 9111,10073 Z"/&gt;
+     &lt;path fill="rgb(126,126,126)" stroke="none" d="M 9111,10898 L 9111,10073 9047,10073 9140,10019 9140,11214 8511,11577 8511,10898 9111,10898 Z M 9096,10088 L 9096,10883 8511,10883 8511,10383 9021,10088 9096,10088 Z"/&gt;
+     &lt;path fill="rgb(127,127,127)" stroke="none" d="M 9096,10883 L 9096,10088 9021,10088 9140,10019 9140,11214 8511,11577 8511,10883 9096,10883 Z M 9081,10103 L 9081,10868 8511,10868 8511,10383 8995,10103 9081,10103 Z"/&gt;
+     &lt;path fill="rgb(128,128,128)" stroke="none" d="M 9081,10868 L 9081,10103 8995,10103 9140,10019 9140,11214 8511,11577 8511,10868 9081,10868 Z M 9065,10119 L 9065,10852 8511,10852 8511,10383 8967,10119 9065,10119 Z"/&gt;
+     &lt;path fill="rgb(129,129,129)" stroke="none" d="M 9065,10852 L 9065,10119 8967,10119 9140,10019 9140,11214 8511,11577 8511,10852 9065,10852 Z M 9050,10134 L 9050,10837 8511,10837 8511,10383 8941,10134 9050,10134 Z"/&gt;
+     &lt;path fill="rgb(130,130,130)" stroke="none" d="M 9050,10837 L 9050,10134 8941,10134 9140,10019 9140,11214 8511,11577 8511,10837 9050,10837 Z M 9035,10149 L 9035,10822 8511,10822 8511,10383 8915,10149 9035,10149 Z"/&gt;
+     &lt;path fill="rgb(131,131,131)" stroke="none" d="M 9035,10822 L 9035,10149 8915,10149 9140,10019 9140,11214 8511,11577 8511,10822 9035,10822 Z M 9019,10165 L 9019,10806 8511,10806 8511,10383 8888,10165 9019,10165 Z"/&gt;
+     &lt;path fill="rgb(132,132,132)" stroke="none" d="M 9019,10806 L 9019,10165 8888,10165 9140,10019 9140,11214 8511,11577 8511,10806 9019,10806 Z M 9004,10180 L 9004,10791 8511,10791 8511,10383 8862,10180 9004,10180 Z"/&gt;
+     &lt;path fill="rgb(133,133,133)" stroke="none" d="M 9004,10791 L 9004,10180 8862,10180 9140,10019 9140,11214 8511,11577 8511,10791 9004,10791 Z M 8989,10195 L 8989,10776 8511,10776 8511,10383 8836,10195 8989,10195 Z"/&gt;
+     &lt;path fill="rgb(134,134,134)" stroke="none" d="M 8989,10776 L 8989,10195 8836,10195 9140,10019 9140,11214 8511,11577 8511,10776 8989,10776 Z M 8973,10211 L 8973,10760 8511,10760 8511,10383 8808,10211 8973,10211 Z"/&gt;
+     &lt;path fill="rgb(135,135,135)" stroke="none" d="M 8973,10760 L 8973,10211 8808,10211 9140,10019 9140,11214 8511,11577 8511,10760 8973,10760 Z M 8958,10226 L 8958,10745 8511,10745 8511,10383 8782,10226 8958,10226 Z"/&gt;
+     &lt;path fill="rgb(136,136,136)" stroke="none" d="M 8958,10745 L 8958,10226 8782,10226 9140,10019 9140,11214 8511,11577 8511,10745 8958,10745 Z M 8943,10241 L 8943,10730 8511,10730 8511,10383 8756,10241 8943,10241 Z"/&gt;
+     &lt;path fill="rgb(137,137,137)" stroke="none" d="M 8943,10730 L 8943,10241 8756,10241 9140,10019 9140,11214 8511,11577 8511,10730 8943,10730 Z M 8928,10256 L 8928,10715 8511,10715 8511,10383 8730,10256 8928,10256 Z"/&gt;
+     &lt;path fill="rgb(138,138,138)" stroke="none" d="M 8928,10715 L 8928,10256 8730,10256 9140,10019 9140,11214 8511,11577 8511,10715 8928,10715 Z M 8912,10272 L 8912,10699 8511,10699 8511,10383 8703,10272 8912,10272 Z"/&gt;
+     &lt;path fill="rgb(139,139,139)" stroke="none" d="M 8912,10699 L 8912,10272 8703,10272 9140,10019 9140,11214 8511,11577 8511,10699 8912,10699 Z M 8897,10287 L 8897,10684 8511,10684 8511,10383 8677,10287 8897,10287 Z"/&gt;
+     &lt;path fill="rgb(140,140,140)" stroke="none" d="M 8897,10684 L 8897,10287 8677,10287 9140,10019 9140,11214 8511,11577 8511,10684 8897,10684 Z M 8882,10302 L 8882,10669 8515,10669 8515,10381 8651,10302 8882,10302 Z"/&gt;
+     &lt;path fill="rgb(141,141,141)" stroke="none" d="M 8515,10669 L 8882,10669 8882,10302 8651,10302 9140,10019 9140,11214 8511,11577 8511,10383 8515,10381 8515,10669 Z M 8866,10318 L 8866,10653 8531,10653 8531,10371 8623,10318 8866,10318 Z"/&gt;
+     &lt;path fill="rgb(142,142,142)" stroke="none" d="M 8531,10653 L 8866,10653 8866,10318 8623,10318 9140,10019 9140,11214 8511,11577 8511,10383 8531,10371 8531,10653 Z M 8851,10333 L 8851,10638 8546,10638 8546,10363 8597,10333 8851,10333 Z"/&gt;
+     &lt;path fill="rgb(143,143,143)" stroke="none" d="M 8546,10638 L 8851,10638 8851,10333 8597,10333 9140,10019 9140,11214 8511,11577 8511,10383 8546,10363 8546,10638 Z M 8836,10348 L 8836,10623 8561,10623 8561,10354 8571,10348 8836,10348 Z"/&gt;
+     &lt;path fill="rgb(144,144,144)" stroke="none" d="M 8561,10623 L 8836,10623 8836,10348 8571,10348 9140,10019 9140,11214 8511,11577 8511,10383 8561,10354 8561,10623 Z M 8577,10364 L 8820,10364 8820,10607 8577,10607 8577,10364 Z"/&gt;
+     &lt;path fill="rgb(145,145,145)" stroke="none" d="M 8577,10364 L 8577,10607 8820,10607 8820,10364 8577,10364 Z M 8592,10379 L 8805,10379 8805,10592 8592,10592 8592,10379 Z M 9140,11214 L 8511,11577 8511,10383 9140,10019 9140,11214 Z"/&gt;
+     &lt;path fill="rgb(146,146,146)" stroke="none" d="M 8592,10379 L 8592,10592 8805,10592 8805,10379 8592,10379 Z M 8607,10394 L 8790,10394 8790,10577 8607,10577 8607,10394 Z M 9140,11214 L 8511,11577 8511,10383 9140,10019 9140,11214 Z"/&gt;
+     &lt;path fill="rgb(147,147,147)" stroke="none" d="M 8607,10394 L 8607,10577 8790,10577 8790,10394 8607,10394 Z M 8622,10409 L 8775,10409 8775,10562 8622,10562 8622,10409 Z M 9140,11214 L 8511,11577 8511,10383 9140,10019 9140,11214 Z"/&gt;
+     &lt;path fill="rgb(148,148,148)" stroke="none" d="M 8622,10409 L 8622,10562 8775,10562 8775,10409 8622,10409 Z M 8638,10425 L 8759,10425 8759,10546 8638,10546 8638,10425 Z M 9140,11214 L 8511,11577 8511,10383 9140,10019 9140,11214 Z"/&gt;
+     &lt;path fill="rgb(149,149,149)" stroke="none" d="M 8638,10425 L 8638,10546 8759,10546 8759,10425 8638,10425 Z M 8653,10440 L 8744,10440 8744,10531 8653,10531 8653,10440 Z M 9140,11214 L 8511,11577 8511,10383 9140,10019 9140,11214 Z"/&gt;
+     &lt;path fill="rgb(150,150,150)" stroke="none" d="M 8653,10440 L 8653,10531 8744,10531 8744,10440 8653,10440 Z M 8668,10455 L 8729,10455 8729,10516 8668,10516 8668,10455 Z M 9140,11214 L 8511,11577 8511,10383 9140,10019 9140,11214 Z"/&gt;
+     &lt;path fill="rgb(151,151,151)" stroke="none" d="M 8668,10455 L 8668,10516 8729,10516 8729,10455 8668,10455 Z M 8684,10471 L 8713,10471 8713,10500 8684,10500 8684,10471 Z M 9140,11214 L 8511,11577 8511,10383 9140,10019 9140,11214 Z"/&gt;
+     &lt;path fill="rgb(153,153,153)" stroke="none" d="M 8684,10471 L 8684,10500 8713,10500 8713,10471 8684,10471 Z M 9140,11214 L 8511,11577 8511,10383 9140,10019 9140,11214 Z"/&gt;
+     &lt;path fill="none" stroke="rgb(178,178,178)" id="Drawing_2_0" stroke-width="40" stroke-linejoin="round" d="M 9140,11214 L 9140,10019 8511,10383 8511,11577 9140,11214 Z"/&gt;
+    &lt;/g&gt;
+    &lt;g&gt;
+     &lt;defs&gt;
+      &lt;linearGradient id="Gradient_148" gradientUnits="userSpaceOnUse" x1="8599" y1="10720" x2="9050" y2="10720"&gt;
+       &lt;stop offset="0.1" stop-color="rgb(147,212,240)"/&gt;
+       &lt;stop offset="1" stop-color="rgb(233,246,252)"/&gt;
+      &lt;/linearGradient&gt;
+     &lt;/defs&gt;
+     &lt;path fill="url(#Gradient_148)" stroke="rgb(102,102,102)" id="Drawing_3_0" stroke-width="40" stroke-linejoin="round" d="M 9050,11006 L 9050,10175 8601,10435 8601,11266 9050,11006 Z"/&gt;
+    &lt;/g&gt;
+    &lt;g&gt;
+     &lt;defs&gt;
+      &lt;linearGradient id="Gradient_149" gradientUnits="userSpaceOnUse" x1="8780" y1="9967" x2="8780" y2="10382"&gt;
+       &lt;stop offset="0.1" stop-color="rgb(51,51,51)"/&gt;
+       &lt;stop offset="1" stop-color="rgb(153,153,153)"/&gt;
+      &lt;/linearGradient&gt;
+     &lt;/defs&gt;
+     &lt;path fill="url(#Gradient_149)" stroke="rgb(178,178,178)" id="Drawing_4_0" stroke-width="40" stroke-linejoin="round" d="M 8511,10382 L 9140,10019 9050,9967 8421,10331 8511,10382 Z"/&gt;
+    &lt;/g&gt;
+    &lt;g&gt;
+     &lt;defs&gt;
+      &lt;linearGradient id="Gradient_150" gradientUnits="userSpaceOnUse" x1="8420" y1="10954" x2="8512" y2="10954"&gt;
+       &lt;stop offset="0.1" stop-color="rgb(102,102,102)"/&gt;
+       &lt;stop offset="1" stop-color="rgb(153,153,153)"/&gt;
+      &lt;/linearGradient&gt;
+     &lt;/defs&gt;
+     &lt;path fill="url(#Gradient_150)" stroke="rgb(178,178,178)" id="Drawing_5_0" stroke-width="40" stroke-linejoin="round" d="M 8511,11577 L 8511,10383 8421,10331 8421,11526 8511,11577 Z"/&gt;
+    &lt;/g&gt;
+    &lt;g&gt;
+     &lt;path fill="none" stroke="rgb(0,0,0)" id="Drawing_6_0" stroke-width="40" stroke-linejoin="round" d="M 9050,9967 L 8421,10331 8421,11525 8511,11577 9140,11213 9140,10019 9050,9967 Z"/&gt;
+    &lt;/g&gt;
+    &lt;g&gt;
+     &lt;path fill="none" stroke="rgb(102,102,102)" id="Drawing_7_0" stroke-width="40" stroke-linejoin="round" d="M 8960,11162 L 8690,11318"/&gt;
+    &lt;/g&gt;
+   &lt;/g&gt;
+  &lt;/g&gt;
+ &lt;/g&gt;
+&lt;/svg&gt;</y:Resource>
+    </y:Resources>
+  </data>
+</graphml>

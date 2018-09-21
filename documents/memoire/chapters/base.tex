@@ -24,8 +24,6 @@ Le diagramme relationnel de la base de données est disponible sur la figure \re
 
 \section{L'extension PostGIS}
 
-\todo{Add PostGIS à biblio}
-
 La base de données utilise une extension nommée PostGIS, qui rajoute une série de fonctionnalités qui permettent la gestion d'objet géographique dans la base, ce qui permet de faire des requêtes en utilisant des positions GPS par exemple.
 
 La base de données utilise principalement le type ST\_POINT qui permet de définir des points en spécifiant la latitude et la longitude. Il existe deux types de points différents, geography et geometry. Les points de type geography permettent de prendre en compte la curvature de la planète lors du calcul de distance par exemple. Ce type de point est à préféré lorsque l'application doit faire des opérations entre des points qui sont très éloignés, deux continents différents par exemple. Le type geometry ne prend pas en compte cette information qui complexifie passablement les calculs, mais tire simplement une ligne droite entre les deux points afin de faire le calcul de distance, ce qui convient parfaitement pour des points qui sont faiblement espacés comme c'est le cas pour se travail de Bachelor.

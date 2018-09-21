@@ -1,4 +1,4 @@
-﻿
+
 \chapter{Développement du projet}\label{ch:developpement}
 
 Durant la pré-étude, j'ai pris la décision de découper le développement du projet en trois phases distinctes afin de pouvoir gérer le travail au mieux et pouvoir réagir rapidement en cas d'imprévus ou de problèmes. Pour chaque phase des objectifs ont été établis afin de pouvoir, à son terme, en valider l'exécution et ainsi passer à la phase suivante.
@@ -20,7 +20,7 @@ Début & Validation \\
 \end{tabular}
 \end{table}
 
-La première phase de développement qui a commencé dès le début du projet, c'est à dire le 9 Juillet 2018, avait pour objectif la validation de la transmission des données avec la technologie LoRa et la solution matériel choisie pour le capteur et la passerelle. Durant cette phase, seule le capteur et la passerelle ont été testés. 
+La première phase de développement qui a commencé dès le début du projet, c'est à dire le 9 Juillet 2018, avait pour objectif la validation de la transmission des données avec la technologie LoRa et la solution matériel choisie pour le capteur et la passerelle. Durant cette phase, seule le capteur et la passerelle ont été testés.
 
 Pour ce faire, un programme simple de test a été écrit pour le capteur en se basant sur le framework Arduino, facilitant et accélérant grandement le développement car déjà tous les modules et drivers nécessaires étaient disponibles, le but étant de permettre de faire des tests de transmissions de paquet rapidement et efficacement. En ce qui concerne la passerelle, le début du serveur d'application a été développé qui permet la récupération des données transmises par le capteur. Un gestionnaire spéciale pour ce test a été développé qui permet de vérifier si des paquets ont été perdus lors de leur transmission afin de jauger de la qualité de la transmission LoRa.
 
@@ -67,7 +67,7 @@ Pour plus d'information sur le test effectué et ses résultats voir le chapitre
 \toprule
 Début & Validation \\
 \midrule
-20 Août 2018 & \todo{}  \\
+20 Août 2018 & 28 Septembre 2018  \\
 \bottomrule 
 \end{tabular}
 \end{table}
@@ -82,6 +82,79 @@ Pour plus d'information sur le test effectué et ses résultats voir le chapitre
 
 \section{Environnement de développement}
 
-\todo{}
+Dans la manière du possible, des outils modernes, performants, gratuits et open source ont été utilisés dans le cadre du développement du projet.  L'entier du travail effectué est hébergé sur la plateforme github.com, en accès libre, à l'adresse \rurl{github.com/leodido99/TravailBachelor}.
 
-\todo{Etape de la démarche suivie, identification de l'env et des contraintes. capteur->passerelle->db->app simple GPS etc..}
+Les outils et librairies utilisés pour le développement des différents acteurs du projet figure ci-dessous.
+
+\begin{table}[htb]
+\caption{Outils de développement généraux}
+\label{tab:outils_dev_gen}
+\centering
+\begin{tabular}{p{3cm} p{5cm} p{6cm}}
+\toprule
+Nom & URL & Description \\
+\midrule
+LaTeX & \rurl{www.latex-project.org} & Système open source pour l'écriture de documents \\
+git & \rurl{git-scm.com} & Outil open source de gestion de configuration \\
+github & \rurl{www.github.com} & Plateforme d'hébergement gratuite pour des projets git \\
+yEd & \rurl{www.yworks.com} & Outil de dessin de schéma \\
+StarUML & \rurl{staruml.io} & Outils de création de diagramme UML \\
+Fusion 360 & \rurl{www.autodesk.com} & Outil de dessin 3D \\
+Matlab & www.mathworks.com & Outil d'analyse de données \\
+\bottomrule 
+\end{tabular}
+\end{table}
+
+\begin{table}[htb]
+\caption{Outils de développement pour le capteur}
+\label{tab:outils_dev_capteur}
+\centering
+\begin{tabular}{p{3cm} p{5cm} p{6cm}}
+\toprule
+Nom & URL & Description \\
+\midrule
+Eclipse & \rurl{www.eclipse.org} & IDE pour le développement en langage C/C++  \\
+Zephyr Project & \rurl{www.zephyrproject.org} & Système d'exploitation temps réel sur lequel l'application du capteur se base \\
+GNU ARM Embedded Toolchain & \rurl{developer.arm.com} & Toolchain fournissant gcc et les outils associés et permettant la compilation pour les cibles de types Arm Cortex-M \\
+cmake & \rurl{cmake.org} & Évolution de make permettant la gestion du processus de compilation \\
+BOSSA & \rurl{github.com/shumatech/BOSSA} & Outils permettant de programmer la mémoire des microcontrôleurs Atmel SAM \\
+\bottomrule 
+\end{tabular}
+\end{table}
+
+\begin{table}[htb]
+\caption{Outils de développement pour la passerelle}
+\label{tab:outils_dev_passerelle}
+\centering
+\begin{tabular}{p{3cm} p{5cm} p{6cm}}
+\toprule
+Nom & URL & Description \\
+\midrule
+Eclipse & \rurl{www.eclipse.org} & IDE pour le développement en langage C/C++  \\
+GNU ARM RPI Toolchain & \rurl{github.com/raspberrypi} & Toolchain fournissant gcc et les outils associés et permettant la compilation pour les cibles de types ARMv7 comme le Raspberry Pi \todo{} \\
+make & \rurl{www.gnu.org/software/make} & Permet la gestion du processus de compilation \\
+Raspbian & \rurl{www.raspbian.org} & Distribution Linux basée sur Debian spécialement optimisé pour fonctionner sur le Raspberry Pi \\
+PostgreSQL & \rurl{www.postgresql.org} & Système open source de gestion de base de données relationnelle  \\
+PostGIS & postgis.net & PostGIS est une extension pour les base de données PostgreSQL qui ajoute des fonctionnalités permettant de faire des requêtes et des opérations avec des positions géographique \\
+Single channel packet forwarder & \rurl{github.com/hallard/RPI-Lora-Gateway} & Logiciel packet forwarder permettant de récupérer les paquets depuis le module LoRa au travers du bus SPI \\
+libpqxx & \rurl{pqxx.org/development/libpqxx} & API C++ pour client PostgreSQL permettant d'exécuter des requête sur une base de données \\
+base64 & \rurl{github.com/Lora-net} & Classe permettant le décodage de données de type base64 \\
+rapidjson & \rurl{rapidjson.org} & Librairie utiliser pour générer ou parser des chaînes de caractère de type json \\
+\bottomrule 
+\end{tabular}
+\end{table}
+
+\begin{table}[htb]
+\caption{Outils de développement pour l'application mobile}
+\label{tab:outils_dev_app}
+\centering
+\begin{tabular}{p{3cm} p{5cm} p{6cm}}
+\toprule
+Nom & URL & Description \\
+\midrule
+Android Studio & \rurl{developer.android.com/studio} & IDE pour le développement en langage java sur la plateforme Android  \\
+Maps for Android SDK & \rurl{developers.google.com/maps} & SDK permettant la création et la manipulation de carte type Googlemaps  \\
+Driver JDBC PostgreSQL & \rurl{jdbc.postgresql.org} & Driver JDBC pour PostgreSQL permettant l'exécution de requête sur des base de données de type PostgreSQL \\
+\bottomrule 
+\end{tabular}
+\end{table}

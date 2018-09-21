@@ -1,2 +1,31 @@
 
 \chapter{Test phase \#2}\label{ch:test_2}
+
+Pour clôturer la phase de développement \#2 du projet, un test a été effectué avec pour objectif de valider que le concept dans son ensemble fonctionne. Ce test a permis de mettre ensemble tout les acteurs du système, le capteur, la passerelle, la base de données et enfin l'application mobile et vérifier leur bon fonctionnement.
+
+Le test s'est concentré sur la transmission de la position GPS depuis le capteur jusqu'à l'application mobile, les autres éléments du système n'étant pas encore implémentés et de vérifier que la mise à jour se passe bien.
+
+Afin de pouvoir faire se test les éléments suivant ont été développés.
+
+\begin{itemize}
+\item Firmware du capteur avec l'utilisation de Zephyr et la récupération de la position GPS grâce au driver $I^{2}C$ puis envoie du paquet
+\item Design, configuration et création de la base de données permettant le stockage de toutes les données
+\item Implémentation de la réception et décodage des paquets de données en provenance du capteur pour les stocker dans la base
+\item Création de la fonctionnalité de base de l'application mobile, la visualisation de courses avec récupération des données depuis la base de données et affichage des positions sur la carte
+\end{itemize}
+
+On comprend que cette phase de développement est un gros morceau du développement complet du projet car tous les composants du système sont développés. Dans un premier temps seul les fonctionnalités de bases sont implémentées, ce qui permet de s'assurer que toutes les interactions se passe comme prévues avant de poursuivre le travail pour la phase \#3.
+
+\todo{pictars of test, running goo?}
+
+\section{Scénarios}
+
+Le scénarios de ce test est très simple, il consiste à recréer les conditions réel d'utilisation du système. Pour se faire un cobaye coureur muni du capteur va courir le long d'un parcours définit afin de vérifier que la position est correctement mise à jour au fil de son évolution.
+
+\section{Résultats}
+
+Après plusieurs échec dus aux problèmes de connections avec la passerelle, le test a pu se dérouler sans embuche sur la piste finlandaise de la place d'arme de Planeyse à Neuchâtel.
+
+Le test a été effectué le \todo{XX.XX.XX}
+
+\section{Conclusions}

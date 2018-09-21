@@ -17,6 +17,8 @@
 \usepackage{booktabs}
 \usepackage{longtable}
 
+\usepackage[hyphenbreaks]{breakurl}
+\usepackage[hyphens]{url}
 \usepackage{tikz}
 \usepackage{fancyhdr}
 \usepackage{bmpsize}
@@ -29,6 +31,12 @@ bookmarks=true,bookmarksopenlevel=2]{hyperref}  % Links color in pdf
 \usepackage[final]{pdfpages}
 \usepackage{float}
 \usepackage{subcaption}
+% Keep same font for \url
+\urlstyle{same}
+% Hide http
+\newcommand\rurl[1]{%
+  \href{http://#1}{\nolinkurl{#1}}%
+}
 
 % Force figures to be placed in their section
 \usepackage[section]{placeins}

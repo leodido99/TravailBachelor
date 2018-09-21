@@ -3,9 +3,26 @@
 
 Ce chapitre décrit les problèmes majeures rencontrés pendant le développement du projet et les solutions qui ont été employées afin d'y pallier.
 
-Pas de driver i2c -> Ecrire driver i2c
+\section{Capteur: Driver $I^{2}C$ manquant}
 
-Driver GPIO incomplet -> Finir ecriture driver GPIO
-Driver EIC
+Au début du développement du projet, j'ai décidé d'utiliser le système d'exploitation temps réel Zephyr. En consultant la page de la carte utilisant le même micro-contrôleur que le capteur je n'ai malheureusement pas remarqué qu'il n'y avait aucunes mentions d'un driver $I^{2}C$ existant. Je suis parti du principe qu'il en existait un. Lors du développement, afin de communiquer avec les modules GPS et accéléromètre, j'ai alors constaté ce manquement à mes dépends.
 
-Problème connection réseau -> Utiliser un cable
+La solution a été simplement de m'armer de la data sheet du micro-contrôleur et d'en écrire un moi même. Ce driver est décrit en détail dans le chapitre \ref{ch:drivers}.
+
+\section{Capteur: Driver GPIO incomplet}
+
+Lors de l'implémentation du module rythme cardiaque, il m'a fallu brancher une interruption sur un I/O afin de pouvoir détecter les battement du cœur. Après avoir écris tout le code je me suis rendu compte à l'exécution que le programme me retournais une erreur du type "not supported". En résumé, le driver GPIO SAM ne proposait pas cette fonctionnalité.
+
+Afin de pallier à ce problème j'ai implémenté cette fonctionnalité manquante. Pour se faire j'ai du écrire un driver External Interrupt Controller qui permet de gérer le module du micro-contrôleur permettant d'ajouter des interruptions sur des lignes d'entrées sorties. Une fois ce driver développé il a fallu modifier le driver GPIO afin de utiliser ce nouveau driver et ainsi permettre l'ajout d'interruption sur I/O.
+
+\section{Passerelle: Problème de connexion réseau}
+
+Pendant le développement du projet, un des domaines ou j'ai rencontré beaucoup de problème est la configuration réseau de la passerelle. J'ai voulu utiliser l'interface WiFi du Raspberry Pi en conjonction avec un dongle WiFi afin d'avoir deux interfaces qui me permette sur une de créer une access point afin de pouvoir me connecter avec mon téléphone mobile et sur l'autre de ce connecter à un réseau WiFi. Je n'ai jamais réussi à faire fonctionner ce modèle comme je le voulais, probablement en partie du à la mise à jour de Raspbian qui à rajouté pas mal de changements à ce niveau la.
+
+Après plusieurs dizaines d'essais de configuration différentes j'ai décidé de ne plus utiliser le dongle et de le remplacer par un cable Ethernet, ce qui me permet de facilement me connecter à la passerelle depuis mon réseau personnel.
+
+\section{Capteur: Interruption accéléromètre}
+
+Afin de pouvoir détecter les pas du porteur du capteur, j'avais pris la décision d'utiliser un système proposé par l'accéléromètre placé sur la carte qui permet de le configurer afin qu'il déclenche une interruption lorsqu'une condition est détectée. Dans le cas du projet je voulais pouvoir déclencher une interruption lorsque l'accélération sur l'un des trois axes dépasse un certain seuil. Le driver LSM303AGR a été modifié afin de pouvoir permettre la configuration de ce type d'interruption, problème aucunes interruptions n'était déclenchées lorsque le capteur était mis en mouvement.
+
+Après beaucoup de temps perdu à essayer de débusquer le bug et à cause du fait que le temps commençait à me manquer, j'ai pris la décision de changer d'approche et d'utiliser un thread afin d'effectuer l'échantillonnage des données de l'accéléromètre.
