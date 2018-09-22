@@ -91,17 +91,17 @@ Le module est détaillé dans le datasheet \cite{ublox-datasheet} ainsi que dans
 
 \todo{figure}
 
-Le RN2483 est un module de gestion de la couche radio LoRa et également de la couche protocolaire LoRaWAN. Il utilise un simple protocole de commande/réponse sur une interface de type UART. Bien qu'il ne soit pas utilisé dans ce projet, le module est capable d'assurer la gestion de la couche LoRaWAN de classe A automatiquement, c'est à dire de la gestion du mécanisme d'authentification avec gestion du chiffrement des messages LoRa et du reste des mécanismes propres au LoRaWAN.
+Le RN2483 est un module de gestion de la couche radio LoRa et également de la couche protocolaire LoRaWAN. Il utilise un simple protocole de commande/réponse sur une interface de type UART. Bien qu'il ne soit pas utilisé dans ce projet, le module est capable d'assurer la gestion de la couche LoRaWAN de classe A automatiquement, c'est-à-dire de la gestion du mécanisme d'authentification avec gestion du chiffrement des messages LoRa et du reste des mécanismes propres au LoRaWAN.
 
-Chose intéressante, il est possible de désactiver entièrement la couche protocolaire LoRaWAN si l'on désire uniquement utiliser la couche radio LoRa, ce qui est le cas de ce projet. Dans ce cas de figure tous les éléments de gestion du protocole sont désactivés, reste la possibilité de configurer la couche radio LoRa avec la modification des différents paramètres, comme le facteur d'étalement ou la puissance de sortie du signal par exemple, et l'envoie ou la réception de données.
+Chose intéressante, il est possible de désactiver entièrement la couche protocolaire LoRaWAN si l'on désire uniquement utiliser la couche radio LoRa, ce qui est le cas de ce projet. Dans ce cas de figure tous les éléments de gestion du protocole sont désactivés, reste la possibilité de configurer la couche radio LoRa avec la modification des différents paramètres, comme le facteur d'étalement ou la puissance de sortie du signal par exemple, et l'envoi ou la réception de données.
 
 En plus le composant est capable d'envoyer les signaux en utilisant diverses modulations, FSK, GFSK ou LoRa.
 
-L'utilisation ainsi que toutes les commandes sont décrite dans la datasheet du composant \cite{rn2483-datasheet}.
+L'utilisation ainsi que toutes les commandes sont décrites dans la datasheet du composant \cite{rn2483-datasheet}.
 
 \subsection{Le module rythme cardiaque Adafruit}\label{ch:module_hr}
 
-Le module Adafruit pour le rythme cardiaque est composé de deux éléments principaux, d'une part la sangle pectorale qui sera portée par le sportif et le récepteur qui permettra au micro-contrôleur de détecter les battements du cœur. La sangle et le récepteur utilise le protocole sans-fil WeakLink+ de la compagnie Polar ce qui permet au récepteur, lorsqu'un battement est transmis par la sangle, de générer une impulsion sur une entrée du micro-contrôleur. Cette impulsion est détectée par le micro-contrôleur grâce au driver External Interrupt Controller spécialement développé pour ce projet et qui permet de déclencher des interruptions lors de la détection d'un flanc montant par exemple.
+Le module Adafruit pour le rythme cardiaque est composé de deux éléments principaux, d'une part la sangle pectorale qui sera portée par le sportif et d’autre part le récepteur qui permettra au micro-contrôleur de détecter les battements du cœur. La sangle et le récepteur utilisent le protocole sans-fil WeakLink+ de la compagnie Polar, ce qui permet au récepteur de générer une impulsion sur une entrée du micro-contrôleur lorsqu'un battement est transmis par la sangle. Cette impulsion est détectée par le micro-contrôleur grâce au driver External Interrupt Controller spécialement développé pour ce projet et qui permet de déclencher des interruptions lors de la détection d'un flanc montant par exemple.
 
 \todo{figure}
 
@@ -109,9 +109,9 @@ Le module Adafruit pour le rythme cardiaque est composé de deux éléments prin
 
 \todo{figure}
 
-Le LSM303AGR est un accéléromètre trois axes couplé à un magnétomètre. Seul l'accéléromètre est utilisé dans le cadre du projet, il est utilisé afin de détecter lorsque le sportif effectue un pas. Le composant est capable de proposer des échelles d'accélération linéaire de +/-2 à +/-16g, il peut communiquer soit sur le bus $I^{2}C$, ce qui est le cas sur la carte SODAQ One mais il peut aussi être connecté à un bus SPI. Il propose toute une série de registres qui permettent de configurer les différents paramètres de l'accéléromètre ainsi que du magnétomètre et de récupérer les valeurs d'accélération sur chaque axes. Il est aussi possible de configurer l'utilisation d'une FIFO, auquel cas plusieurs valeurs d'accélérations peuvent être stockées à la suite et lues lorsque nécessaire.
+Le LSM303AGR est un accéléromètre trois axes couplé à un magnétomètre. Seul l'accéléromètre est utilisé dans le cadre du projet. Il est utilisé afin de détecter lorsque le sportif effectue un pas. Le composant est capable de proposer des échelles d'accélération linéaire de +/-2 à +/-16g, il peut communiquer soit sur le bus $I^{2}C$, ce qui est le cas sur la carte SODAQ One, mais il peut aussi être connecté à un bus SPI. Il propose toute une série de registres qui permettent de configurer les différents paramètres de l'accéléromètre ainsi que du magnétomètre et de récupérer les valeurs d'accélération sur chaque axe. Il est aussi possible de configurer l'utilisation d'une FIFO, auquel cas plusieurs valeurs d'accélérations peuvent être stockées à la suite et lues lorsque nécessaire.
 
-Enfin le module peut être configuré pour générer une interruption lorsqu'un certain seuil d'accélération est dépassé sur une combinaison des 3 axes afin de pouvoir détecter un certain mouvement ou déplacement par exemple. 
+Enfin, le module peut être configuré pour générer une interruption lorsqu'un certain seuil d'accélération est dépassé sur une combinaison des 3 axes afin de pouvoir détecter un certain mouvement ou déplacement par exemple. 
 
 \subsection{L'accumulateur}
 
@@ -125,17 +125,17 @@ Cet accumulateur est capable de délivrer environ 3.7V et 1200 mAh.
 
 \section{Le système d'exploitation Zephyr}
 
-Zephyr project ou Zephyr est un système d'exploitation temps réel (RTOS) open source réalisé par la Linux Foundation. Il a été développé pour être utilisé sur des petits systèmes embarqués avec de grosses contraintes au niveau des ressources à disposition. A sa base il reprend un "micro" noyau développé par la société Wind River pour son système d'exploitation commercial VxWorks qui est employé dans beaucoup de projet dans les domaines aérospatial, militaire et automobile.
-Plusieurs architectures de micro-contrôleur sont pris en charge comme ARM, RISC ou x86 par exemple et plusieurs dizaines de configuration pour différentes cartes du marché existent. 
+Zephyr project ou Zephyr est un système d'exploitation temps réel (RTOS) open source réalisé par la Linux Foundation. Il a été développé pour être utilisé sur des petits systèmes embarqués avec de grosses contraintes au niveau des ressources à disposition. A sa base il reprend un "micro" noyau développé par la société Wind River pour son système d'exploitation commercial VxWorks qui est employé dans beaucoup de projets dans les domaines aérospatial, militaire et automobile.
+Plusieurs architectures de micro-contrôleur sont prises en charge, comme ARM, RISC ou x86 par exemple, et plusieurs dizaines de configurations pour différentes cartes du marché existent. 
 
-Ce RTOS est également très facile a configurer pour ses propres besoins au moyen de fichiers de configuration ou l'on peut sélectionner les éléments que l'on veut utiliser dans son application. De plus il propose toutes les fonctionnalités que l'on peut attendre de ce genre de système: scheduler, thread, semaphore, message queue, ring buffer, gestion de l'allocation de la mémoire dynamiquement...
+Ce RTOS est également très facile a configurer pour ses propres besoins au moyen de fichiers de configuration où l'on peut sélectionner les éléments que l'on veut utiliser dans son application. De plus, il propose toutes les fonctionnalités que l'on peut attendre de ce genre de système: scheduler, thread, semaphore, message queue, ring buffer, gestion de l'allocation de la mémoire dynamiquement...
 En plus de ces fonctions de base il dispose également de drivers pour piloter différents types de composants comme des UART, SPI, ADC ou GPIO par exemple. Enfin des couches réseaux tel que Ethernet, IPv6 ou Bluetooth sont disponible ainsi que la gestion de système de fichier. \cite{zephyr_web}
 
-Autour de cet RTOS Il existe une importante communauté qui travail activement sur son développement ce qui permet de pouvoir avoir des réponses à ses questions rapidement et efficacement.
+Autour de cet RTOS, il existe une importante communauté qui travaille activement sur son développement, ce qui permet de pouvoir avoir des réponses à ses questions rapidement et efficacement.
 
-Ce système d'exploitation a été choisi car en plus d'être moderne il dispose déjà de la configuration d'une carte très similaire au SODAQ One, le Adafruit Feather M0 Basic Proto qui embarque le même micro-contrôleur, ceci facilitera passablement le travail de modifications pour adapter la configuration du RTOS au SODAQ One. Cette configuration consiste a définir, grâce à des Device Tree, quels sont les composants que la carte embarque et sur quels ports ou pins ils sont connectés, cela permet ensuite au système d'exploitation de pouvoir les piloter correctement.
+Ce système d'exploitation a été choisi car en plus d'être moderne, il dispose déjà de la configuration d'une carte très similaire au SODAQ One, le Adafruit Feather M0 Basic Proto qui embarque le même micro-contrôleur. Ceci facilitera passablement le travail de modification pour adapter la configuration du RTOS au SODAQ One. Cette configuration consiste a définir, grâce à des Device Tree, quels sont les composants que la carte embarque et sur quels ports ou pins ils sont connectés, cela permet ensuite au système d'exploitation de pouvoir les piloter correctement.
 
-Même si beaucoup d'éléments sont déjà existant pour le micro-contrôleur utilisé par le SODAQ One, le développement d'un nouveau driver $I^{2}C$ ainsi qu'un driver de gestion des interruptions externes, ont été réalisés car il n'en n'existait aucun au moment ou j'ai commencé le travail de Bachelor. Le driver $I^{2}C$ est utilisé afin de pouvoir communiquer avec les modules GPS et accéléromètre. Le driver External Interrupt Controller est utilisé afin de détecter les battements du cœur, lors de cet événement une impulsion est générée par le module rythme cardiaque qui, grâce à ce driver, permet de déclencher une interruption. Les drivers développés dans le cadre du travail de diplôme sont décrit en détail dans la section \ref{ch:drivers}.
+Même si beaucoup d'éléments sont déjà existants pour le micro-contrôleur utilisé par le SODAQ One, un nouveau driver $I^{2}C$ ainsi qu'un driver de gestion des interruptions externes ont été réalisés car il n'en existait aucun au moment où j'ai commencé le travail de Bachelor. Le driver $I^{2}C$ est utilisé afin de pouvoir communiquer avec les modules GPS et accéléromètre. Le driver External Interrupt Controller est utilisé afin de détecter les battements du cœur - lors de cet événement une impulsion est générée par le module rythme cardiaque qui, grâce à ce driver, permet de déclencher une interruption. Les drivers développés dans le cadre du travail de diplôme sont décrits en détail dans la section \ref{ch:drivers}.
 
 La figure \ref{fig:zephyr_archi} présente l'architecture du système d'exploitation temps-réel Zephyr.
 
@@ -148,13 +148,13 @@ La figure \ref{fig:zephyr_archi} présente l'architecture du système d'exploita
 
 \subsection{Configuration Zephyr pour la carte SODAQ One}
 
-Zephyr utilise un système de configuration qui permet de définir les périphériques qui sont présent sur une certaine carte. Cela permet ensuite aux utilisateurs de pouvoir accéder aux différents éléments grâce aux drivers proposés par le système d'exploitation. En plus de cela il est également nécessaire de configurer la fonction de chaque pins que l'on souhaite utiliser car elles ont souvent la possibilité d'en avoir plusieurs. Enfin l'on peut spécifier une configuration de base, par exemple en activant par défaut la gestion du bus $I^{2}C$.
+Zephyr utilise un système de configuration qui permet de définir les périphériques qui sont présents sur une certaine carte. Cela permet ensuite aux utilisateurs de pouvoir accéder aux différents éléments grâce aux drivers proposés par le système d'exploitation. En plus de cela il est également nécessaire de configurer la fonction de chaque pins que l'on souhaite utiliser car elles ont souvent la possibilité d'en avoir plusieurs. Enfin l'on peut spécifier une configuration de base, par exemple en activant par défaut la gestion du bus $I^{2}C$.
 
-Dans le cadre du projet, une nouvelle configuration a du être définit pour la carte SODAQ One.
+Dans le cadre du projet, une nouvelle configuration a dû être définie pour la carte SODAQ One.
 
-Un fichier important est de type Device Tree (dts), c'est un type de fichier qui permet de définir avec des nœuds les composants disponibles. Les informations contenus dans ce fichier sont spécifiques à une certaine carte car elles dépendent de la façon dont les périphériques sont connectés au micro-contrôleur. Ce type de fichier est beaucoup utilisé par Linux par exemple.
+Un fichier important est de type Device Tree (dts), c'est un type de fichier qui permet de définir avec des nœuds les composants disponibles. Les informations contenues dans ce fichier sont spécifiques à une certaine carte car elles dépendent de la façon dont les périphériques sont connectés au micro-contrôleur. Ce type de fichier est beaucoup utilisé par Linux par exemple.
 
-Pour la carte SODAQ One, le fichier est principalement utilisé afin de définir le type de micro-contrôleur présent sur la carte ainsi que les composants SERCOM utilisés pour les divers périphérique. Enfin on peut spécifier quel composant doit être utilisé par Zephyr pour la console.
+Pour la carte SODAQ One, le fichier est principalement utilisé afin de définir le type de micro-contrôleur présent sur la carte ainsi que les composants SERCOM utilisés pour les divers périphérique. Enfin, on peut spécifier quel composant doit être utilisé par Zephyr pour la console.
 
 Un extrait de ce fichier est présenté ci-dessous.
 
@@ -212,17 +212,17 @@ Un extrait de ce fichier est présenté ci-dessous.
 
 \section{Le logiciel embarqué}
 
-Cette section décrit le logiciel embarqué sur le capteur dans son ensemble. En se basant sur les fonctionnalités proposées par Zephyr ainsi que les drivers, qui sont décrit dans la section \ref{ch:drivers}, c'est lui qui va cadencer les acquisitions ainsi que l'envoie des paquets LoRa à la passerelle. Le logiciel embarqué ainsi que les drivers sont entièrement écrit en langage C. Il en va de même pour le système d'exploitation Zephyr qui contient cependant certaines parties écrites en assembleur.
+Cette section décrit le logiciel embarqué sur le capteur dans son ensemble. En se basant sur les fonctionnalités proposées par Zephyr ainsi que les drivers, qui sont décrits dans la section \ref{ch:drivers}, c'est lui qui va cadencer les acquisitions ainsi que l'envoi des paquets LoRa à la passerelle. Le logiciel embarqué ainsi que les drivers sont entièrement écrits en langage C. Il en va de même pour le système d'exploitation Zephyr qui contient cependant certaines parties écrites en assembleur.
 
-La liste suivante présente toutes les acquisitions qui sont gérer par le logiciel.
+La liste suivante présente toutes les acquisitions qui sont gérées par le logiciel.
 
 \begin{itemize}
-\item Position GPS message générer par le module à une fréquence de 1 Hz
+\item Position GPS message généré par le module à une fréquence de 1 Hz
 \item Rythme cardiaque, une interruption est déclenchée à chaque battement du cœur
 \item Comptage du nombre de pas, une interruption est déclenchée lorsqu'un pas est détecté par l'accéléromètre
 \end{itemize}
 
-De manière général et de façon simplifié on peut définir le processus du capteur comme dans la figure \ref{fig:sensor_process}.
+De manière générale et de façon simplifiée, on peut définir le processus du capteur comme dans la figure \ref{fig:sensor_process}.
 
 \begin{figure}[htb]
 \centering 
@@ -233,7 +233,7 @@ De manière général et de façon simplifié on peut définir le processus du c
 
 \subsection{Architecture logiciel}
 
-La figure \ref{fig:sensor_static_archi} montre l'architecture statique du logiciel embarqué, tout les modules dont il est composé sont présentés.
+La figure \ref{fig:sensor_static_archi} montre l'architecture statique du logiciel embarqué. Tous les modules dont il est composé sont présentés.
 
 \begin{figure}[htb]
 \centering 
@@ -242,17 +242,17 @@ La figure \ref{fig:sensor_static_archi} montre l'architecture statique du logici
 \label{fig:sensor_static_archi}
 \end{figure}
 
-Les éléments qui compose la couche application du logiciel embarqué sont décrit en plus de détail dans la liste ci-dessous.
+Les éléments qui composent la couche application du logiciel embarqué sont décrits en plus de détail dans la liste ci-dessous.
 
 \begin{itemize}
-\item Race Sensor Manager: C'est le module responsable de la gestion du capteur, au moyen d'un thread c'est lui qui déclenche les acquisitions et qui paquetise les données afin de les transmettre dans des paquets LoRa.
-\item Race Sensor Shell: Le shell du capteur, il est principalement utile pour les tests et le debug. Il propose plusieurs commande qui permettent par exemple de modifier la configuration de la liaison radio LoRa.
-\item Debug: Ce module propose des fonctions qui facilite le debug de l'application.
-\item Heart Rate: Compte le nombre de battement du cœur par unité de temps en s'appuyant sur l'accéléromètre Adafruit Heart Rate starter pack
-\item Cadence: Permet le comptage des pas du sportifs par unité de temps grâce à l'accéléromètre LSM303AGR
+\item Race Sensor Manager: C'est le module responsable de la gestion du capteur. Au moyen d'un thread, c'est lui qui déclenche les acquisitions et qui paquétise les données afin de les transmettre dans des paquets LoRa.
+\item Race Sensor Shell: Le shell du capteur, il est principalement utile pour les tests et le debug. Il propose plusieurs commandes qui permettent par exemple de modifier la configuration de la liaison radio LoRa.
+\item Debug: Ce module propose des fonctions qui facilitent le debug de l'application.
+\item Heart Rate: Compte le nombre de battements du cœur par unité de temps en s'appuyant sur l'accéléromètre Adafruit Heart Rate starter pack
+\item Cadence: Permet le comptage des pas du sportif par unité de temps grâce à l'accéléromètre LSM303AGR
 \end{itemize}
 
-La figure \ref{fig:sensor_dyn_archi} décrit les éléments dynamiques qui compose le logiciel du capteur.
+La figure \ref{fig:sensor_dyn_archi} décrit les éléments dynamiques qui composent le logiciel du capteur.
 
 \begin{figure}[htb]
 \centering 
@@ -263,13 +263,13 @@ La figure \ref{fig:sensor_dyn_archi} décrit les éléments dynamiques qui compo
 
 Zephyr propose une implémentation de la priorité des threads intéressante qui permet en fonction de la valeur d'également modifier le comportement de l'ordonnanceur. La priorité d'un thread, valeur entière, peut être soit positive ou négative. Une valeur de priorité plus petite est plus importante qu'une valeur numériquement plus grande, ainsi un thread de priorité -2 est plus prioritaire qu'un de priorité 7.
 
-En plus de cela, l'ordonnanceur distingue deux catégorie de thread en utilisant la valeur de priorité. Des threads dit coopératif et des threads pré-emptible.
+En plus de cela, l'ordonnanceur distingue deux catégories de thread en utilisant la valeur de priorité - des threads dit coopératifs et des threads pré-emptibles.
 
-Les threads coopératif ont une valeur de priorité négative, une fois qu'ils deviennent le thread exécutant, il le reste jusqu'à ce qu'il effectue une action qui le mettrait dans l'état non prêt, c'est à dire l'acquisition d'un sémaphore qui est utilisé ou une attente par exemple.
+Les threads coopératifs ont une valeur de priorité négative. Une fois qu’un thread coopératif devient le thread exécutant, il le reste jusqu'à ce qu'il effectue une action qui le mettrait dans l'état non prêt, c'est à dire l'acquisition d'un sémaphore qui est utilisé ou une attente par exemple.
 
-Un threads pré-emptible a une valeur de priorité non négative. Lors de son exécution ce genre de thread peut à tout moment être mis dans l'état non prêt par l'ordonnanceur afin de permettre à un thread coopératif ou à un thread pré-emptible de priorité plus haute ou égale de s'exécuter. \cite{zephyr_web}
+Un thread pré-emptible a une valeur de priorité non négative. Lors de son exécution ce genre de thread peut à tout moment être mis dans l'état non prêt par l'ordonnanceur afin de permettre à un thread coopératif ou à un thread pré-emptible de priorité plus haute ou égale de s'exécuter. \cite{zephyr_web}
 
-La table \ref{tab:threads_cara} décrit en plus de détail les caractéristiques de chaque threads.
+La table \ref{tab:threads_cara} décrit en plus de détail les caractéristiques de chaque thread.
 
 \begin{table}[htb]
 \caption{Caractéristiques des threads du capteur}
@@ -293,7 +293,7 @@ Enfin les thread de gestion du module GPS et de l'accéléromètre dispose de pr
 
 \subsection{Race Sensor Manager}
 
-Le Race Sensor Manager est le module principale du capteur, lors de l'allumage du capteur, c'est lui qui commence par configurer tous les éléments nécessaires au fonctionnement du capteur, comme les drivers par exemple. Une fois le système initialisé, le thread du Race Sensor Manager va s'occuper d'envoyer les données acquises dans des paquets LoRa à intervalle régulier.
+Le Race Sensor Manager est le module principal du capteur. Lors de l'allumage du capteur, c'est lui qui commence par configurer tous les éléments nécessaires au fonctionnement du capteur, comme les drivers par exemple. Une fois le système initialisé, le thread du Race Sensor Manager va s'occuper d'envoyer les données acquises dans des paquets LoRa à intervalle régulier.
 
 La figure \ref{fig:race_sensor_manager_uml} présente le diagramme de classe du Race Sensor Manager.
 
@@ -304,7 +304,7 @@ La figure \ref{fig:race_sensor_manager_uml} présente le diagramme de classe du 
 \label{fig:race_sensor_manager_uml}
 \end{figure}
 
-Lors du lancement du firmware du capteur, le Race Sensor Manager est initialisé puis lancé grâce aux fonctions \func{race\_sensor\_mngr\_init()} et \func{race\_sensor\_mngr\_start()}. Durant l'initialisation du module tous les drivers sont initialisé et les interfaces de communications sont configuré, au terme de cette opération le thread est lancé qui s'occupera du séquencement des opérations. Les opérations d'initialisation sont décrite dans le diagramme de séquence \ref{fig:race_sensor_manager_init_seq}.
+Lors du lancement du firmware du capteur, le Race Sensor Manager est initialisé puis lancé grâce aux fonctions \func{race\_sensor\_mngr\_init()} et \func{race\_sensor\_mngr\_start()}. Durant l'initialisation du module tous les drivers sont initialisés et les interfaces de communications sont configurées. Au terme de cette opération, le thread est lancé qui s'occupera du séquencement des opérations. Les opérations d'initialisation sont décrites dans le diagramme de séquence \ref{fig:race_sensor_manager_init_seq}.
 
 \begin{figure}[htb]
 \centering 
@@ -313,7 +313,7 @@ Lors du lancement du firmware du capteur, le Race Sensor Manager est initialisé
 \label{fig:race_sensor_manager_init_seq}
 \end{figure}
 
-Le thread va s'occuper de paquetiser et d'envoyer les données collectées régulièrement, le comportement est décrit dans le digramme de séquence \ref{fig:race_sensor_manager_init_thread}.
+Le thread va s'occuper de paquetiser et d'envoyer les données collectées régulièrement. Le comportement est décrit dans le digramme de séquence \ref{fig:race_sensor_manager_init_thread}.
 
 \begin{figure}[htb]
 \centering 
@@ -388,42 +388,42 @@ La figure \ref{fig:cadence_uml} montre le diagramme de classe du module Cadence.
 
 \subsection{Debug}
 
-Ce module propose quelque fonction et macros qui sont utile pendant le debug du capteur comme l'affichage de message sur une console ou l'affichage de la liste de tous les threads qui sont actifs.
+Ce module propose quelques fonctions et macros qui sont utiles pendant le debug du capteur comme l'affichage de message sur une console ou l'affichage de la liste de tous les threads qui sont actifs.
 
 \subsection{Race Sensor Shell}
 
 Le Race Sensor Shell permet l'utilisation d'un shell exécuté directement sur le capteur qui permet l'ajout de diverses commandes permettant la configuration du capteur pendant l'exécution du firmware. Il s'appuie sur le module shell proposé par Zephyr qui prend en charge la gestion du shell, il suffit de lui donner des pointeurs de fonction ainsi que des noms de fonction et le reste est pris en charge par le système d'exploitation.
 
-La liste suivante montre les commandes disponible dans le shell du capteur:
+La liste suivante montre les commandes disponibles dans le shell du capteur:
 
 \begin{itemize}
 \item set\_lora\_sf: Permet de changer le facteur d'étalement de la couche radio LoRa
 \item set\_lora\_pwr: Permet de changer la puissance de sortie du signal de la couche radio LoRa
-\item set\_msg\_interval: Permet de modifier l'intervalle entre l'envoie de deux messages
+\item set\_msg\_interval: Permet de modifier l'intervalle entre l'envoi de deux messages
 \end{itemize}
 
 \section{Les drivers}\label{ch:drivers}
 
-Afin de pouvoir utiliser tous les modules requis par le projet ainsi que le RTOS Zephyr il a été nécessaire d'écrire plusieurs drivers qui sont décrits dans cette section.
+Afin de pouvoir utiliser tous les modules requis par le projet ainsi que le RTOS Zephyr, il a été nécessaire d'écrire plusieurs drivers qui sont décrits dans cette section.
 
-Les drivers présenté dans la liste suivante ont été développés dans le cadre du travail de Bachelor.
+Les drivers présentés dans la liste suivante ont été développés dans le cadre du travail de Bachelor.
 
 \begin{itemize}
 \item Driver $I^{2}C$ pour micro-contrôleur ATSAMD21G18 intégré au système d'exploitation Zephyr
-\item Driver UBloxEVA8M pour piloter le module GPS qui se base lui même sur le driver $I^{2}C$
+\item Driver UBloxEVA8M pour piloter le module GPS qui se base lui-même sur le driver $I^{2}C$
 \item Driver LSM303AGR pour le module accéléromètre qui se base également sur le driver  $I^{2}C$
 \item Driver RN2483 LoRa permettant d'exploiter la communication LoRa et qui se base sur le driver UART existant de Zephyr
 \item Driver pour piloter les 3 LEDs de la carte SODAQ One au travers de GPIOs
 \item Driver External Interrupt Controller permet de déclencher une interruption en fonction de l'état d'un I/O qui est utilisé pour pouvoir compter les battements du cœur
 \end{itemize}
 
-Enfin le Driver GPIO de Zephyr a du être modifié afin de pouvoir utiliser les interruptions sur les I/O proposés par le driver External Interrupt Controller.
+Enfin le Driver GPIO de Zephyr a dû être modifié afin de pouvoir utiliser les interruptions sur les I/O proposés par le driver External Interrupt Controller.
 
 \subsection{Driver $I^{2}C$ ATSAMD21G18}
 
-$I^{2}C$ est un bus qui permet de connecter plusieurs esclaves à un maître. Le maître est le seul à initier les accès aux esclaves qui disposent chacun de leur adresse spécifique, lorsque le maître veut lire ou écrire sur un esclave il va envoyer un message $I^{2}C$ contenant l'adresse de l'esclave en question, suivi des données à écrire ou de l'adresse à lire par exemple. Avantage de taille est qu'il ne nécessite que deux connections pour fonctionner, une qui permet la distribution du signal de synchronisation qui est uniquement contrôlé par le maître et une autre pour le transfert des données qui peut être contrôlé soit par le maître lors d'une écriture ou de l'esclave pour une lecture.
+$I^{2}C$ est un bus qui permet de connecter plusieurs esclaves à un maître. Le maître est le seul à initier les accès aux esclaves qui disposent chacun de leur adresse spécifique. Lorsque le maître veut lire ou écrire sur un esclave, il va envoyer un message $I^{2}C$ contenant l'adresse de l'esclave en question, suivi des données à écrire ou de l'adresse à lire par exemple. Avantage de taille est qu'il ne nécessite que deux connections pour fonctionner, une qui permet la distribution du signal de synchronisation qui est uniquement contrôlé par le maître et une autre pour le transfert des données qui peut être contrôlé soit par le maître lors d'une écriture ou de l'esclave pour une lecture.
 
-L'écriture de ce driver se base sur les informations disponible dans la datasheet du micro-contrôleur ATSAMD21G18 \cite{samd21-datasheet}. Les composant SERCOM $I^{2}C$ sont décrit à partir de la page 545. L'application note \cite{samd21-i2c-configuration} a également été consultée.
+L'écriture de ce driver se base sur les informations disponible dans la datasheet du micro-contrôleur ATSAMD21G18 \cite{samd21-datasheet}. Les composants SERCOM $I^{2}C$ sont décrits à partir de la page 545. L'application note \cite{samd21-i2c-configuration} a également été consultée.
 
 \begin{figure}[htb]
 \centering 
@@ -432,7 +432,7 @@ L'écriture de ce driver se base sur les informations disponible dans la datashe
 \label{fig:i2c_bus}
 \end{figure}
 
-Le bus $I^{2}C$ utilise un protocole pour la communication entre un maître et un esclave, en fonction de l'opération voulue le message ne sera pas tout à fait le même. Le maître commence toujours par envoyer un START suivi de l'adresse de l'esclave à qui est destiné le message et puis enfin du type d'opération, lecture ou écriture. Les données sont ensuite placé sur le bus par le maître dans le cas d'une écriture ou par l'esclave lors d'une lecture. Chose importante lorsque le maître à terminé le processus de lecture, il doit envoyé un message de type NACK suivi d'un STOP afin d'informer l'esclave de la fin du transfert.
+Le bus $I^{2}C$ utilise un protocole pour la communication entre un maître et un esclave. En fonction de l'opération voulue, le message ne sera pas tout à fait le même. Le maître commence toujours par envoyer un START suivi de l'adresse de l'esclave à qui est destiné le message et puis du type d'opération, lecture ou écriture. Les données sont ensuite placées sur le bus par le maître dans le cas d'une écriture ou par l'esclave lors d'une lecture. Chose importante, lorsque le maître a terminé le processus de lecture, il doit envoyer un message de type NACK suivi d'un STOP afin d'informer l'esclave de la fin du transfert.
 La figure \ref{fig:i2c_messages} propose les deux types de messages qu'il existe.
 
 \begin{figure}[htb]
@@ -442,16 +442,16 @@ La figure \ref{fig:i2c_messages} propose les deux types de messages qu'il existe
 \label{fig:i2c_messages}
 \end{figure}
 
-Le driver $I^{2}C$ est responsable du pilotage des SERCOM que propose le micro-contrôleur, ce sont des modules qui peuvent être configuré afin de proposer une interface de type UART, $I^{2}C$ ou SPI. Étant donné qu'il est intégré directement à Zephyr, il doit respecter les contraintes qui y sont liées c'est à dire d'être placé dans le dossier $I^{2}C$ du système d'exploitation: zephyr/drivers/i2c/i2c\_sam0.c et qu'il doit proposer une interface standardisée qui permet au système d'exploitation d'initier les opérations suivantes.
+Le driver $I^{2}C$ est responsable du pilotage des SERCOM que propose le micro-contrôleur, ce sont des modules qui peuvent être configurés afin de proposer une interface de type UART, $I^{2}C$ ou SPI. Étant donné qu'il est intégré directement à Zephyr, il doit respecter les contraintes qui y sont liées c'est à dire d'être placé dans le dossier $I^{2}C$ du système d'exploitation: zephyr/drivers/i2c/i2c\_sam0.c et de proposer une interface standardisée qui permet au système d'exploitation d'initier les opérations suivantes:
 
 \begin{itemize}
 \item Configuration de l'interface
-\item Transfert de donnée (Lecture/Écriture)
+\item Transfert de données (Lecture/Écriture)
 \end{itemize}
 
-Pour se faire, il faut remplir une structure avec des pointeurs de fonctions qui sont ensuite appelés par le système d'exploitation au besoin. En plus de cela, il faut définir et configurer un device, c'est la structure utilisée par Zephyr qui sera ensuite utilisée par les applications afin de pouvoir communiquer sur le bus $I^{2}C$.
+Pour ce faire, il faut remplir une structure avec des pointeurs de fonctions qui sont ensuite appelés par le système d'exploitation au besoin. En plus de cela, il faut définir et configurer un device, c'est la structure utilisée par Zephyr qui sera ensuite utilisée par les applications afin de pouvoir communiquer sur le bus $I^{2}C$.
 
-C'est le driver qui en fonction de l'opération à effectuer va envoyer les codes (START ou STOP) suivie des données. Il produira les acquittement nécessaire et Il vérifiera également que l'esclave en question valide bien les messages. L'utilisation d'une l'interruption permet au driver de savoir, après avoir écrit un message dans le SERCOM, quand il a été effectivement envoyé ceci afin de pouvoir initier l'envoie du prochain message.
+C'est le driver qui en fonction de l'opération à effectuer qui va envoyer les codes (START ou STOP) suivis des données. Il produira les acquittements nécessaire et il vérifiera également que l'esclave en question valide bien les messages. L'utilisation d'une interruption permet au driver de savoir, après avoir écrit un message dans le SERCOM, quand il a été effectivement envoyé, ceci afin de pouvoir initier l'envoi du prochain message.
 
 La figure \ref{fig:driver_i2c_uml} présente le diagramme de classe du driver $I^{2}C$.
 
@@ -510,26 +510,26 @@ void main(void) {
 
 \subsection{Driver UBloxEVA8M}
 
-Le driver UBloxEVA8M permet le pilotage du module GPS du même nom qui se trouve connecté sur le bus $I^{2}C$. Ce module est intégré directement à la carte SODAQ One et propose une gestion GPS complète, il est capable de recevoir les signaux GPS, GLONASS, QZSS et SBAS, il est extrêmement sensible, très rapide et de petite taille, en somme une solution idéal pour des capteurs de petite taille. Il est décrit en plus détails à la section \ref{ch:module_ubloxeva8m}. 
+Le driver UBloxEVA8M permet le pilotage du module GPS du même nom qui se trouve connecté sur le bus $I^{2}C$. Ce module est intégré directement à la carte SODAQ One et propose une gestion GPS complète, il est capable de recevoir les signaux GPS, GLONASS, QZSS et SBAS, il est extrêmement sensible, très rapide et de petite taille, en somme une solution idéale pour des capteurs de petite taille. Il est décrit plus en détail à la section \ref{ch:module_ubloxeva8m}. 
 
-Le module utilise trois types de protocole pour la transmission des données et la configuration du module, NMEA, UPX et RTCM. NMEA est un protocole à base de texte qui envoie des messages formée de character ASCII il est idéale lorsque le module est connecté sur un UART. UPX est un protocole compact car il utilise des mots binaires qui sont protégés par des checksum. Enfin le protocole Radio Technical Commission for Maritime Services (RTCM) est unidirectionnel (seulement envoie vers le receveur) qui permet au receveur l'utilisation des corrections du positionnement relatif uniquement.
+Le module utilise trois types de protocole pour la transmission des données et la configuration du module, NMEA, UPX et RTCM. NMEA est un protocole à base de texte qui envoie des messages formés de character ASCII. Il est idéal lorsque le module est connecté sur un UART. UPX est un protocole compact car il utilise des mots binaires qui sont protégés par des checksum. Enfin, le protocole Radio Technical Commission for Maritime Services (RTCM) est unidirectionnel (seulement envoi vers le receveur) qui permet au receveur l'utilisation des corrections du positionnement relatif uniquement.
 Le driver utilise les messages du protocole UPX car il est le mieux adapté pour l'utilisation sur un bus $I^{2}C$, il est décrit en détail dans le document \cite{ublox-protocol}.
 
-Une fois que le module a été configuré, il va produire les messages qui ont été activés et contenant diverses informations et les placé dans une FIFO. Au travers du bus $I^{2}C$, le thread du driver va interroger le module périodiquement afin de savoir si des messages sont prêt à être lu, si c'est le cas le driver va lire les messages disponible et les stocker dans une structure de type ubloxeva8m\_ubx\_msg. L'utilisateur récupère les messages reçu grâce à une fonction callback qui est passée au driver et qu'il appelle à chaque fois qu'un message est prêt.
+Une fois que le module a été configuré, il va produire les messages qui ont été activés et contenant diverses informations et les placer dans une FIFO. Au travers du bus $I^{2}C$, le thread du driver va interroger le module périodiquement afin de savoir si des messages sont prêts à être lus, si c'est le cas le driver va lire les messages disponibles et les stocker dans une structure de type ubloxeva8m\_ubx\_msg. L'utilisateur récupère les messages reçus grâce à une fonction callback qui est passée au driver et qu'il appelle à chaque fois qu'un message est prêt.
 
-Dans le cadre du projet, le message UBX-NAV-PVT est utilisé pour récupérer les informations nécessaire au projet, c'est à dire la position, l'évaluation de la précision de la position ainsi que les informations de temps qui servent à synchroniser le capteur. La liste suivante présente un résumé des informations contenue dans ce message, pour plus de détails voir \cite[p.~307]{ublox-protocol}.
+Dans le cadre du projet, le message UBX-NAV-PVT est utilisé pour récupérer les informations nécessaires au projet, c'est à dire la position, l'évaluation de la précision de la position ainsi que les informations de temps qui servent à synchroniser le capteur. La liste suivante présente un résumé des informations contenues dans ce message, pour plus de détails voir \cite[p.~307]{ublox-protocol}.
 
 \begin{itemize}
- \item La date du jour
+ \item La date
  \item L'heure actuelle 
  \item Le type de fix GPS
- \item La validité et la précision des informations contenus dans le message
+ \item La validité et la précision des informations contenues dans le message
  \item La latitude et longitude
  \item Le nombre de satellite actuellement vu
  \item La vitesse
  \end{itemize} 
 
-En utilisant le driver $I^{2}C$ décrit à la section précédente il va permettre l'initialisation, la configuration et la récupération des messages GPS du composant. Une fois le module GPS initialisé et configuré, le driver utilise un thread qui va périodiquement allez voir si de nouveaux messages sont présent dans la FIFO, si c'est le cas ils sont lus et ensuite décodé. Lorsque les messages sont prêt ils sont ensuite transférer à l'application au travers d'une fonction de callback.
+En utilisant le driver $I^{2}C$ décrit à la section précédente, il va permettre l'initialisation, la configuration et la récupération des messages GPS du composant. Une fois le module GPS initialisé et configuré, le driver utilise un thread qui va périodiquement aller voir si de nouveaux messages sont présents dans la FIFO, si c'est le cas ils sont lus et ensuite décodés. Lorsque les messages sont prêts, ils sont ensuite transférés à l'application au travers d'une fonction de callback.
 
 La figure \ref{fig:driver_ubloxeva8m_uml} présente le diagramme de classe du driver UBloxEVA8M.
 
@@ -540,7 +540,7 @@ La figure \ref{fig:driver_ubloxeva8m_uml} présente le diagramme de classe du dr
 \label{fig:driver_ubloxeva8m_uml}
 \end{figure}
 
-Un exemple d'utilisation du driver UBloxEVA8M est proposée ci-dessous. Le principe d'utilisation et la configuration d'une fonction qui est appelé par le driver lorsqu'un nouveau message est reçu, une fonction callback. Dans cette fonction, l'utilisateur peut vérifier de quel type de message il s'agit, dans le cas ou le message l'intéresse il peut ensuite utiliser les structures permettant le décodage des différents messages.
+Un exemple d'utilisation du driver UBloxEVA8M est proposé ci-dessous. \todo{Le principe d'utilisation et la configuration d'une fonction qui est appelée par le driver lorsqu'un nouveau message est reçu, une fonction callback.} Dans cette fonction, l'utilisateur peut vérifier de quel type de message il s'agit. Dans le cas où le message l'intéresse, il peut ensuite utiliser les structures permettant le décodage des différents messages.
 
 \begin{lstlisting}[style=CStyle]
 #include "UBloxEVA8M.h"
@@ -597,9 +597,9 @@ void main(void)
 
 Le driver LSM303AGR est le moyen de communiquer avec le module accéléromètre et magnétomètre qui est connecté au bus $I^{2}C$. Dans le cadre du projet seule la partie qui gère l'accéléromètre a été développée puisque le magnétomètre n'est pas utilisé. Le composant est décrit en détail dans le datasheet associé \cite{lsm303agr-datasheet}.
 
-Le composant LSM303AGR est configuré au travers d'une liste de registre, il est également possible de lire les différentes valeurs mesurer au travers d'un autre groupe de registre. Tout les registres disponible sont détaillés dans le document \cite[p.~43]{lsm303agr-datasheet}.
+Le composant LSM303AGR est configuré au travers d'une liste de registre, il est également possible de lire les différentes valeurs mesurées au travers d'un autre groupe de registre. Tous les registres disponibles sont détaillés dans le document \cite[p.~43]{lsm303agr-datasheet}.
 
-Puisque le composant LSM303AGR se trouve placé sur le bus $I^{2}C$, ce driver utilise également le driver pour ce bus afin de pouvoir communiquer avec le module. La majorité des opérations consiste à écrire ou lire des valeurs dans les différents registres à disposition afin de configurer ou de récupérer les données voulues. Il est à noté qu'il est également possible de configurer le module afin qu'il produise des interruptions lorsque certains seuils sont dépassés sur un certain axe. Cette fonctionnalité est utilisé afin de détecter les pas effectuer par le porteur de capteur.
+Puisque le composant LSM303AGR se trouve placé sur le bus $I^{2}C$, ce driver utilise également le driver pour ce bus afin de pouvoir communiquer avec le module. La majorité des opérations consiste à écrire ou lire des valeurs dans les différents registres à disposition afin de configurer ou de récupérer les données voulues. Il est à noter qu'il est également possible de configurer le module afin qu'il produise des interruptions lorsque certains seuils sont dépassés sur un certain axe. Cette fonctionnalité est utilisée afin de détecter les pas effectués par le porteur de capteur.
 
 La figure \ref{fig:driver_lsm303agr_uml} présente le diagramme de classe du driver LSM303AGR.
 
@@ -610,7 +610,7 @@ La figure \ref{fig:driver_lsm303agr_uml} présente le diagramme de classe du dri
 \label{fig:driver_lsm303agr_uml}
 \end{figure}
 
-Un exemple d'utilisation du driver est proposée ci-dessous.
+Un exemple d'utilisation du driver est proposé ci-dessous.
 
 \begin{lstlisting}[style=CStyle]
 #include "LSM303AGR.h"
@@ -671,13 +671,13 @@ void main(void)
 
 \subsection{Driver RN2483}
 
-Le driver RN2483 permet de piloter le composant du même nom qui permet la communication radio LoRa. Le module est connecté au micro-contrôleur par un UART et il est piloté grâce à un protocole de commande texte qui permette d'effectuer les différentes opérations requises pour l'envoie de donnée.
+Le driver RN2483 permet de piloter le composant du même nom qui permet la communication radio LoRa. Le module est connecté au micro-contrôleur par un UART et il est piloté grâce à un protocole de commande texte qui permet d'effectuer les différentes opérations requises pour l'envoi de données.
 
 Le protocole est détaillé dans le document Command Reference User's Guide \cite{rn2483-datasheet}.
 
-Grâce au driver il est possible à l'utilisateur d'effectuer certaines opérations, le driver se charge de créer les bonnes commandes et de les envoyer sur l'UART. Une fois la commande exécutée par le module il vérifie également le bon acquittement de celle-ci.
+Grâce au driver, il est possible à l'utilisateur d'effectuer certaines opérations, le driver se charge de créer les bonnes commandes et de les envoyer sur l'UART. Une fois la commande exécutée par le module, il vérifie également le bon acquittement de celle-ci.
 
-Il est aussi possible de gérer la couche MAC LoRaWAN grâce au composant, puisque cette couche n'est pas utilisée dans le cadre du projet, elle est désactivée au moyen de la fonction rn2483\_lora\_pause\_mac() et seule la couche radio LoRa est utilisée pour envoyer des messages, cela permet de simplifier grandement la gestion du protocole de communication.
+Il est aussi possible de gérer la couche MAC LoRaWAN grâce au composant, puisque cette couche n'est pas utilisée dans le cadre du projet, elle est désactivée au moyen de la fonction rn2483\_lora\_pause\_mac() et seule la couche radio LoRa est utilisée pour envoyer des messages. Cela permet de simplifier grandement la gestion du protocole de communication.
 
 La figure \ref{fig:driver_rn2483_uml} présente le diagramme de classe du driver RN2483.
 
@@ -688,7 +688,7 @@ La figure \ref{fig:driver_rn2483_uml} présente le diagramme de classe du driver
 \label{fig:driver_rn2483_uml}
 \end{figure}
 
-Un exemple d'utilisation du driver est proposée ci-dessous.
+Un exemple d'utilisation du driver est proposé ci-dessous.
 
 \begin{lstlisting}[style=CStyle]
 #include "RN2483.h"
@@ -754,14 +754,14 @@ void main(void)
 
 \subsection{Driver LEDs}
 
-La carte SODAQ One est équipée de 3 LEDs, une rouge, une verte, une bleu, qui sont connectés à des GPIOs. Ce driver, très simple, permet d'abstraire la gestion des GPIO et propose une interface facilitant la gestion des LEDs.
+La carte SODAQ One est équipée de 3 LEDs, une rouge, une verte, une bleu, qui sont connectées à des GPIOs. Ce driver, très simple, permet d'abstraire la gestion des GPIO et propose une interface facilitant la gestion des LEDs.
 
 La figure \ref{fig:driver_led_uml} présente le diagramme de classe du driver LED.
 
 \begin{figure}[htb]
 \centering 
 \includegraphics[width=0.6\columnwidth]{driver_led_uml.png} 
-\caption{Diagramme de class du driver LED}
+\caption{Diagramme de classe du driver LED}
 \label{fig:driver_led_uml}
 \end{figure}
 
@@ -795,7 +795,7 @@ void main(void)
 
 \subsection{Driver External Interrupt Controller}
 
-Lorsqu'un battement du cœur du sportif est détecté par le module rythme cardiaque, une impulsion est générée sur une ligne connectée à un GPIO du micro-contrôleur. Afin de pouvoir compter proprement les battements une interruption doit pouvoir être déclenchée lorsque l'impulsion est détectée. Dans Zephyr cela se traduit par la configuration au travers du driver GPIO, on peut spécifier si l'on souhaite déclencher une interruption et dans quelles conditions, flanc montant ou descendant ou alors lors d'un niveau haut ou bas. Cependant cette fonctionnalité n'était pas présente au moment du travail de Bachelor. Afin de pouvoir proposer cette fonctionnalité un driver de gestion des interruptions externe ou External Interrupt Controller (EIC) a du être développé. Une fois le driver développé il a fallut ensuite modifier le driver GPIO afin de pouvoir proposer cette fonctionnalité.
+Lorsqu'un battement du cœur du sportif est détecté par le module rythme cardiaque, une impulsion est générée sur une ligne connectée à un GPIO du micro-contrôleur. Afin de pouvoir compter proprement les battements, une interruption doit pouvoir être déclenchée lorsque l'impulsion est détectée. Dans Zephyr, cela se traduit par la configuration au travers du driver GPIO, on peut spécifier si l'on souhaite déclencher une interruption et dans quelles conditions, flanc montant ou descendant ou alors lors d'un niveau haut ou bas. Cependant cette fonctionnalité n'était pas présente au moment du travail de Bachelor. Afin de pouvoir proposer cette fonctionnalité, un driver de gestion des interruptions externe ou External Interrupt Controller (EIC) a dû être développé. Une fois le driver développé, il a fallu ensuite modifier le driver GPIO afin de pouvoir proposer cette fonctionnalité.
 
 La figure \ref{fig:driver_eic_uml} présente le diagramme de classe du driver External Interrupt Controller.
 
@@ -871,11 +871,11 @@ Marqueur & 4 & uint & Une valeur fixe servant de marqueur et permettant d'identi
 ID & 1 & uint & Identifiant du capteur qui a généré le paquet \\
 Timestamp & 8 & uint & Heure et date au moment de la génération du paquet \\
 Status & 1 & uint & Status du capteur \\
-Seq & 1 & uint & Numéro de séquence du paquet. Chaque fois qu'un paquet est généré le compteur est incrémenté de un, cela permet de détecter lorsque des paquets sont perdu \\
+Seq & 1 & uint & Numéro de séquence du paquet. Chaque fois qu'un paquet est généré le compteur est incrémenté de un, cela permet de détecter lorsque des paquets sont perdus \\
 Latitude & 4 & int & Latitude du capteur reporté directement depuis le module GPS \\
 Longitude & 4 & int & Longitude du capteur reporté directement depuis le module GPS \\
 Nb SV & 1 & uint & Nombre de satellites GPS en vue \\
-DoP & 2 & int & Disolution of Position, la qualité de la précision de la position GPS \\
+DoP & 2 & int & Dissolution of Position, la qualité de la précision de la position GPS \\
 Rythme cardiaque & 1 & uint & Rythme cardiaque de l'athlète \\
 Cadence & 1 & uint & Cadence de l'athlète \\
 \bottomrule 

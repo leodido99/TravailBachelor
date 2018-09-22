@@ -1,7 +1,7 @@
 
 \chapter{Développement du projet}\label{ch:developpement}
 
-Durant la pré-étude, j'ai pris la décision de découper le développement du projet en trois phases distinctes afin de pouvoir gérer le travail au mieux et pouvoir réagir rapidement en cas d'imprévus ou de problèmes. Pour chaque phase des objectifs ont été établis afin de pouvoir, à son terme, en valider l'exécution et ainsi passer à la phase suivante.
+Durant la pré-étude, j'ai pris la décision de découper le développement du projet en trois phases distinctes afin de pouvoir gérer le travail au mieux et pouvoir réagir rapidement en cas d'imprévus ou de problèmes. Pour chaque phase, des objectifs ont été établis afin de pouvoir, à son terme, en valider l'exécution et ainsi passer à la phase suivante.
 
 Les sections suivantes décrivent les trois phases de développement du projet.
 
@@ -20,11 +20,11 @@ Début & Validation \\
 \end{tabular}
 \end{table}
 
-La première phase de développement qui a commencé dès le début du projet, c'est à dire le 9 Juillet 2018, avait pour objectif la validation de la transmission des données avec la technologie LoRa et la solution matériel choisie pour le capteur et la passerelle. Durant cette phase, seule le capteur et la passerelle ont été testés.
+La première phase de développement qui a commencé dès le début du projet, c'est à dire le 9 Juillet 2018, avait pour objectif la validation de la transmission des données avec la technologie LoRa et la solution matériel choisie pour le capteur et la passerelle. Durant cette phase, seuls le capteur et la passerelle ont été testés. 
 
-Pour ce faire, un programme simple de test a été écrit pour le capteur en se basant sur le framework Arduino, facilitant et accélérant grandement le développement car déjà tous les modules et drivers nécessaires étaient disponibles, le but étant de permettre de faire des tests de transmissions de paquet rapidement et efficacement. En ce qui concerne la passerelle, le début du serveur d'application a été développé qui permet la récupération des données transmises par le capteur. Un gestionnaire spéciale pour ce test a été développé qui permet de vérifier si des paquets ont été perdus lors de leur transmission afin de jauger de la qualité de la transmission LoRa.
+Pour ce faire, un programme simple de test a été écrit pour le capteur en se basant sur le framework Arduino, facilitant et accélérant grandement le développement car déjà tous les modules et drivers nécessaires étaient disponibles, le but étant de permettre de faire des tests de transmissions de paquet rapidement et efficacement. En ce qui concerne la passerelle, le début du serveur d'application a été développé qui permet la récupération des données transmises par le capteur. Un gestionnaire spécial pour ce test a été développé qui permet de vérifier si des paquets ont été perdus lors de leur transmission afin de jauger de la qualité de la transmission LoRa.
 
-Au terme de se développement un test a été effectué en extérieur afin de s'assurer que la matériel était capable d'envoyer et de transmettre des paquets à des distances proches de l'utilisation finale du projet. Dans le cas ou les résultats du test ne serait pas satisfaisant alors une nouvelle étude sur le matériel devrait être faite afin de trouver une solution fonctionnant dans les conditions d'utilisation du projet. Le test a été effectué le 13 Juillet 2018 et a permis de valider la phase \#1 avec succès ouvrant ainsi le développement pour la deuxième phase.
+Au terme de ce développement un test a été effectué en extérieur afin de s'assurer que le matériel était capable d'envoyer et de transmettre des paquets à des distances proches de l'utilisation finale du projet. Dans le cas où les résultats du test ne seraient pas satisfaisants, une nouvelle étude sur le matériel devrait être faite afin de trouver une solution fonctionnant dans les conditions d'utilisation du projet. Le test a été effectué le 13 Juillet 2018 et a permis de valider la phase \#1 avec succès ouvrant ainsi le développement pour la deuxième phase.
 
 Pour plus d'information sur le test effectué et ses résultats voir le chapitre \ref{ch:test_1}.
 
@@ -43,17 +43,17 @@ Début & Validation \\
 \end{tabular}
 \end{table}
 
-La deuxième phase du projet a été beaucoup plus conséquente en terme de travaille a accomplir. Son objectif a été de valider la chaîne complète de communication du système, tous les éléments ont été développé dans leur forme simplifiée afin de pouvoir effectuer les tâches nécessaires au bon fonctionnement du système. Durant cette phase l'accent a été mis sur la transmission de la position GPS, les autres paramètres ont été laissé de côté afin de pouvoir se concentrer sur les éléments les plus importants.
+La deuxième phase du projet a été beaucoup plus conséquente en terme de travail à accomplir. Son objectif a été de valider la chaîne complète de communication du système, tous les éléments ont été développés dans leur forme simplifiée afin de pouvoir effectuer les tâches nécessaires au bon fonctionnement du système. Durant cette phase, l'accent a été mis sur la transmission de la position GPS, les autres paramètres ont été laissés de côté afin de pouvoir se concentrer sur les éléments les plus importants.
 
-Pour le capteur, le système d'exploitation Zephyr a été pris en main afin d'y ajouter la configuration de la carte SODAQ One et les drivers manquant, $I^{2}C$ et GPS, ont été développé et testé afin de pouvoir interagir avec le modules GPS. Enfin le cœur de l'application du capteur a été écrit, qui consiste principalement a récupérer la position GPS au travers du bus $I^{2}C$ en utilisant le driver GPS et puis de créer un paquet de donnée pour enfin l'envoyer grâce à la couche radio LoRa, ceci en boucle.
+Pour le capteur, le système d'exploitation Zephyr a été pris en main afin d'y ajouter la configuration de la carte SODAQ One et les drivers manquants, $I^{2}C$ et GPS, ont été développés et testés afin de pouvoir interagir avec le modules GPS. Enfin le cœur de l'application du capteur a été écrit, qui consiste principalement à récupérer la position GPS au travers du bus $I^{2}C$ en utilisant le driver GPS et puis créer un paquet de données pour enfin l'envoyer grâce à la couche radio LoRa, ceci en boucle.
 
-La structure de la base de donnée a été définit au moyen d'un diagramme UML et les scriptes associés permettant la création des différentes tables ont également été écrit. Le logiciel de gestion de base de données a ensuite été installé sur la passerelle et les tables créées.
+La structure de la base de données a été définie au moyen d'un diagramme UML et les scriptes associés permettant la création des différentes tables ont également été écrits. Le logiciel de gestion de base de données a ensuite été installé sur la passerelle et les tables créées.
 
-Le serveur d'application a été développé d'avantage afin d'y intégrer la gestion du mode "race" qui permet la réception des données envoyées par le capteur, l'extraction des paramètres intéressant pour finalement allez écrire le tout dans la base de données.
+Le serveur d'application a été développé d'avantage afin d'y intégrer la gestion du mode "race" qui permet la réception des données envoyées par le capteur, l'extraction des paramètres intéressants pour finalement aller écrire le tout dans la base de données.
 
-L'application mobile a été mise en place, permettant la connexion à la base de données afin d'y récupérer les données nécessaire. La gestion de la carte bien connue de Google a été implémenté afin de pouvoir y afficher les positions récupérer depuis la base de données. Cependant l'interface n'a été que très peu développé, l'accent étant mis sur le développement du fonctionnement de base plutôt que sur l'esthétique.
+L'application mobile a été mise en place, permettant la connexion à la base de données afin d'y récupérer les données nécessaires. La gestion de la carte bien connue de Google a été implémenté afin de pouvoir y afficher les positions récupérées depuis la base de données. Cependant, l'interface n'a été que très peu développée, l'accent étant mis sur le développement du fonctionnement de base plutôt que sur l'esthétique.
 
-Cette phase a été terminé après un test en extérieur sur un anneau de distance similaire à une piste d'athlétisme permettant de valider le bon fonctionnement de la chaîne complète du système.
+Cette phase a été terminée après un test en extérieur sur un anneau de distance similaire à une piste d'athlétisme permettant de valider le bon fonctionnement de la chaîne complète du système.
 
 Pour plus d'information sur le test effectué et ses résultats voir le chapitre \ref{ch:test_2}.
 
@@ -72,9 +72,9 @@ Début & Validation \\
 \end{tabular}
 \end{table}
 
-Une fois que le fonctionnement du système dans son ensemble a été validé, la troisième phase a pu commencer. Son objectif est la finalisation du système dans son entier, c'est à dire d'implémenter les éléments restants, comme l'acquisition du rythme cardiaque et de la cadence et leurs écriture dans la base de données. L'interface graphique de l'application mobile ainsi que les fonctionnalités restantes comme la gestion des courses et la gestion graphique de la carte sont finalisées.
+Une fois que le fonctionnement du système dans son ensemble a été validé, la troisième phase a pu commencer. Son objectif est la finalisation du système dans son entier, c'est à dire d'implémenter les éléments restants, comme l'acquisition du rythme cardiaque et de la cadence et leur écriture dans la base de données. L'interface graphique de l'application mobile ainsi que les fonctionnalités restantes comme la gestion des courses et la gestion graphique de la carte sont finalisées.
 
-Il est a noté que cette phase a commencé plus tôt que la date du test formelle de la phase \#2, ceci étant du au fait que le test formel a du être repoussé a plusieurs reprise à cause de problèmes techniques au niveau de la connexion de l'application mobile et de la passerelle. Afin de pouvoir respecter les contraintes de temps liées au projet, il a été décidé de commencer le développement relatif à la phase \#3 avant le passage formel du test de validation \#2.
+Il est à noter que cette phase a commencé plus tôt que la date du test formel de la phase \#2, ceci étant dû au fait que le test formel a dû être repoussé a plusieurs reprises à cause de problèmes techniques au niveau de la connexion de l'application mobile et de la passerelle. Afin de pouvoir respecter les contraintes de temps liées au projet, il a été décidé de commencer le développement relatif à la phase \#3 avant le passage formel du test de validation \#2.
 
 Au terme de la phase \#3, un test faisant office de démonstration de l'utilisation du système a été fait afin de valider son fonctionnement global.
 
