@@ -36,6 +36,7 @@ void hr_gpio_callback(struct device *port, struct gpio_callback *cb, u32_t pins)
 	}
 
 	hr.beat_cnt++;
+	DBG_PRINTK("beat!\n");
 }
 
 u8_t hr_get(void)

@@ -204,7 +204,7 @@ static void cadence_sampling_thread(void *arg1, void *arg2, void *arg3)
 		if (sampling->nb_samples == CADENCE_NB_SAMPLE) {
 			process_samples(sampling);
 			sampling->nb_samples = 0;
-			DBG_PRINTK("nb steps: %d\n", get_steps());
+			//DBG_PRINTK("nb steps: %d\n", get_steps());
 		}
 
 		k_sleep(CADENCE_SAMPLING_INTERVAL);
