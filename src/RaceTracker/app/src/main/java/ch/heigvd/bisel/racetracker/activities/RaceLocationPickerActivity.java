@@ -77,6 +77,8 @@ public class RaceLocationPickerActivity extends AppCompatActivity
     public void onMapReady(GoogleMap googleMap) {
         this.googleMap = googleMap;
 
+        googleMap.setMapType(GoogleMap.MAP_TYPE_SATELLITE);
+
         // Prompt the user for permission.
         getLocationPermission();
 

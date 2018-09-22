@@ -50,7 +50,7 @@ public class RaceTrackerCompetitions implements OnQueryResultReady, OnQueryExecu
                 competition.getLocation().getObject().longitude,
                 competition.getEventDate().toString(),
                 competition.isActive(),
-                competition.getZoom()));
+                Float.toString(competition.getZoom())));
         query.setUpdateQuery(true);
         query.setCallbackExecuted(this);
         query.execute();
