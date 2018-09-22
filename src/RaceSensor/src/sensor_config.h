@@ -21,7 +21,7 @@
 /**
  * Race managers wait for GPS fix before starting to send packets
  */
-#define RACE_SENSOR_DO_GPS_FIX 0
+#define RACE_SENSOR_DO_GPS_FIX 1
 
 /* ************************************************************************* */
 /* GPIO									     */
