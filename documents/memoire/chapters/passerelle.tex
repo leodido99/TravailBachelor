@@ -1,9 +1,9 @@
 
 \chapter{Description de la passerelle}\label{ch:passerelle}
 
-La passerelle est chargée du traitement des paquets reçu par les capteurs et du stockage de ces données dans la base de données. 
+La passerelle est chargée du traitement des paquets reçus par les capteurs et du stockage de ces données dans la base de données. 
 
-Elle se compose de deux parties physique, d'une part un module de gestion de la communication LoRa, le concentrateur, qui se charge de la réception des paquets radio LoRa. L'autre partie est le micro-ordinateur, lorsqu'un paquet de données est reçu par le concentrateur, l'ordinateur de traitement le récupère puis se charge de décoder les données pour ensuite les stocker.
+Elle se compose de deux parties physiques, d'une part un module de gestion de la communication LoRa, le concentrateur, qui se charge de la réception des paquets radio LoRa. L'autre partie est le micro-ordinateur. Lorsqu'un paquet de données est reçu par le concentrateur, l'ordinateur de traitement le récupère puis se charge de décoder les données pour ensuite les stocker.
 
 D'autre part, la passerelle fait également office d'access point WiFi, les applications qui souhaitent pouvoir accéder à la base de données se connectent directement à ce réseau. Ce sera le cas de l'application mobile par exemple.
 
@@ -19,9 +19,9 @@ La figure \ref{fig:gateway_schema} présente le schéma block de la passerelle.
 
 \section{Le matériel}
 
-L'ordinateur de traitement des paquets LoRa se base sur le micro-ordinateur très connu Raspberry Pi. Il dispose de toute les ressources nécessaire pour les besoins du travail de Bachelor, de plus la communauté et la documentation à son sujet est très développée.
+L'ordinateur de traitement des paquets LoRa se base sur le micro-ordinateur très connu Raspberry Pi. Il dispose de toutes les ressources nécessaire pour les besoins du travail de Bachelor, de plus la communauté et la documentation à son sujet est très développée.
 
-Pour rappel les caractéristiques du Raspberry Pi sont résumées dans la table~\ref{tab:raspberry_cara}.
+Pour rappel, les caractéristiques du Raspberry Pi sont résumées dans la table~\ref{tab:raspberry_cara}.
 
 \begin{table}[htb]
 \caption{Caractéristiques du Raspberry Pi 3 Model B+}
@@ -46,7 +46,7 @@ Prix & 34.50 CHF\\
 \end{tabular}
 \end{table}
 
-Pendant la pré-étude deux concentrateurs différents avaient été étudiés, le choix final s'est porté sur la solution d'un concentrateur moins couteux, le Dragino LoRa HAT. C'est un concentrateur de type simple canal, c'est à dire qu'il n'es capable d'écouter qu'un seul canal de fréquence à la fois, ce qui convient parfaitement pour un prototype comme celui développé pour le projet puisque un seul capteur est assemblé. Le Dragino LoRa HAT est un module d'extension pour la Raspberry Pi, il est conçu pour se fixer au dessus de lui facilement. En plus de la gestion de la couche radio LoRa le module propose également un module GPS qui pourrait se rendre utile afin de pouvoir déterminer la position des passerelles, cet axe pourrait être étudié d'avantage pour le développement d'un produit.
+Pendant la pré-étude, deux concentrateurs différents avaient été étudiés, le choix final s'est porté sur la solution d'un concentrateur moins couteux, le Dragino LoRa HAT. C'est un concentrateur de type simple canal, c'est-à-dire qu'il n'est capable d'écouter qu'un seul canal de fréquence à la fois, ce qui convient parfaitement pour un prototype comme celui développé pour le projet puisque un seul capteur est assemblé. Le Dragino LoRa HAT est un module d'extension pour le Raspberry Pi, il est conçu pour se fixer au dessus de lui facilement. En plus de la gestion de la couche radio LoRa, le module propose également un module GPS qui pourrait se rendre utile afin de pouvoir déterminer la position des passerelles, cet axe pourrait être étudié d'avantage pour le développement d'un produit.
 
 Pour rappel les caractéristiques du Dragino Hat sont résumées dans la table~\ref{tab:dragino_cara}.
 
@@ -67,7 +67,7 @@ Prix & 38.90 CHF \\
 \end{tabular}
 \end{table}
 
-Le Raspberry Pi et le Dragino LoRa HAT communiquent au travers d'un bus de type SPI. La gestion de la communication est entièrement géré par le logiciel packet forwarder détaillé dans la chapitre \ref{ch:packet_forwarder}.
+Le Raspberry Pi et le Dragino LoRa HAT communiquent au travers d'un bus de type SPI. La gestion de la communication est entièrement effectuée par le logiciel packet forwarder détaillé dans la chapitre \ref{ch:packet_forwarder}.
 
 \begin{figure}[htb]
 \centering 
@@ -80,9 +80,9 @@ Le Raspberry Pi et le Dragino LoRa HAT communiquent au travers d'un bus de type 
 
 \section{Le packet forwarder}\label{ch:packet_forwarder}
 
-Le packet forwarder est le logiciel qui se place en amont du serveur d'application, il est en charge de la gestion du Dragino LoRa HAT, c'est à dire qu'il va régulièrement interroger le module d'extension pour savoir si de nouveaux paquets sont disponibles, si c'est le cas, le packet forwarder va les récupérer en analyser le contenu afin de pouvoir créer un objet json contenant toutes les informations. En plus de cela il va aussi rajouter des meta-données, comme le temps de réception du paquet ainsi que la fréquence et le facteur d'étalement par exemple.
+Le packet forwarder est le logiciel qui se place en amont du serveur d'application. Il est en charge de la gestion du Dragino LoRa HAT, c'est à dire qu'il va régulièrement interroger le module d'extension pour savoir si de nouveaux paquets sont disponibles. Si c'est le cas, le packet forwarder va les récupérer et en analyser le contenu afin de pouvoir créer un objet json contenant toutes les informations. En plus de cela il va aussi rajouter des meta-données, comme le temps de réception du paquet ainsi que la fréquence et le facteur d'étalement par exemple.
 
-Une fois les données transformé en json, le tout est envoyé au moyen d'un paquet UDP à un serveurs, dans notre cas le serveur d'application. La liste suivante décrit les informations contenu dans le paquet.
+Une fois les données transformées en json, le tout est envoyé au moyen d'un paquet UDP à un serveur, dans notre cas le serveur d'application. La liste suivante décrit les informations contenues dans le paquet.
 
 \begin{itemize}
 \item La version du protocole utilisée
@@ -92,7 +92,7 @@ Une fois les données transformé en json, le tout est envoyé au moyen d'un paq
 \item L'objet json
 \end{itemize}
 
-Pour les paquets de type PUSH\_DATA, qui sont les seuls paquets utilisés dans le cadre du projet et qui sont créé pour les données du flux montant (noeud -> passerelle), l'objet json contient un tableau nommé rxpk. Chaque élément du tableau peut contenir les informations suivantes.
+Pour les paquets de type PUSH\_DATA, qui sont les seuls paquets utilisés dans le cadre du projet et qui sont créés pour les données du flux montant (noeud -> passerelle), l'objet json contient un tableau nommé rxpk. Chaque élément du tableau peut contenir les informations suivantes.
 
 \begin{itemize}
 \item time: Heure UTC à la réception du paquet
@@ -136,15 +136,15 @@ Un exemple d'objet json envoyé par le packet forwarder est présenté ci-dessou
 ]}
 \end{lstlisting}
 
-Le protocole est décrit en grand détails sur la page github du packet forwarder de Semtech voir \cite{lora-pkt-forwarder-protocol}.
+Le protocole est décrit en grand détail sur la page github du packet forwarder de Semtech, voir \cite{lora-pkt-forwarder-protocol}.
 
-A la base le packet forwarder a été développé par la société Semtech, tenante de la patente du protocole de communication LoRa, c'est également cette société qui a définit le format des objets json envoyées dans les paquets UDP. Cependant la version qui est utilisée dans le cadre du projet de Bachelor, est un fork sur lequel plusieurs personnes ont travaillés afin de rajouter un certains nombre de fonctionnalité comme l'utilisation de fichiers de configuration ou le support de concentrateurs divers. Les principaux acteurs du développement de ce logiciel sont la société Semtech, Thomas Telkamp, Charles Hallard et Julien Le Sech. C'est le fork de Charles Hallard qui est employé par le projet car il supporte le Dragino LoRa HAT, il est disponible gratuitement sur github. \cite{pkt-forwarder-hallard}
+A la base, le packet forwarder a été développé par la société Semtech, tenante de la patente du protocole de communication LoRa. C’est également cette société qui a défini le format des objets json envoyés dans les paquets UDP. Cependant, la version qui est utilisée dans le cadre du projet de Bachelor est un fork sur lequel plusieurs personnes ont travaillé afin de rajouter un certain nombre de fonctionnalités comme l'utilisation de fichiers de configuration ou le support de concentrateurs divers. Les principaux acteurs du développement de ce logiciel sont la société Semtech, Thomas Telkamp, Charles Hallard et Julien Le Sech. C'est le fork de Charles Hallard qui est employé par le projet car il supporte le Dragino LoRa HAT, il est disponible gratuitement sur github. \cite{pkt-forwarder-hallard}
 
-Les tâches en lien avec le packet forwarer sont très simple, il s'agit d'abord de cloner le repository git, de compiler le programme puis de configurer le packet forwarder au moyen d'un fichier json, principalement pour sélectionner la fréquence et le facteur d'étalement sur lequel il doit écouter ainsi que l'adresse et le port du serveur auquel on souhaite envoyer les paquets UDP générés. On peut ensuite exécuter simplement le packet forwarder et dès la réception de paquets ils seront automatiquement transférés.
+Les tâches en lien avec le packet forwarder sont très simples, il s'agit d'abord de cloner le repository git, de compiler le programme puis de configurer le packet forwarder au moyen d'un fichier json, principalement pour sélectionner la fréquence et le facteur d'étalement sur lequel il doit écouter ainsi que l'adresse et le port du serveur auquel on souhaite envoyer les paquets UDP générés. On peut ensuite exécuter simplement le packet forwarder et, dès la réception de paquets, ils seront automatiquement transférés.
 
 \section{Le serveur d'application}
 
-Le serveur d'application est le logiciel principal de gestion de la passerelle. Au démarrage il se connect à un port du packet forwarder, ce qui lui permet ensuite de recevoir les paquets de données LoRa sous la forme d'objet json. D'autre part il va également gérer la connexion à la base de données afin de pouvoir y sauver les informations qui auront été extraites des paquets.
+Le serveur d'application est le logiciel principal de gestion de la passerelle. Au démarrage il se connecte à un port du packet forwarder, ce qui lui permet ensuite de recevoir les paquets de données LoRa sous la forme d'objet json. D'autre part, il va également gérer la connexion à la base de données afin de pouvoir y sauver les informations qui auront été extraites des paquets.
 
 Afin de rendre le serveur d'application plus flexible, un shell est intégré au programme, ce qui permet d'exécuter diverses commandes pendant son exécution afin d'acquérir des informations sur l'état du serveur ou d'écrire toutes les positions GPS acquises dans un fichier par exemple afin d'aider durant le debug du système.
 
@@ -152,7 +152,7 @@ Le serveur d'application est écrit en C++ et s'exécute sur le système d'explo
 
 \subsection{Architecture logiciel}
 
-L'architecture logiciel du serveur d'application se compose de 3 couches différentes, la couche application, la couche paquet LoRa et la couche outils. Le serveur d'application peut fonctionner en deux modes, course ou test. Le mode course est le mode standard, dans ce mode le serveur d'application récupère les paquets envoyés par le capteur, extrait les informations et les stock dans la base de données. Dans le mode test, les paquets sont récupérés mais ne sont stockés que localement afin de pouvoir faire différents tests sur le système. Il est possible de changer de mode en utilisant le shell du serveur d'application.
+L'architecture logiciel du serveur d'application se compose de 3 couches différentes: la couche application, la couche paquet LoRa et la couche outils. Le serveur d'application peut fonctionner en deux modes, course ou test. Le mode course est le mode standard, dans ce mode le serveur d'application récupère les paquets envoyés par le capteur, extrait les informations et les stocke dans la base de données. Dans le mode test, les paquets sont récupérés mais ne sont stockés que localement afin de pouvoir faire différents tests sur le système. Il est possible de changer de mode en utilisant le shell du serveur d'application.
 
 La figure \ref{fig:gateway_static_archi} présente l'architecture statique du serveur d'application.
 
@@ -163,28 +163,28 @@ La figure \ref{fig:gateway_static_archi} présente l'architecture statique du se
 \label{fig:gateway_static_archi}
 \end{figure}
 
-Les différents modules qui compose le serveur d'application sont résumés dans la liste suivante.
+Les différents modules qui composent le serveur d'application sont résumés dans la liste suivante.
 
 \begin{itemize}
 \item Race App Server: C'est la classe principale du serveur d'application, c'est elle qui réceptionne les paquets en provenance du packet forwarder et qui déclenche la chaîne de gestion des paquets
 \item Race Tracker Data: L'interface entre la base de données et le serveur d'application permet l'exécution de requête SQL grâce à la librairie pqxx
-\item Race Mode Handler: Gestionnaire du mode "Race", une fois que les données du paquet reçu sont extraites c'est cette classe qui stock les données dans la base
+\item Race Mode Handler: Gestionnaire du mode "Race", une fois que les données du paquet reçu sont extraites, c'est cette classe qui stocke les données dans la base
 \item Race Mode Record: L'enregistrement du mode "Race", cette classe contient les données extraites du paquet
-\item Test Mode Handler: Gestionnaire du mode "Test", vérifie que les paquets reçu se suive et garde ces informations en mémoire
+\item Test Mode Handler: Gestionnaire du mode "Test", vérifie que les paquets reçus se suivent et garde ces informations en mémoire
 \item Test Mode Record: L'enregistrement du mode "Test", contient les données extraites du paquet test
-\item LoRa Packet Forwarder Parser: Parse les données brute reçu depuis le socket et permet de savoir si le paquet est de type PUSH\_DATA
+\item LoRa Packet Forwarder Parser: Parse les données brutes reçues depuis le socket et permet de savoir si le paquet est de type PUSH\_DATA
 \item LoRa Push Data Parser: Lorsque le paquet reçu est de type PUSH\_DATA, c'est cette classe qui extrait les informations du paquet, dont l'objet json qui nous intéresse
 \item LoRa rxpk Parser: Une fois le paquet PUSH\_DATA parsé, c'est cette classe qui s'occupe d'extraire les informations de l'objet json envoyé dans le paquet et qui est ensuite traité par les classes Race Mode Handler ou Test Mode Handler
-\item base64: Une classe développé par la société Semtech qui permet le decodage de chaîne de caractère encodée en base64
+\item base64: Une classe développée par la société Semtech qui permet le decodage de chaîne de caractère encodée en base64
 \item rapidjson: Permet la manipulation d'objet de type json, développé par la société Tencent
 \item vector reader: Une classe qui permet la lecture de données depuis un vecteur d'octet
-\item shell \& shell command: Le module shell qui permet la création de commandes, leurs gestion et exécution
-\item logger: Une classe permettant de logger des messages de criticité différentes
+\item shell \& shell command: Le module shell qui permet la création de commandes, leur gestion et exécution
+\item logger: Une classe permettant de logger des messages de criticité différente
 \end{itemize}
 
 \todo{Add lib extern to biblio with url}
 
-La figure \ref{fig:app_serv_flow} montre le flux des données reçu par le serveur d'application et quelle classe est responsable de sa gestion.
+La figure \ref{fig:app_serv_flow} montre le flux des données reçues par le serveur d'application et quelle classe est responsable de sa gestion.
 
 \begin{figure}[htb]
 \centering 
@@ -193,9 +193,9 @@ La figure \ref{fig:app_serv_flow} montre le flux des données reçu par le serve
 \label{fig:app_serv_flow}
 \end{figure}
 
-Le serveur d'application est composé de deux threads qui sont gérés par le système d'exploitation, le premier est responsable de la réception des paquets du packet forwarder, c'est à dire qu'il attend sur un socket que des données soit disponibles. L'autre thread est utilisé pour le shell, il attend une entrée au clavier et l'exécute.
+Le serveur d'application est composé de deux threads qui sont gérés par le système d'exploitation, le premier est responsable de la réception des paquets du packet forwarder, c'est à dire qu'il attend sur un socket que des données soient disponibles. L'autre thread est utilisé pour le shell, il attend une entrée au clavier et l'exécute.
 
-Les threads du serveur d'application sont gérer par la librairie standard pthread, ils n'ont pas de priorité spécifique et sont de type asynchrone, c'est à dire que tout deux attende un événement précis avant de se débloquer.
+Les threads du serveur d'application sont gérés par la librairie standard pthread, ils n'ont pas de priorité spécifique et sont de type asynchrone, c'est-à-dire que tout deux attendent un événement précis avant de se débloquer.
 
 La figure \ref{fig:gateway_dyn_archi} montre l'architecture dynamique du serveur d'application. 
 
@@ -208,9 +208,9 @@ La figure \ref{fig:gateway_dyn_archi} montre l'architecture dynamique du serveur
 
 \subsection{Les librairies externes}
 
-Le serveur d'application utilise plusieurs librairies externes qui sont décrite dans cette section.
+Le serveur d'application utilise plusieurs librairies externes qui sont décrites dans cette section.
 
-La librairie pqxx est la librairie officiel qui permet d'exécuter simplement des requêtes PostgreSQL sur des base de données de type relationnelle. Elle est open source, multi-plateforme et disponible gratuitement avec une license BSD sur internet à l'adresse \url{http://pqxx.org/development/libpqxx/}.
+La librairie pqxx est la librairie officielle qui permet d'exécuter simplement des requêtes PostgreSQL sur des bases de données de type relationnelles. Elle est open source, multi-plateforme et disponible gratuitement avec une license BSD sur internet à l'adresse \url{http://pqxx.org/development/libpqxx/}.
 
 Un exemple simple d'exécution d'une requête est présenté ci-dessous.
 
@@ -237,7 +237,7 @@ int main(void) {
 }
 \end{lstlisting}
 
-base64 est une classe écrite par la société Semtech également proposé en open source avec une license de type revised BSD. \url{https://github.com/Lora-net/packet_forwarder/blob/master/lora_pkt_fwd/src/base64.c}
+base64 est une classe écrite par la société Semtech, également proposée en open source avec une license de type revised BSD. \url{https://github.com/Lora-net/packet_forwarder/blob/master/lora_pkt_fwd/src/base64.c}
 
 \begin{lstlisting}[style=CStyle]
 #include "base64.h"
@@ -300,14 +300,14 @@ int main(void) {
 
 \subsection{Les classes}
 
-Cette section décrit les classes développés dans le cadre du serveur d'application.
+Cette section décrit les classes développées dans le cadre du serveur d'application.
 
-Plus d'informations sur les classes sont disponible en annexe de ce document dans la documentation Doxygen.
+Plus d'informations sur les classes sont disponibles en annexe de ce document dans la documentation Doxygen.
 \todo{doxygen}
 
 \subsubsection{Race App Server}
 
-La classe Race App Server est la classe centrale du serveur d'application, lors de son initialisation elle créée un socket et le configure puis un thread. Lorsqu'elle reçoit un paquet du packet forwarder elle le parse puis le gère en utilisant les autres classes. Lorsque le nouveau paquet est géré, elle attend le suivant.
+La classe Race App Server est la classe centrale du serveur d'application, lors de son initialisation elle crée un socket et le configure, puis un thread. Lorsqu'elle reçoit un paquet du packet forwarder, elle le parse puis le gère en utilisant les autres classes. Lorsque le nouveau paquet est géré, elle attend le suivant.
 
 La figure \ref{fig:race_app_server_uml} montre le diagramme de séquence de la classe.
 
@@ -318,7 +318,7 @@ La figure \ref{fig:race_app_server_uml} montre le diagramme de séquence de la c
 \label{fig:race_app_server_uml}
 \end{figure}
 
-Les opérations effectué pour traiter un nouveau paquet reçu sont décrites dans le diagramme de séquence \ref{fig:race_app_server_seq}.
+Les opérations effectuées pour traiter un nouveau paquet reçu sont décrites dans le diagramme de séquence \ref{fig:race_app_server_seq}.
 
 \begin{figure}[htb]
 \centering 
@@ -329,7 +329,7 @@ Les opérations effectué pour traiter un nouveau paquet reçu sont décrites da
 
 \subsubsection{Race Tracker Data}
 
-L'interface entre la base de données et le serveur d'application est géré par la classe Race Tracker Data. Par le biais de librairie pqxx, elle va effectuer les requêtes SQL nécessaire afin de stocker une nouvelle position.
+L'interface entre la base de données et le serveur d'application est gérée par la classe Race Tracker Data. Par le biais de librairie pqxx, elle va effectuer les requêtes SQL nécessaires afin de stocker une nouvelle position.
 
 La principale fonction de cette classe et de transformer une classe de type Race Mode Record en requête SQL et d'exécuter la requête afin de stocker les informations dans la base de données.
 
@@ -357,7 +357,7 @@ La figure \ref{fig:rxpk_handler_uml} montre le diagramme de classe de rxpk Handl
 
 \subsubsection{Race Mode Handler \& Record}
 
-Comme expliqué précédemment le serveur d'application peut fonctionner en deux modes, les classes Race Mode Handler \& Race Mode Record gère le mode "Race". Dans ce mode les paquets reçu sont analysés, les données extraites puis  stockés dans la base. La classe Race Mode Handler reçoit une instance de LoRa rxpk Parser contenant toutes les données brutes envoyées par le capteur, au moyen de la classe Vector Reader elle va extraire les différents champs et créer une instance de Race Mode Record contenant toutes les données décodées, ensuite grâce à la classe Race Tracker Data le tout est enregistré dans la base de données.
+Comme expliqué précédemment, le serveur d'application peut fonctionner en deux modes, les classes Race Mode Handler \& Race Mode Record gèrent le mode "Race". Dans ce mode, les paquets reçus sont analysés, les données extraites puis stockées dans la base. La classe Race Mode Handler reçoit une instance de LoRa rxpk Parser contenant toutes les données brutes envoyées par le capteur, au moyen de la classe Vector Reader elle va extraire les différents champs et créer une instance de Race Mode Record contenant toutes les données décodées, ensuite grâce à la classe Race Tracker Data le tout est enregistré dans la base de données.
 
 La figure \ref{fig:race_mode_handler_uml} montre le diagramme de classe de Race Mode Handler et Race Mode Record.
 
@@ -370,7 +370,7 @@ La figure \ref{fig:race_mode_handler_uml} montre le diagramme de classe de Race 
 
 \subsubsection{Test Mode Handler \& Record}
 
-Les classes Test Mode Handler et Test Mode Record permettent la gestion du mode "Test". Ce mode utilise un format de paquet différent du mode "Race" qui est décrit dans le chapitre \ref{ch:test_1} et contrairement au mode "Race" il ne sauvegarde pas les données ainsi reçu dans la base de données, mais uniquement localement en mémoire et si demandé par l'utilisateur dans un fichier.
+Les classes Test Mode Handler et Test Mode Record permettent la gestion du mode "Test". Ce mode utilise un format de paquet différent du mode "Race" qui est décrit dans le chapitre \ref{ch:test_1} et contrairement au mode "Race" il ne sauvegarde pas les données ainsi reçues dans la base de données, mais uniquement localement en mémoire et, si demandé par l'utilisateur, dans un fichier.
 
 La figure \ref{fig:test_mode_handler_uml} montre le diagramme de classe de Test Mode Handler et Test Mode Record.
 
@@ -383,7 +383,7 @@ La figure \ref{fig:test_mode_handler_uml} montre le diagramme de classe de Test 
 
 \subsubsection{LoRa Packet Forwarder Parser}
 
-Le LoRa Packet Forwarder Parser permet de parser les données reçu par le socket et de déterminer si c'est un paquet de type PUSH\_DATA.
+Le LoRa Packet Forwarder Parser permet de parser les données reçues par le socket et de déterminer si c'est un paquet de type PUSH\_DATA.
 
 La figure \ref{fig:lora_pkt_forwarder_parser_uml} montre le diagramme de classe de LoRa Packet Forwarder Parser.
 
@@ -409,7 +409,7 @@ La figure \ref{fig:lora_push_data_parser_uml} montre le diagramme de classe de L
 
 \subsubsection{LoRa rxpk Parser}
 
-Une fois que l'on a déterminé que le paquet est de type PUSH\_DATA et qu'il contient bien un objet json rxpk, le type de paquet qui nous intéresse, alors la classe LoRa rxpk Parser permet d'extraire les informations intéressante qui sont contenues dans l'objet json. Grâce aux fonctionnalités de la librairie rapidjson, les différents champs composant le tableau json rxpk sont extraits et décodés afin d'être facilement accessible. Les données du paquet, qui sont encodés en base64 sont également décodé pendant cette étape.
+Une fois que l'on a déterminé que le paquet est de type PUSH\_DATA et qu'il contient bien un objet json rxpk, le type de paquet qui nous intéresse, alors la classe LoRa rxpk Parser permet d'extraire les informations intéressante qui sont contenues dans l'objet json. Grâce aux fonctionnalités de la librairie rapidjson, les différents champs composant le tableau json rxpk sont extraits et décodés afin d'être facilement accessibles. Les données du paquet, qui sont encodées en base64, sont également décodées pendant cette étape.
 
 La figure \ref{fig:lora_rxpk_parser_uml} montre le diagramme de classe de LoRa rxpk Parser.
 
@@ -422,7 +422,7 @@ La figure \ref{fig:lora_rxpk_parser_uml} montre le diagramme de classe de LoRa r
 
 \subsubsection{Vector Reader}
 
-Le Vector Reader est une classe qui permet l'extraction de données depuis un vecteur de byte. Les données qui sont reçu dans les paquets sous forme d'objet json contient les données encodée en base64, une fois les données décodées elles sont transformées en vecteur de byte et c'est donc grâce à la classe Vector Reader que l'on peut en extraire les différents paramètres.
+Le Vector Reader est une classe qui permet l'extraction de données depuis un vecteur de byte. \todo{Les données qui sont reçues dans les paquets sous forme d'objet json contient les données encodée en base64,} Une fois les données décodées, elles sont transformées en vecteur de byte et c'est donc grâce à la classe Vector Reader que l'on peut en extraire les différents paramètres.
 
 La figure \ref{fig:vector_reader_uml} montre le diagramme de classe de Vector Reader.
 
@@ -435,8 +435,8 @@ La figure \ref{fig:vector_reader_uml} montre le diagramme de classe de Vector Re
 
 \subsubsection{Shell \& Shell Command}
 
-La classe Shell est responsable de la gestion du shell de la passerelle qui permet à l'utilisateur d'exécuter des commandes afin d'effectuer diverses opérations. C'est cette classe qui dispose d'un thread en écoute sur l'entrée du clavier, lorsqu'une commande est entrée le Shell va allez regarder dans sa liste de commande si elle existe et l'exécuter.
-La Shell Command est une classe abstraite qui permet de définir le nom et le comportement d'une commande, une fois définit elle est ajoutée au Shell au moyen de la méthode \func{add\_cmd()}.
+La classe Shell est responsable de la gestion du shell de la passerelle qui permet à l'utilisateur d'exécuter des commandes afin d'effectuer diverses opérations. C'est cette classe qui dispose d'un thread en écoute sur l'entrée du clavier, lorsqu'une commande est entrée le Shell va aller regarder dans sa liste de commande si elle existe et l'exécuter.
+La Shell Command est une classe abstraite qui permet de définir le nom et le comportement d'une commande. Une fois définie, elle est ajoutée au Shell au moyen de la méthode \func{add\_cmd()}.
 
 La figure \ref{fig:shell_shell_cmd_uml} montre le diagramme de classe de Shell et Shell Command.
 
@@ -449,7 +449,7 @@ La figure \ref{fig:shell_shell_cmd_uml} montre le diagramme de classe de Shell e
 
 \subsubsection{Logger}
 
-Le logger est une simple classe qui permet l'affichage de message de log sur la sortie standard. Elle est principalement utilisée pour des questions de debug. Il est possible de loguer différents types de message, information, warning, erreur et également de filtrer certains types de messages que l'ont ne souhaite pas recevoir par exemple.
+Le logger est une simple classe qui permet l'affichage de message de log sur la sortie standard. Elle est principalement utilisée pour des questions de debug. Il est possible de loguer différents types de messages, information, warning, erreur et également de filtrer certains types de messages que l'on ne souhaite pas recevoir par exemple.
 
 La figure \ref{fig:logger_uml} montre le diagramme de classe de Logger.
 
