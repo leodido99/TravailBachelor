@@ -1,7 +1,29 @@
 
 \chapter{Conclusion}
 
+Le travail effectué durant le développement du projet à montré que, d'un point de vue fonctionnel, LoRa permet tout à fait d'être utilisé dans le genre d'application visé. La quantité de données que cette technologie permet de transférer à la fois est suffisante pour transmettre les informations requises pour le bon fonctionnement du système et les taux de transfert bas ne sont pas problématiques.
+
+Même si LoRa semble être adéquat pour la situation, on notera que les limitations associés au taux de transfert, c'est à dire le respect du duty cycle imposé par la réglementation sur les bandes de fréquences libre, peut se révéler être un réel problème. En effet en prenant comme base une charge utile envoyée dans les paquets de 30 bytes, voir chapitre \ref{ch:paquet_donnee}, avec un facteur d'étalement maximum de sf12 si l'on veut maximiser la portée des données ce qui est notre cas, on peut calculer le temps qu'il faudra pour envoyer les données, le time on air, et donc déterminer le temps entre chaque envoie afin de respecter la limite. En utilisant la formule mis à disposition par la société Semtech on arrive à un temps de transfert de 1482.75 ms pour un seul paquet. Afin de respecter un duty cycle de 0.1\%, on ne pourra envoyer un paquet que toutes les 1482.75 s ou 24.71 min, pour une limite de 1\% on pourra envoyer un paquet toutes les 148.27 s c'est à dire toutes les 2.47 min, enfin pour un cycle fixé à 10\% c'est un paquet toutes les 14.8 secondes qu'il nous sera permis d'envoyer. \cite{lora_design_guide}
+
+Actuellement le système utilise un interval de 15 s entre chaque message, cela est uniquement possible pour la bande de fréquence 869.4 à 869.65 Mhz, voir chapitre  \ref{ch:lora_lorawan} pour plus d'information à ce sujet. On constate que cette bande de fréquence est extrêmement étroite, on rappelle que afin de minimiser les interférences LoRa va changer de canal à chaque envoie, si l'on souhaite rester dans la bande mentionné cette technique est du coup diminuée. On peut donc dire que la réactivité du système est directement liée à la fréquence d'envoi des paquets puisque c'est seulement la réception de nouvelles données qui fait évoluer la position et les statistiques des coureurs, on comprend donc que le choix de ce paramètre est un élément très important dans la configuration du système et peut devenir, si l'on souhaite avoir une interactivité intéressante sur l'application mobile, un obstacle vers l'évolution du prototype vers un produit à part entière.
+
+Une autre problématique relative à LoRa est lié à la portée des messages envoyées. On peut souvent lire que la portée théorique des messages LoRa est d'environ 10 km, cela est vrai pour autant que les conditions optimales soit remplis. Comme étudié durant le test de la phase \#3, voir chapitre \ref{ch:test_3}, j'ai pu constater que même si le capteur était à moins de 200 m de la passerelle, si la ligne de vue est obstruée alors la communication devient pratiquement impossible. Cet aspect mériterais d'être étudié d'avantage dans l'idée d'évolution de ce prototype, car les compétitions sportives sont rarement dans des régions dépourvue d'obstacle, on verra souvent ce genre d'événement en montagne ou en ville ou les obstacles sont légions. Même si ce problème est gênant, il existe néanmoins une solution à ce problème, c'est simplement d'augmenter le nombre de passerelle utilisée par le système afin de pouvoir garantir une couverture optimale et d'assurer ainsi de minimiser le nombre de paquet perdu. L'utilisation de passerelle d'un réseau privé en plus de celle du système devient alors également un argument très intéressant envers l'utilisation de la couche MAC LoRaWAN.
+
+ 
 
 
 
-manque de temps
+
+
+
+
+
+- capteur
+
+- passerelle
+
+- application mobile
+
+- Googlemaps -> Mapbox
+
+- manque de temps
