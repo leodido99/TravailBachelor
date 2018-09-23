@@ -289,7 +289,7 @@ Cadence sampling & Basse - 3 & 50 ms  \\
 
 Le thread le plus prioritaire est celui du gestionnaire du capteur, en effet étant donné qu'il a une période qui est longue, lorsqu'il est prêt il doit directement prendre la main sur les autres threads afin de garantir la fréquence de transmission des données à la passerelle.
 Le thread responsable de la transmission des données au module LoRa doit également faire son travail en priorité afin de garantir le transfert des données rapidement.
-Enfin les thread de gestion du module GPS et de l'accéléromètre dispose de priorité plus faible car leur importance est moindre dans le processus du capteur.
+Enfin les threads de gestion du module GPS et de l'accéléromètre disposent de priorité plus faible car leur importance est moindre dans le processus du capteur.
 
 \subsection{Race Sensor Manager}
 
@@ -337,13 +337,13 @@ La figure \ref{fig:heartrate_uml} montre le diagramme de classe du module Heart 
 
 \subsection{Cadence}
 
-La cadence du sportif est déterminé grâce à ce module. En se basant sur les données de l'accéléromètre, qui est capable de déterminer les accélérations sur les 3 axes x,y et z, il est possible de trouver le moment ou un pas est effectué et donc de les compter. 
+La cadence du sportif est déterminé grâce à ce module. En se basant sur les données de l'accéléromètre, qui est capable de déterminer les accélérations sur les 3 axes x,y et z, il est possible de trouver le moment où un pas est effectué et donc de les compter. 
 
-Au début du projet, il était prévu d'utiliser une fonctionnalité de l'accéléromètre LSM303AGR afin de générer une interruption lors du dépassement d'un certain seuil d'accélération sur un des axe. Cependant à cause d'un problème récalcitrant que je n'ai pas eu le temps résoudre dans le temps imparti, j'ai décidé de me replier sur une technique d'échantillonnage. Un thread est alloué à la récupération des échantillons à une fréquence de 20 Hz, tous les 20 échantillons, une analyse des sample est faite afin d'essayer de détecter un pas.
+Au début du projet, il était prévu d'utiliser une fonctionnalité de l'accéléromètre LSM303AGR afin de générer une interruption lors du dépassement d'un certain seuil d'accélération sur un des axes. Cependant à cause d'un problème récalcitrant que je n'ai pas eu le temps résoudre dans le temps imparti, j'ai décidé de me replier sur une technique d'échantillonnage. Un thread est alloué à la récupération des échantillons à une fréquence de 20 Hz. Tous les 20 échantillons, une analyse des samples est faite afin d'essayer de détecter un pas.
 
-Afin de déterminer la façon dont on va pouvoir détecter un pas, la première étape a été de récupérer des données permettant de visualiser la valeur des échantillons sur une période de temps lorsqu'une personne équipé du capteur marche. Pour se faire, une application permettant la récupération des valeurs de l'accéléromètre a été écrite. Elle permet de récupérer un nombre d'échantillons correspondant à 10 secondes de marche. Les données ont ensuite été envoyées par le port série afin de pouvoir les analyser dans un logiciel graphique, Matlab en l'occurrence. Lors de l'acquisition des échantillons, le capteur a été tenu sans modifier son orientation et en marchant normalement.
+Afin de déterminer la façon dont on va pouvoir détecter un pas, la première étape a été de récupérer des données permettant de visualiser la valeur des échantillons sur une période de temps lorsqu'une personne équipée du capteur marche. Pour ce faire, une application permettant la récupération des valeurs de l'accéléromètre a été écrite. Elle permet de récupérer un nombre d'échantillons correspondant à 10 secondes de marche. Les données ont ensuite été envoyées par le port série afin de pouvoir les analyser dans un logiciel graphique, Matlab en l'occurrence. Lors de l'acquisition des échantillons, le capteur a été tenu sans modifier son orientation et en marchant normalement.
 
-Les résultats de ce test sont présenté dans la figure \ref{fig:graph_accel}.
+Les résultats de ce test sont présentés dans la figure \ref{fig:graph_accel}.
 
 \begin{figure}[htb]
 \centering 
@@ -352,7 +352,7 @@ Les résultats de ce test sont présenté dans la figure \ref{fig:graph_accel}.
 \label{fig:graph_accel}
 \end{figure}
 
-Lorsque le capteur est au repos, c'est à a dire sans mouvement, et posé à plat, c'est à dire avec l'axe Z perpendiculaire au sol, les axes X et Y ont des valeurs proche de 0 g, la valeur de l'axe Z est quand à elle au alentour de -1 g ce qui correspond à la force de gravité. Si l'inclinaison est modifiée alors la valeur de la gravité se distribue entre les axes sur lesquels le mouvement s'opère.
+Lorsque le capteur est au repos, c'est-à-dire sans mouvement, et posé à plat, c'est-à-dire avec l'axe Z perpendiculaire au sol, les axes X et Y ont des valeurs proches de 0 g, la valeur de l'axe Z est quand à elle aux alentours de -1 g ce qui correspond à la force de gravité. Si l'inclinaison est modifiée, alors la valeur de la gravité se distribue entre les axes sur lesquels le mouvement s'opère.
 
 La table \ref{tab:analysis_samples} présente les valeurs minimum, maximum et médiane pour chaque axe en g.
 
@@ -371,11 +371,11 @@ z & 0.708 & 0.938 & 1.444 \\
 \end{tabular}
 \end{table}
 
-Si le capteur est posé à plat sans bouger et que l'on marche sans modifier son orientation la tâche consistant à compter le nombre de pas est assez facile, il suffit de détecter lorsque la valeur de l'axe donné dépasse un certain seuil. En l'occurrence si l'on analyse les données ont peut remarquer qu'une valeur dépassant les 1.125 g semble permettre de pouvoir compter le nombre de pas.
+Si le capteur est posé à plat sans bouger et que l'on marche sans modifier son orientation, la tâche consistant à compter le nombre de pas est assez facile. Il suffit de détecter lorsque la valeur de l'axe donné dépasse un certain seuil. En l'occurrence si l'on analyse les données, on peut remarquer qu'une valeur dépassant les 1.125 g semble permettre de pouvoir compter le nombre de pas.
 
-Puisque le capteur sera porté sur le bras des sportifs on ne peut pas partir du principe que l'orientation fixe puisqu'elle sera à même de changer pendant les mouvements, ceci rend la tâche de détection des pas beaucoup plus ardue.
+Puisque le capteur sera porté sur le bras des sportifs, on ne peut pas partir du principe que l'orientation sera fixe puisqu'elle sera à même de changer pendant les mouvements. Ceci rend la tâche de détection des pas beaucoup plus ardue.
 
-Une approche qui peut être étudié est de calculer la moyenne des échantillons pour chaque axe, cette opération peut permettre de trouver quels sont les axes qui doivent être analysé afin de détecter les piques et également de connaître le seuil auquel on doit les compter comme pas.
+Une approche qui peut être étudiée est de calculer la moyenne des échantillons pour chaque axe. Cette opération peut permettre de trouver quels sont les axes qui doivent être analysé afin de détecter les pics et également de connaître le seuil auquel on doit les compter comme pas.
 
 La figure \ref{fig:cadence_uml} montre le diagramme de classe du module Cadence.
 
@@ -388,7 +388,7 @@ La figure \ref{fig:cadence_uml} montre le diagramme de classe du module Cadence.
 
 \subsection{Debug}
 
-Ce module propose quelques fonctions et macros qui sont utiles pendant le debug du capteur comme l'affichage de message sur une console ou l'affichage de la liste de tous les threads qui sont actifs.
+Ce module propose quelques fonctions et macros qui sont utiles pendant le debug du capteur, comme l'affichage de message sur une console ou l'affichage de la liste de tous les threads qui sont actifs.
 
 \subsection{Race Sensor Shell}
 

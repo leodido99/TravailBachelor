@@ -100,13 +100,13 @@ public void myQuery() {
 
 \section{Accès à la base de données}
 
-Les accès à la base de données sont fait de manière similaire peut importe la requête en elle même. La seule différenciation est entre les requêtes de type SELECT et les mise à jours des données (UPDATE, DELETE ou INSERT). Le comportement est un peu différent dans la mesure ou une requête de type SELECT attend en retour un résultat qui comporte les données demandées à la base. Dans le cas d'une mise à jour, seul le nombre d'élément dans la base est retourné.
+Les accès à la base de données sont faits de manière similaire peu importe la requête en elle-même. La seule différenciation est entre les requêtes de type SELECT et les mises à jour des données (UPDATE, DELETE ou INSERT). Le comportement est un peu différent dans la mesure où une requête de type SELECT attend en retour un résultat qui comporte les données demandées à la base. Dans le cas d'une mise à jour, seul le nombre d'éléments dans la base est retourné.
 
-Afin d'exécuter une requête l'on créera une instance d'une classe RaceTrackerQuery qui contient la requête en elle même ainsi que les fonctions de callback qui seront appelé au fil de l'évolution de l'exécution de la requête. La classe RaceTrackerQuery utilise les classes RaceTrackerExecuteQuery et RaceTrackerExecuteUpdate en fonction du type de requête. Ces deux objets utilisent le concept de ASyncTask afin d'exécuter les requête en arrière plan et ainsi ne pas bloquer le thread principale pendant trop de temps.
+Afin d'exécuter une requête, on créera une instance d'une classe RaceTrackerQuery qui contient la requête en elle-même ainsi que les fonctions de callback qui seront appelées au fil de l'évolution de l'exécution de la requête. La classe RaceTrackerQuery utilise les classes RaceTrackerExecuteQuery et RaceTrackerExecuteUpdate en fonction du type de requête. Ces deux objets utilisent le concept de ASyncTask afin d'exécuter les requêtes en arrière plan et ainsi ne pas bloquer le thread principal pendant trop de temps.
 
-Afin de pouvoir récupérer les résultats d'une requête de type SELECT, les classes devront implémenter les interface OnQueryResultsReady et OnQueryExecuted. La première est appelé lorsque les résultats venant de la base de données sont prêt à être analyser. La deuxième interface est appelé lorsque l'exécution de la requête est terminés.
+Afin de pouvoir récupérer les résultats d'une requête de type SELECT, les classes devront implémenter les interfaces OnQueryResultsReady et OnQueryExecuted. La première est appelée lorsque les résultats venant de la base de données sont prêts à être analysés. La deuxième interface est appelée lorsque l'exécution de la requête est terminée.
 
-Si l'on désire exécuter une requête de mise à jour alors il faudra implémenter OnUpdateDone qui permettra, au terme de l'exécution de la requête, combien d'élément ont été modifier.
+Si l'on désire exécuter une requête de mise à jour, alors il faudra implémenter OnUpdateDone qui permettra, au terme de l'exécution de la requête, de savoir combien d'élément ont été modifiés.
 
 \section{Les activités}
 
