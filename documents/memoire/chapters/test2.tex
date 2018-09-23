@@ -1,20 +1,28 @@
 
 \chapter{Test phase \#2}\label{ch:test_2}
 
-Pour clôturer la phase de développement \#2 du projet, un test a été effectué avec pour objectif de valider que le concept dans son ensemble fonctionne. Ce test a permis de mettre ensemble tout les acteurs du système, le capteur, la passerelle, la base de données et enfin l'application mobile et vérifier leur bon fonctionnement.
+Pour clôturer la phase de développement \#2 du projet, un test est effectué avec pour objectif de valider que le concept dans son ensemble fonctionne. Ce test a permis de mettre ensemble tout les acteurs du système, le capteur, la passerelle, la base de données et enfin l'application mobile et vérifier leur bon fonctionnement.
 
-Le test s'est concentré sur la transmission de la position GPS depuis le capteur jusqu'à l'application mobile, les autres éléments du système n'étant pas encore implémentés et de vérifier que la mise à jour se passe bien.
+Le test s'est concentré sur la transmission de la position GPS depuis le capteur jusqu'à l'application mobile, les autres éléments du système n'étant pas encore implémentés et de vérifier que la mise à jour de la position du coureur se passe bien.
 
-Afin de pouvoir faire se test les éléments suivant ont été développés.
+Afin de pouvoir faire ce test les éléments suivant ont été développés.
 
 \begin{itemize}
-\item Firmware du capteur avec l'utilisation de Zephyr et la récupération de la position GPS grâce au driver $I^{2}C$ puis envoie du paquet
-\item Design, configuration et création de la base de données permettant le stockage de toutes les données
-\item Implémentation de la réception et décodage des paquets de données en provenance du capteur pour les stocker dans la base
-\item Création de la fonctionnalité de base de l'application mobile, la visualisation de courses avec récupération des données depuis la base de données et affichage des positions sur la carte
+\item Firmware du capteur avec l'utilisation de Zephyr et envoie de la position GPS dans un paquet
+\item Création de la base de données
+\item Implémentation de la réception, décodage et stockage des paquets sur la passerelle
+\item Création de la base de l'application mobile avec visualisation des positions GPS sur la carte
 \end{itemize}
 
-On comprend que cette phase de développement est un gros morceau du développement complet du projet car tous les composants du système sont développés. Dans un premier temps seul les fonctionnalités de bases sont implémentées, ce qui permet de s'assurer que toutes les interactions se passe comme prévues avant de poursuivre le travail pour la phase \#3.
+On comprend que cette phase de développement est un gros morceau du développement complet du projet car tous les composants du système sont développés. Dans un premier temps seul les fonctionnalités de bases sont implémentées, ce qui permet de s'assurer que toutes les interactions se passent comme prévues avant de poursuivre le travail pour la phase \#3.
+
+Pour le capteur, la base du firmware comprenant le système d'exploitation temps réel Zephyr est mis en place. Pour l'instant il ne fait que de récupérer périodiquement la position GPS grâce au driver $I^{2}C$ implémenté pour l'ocasion et l'envoyer dans un paquet LoRa à destination de la passerelle.
+
+Le système PostgreSQL est installé sur la passerelle puis la base de données est conçue et créée ce qui permet le stockage des données venant du capteur. Le logiciel serveur d'application est d'avantage développé afin de pouvoir récupérer les paquets, qui sont d'un format différent que celui du test de la phase \#1, puis grâce à la librairie pqxx, les stocker dans la base.
+
+Le coeur de l'application mobile est écrit, permettant de périodiquement envoyer une requête à la passerelle pour récupérer d'éventuelles nouvelles données et les afficher sur la carte Google maps afin de pouvoir visualiser l'évolution du coureur.
+
+Puisque l'objectif du test est de se mettre dans des conditions réeles, les résultats du test son directement sauvegardés dans la base de données, permettant ainsi de pouvoir consulter toutes les positions facilement depuis l'application mobile. Le téléphone mobile sur lequel s'éxecute l'application est connecté à la passerelle grâce à l'access point qu'il propose et fait les requêtes directement à la passerelle.
 
 \todo{pictars of test, running goo?}
 
@@ -24,8 +32,50 @@ Le scénarios de ce test est très simple, il consiste à recréer les condition
 
 \section{Résultats}
 
-Après plusieurs échec dus aux problèmes de connections avec la passerelle, le test a pu se dérouler sans embuche sur la piste finlandaise de la place d'arme de Planeyse à Neuchâtel.
+Après plusieurs échec dus aux problèmes de connections entre l'application mobile et la passerelle, le test a finalement pu se dérouler sans embuche.
 
-Le test a été effectué le \todo{XX.XX.XX}
+Le test a été effectué le 7 Septembre 2018 sur la piste finlandaise de la place d'arme de Planeyse à Neuchâtel.
+
+Le capteur et la passerelle sont configuré pour utiliser un facteur d'étalement maximal de sf12 afin de s'assurer d'avoir la portée maximum.
+
+Les positions récoltées durant le tests peuvent être consultées sur la figure \ref{fig:test_2}.
+
+\begin{figure}[htb]
+\centering
+\begin{subfigure}{.5\textwidth}
+  \centering
+  \includegraphics[width=.9\linewidth]{test_2_track1.png}
+  \caption{Test \#2 - Image \#1}
+  \label{fig:test_2_track1}
+\end{subfigure}%
+\begin{subfigure}{.5\textwidth}
+  \centering
+  \includegraphics[width=.9\linewidth]{test_2_track2.png}
+  \caption{Test \#2 - Image \#2}
+  \label{fig:test_2_track2}
+\end{subfigure}
+\begin{subfigure}{.5\textwidth}
+  \centering
+  \includegraphics[width=.9\linewidth]{test_2_track3.png}
+  \caption{Test \#2 - Image \#3}
+  \label{fig:test_2_track3}
+\end{subfigure}%
+\begin{subfigure}{.5\textwidth}
+  \centering
+  \includegraphics[width=.9\linewidth]{test_2_track4.png}
+  \caption{Test \#2 - Image \#4}
+  \label{fig:test_2_track4}
+\end{subfigure}
+\caption{Visualisation des positions reçues du capteur depuis l'application mobile}
+\label{fig:test_2}
+\end{figure}
 
 \section{Conclusions}
+
+On remarque que les positions reportées sur la carte ne semble pas être alignées avec la piste. Après des investigations ceci est la cause d'un bug au niveau de l'affichage des marqueurs sur la carte, en effet la position est appliqué à partir du milieu inférieur de l'image ce qui fait qu'il n'est pas totalement aligné. Après correction du bug les positions sont correctement affichées.
+
+Le test phase \#2 a parmis de s'assurer que les positions GPS acquises et transmises dans des paquets LoRa avec le firmware Zephyr permet d'avoir des précisions très similaires à celle constatées durant le test phase \#1 qui utilisait un logiciel écrit avec le framework Arduino. De manière générale aucunes grosses surprises n'ont été révelées par ce test, les performances sont très satisfaisantes également lorsque le porteur du capteur cours ce qui est très encouragent pour la suite du développement du projet.
+
+On peut constater que les données reçues par la passerelle dans les paquets LoRa, leur extractions et stockage fonctionne conformément aux attentes. La façon d'accéder à la base de données depuis l'application mobile est également valider, à savoir la connexion à l'access point proposé par la passerelle puis envoie des requêtes à la base. Aucuns problèmes n'ont été mis en lumière de ce côté la.
+
+
