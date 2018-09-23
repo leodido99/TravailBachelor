@@ -1,7 +1,55 @@
 
-\chapter{Considérations pour le développement d'un produit}\label{ch:produit}
+\chapter{Evolution du système}\label{ch:produit}
 
-% BD sur internet -> plusieurs passerelles
-% Rest API
-% LoRaWAN
-% ADC Batterie
+Le développement d'un prototype du système, réalisé dans le cadre de ce travail de Bachelor, a permis de montrer que le concept dans son ensemble est fonctionnel, cependant encore beaucoup de travail reste à réaliser. Ce chapitre propose quelques étapes afin de faire évoluer le prototype vers un produit à part entière.
+
+\section{Centralisation des données}
+
+Dès que l'on souhaite utiliser plus d'une passerelle, il devient indispensable de centraliser la base de données sur un serveur accessible depuis internet. En effet dans ce cas on ne peut plus se contenter de stocker toutes les données sur la passerelle.
+
+Pour se faire il faut donc héberger sur un serveur la base de données. Afin que toutes les passerelles puissent ensuite accéder à la base, il est nécessaire d'équiper chaque passerelle d'un moyen de connexion, par le réseau GSM mobile par exemple. Le logiciel du serveur d'application doit aussi être modifié afin de prendre en compte ce changement, de plus il faudra prendre gare à la gestion des données dupliquées, en effet il est tout à fait possible que deux passerelles différentes reçoivent le même paquet, dans un tel cas il faut donc vérifier que les données ne sont pas déjà enregistrées dans la base de données avant de les sauvegarder.
+
+Une fois ces modifications apportées au système, les passerelles sont en mesure de stocker les données en provenance des capteurs sur une base de données centralisée.
+
+\section{Concentrateur multi-canaux}
+
+% I love the bichette because she's nice and also a good person <3
+
+Lors du développement du projet, pour des raisons de coût, il a été décidé d'utiliser un concentrateur simple-canal. Pour un prototype cette solution est à adéquat, le principe est que le capteur et la passerelle doivent utiliser un seul et même canal pour le transfert des données, cependant cette approche n'est pas optimale pour une évolution du système.
+
+Une passerelle multi-canaux est indispensable dans une optique produit, en effet pour diminuer l’influence des interférences les capteurs changent le canal sur lequel les paquets sont transmis ce qui apporte une robustesse supplémentaire au système. Cette technique requiert d'avoir des passerelles munies de concentrateur multi-canaux pour pouvoir fonctionner.
+
+\section{Création d'une API web moderne}
+
+Afin de rendre l'accès au données mieux structuré et robuste, la conception d'une API web moderne, de type REST, est indispensable. L'application mobile, pour des raisons de simplifications, accède directement au données en envoyant des requêtes SQL au serveur qui héberge la base de données.
+
+Le fait d'utiliser un tel type d'API, permet de bouger le gros du travail de calcul du téléphone mobile au serveur en charge de l'interface. Cela à l'avantage d'augmenter la durée de vie de la batterie des téléphones qui exécutent l'application, la gestion entière de la construction des requêtes et de la connexion étant dévolu au téléphone mobile. Dans le cas d'une API REST, c'est le serveur qui fait le gros du travail, le téléphone mobile accédant en essence uniquement au contenu de page web. Un autre aspect intéressant de cette technique est qu'il diminue la quantité de données et donc la bande passante, transféré entre le serveur et le téléphone, ce qui ravira les utilisateurs ayant une quantité de données limitée.
+
+Un autre avantage de poids est le fait que de cette façon le design et la base de données et de l'application mobile ne sont plus couplé, en effet dans le cas ou les requêtes sont exécutées par le téléphone mobile, les requêtes sont partie intégrante de l'application et donc tout changement à la base de données engendrerais des modifications de l'application mobile.
+
+\section{Augmentation du nombre de capteur et de passerelle}
+
+Un aspect qui semble être évident est d'augmenter le nombre de capteur et de passerelle utilisée en parallèle. En effet puisque le travail de Bachelor a été développé avec l'utilisation d'un seul capteur et d'une seule passerelle en tête, beaucoup de cas d'utilisations n'ont pas pu être testé. En particulier la charge additionnelle que plusieurs capteurs ajouterais au système et qui pourrait rendre le système inutilisable. Cet aspect n'as pas pu être testé durant le développement du système.
+
+\section{Utilisation de LoRaWAN}
+
+Afin de rendre le système plus robuste et performant, l'utilisation de la couche MAC LoRaWAN peut se rendre utile. Le chiffrement des données entre les capteurs et le serveur réseau augmente la sécurité du système, le fait que LoRaWAN utilise un mécanisme de connexion au réseau permet également une meilleure gestion d'un grand nombre de capteur en même temps. En plus de cela, la gestion de l'optimisation du débit de transfert des nœuds par le serveur réseau permet d'améliorer le rendement du système dans son entièreté.
+
+Un avantage de l'utilisation de LoRWAN réside dans le fait qu'il devient alors possible pour les capteurs de transférer des données en passant par une passerelle faisant partie d'un réseau privé, comme celui de Swisscom par exemple. Le fait d'augmenter le nombre de passerelle avec lesquelles les capteurs sont en mesure de transférer leurs données ajoute encore à la robustesse du système. Cette solution permet également d'utiliser des serveurs d'application de communautés existante comme par exemple TheThingsNetwork, le protocole est alors entièrement géré par ce serveur reste ensuite à mettre en place un serveur d'application qui permet la gestion et l'exploitation des données reçues depuis les capteurs.
+
+La figure \ref{fig:sys_infra_evol} montre l'infrastructure du système avec utilisation de LoRaWAN.
+
+\begin{figure}[tb]
+\centering 
+\includegraphics[width=0.8\columnwidth]{systeme_evolution.png} 
+\caption{Infrastructure du système avec utilisation de LoRaWAN}
+\label{fig:sys_infra_evol}
+\end{figure}
+
+\section{D'avantage d'interactivité dans l'application mobile}
+
+Un des aspects du système qui peut également être développé d'avantage est l'application mobile, en effet la version développé pendant ce projet est basique. Dans la mesure ou le but du système est d'impliquer d'avantage les spectateurs aux courses on pourrait envisager des fonctionnalités permettant aux utilisateurs d'échanger des opinions par le biais d'un chat par exemple. 
+
+Une autre idée pourrait consister à ajouter un système, piloté par les organisateurs de la course, qui pourrait leur permettre de commenter en direct la compétition avec des messages spéciaux pour attirer l'œil des spectateurs sur les moments clefs de la course. Le système pourrait également donner des informations générale, par exemple sur une certaines distance atteinte par la tête de la course ou un dénivelé important gravis par les coureurs. L'intégration de Twitter dans l'application est également une possibilité permettant aux spectateurs de partager des discussions entre eux.
+
+Enfin l'analyse des données pourrait être d'avantage mis à l'avant, avec par exemple la possibilité de consulter divers graphiques montrant l'évolution de la vitesse et du rythme cardiaque d'une sélection d'athlète afin de pouvoir comparer leurs performances.
