@@ -16,13 +16,13 @@ Afin de pouvoir faire ce test les éléments suivant ont été développés.
 
 On comprend que cette phase de développement est un gros morceau du développement complet du projet car tous les composants du système sont développés. Dans un premier temps seul les fonctionnalités de bases sont implémentées, ce qui permet de s'assurer que toutes les interactions se passent comme prévues avant de poursuivre le travail pour la phase \#3.
 
-Pour le capteur, la base du firmware comprenant le système d'exploitation temps réel Zephyr est mis en place. Pour l'instant il ne fait que de récupérer périodiquement la position GPS grâce au driver $I^{2}C$ implémenté pour l'ocasion et l'envoyer dans un paquet LoRa à destination de la passerelle.
+Pour le capteur, la base du firmware comprenant le système d'exploitation temps réel Zephyr est mis en place. Pour l'instant il ne fait que de récupérer périodiquement la position GPS grâce au driver $I^{2}C$ implémenté pour l'occasion et l'envoyer dans un paquet LoRa à destination de la passerelle.
 
 Le système PostgreSQL est installé sur la passerelle puis la base de données est conçue et créée ce qui permet le stockage des données venant du capteur. Le logiciel serveur d'application est d'avantage développé afin de pouvoir récupérer les paquets, qui sont d'un format différent que celui du test de la phase \#1, puis grâce à la librairie pqxx, les stocker dans la base.
 
-Le coeur de l'application mobile est écrit, permettant de périodiquement envoyer une requête à la passerelle pour récupérer d'éventuelles nouvelles données et les afficher sur la carte Google maps afin de pouvoir visualiser l'évolution du coureur.
+Le cœur de l'application mobile est écrit, permettant de périodiquement envoyer une requête à la passerelle pour récupérer d'éventuelles nouvelles données et les afficher sur la carte Google maps afin de pouvoir visualiser l'évolution du coureur.
 
-Puisque l'objectif du test est de se mettre dans des conditions réeles, les résultats du test son directement sauvegardés dans la base de données, permettant ainsi de pouvoir consulter toutes les positions facilement depuis l'application mobile. Le téléphone mobile sur lequel s'éxecute l'application est connecté à la passerelle grâce à l'access point qu'il propose et fait les requêtes directement à la passerelle.
+Puisque l'objectif du test est de se mettre dans des conditions réelles, les résultats du test son directement sauvegardés dans la base de données, permettant ainsi de pouvoir consulter toutes les positions facilement depuis l'application mobile. Le téléphone mobile sur lequel s'exécute l'application est connecté à la passerelle grâce à l'access point qu'il propose et fait les requêtes directement à la passerelle.
 
 \todo{pictars of test, running goo?}
 
@@ -44,25 +44,25 @@ Les positions récoltées durant le tests peuvent être consultées sur la figur
 \centering
 \begin{subfigure}{.5\textwidth}
   \centering
-  \includegraphics[width=.9\linewidth]{test_2_track1.png}
+  \includegraphics[width=.8\linewidth]{test_2_track1.png}
   \caption{Test \#2 - Image \#1}
   \label{fig:test_2_track1}
 \end{subfigure}%
 \begin{subfigure}{.5\textwidth}
   \centering
-  \includegraphics[width=.9\linewidth]{test_2_track2.png}
+  \includegraphics[width=.8\linewidth]{test_2_track2.png}
   \caption{Test \#2 - Image \#2}
   \label{fig:test_2_track2}
 \end{subfigure}
 \begin{subfigure}{.5\textwidth}
   \centering
-  \includegraphics[width=.9\linewidth]{test_2_track3.png}
+  \includegraphics[width=.8\linewidth]{test_2_track3.png}
   \caption{Test \#2 - Image \#3}
   \label{fig:test_2_track3}
 \end{subfigure}%
 \begin{subfigure}{.5\textwidth}
   \centering
-  \includegraphics[width=.9\linewidth]{test_2_track4.png}
+  \includegraphics[width=.8\linewidth]{test_2_track4.png}
   \caption{Test \#2 - Image \#4}
   \label{fig:test_2_track4}
 \end{subfigure}
@@ -74,8 +74,8 @@ Les positions récoltées durant le tests peuvent être consultées sur la figur
 
 On remarque que les positions reportées sur la carte ne semble pas être alignées avec la piste. Après des investigations ceci est la cause d'un bug au niveau de l'affichage des marqueurs sur la carte, en effet la position est appliqué à partir du milieu inférieur de l'image ce qui fait qu'il n'est pas totalement aligné. Après correction du bug les positions sont correctement affichées.
 
-Le test phase \#2 a parmis de s'assurer que les positions GPS acquises et transmises dans des paquets LoRa avec le firmware Zephyr permet d'avoir des précisions très similaires à celle constatées durant le test phase \#1 qui utilisait un logiciel écrit avec le framework Arduino. De manière générale aucunes grosses surprises n'ont été révelées par ce test, les performances sont très satisfaisantes également lorsque le porteur du capteur cours ce qui est très encouragent pour la suite du développement du projet.
+Le test phase \#2 a permis de s'assurer que les positions GPS acquises et transmises dans des paquets LoRa avec le firmware Zephyr permet d'avoir des précisions très similaires à celle constatées durant le test phase \#1 qui utilisait un logiciel écrit avec le framework Arduino. De manière générale aucunes grosses surprises n'ont été révélées par ce test, les performances sont très satisfaisantes également lorsque le porteur du capteur cours ce qui est très encouragent pour la suite du développement du projet.
 
 On peut constater que les données reçues par la passerelle dans les paquets LoRa, leur extractions et stockage fonctionne conformément aux attentes. La façon d'accéder à la base de données depuis l'application mobile est également valider, à savoir la connexion à l'access point proposé par la passerelle puis envoie des requêtes à la base. Aucuns problèmes n'ont été mis en lumière de ce côté la.
 
-Grâce aux résultats du test on peut conclure que le concept du système de base est parfaitement fonctionnelle et qu'aucuns problèmes majeures n'ont été révelés durant l'exécution du test ce qui permet donc de valider le développement de la phase \#2 et de passer à la phase suivante qui consiste en la finalisation du système dans son ensemble avec l'implémentations de toutes les fonctionnalités restantes.
+Grâce aux résultats du test on peut conclure que le concept du système de base est parfaitement fonctionnelle et qu'aucuns problèmes majeures n'ont été révélés durant l'exécution du test ce qui permet donc de valider le développement de la phase \#2 et de passer à la phase suivante qui consiste en la finalisation du système dans son ensemble avec l'implémentation de toutes les fonctionnalités restantes.
