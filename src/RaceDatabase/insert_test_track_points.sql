@@ -14,6 +14,29 @@ INSERT INTO race_tracker.track_point (competition_id, sequence, position) VALUES
 INSERT INTO race_tracker.track_point (competition_id, sequence, position) VALUES (1, 13, ST_MakePoint(46.962510, 6.852167));
 INSERT INTO race_tracker.track_point (competition_id, sequence, position) VALUES (1, 14, ST_MakePoint(46.962366, 6.852259));
 
+-- Test Colombier
+INSERT INTO race_tracker.track_point (competition_id, sequence, position) VALUES (9, 1, ST_MakePoint(46.961784, 6.869709));
+INSERT INTO race_tracker.track_point (competition_id, sequence, position) VALUES (9, 2, ST_MakePoint(46.961313, 6.869906));
+INSERT INTO race_tracker.track_point (competition_id, sequence, position) VALUES (9, 2, ST_MakePoint(46.961191, 6.870000));
+INSERT INTO race_tracker.track_point (competition_id, sequence, position) VALUES (9, 3, ST_MakePoint(46.961096, 6.870176));
+INSERT INTO race_tracker.track_point (competition_id, sequence, position) VALUES (9, 4, ST_MakePoint(46.961057, 6.870368));
+INSERT INTO race_tracker.track_point (competition_id, sequence, position) VALUES (9, 5, ST_MakePoint(46.961077, 6.870590));
+INSERT INTO race_tracker.track_point (competition_id, sequence, position) VALUES (9, 6, ST_MakePoint(46.961123, 6.870720));
+INSERT INTO race_tracker.track_point (competition_id, sequence, position) VALUES (9, 7, ST_MakePoint(46.961208, 6.870844));
+INSERT INTO race_tracker.track_point (competition_id, sequence, position) VALUES (9, 8, ST_MakePoint(46.961363, 6.870935));
+INSERT INTO race_tracker.track_point (competition_id, sequence, position) VALUES (9, 9, ST_MakePoint(46.961481, 6.870941));
+INSERT INTO race_tracker.track_point (competition_id, sequence, position) VALUES (9, 10, ST_MakePoint(46.962158, 6.870659));
+INSERT INTO race_tracker.track_point (competition_id, sequence, position) VALUES (9, 11, ST_MakePoint(46.962247, 6.870601));
+INSERT INTO race_tracker.track_point (competition_id, sequence, position) VALUES (9, 12, ST_MakePoint(46.962326, 6.870510));
+INSERT INTO race_tracker.track_point (competition_id, sequence, position) VALUES (9, 13, ST_MakePoint(46.962390, 6.870370));
+INSERT INTO race_tracker.track_point (competition_id, sequence, position) VALUES (9, 14, ST_MakePoint(46.962424, 6.870171));
+INSERT INTO race_tracker.track_point (competition_id, sequence, position) VALUES (9, 15, ST_MakePoint(46.962398, 6.869955));
+INSERT INTO race_tracker.track_point (competition_id, sequence, position) VALUES (9, 16, ST_MakePoint(46.962329, 6.869790));
+INSERT INTO race_tracker.track_point (competition_id, sequence, position) VALUES (9, 17, ST_MakePoint(46.962227, 6.869680));
+INSERT INTO race_tracker.track_point (competition_id, sequence, position) VALUES (9, 18, ST_MakePoint(46.962110, 6.869621));
+INSERT INTO race_tracker.track_point (competition_id, sequence, position) VALUES (9, 19, ST_MakePoint(46.962008, 6.869621));
+INSERT INTO race_tracker.track_point (competition_id, sequence, position) VALUES (9, 20, ST_MakePoint(46.961784, 6.869709));
+
 -- Fyne Tera 2018
 INSERT INTO race_tracker.track_point (competition_id, sequence, position) VALUES (3, 1, ST_MakePoint(46.785671000, 6.642499000));
 INSERT INTO race_tracker.track_point (competition_id, sequence, position) VALUES (3, 2, ST_MakePoint(46.785653000, 6.642478000));
