@@ -5,9 +5,9 @@ Le développement d'un prototype du système, réalisé dans le cadre de ce trav
 
 \section{Centralisation des données}
 
-Dès que l'on souhaite utiliser plus d'une passerelle, il devient indispensable de centraliser la base de données sur un serveur accessible depuis internet. En effet dans ce cas on ne peut plus se contenter de stocker toutes les données sur la passerelle.
+Dès que l'on souhaite utiliser plus d'une passerelle, il devient indispensable de centraliser la base de données sur un serveur accessible depuis internet. En effet, dans ce cas on ne peut plus se contenter de stocker toutes les données sur la passerelle.
 
-Pour se faire il faut donc héberger sur un serveur la base de données. Afin que toutes les passerelles puissent ensuite accéder à la base, il est nécessaire d'équiper chaque passerelle d'un moyen de connexion, par le réseau GSM mobile par exemple. Le logiciel du serveur d'application doit aussi être modifié afin de prendre en compte ce changement, de plus il faudra prendre gare à la gestion des données dupliquées, en effet il est tout à fait possible que deux passerelles différentes reçoivent le même paquet, dans un tel cas il faut donc vérifier que les données ne sont pas déjà enregistrées dans la base de données avant de les sauvegarder.
+Pour ce faire, il faut donc héberger la base de données sur un serveur. Afin que toutes les passerelles puissent ensuite accéder à la base, il est nécessaire d'équiper chaque passerelle d'un moyen de connexion, par le réseau GSM mobile par exemple. Le logiciel du serveur d'application doit aussi être modifié afin de prendre en compte ce changement, de plus il faudra prendre gare à la gestion des données dupliquées, en effet il est tout à fait possible que deux passerelles différentes reçoivent le même paquet, dans un tel cas il faut donc vérifier que les données ne sont pas déjà enregistrées dans la base de données avant de les sauvegarder.
 
 Une fois ces modifications apportées au système, les passerelles sont en mesure de stocker les données en provenance des capteurs sur une base de données centralisée.
 
