@@ -2,7 +2,9 @@ package ch.heigvd.bisel.racetracker.activities;
 
 import android.app.DatePickerDialog;
 
+import java.math.RoundingMode;
 import java.sql.SQLException;
+import java.text.DecimalFormat;
 import java.util.Date;
 import java.sql.Timestamp;
 import java.text.DateFormat;
@@ -175,15 +177,18 @@ public class CreateNewRaceActivity extends AppCompatActivity implements
      * @param data Associated data
      */
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        DecimalFormat df = new DecimalFormat("#.######");
+        df.setRoundingMode(RoundingMode.CEILING);
+
         if (requestCode == PLACE_PICKER_REQUEST) {
             if (resultCode == RESULT_OK) {
                 raceLocation = new LatLngWrapper(data.getDoubleExtra("latitude", 0),
                         data.getDoubleExtra("longitude", 0));
                 zoom = data.getFloatExtra("zoom", 0);
                 ((TextView) findViewById(R.id.showLocation)).setText(
-                        "Lat: " + data.getDoubleExtra("latitude", 0) +
-                        " Lon: " + data.getDoubleExtra("longitude", 0) +
-                        " Zoom: " + data.getFloatExtra("zoom", 0));
+                        "Lat: " + df.format(data.getDoubleExtra("latitude", 0)) +
+                        " Lon: " + df.format(data.getDoubleExtra("longitude", 0)) +
+                        " Zoom: " + df.format(data.getFloatExtra("zoom", 0)));
             }
         }
     }

@@ -5,13 +5,56 @@ Ce chapitre regroupe les tests qui ont été conduit afin d'essayer de quantifie
 
 \section{Test de distance}
 
-Ce test tente d'évaluer la distance maximale de fonctionnement de la communication LoRa du capteur. La portée de la communication étant un aspect important du système une course test, amenant une distance maximum entre eux d'environ 1 km, est effectuée avec le capteur pour essayer de déterminer ce paramètre.
+Ce test tente d'évaluer la distance maximale de fonctionnement de la communication LoRa du capteur. La portée de la communication étant un aspect important du système une course test, amenant une distance maximum entre eux d'un peu plus de 1 km, est effectuée avec le capteur pour essayer de déterminer ce paramètre.
 
 Le lieu choisi se trouve prêt de l'aérodrome de Colombier, le long de l'autoroute. Ce chemin offre un dégagement optimale afin de s'assurer d'avoir le moins d'obstacle possible.
 
-\todo{}
+La première tentative du test, effectué le 24 Septembre 2018, n'as pas été très concluante. Même si un paquet a été reçu depuis une distance d'environ 670 m, la plus part des paquets n'ont pas été reçus par la passerelle comme espérés. Néanmoins ce test n'a pas été inutile, il a permis de déterminer que la puissance du signal avec la configuration de base ne permet pas d'atteindre des distances de plus de xxx m avec un taux de perte de paquet qui soit satisfaisant. Il a donc été décidé de rééditer l'opération mais cette fois avec une valeur de puissance du signal plus haute. On notera que la puissance configuré pour le premier test était de -0.6 dBm avec un facteur d'étalement maximal de sf12.
 
-\section{Test de duré}
+On peut voir sur la figure \ref{fig:test_distance_11} les points qui ont été acquis durant la première édition du test de distance. Le point bleu symbolise la position de la passerelle.
+
+\begin{figure}[htb]
+\centering 
+\includegraphics[width=0.9\columnwidth]{test_distance_1.png} 
+\caption{Vue d'ensemble des positions récoltées durant le premier test}
+\label{fig:test_distance_11}
+\end{figure}
+
+Une deuxième tentative a été réalisée le 25 Septembre 2018 dans le même endroit afin de pouvoir comparer les deux résultats. Cette fois ci le capteur est configuré afin de délivrer une puissance au signal de sortie de 13.5 dBm et un facteur d'étalement similaire au premier test de sf12.
+
+Sur la figure \ref{fig:test_distance_2_1} on peut voir la distance maximale atteinte durant le deuxième test ainsi que tous les points qui ont été acquis durant l'exercice. On remarque que les points sont reçu avec précision tout au long du parcours. Le point bleu montre la position de la passerelle tout au long du test.
+
+\begin{figure}[htb]
+\centering
+\includegraphics[width=0.9\columnwidth]{test_distance_2_1.png} 
+\caption{Vue d'ensemble des positions récoltées durant le deuxième test}
+\label{fig:test_distance_2_1}
+\end{figure}
+
+Sur la figure \ref{fig:test_distance_2_2} on peut voir le détail du parcours de la deuxième tentative du test de distance. On remarque que les points sont bien régulier et qu'il n'y a pas de perte de paquet. On peut également constater que durant quelques mètres la vue entre la passerelle et le capteur a été totalement obstrué et les paquets ont quand même bien été reçus par la passerelle. Cela montre que contrairement à ce qui avait pu être constaté durant le test d'obstruction de la vue, voir chapitre \ref{ch:test_obstru}, si la puissance du signal est suffisante alors les paquets peuvent quand même être reçus malgré que la ligne de vue entre le capteur et la passerelle soit bouchée.
+
+Ce test a permis de démontrer l'importance de la configuration de la puissance du signal, lors de la première tentative pratiquement aucun paquets n'a été reçu au delà de quelques centaines de mètres. Alors que pour la deuxième tentative tous les paquets ont été reçus correctement jusqu'à une distance de près de 1.2 km. Il est probable que la configuration de la puissance du signal n'a pas besoin d'être aussi haute qu'elle ne l'a été pour le test et quand même d'être en mesure d'atteindre de telles distances. Des tests plus approfondis sont requis afin de déterminer exactement les valeurs optimales du facteur d'étalement et de la puissance de sorte à être en mesure d'atteindre les distances requises tout en préservant l'accumulateur, la consommation d'énergie étant directement liée à ses paramètres.
+
+\begin{figure}[tb]
+\centering
+\begin{subfigure}{0.9\textwidth}
+  \centering
+  \includegraphics[width=0.9\linewidth]{test_distance_2_2.png}
+  \caption{Test de distance \#2 - Image \#2}
+  \label{fig:test_distance_2_2}
+\end{subfigure}%
+
+\begin{subfigure}{0.9\textwidth}
+  \centering
+  \includegraphics[width=0.9\linewidth]{test_distance_2_3.png}
+  \caption{Test de distance \#2 - Image \#3}
+  \label{fig:test_distance_2_3}
+\end{subfigure}
+\caption{Détail du parcours du test de distance \#2}
+\label{fig:test_distance_2_2}
+\end{figure}
+
+\section{Test de durée}
 
 Pour pouvoir déterminer combien de temps le capteur est capable de rester en fonction avec comme seule source d'énergie l'accumulateur, un test est effectué  où le capteur est programmé pour envoyer régulièrement des paquets de données à la passerelle exactement comme il le ferais pendant une course.
 
