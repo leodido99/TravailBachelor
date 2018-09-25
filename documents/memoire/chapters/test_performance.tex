@@ -1,0 +1,22 @@
+
+\chapter{Test de performance}
+
+Ce chapitre regroupe les tests qui ont été conduit afin d'essayer de quantifier les performances pouvant être attente par le système.
+
+\section{Test de distance}
+
+Ce test tente d'évaluer la distance maximale de fonctionnement de la communication LoRa du capteur. La portée de la communication étant un aspect important du système une course test, amenant une distance maximum entre eux d'environ 1 km, est effectuée avec le capteur pour essayer de déterminer ce paramètre.
+
+Le lieu choisi se trouve prêt de l'aérodrome de Colombier, le long de l'autoroute. Ce chemin offre un dégagement optimale afin de s'assurer d'avoir le moins d'obstacle possible.
+
+\todo{}
+
+\section{Test de duré}
+
+Pour pouvoir déterminer combien de temps le capteur est capable de rester en fonction avec comme seule source d'énergie l'accumulateur, un test est effectué  où le capteur est programmé pour envoyer régulièrement des paquets de données à la passerelle exactement comme il le ferais pendant une course.
+
+Le système est laissé comme cela le plus longtemps possible. On rappelle que le cahier des charges stipule que le capteur doit avoir une autonomie d'au moins 10 heures afin de pouvoir être utilisé pendant l'entièreté d'un événement.
+
+Le test a démarré le Dimanche 23 Septembre 2018 à 20h10, le capteur fonctionnais toujours le Lundi 24 Septembre à 16h00 ou il a dû être débranché afin de pouvoir faire le test de distance. La durée totale de fonctionnement correspond donc à 19 heure 50 minutes bien au delà des 10 heure requis par le cahier des charges.
+
+Il est nécessaire de préciser que cette durée peut être grandement influencée par la configuration du capteur, en effet la puissance du signal LoRa émis durant l'envoie des paquets est directement corrélée avec la consommation d'énergie plus la puissance serait élevé plus la consommation sera haute. Si on se réfère à la data sheet du module LoRa RN2483, voir document \cite{rn2483-datasheet-real} p.8, on peut y trouver la consommation en mA de chaque configuration de puissance. On notera que, pour la configuration de base du module c'est à dire -0.6 dBm, la consommation est de 21.2 mA. Avec une puissance du signal maximale de 14.1 dBm on peut voire que la consommation est pratiquement doublée à 38.9 mA. Il est donc nécessaire de prendre garde à la configuration que l'on utilise si l'on veut optimiser la durée de vie du capteur.
