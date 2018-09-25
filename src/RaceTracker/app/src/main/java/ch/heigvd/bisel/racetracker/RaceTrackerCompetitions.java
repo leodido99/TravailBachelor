@@ -1,6 +1,8 @@
 package ch.heigvd.bisel.racetracker;
 
+import java.math.RoundingMode;
 import java.sql.SQLException;
+import java.text.DecimalFormat;
 import java.text.MessageFormat;
 import java.util.ArrayList;
 
@@ -40,14 +42,16 @@ public class RaceTrackerCompetitions implements OnQueryResultReady, OnQueryExecu
      * @param competition New race
      */
     public void insertNewRace(RaceTrackerCompetition competition, OnUpdateDone callback) {
+        DecimalFormat df = new DecimalFormat("#.######");
         RaceTrackerQuery query = new RaceTrackerQuery(connection);
+        df.setRoundingMode(RoundingMode.CEILING);
         callbackUpdate = callback;
         query.setQuery(MessageFormat.format("INSERT INTO race_tracker.competition (name, location, event_date, active, zoom)" +
                 " VALUES (''{0}'', ST_MakePoint({1}, {2}), " +
                 "''{3}'', {4}, {5});",
                 competition.getName(),
-                competition.getLocation().getObject().latitude,
-                competition.getLocation().getObject().longitude,
+                df.format(competition.getLocation().getObject().latitude),
+                df.format(competition.getLocation().getObject().longitude),
                 competition.getEventDate().toString(),
                 competition.isActive(),
                 Float.toString(competition.getZoom())));
