@@ -298,9 +298,6 @@ int main(void) {
 
 Cette section décrit les classes développées dans le cadre du serveur d'application.
 
-Plus d'informations sur les classes sont disponibles en annexe de ce document dans la documentation Doxygen.
-\todo{doxygen}
-
 \subsubsection{Race App Server}
 
 La classe Race App Server est la classe centrale du serveur d'application, lors de son initialisation elle crée un socket et le configure, puis un thread. Lorsqu'elle reçoit un paquet du packet forwarder, elle le parse puis le gère en utilisant les autres classes. Lorsque le nouveau paquet est géré, elle attend le suivant.
