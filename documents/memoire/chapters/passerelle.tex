@@ -194,7 +194,7 @@ La figure \ref{fig:app_serv_flow} montre le flux des données reçues par le ser
 \label{fig:app_serv_flow}
 \end{figure}
 
-Le serveur d'application est composé de deux threads qui sont gérés par le système d'exploitation, le premier est responsable de la réception des paquets du packet forwarder, c'est à dire qu'il attend sur un socket que des données soient disponibles. L'autre thread est utilisé pour le shell, il attend une entrée au clavier et l'exécute.
+Le serveur d'application est composé de deux threads qui sont gérés par le système d'exploitation, le premier est responsable de la réception des paquets du packet forwarder, c'est-à-dire qu'il attend sur un socket que des données soient disponibles. L'autre thread est utilisé pour le shell, il attend une entrée au clavier et l'exécute.
 
 Les threads du serveur d'application sont gérés par la librairie standard pthread, ils n'ont pas de priorité spécifique et sont de type asynchrone, c'est-à-dire que tout deux attendent un événement précis avant de se débloquer.
 
