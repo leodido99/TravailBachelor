@@ -43,8 +43,6 @@ La figure~\ref{fig:system_schema} montre les interactions existantes entre les a
 \label{fig:system_schema}
 \end{figure}
 
-\todo{Data flow?}
-
 \section{LoRa \& LoRaWAN}\label{ch:lora_lorawan}
 
 Lorsque l'on parle de LoRa, souvent une confusion est faite entre deux entités, d'un côté la couche LoRa et de l'autre la couche MAC LoRaWAN.
@@ -78,6 +76,8 @@ g3 & 869.4 à 869.65 & 10\% \\
 \bottomrule 
 \end{tabular}
 \end{table}
+
+Si on applique ces quotas en prenant comme base une charge utile envoyée dans les paquets de 30 bytes et avec un facteur d'étalement maximum de sf12 si l'on veut maximiser la portée des données ce qui est notre cas, on peut calculer le temps qu'il faudra pour envoyer les données, le time on air, et donc déterminer le temps entre chaque envoi afin de respecter la limite. En utilisant la formule mise à disposition par la société Semtech, on arrive à un temps de transfert de 1482.75 ms pour un seul paquet. Afin de respecter un duty cycle de 0.1\%, on ne pourra envoyer un paquet que toutes les 1482.75 s ou 24.71 min, pour une limite de 1\% on pourra envoyer un paquet toutes les 148.27 s c'est à dire toutes les 2.47 min, enfin pour un cycle fixé à 10\% c'est un paquet toutes les 14.8 secondes qu'il nous sera permis d'envoyer. On peut donc remarquer que cet élément a un gros impact sur le système. \cite{lora_design_guide}
 
 LoRaWAN, qui est souvent également appelé à tord LoRA, est la couche MAC qui s'appuie directement sur la couche radio. Elle propose un set de fonctionnalités supplémentaires permettant de faciliter la gestion d'un grand nombre de capteurs et d'améliorer le niveau de sécurité. Son concept est de s'appuyer sur un réseau de passerelles placées afin de produire une couverture maximale pour les utilisateurs. Les passerelles récupèrent les paquets et les transmettent à un serveur central, le serveur réseau, qui gère le protocole dans son ensemble. Il s'occupe de générer les paquets de réponses qui sont envoyés en retour aux passerelles et il permet également l'envoi des données reçues des capteurs à des serveurs d'applications qui vont ensuite exploiter les données. LoRaWAN permet l'encryption des données transitant entre le serveur réseau et les capteurs, qui sont les deux seuls éléments à connaître les clefs de chiffrement, ce qui permet d'assurer la confidentialité des informations traversant le réseau. Une autre fonctionnalité intéressante que ce protocole propose est le Adaptive Data Rate (ADR), en fonction des paramètres reçus des passerelles et des informations concernant la qualité de transmission des capteurs, le serveur réseau va pouvoir altérer les débits de transfert des capteurs. Un nœud qui sera très distant de la passerelle verra son taux de transfert baissé, ce qui permettra de rendre la communication plus robuste aux interférences. \cite{lorawan_spec}
 

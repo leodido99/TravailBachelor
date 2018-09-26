@@ -76,7 +76,12 @@ Le Raspberry Pi et le Dragino LoRa HAT communiquent au travers d'un bus de type 
 \label{fig:gateway_schema}
 \end{figure}
 
-\todo{Figure RPI + Dragino}
+\begin{figure}[htb]
+\centering 
+\includegraphics[width=0.6\columnwidth]{rpi_dragino_hat.jpg} 
+\caption{Raspberry pi et son Dragino LoRa HAT}
+\label{fig:rpi_lora_hat}
+\end{figure}
 
 \section{Le packet forwarder}\label{ch:packet_forwarder}
 
@@ -415,7 +420,7 @@ La figure \ref{fig:lora_rxpk_parser_uml} montre le diagramme de classe de LoRa r
 
 \subsubsection{Vector Reader}
 
-Le Vector Reader est une classe qui permet l'extraction de données depuis un vecteur de byte. \todo{Les données qui sont reçues dans les paquets sous forme d'objet json contient les données encodée en base64,} Une fois les données décodées, elles sont transformées en vecteur de byte et c'est donc grâce à la classe Vector Reader que l'on peut en extraire les différents paramètres.
+Le Vector Reader est une classe qui permet l'extraction de données depuis un vecteur de byte.  Les données du capteur reçues dans les paquets sont transformées en objet json et les paramètres que l'on souhaite extraire sont encodée en base64. Une fois les données récupérées, elles sont transformées en vecteur de byte et c'est donc grâce à la classe Vector Reader que l'on peut en extraire les différents paramètres.
 
 La figure \ref{fig:vector_reader_uml} montre le diagramme de classe de Vector Reader.
 

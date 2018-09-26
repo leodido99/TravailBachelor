@@ -6,7 +6,12 @@ Elle est codée en langage Java et utilise le système Android et également le 
 
 L'environnement de développement Android Studio a été utilisé pour le développement de cette application qui permet également de simuler l'exécution de l'application et facilite ainsi le débuggage.
 
-\todo{Image GUI}
+\begin{figure}[htb]
+\centering 
+\includegraphics[width=0.7\columnwidth]{app_viewrace.png} 
+\caption{Application mobile RaceTracker}
+\label{fig:app_viewrace}
+\end{figure}
 
 \section{Architecture logiciel}
 
@@ -197,14 +202,12 @@ La figure \ref{fig:replayrace_uml} montre le diagramme de classe de ReplayRaceAc
     ~ %add desired spacing between images, e. g. ~, \quad, \qquad, \hfill etc. 
       %(or a blank line to force the subfigure onto a new line)
     \begin{subfigure}[htb]{0.49\textwidth}
-		\includegraphics[width=1\columnwidth]{viewraceactivity_gui.png} 
+		\includegraphics[width=1\columnwidth]{replayrace_app.png} 
 		\caption{Aperçu de l'interface graphique de l'activité}
 		\label{fig:replayrace_gui}
     \end{subfigure}
     \caption{ReplayRaceActivity}\label{fig:replayrace_fig}
 \end{figure}
-
-\todo{Maj GUI image}
 
 \subsection{ManageRaceSelectorActivity}
 
@@ -398,7 +401,7 @@ Les fragments représentent le comportement d'une partie de l'interface graphiqu
 
 Le fragment DataPickerFragment est utilisé pour récupérer une date entrée par l'utilisateur, l'interface habituelle pour entrer une date est présentée à l'utilisateur et son choix est retourné.
 
-La figure \ref{fig:datapickerfragment_uml} montre le diagramme de classe de DatePickerFragment.
+La figure \ref{fig:datepickerfragment_uml} montre le diagramme de classe de DatePickerFragment.
 
 \begin{figure}[htb!]
     \centering
