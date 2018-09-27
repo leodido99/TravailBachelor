@@ -5,14 +5,14 @@ Le dossier de gestion regroupe les activités effectuées pendant toute la duré
 \begin{multicols}{2}
 
 \gestiondate{01.07.2018}
-Installation du Raspberry Pi et du Dragino HAT
-Installation Arduino IDE
+Installation du Raspberry Pi et du Dragino HAT\\
+Installation Arduino IDE\\
 Récupération du code du packet forwarder
 
 \gestiondate{02.07.2018}
-Modification fichier de configuration
-Exécution packet forwarder
-Setup Eclipse C++
+Modification fichier de configuration\\
+Exécution packet forwarder\\
+Setup Eclipse C++\\
 Début codage serveur d'application basique
 
 \gestiondate{03.07.2018}
@@ -25,111 +25,111 @@ Avancement serveur d'application
 Avancement serveur d'application (parsage paquet UDP)
 
 \gestiondate{06.07.2018}
-Installation d'Eclipse pour le Raspberry Pi avec XWindow
-Ne fonctionne pas très bien, abandon de l'idée
-Utilisation de scp pour copier les fichiers
+Installation d'Eclipse pour le Raspberry Pi avec XWindow\\
+Ne fonctionne pas très bien, abandon de l'idée\\
+Utilisation de scp pour copier les fichiers\\
 Installation de Ubuntu sur ordinateur de développement
 
 \gestiondate{07.07.2018}
-Script connection Raspberry pi
-Refactor class lora\_udp\_pkt
-Débuggage des nouvelles classes
-Implémentation décodage donnée base64
+Script connection Raspberry pi\\
+Refactor class lora\_udp\_pkt\\
+Débuggage des nouvelles classes\\
+Implémentation décodage donnée base64\\
 Premier paquet reçu
 
 \gestiondate{08.07.2018}
-Commentaires dans le code
-Création classe Shell
+Commentaires dans le code\\
+Création classe Shell\\
 Début codage avec Arduino IDE pour le capteur
 
 \gestiondate{09.07.2018}
-Début mise en place du mémoire
+Début mise en place du mémoire\\
 Rédaction de l’explication liée au test 1 (capteur + passerelle)
 
 \gestiondate{10.07.2018}
-Création de la classe test\_mode\_record pour sauver les données enregistré par le test\_mode
-Codage de la classe vector\_reader permettant de retirer un certains nombre de byte d’un vecteur
-Création de la classe shell\_command qui permet la définition de commande et de leurs comportement
-Implémentation / debug de la première commande (test)
+Création de la classe test\_mode\_record pour sauver les données enregistré par le test\_mode\\
+Codage de la classe vector\_reader permettant de retirer un certains nombre de byte d’un vecteur\\
+Création de la classe shell\_command qui permet la définition de commande et de leurs comportement\\
+Implémentation / debug de la première commande (test)\\
 
 \gestiondate{11.07.2018}
-Configuration du Raspberry Pi avec deux interfaces WiFi une pour client internet l’autre pour AP
-Test RPi en alim depuis le mac -> OK
-Test battery SODAQ -> Mauvais connecteur -> Recommander un autre
+Configuration du Raspberry Pi avec deux interfaces WiFi une pour client internet l’autre pour AP\\
+Test RPi en alim depuis le mac -> OK\\
+Test battery SODAQ -> Mauvais connecteur -> Recommander un autre\\
 Mise en place zephyr sur Ubuntu
 
 \gestiondate{12.07.2018}
-Travail sur la configuration de la carte SODAQ One v3 sur Zephyr
-Soudage de pin sur le capteur pour accéder aux pins UART
-Installation câble FTDI
-Test LED OK
+Travail sur la configuration de la carte SODAQ One v3 sur Zephyr\\
+Soudage de pin sur le capteur pour accéder aux pins UART\\
+Installation câble FTDI\\
+Test LED OK\\
 Test UART OK
 
 \gestiondate{13.07.2018}
-Dév de la board SODAQ One sur Zephyr.
-Essai d’interfacage avec le chip LoRa, UART ne fonctionne pas reste en boucle d’interruption.
-Début écriture du module RN2483\_lora
+Dév de la board SODAQ One sur Zephyr.\\
+Essai d’interfacage avec le chip LoRa, UART ne fonctionne pas reste en boucle d’interruption.\\
+Début écriture du module RN2483\_lora\\
 Débug RN2483 LoRa. envoie commande et récup status = OK
 
 \gestiondate{14.07.2018}
-Codage LoRa radio tx
-Finir la configuration de la carte (GPS + Magnetometer)
-Investigation pour écriture du driver I2C
+Codage LoRa radio tx\\
+Finir la configuration de la carte (GPS + Magnetometer)\\
+Investigation pour écriture du driver I2C\\
 Mise en place environnement pour dev Zephyr (Fork)
 
 \gestiondate{15.07.2018}
-Modifications des fichiers nécessaire pour l’ajout du driver I2C à Zephyr
+Modifications des fichiers nécessaire pour l’ajout du driver I2C à Zephyr\\
 Début codage du driver I2C
 
 \gestiondate{16.07.2018}
-Travail sur I2C. Codage driver
+Travail sur I2C. Codage driver\\
 Début écriture driver LSM303AGR
 
 \gestiondate{17.07.2018}
-Travail sur I2C. 
+Travail sur I2C. \\
 Lecture note pour I2C: Atmel-42631-SAM-D21-SERCOM-I2C-Configura.pdf
 
 \gestiondate{18.07.2018}
-Première version qui fonctionne du I2C
-Codage driver LSM303AGR pour voir si cela fonctionne bien
-Ajout de la configuration pour SODAQ One v3 au fork Zephyr
-Modification des configurations projet pour utiliser la board SODAQ One v3
+Première version qui fonctionne du I2C\\
+Codage driver LSM303AGR pour voir si cela fonctionne bien\\
+Ajout de la configuration pour SODAQ One v3 au fork Zephyr\\
+Modification des configurations projet pour utiliser la board SODAQ One v3\\
 Débug codage driver UBlox EVA8M
 
 \gestiondate{19.07.2018}
-Continue codage driver UBlox EVA8M
-Driver GPS fonctionne correctement
+Continue codage driver UBlox EVA8M\\
+Driver GPS fonctionne correctement\\
 Continue codage driver LSM303AGR
 
 \gestiondate{20.07.2018}
 Test avec battery
 
 \gestiondate{21.07.2018}
-Test capteur/gateway à Planeyse. 
+Test capteur/gateway à Planeyse. \\
 5 Tests différents: SF7/SF12 - Marche le long de la piste, SF7/SF12/SF7-POWER10 distance (marche en ligne droite environ 200m et retour)
 
 \gestiondate{22.07.2018}
-Écriture du chapitre test phase \#1
-Début écriture introduction
-Mise en place chapitres du mémoire
+Écriture du chapitre test phase \#1\\
+Début écriture introduction\\
+Mise en place chapitres du mémoire\\
 Début écriture chapitre capteur
 
 \gestiondate{23.07.2018}
 Réécriture du driver RN2483 LoRa + test
 
 \gestiondate{24.07.2018}
-Modification de la passerelle pour décoder les paquets “course”
+Modification de la passerelle pour décoder les paquets “course”\\
 Amélioration shell passerelle
 
 \gestiondate{25.07.2018}
-Envoie des paquets du capteur en big endian
-Correction de l’affichage des paquet sur la passerelle
+Envoie des paquets du capteur en big endian\\
+Correction de l’affichage des paquet sur la passerelle\\
 Installation postgresql sur la passerelle
 
 \gestiondate{26.07.2018}
-Mise en place database depuis StarUML
-Installation PostGis et tests des différents types et fonctions
-Création base de données race\_tracker\_db avec tables
+Mise en place database depuis StarUML\\
+Installation PostGis et tests des différents types et fonctions\\
+Création base de données race\_tracker\_db avec tables\\
 Création des requêtes pour effectuer les diverses opérations (ajout compétiteur, ajout compétition etc..)
 
 \gestiondate{27.07.2018}
@@ -142,86 +142,86 @@ Codage serveur d'application "race mode"
 Ecriture rapport (description capteur)
 
 \gestiondate{30.07.2018}
-Installation et test lib pqxx
+Installation et test lib pqxx\\
 Début codage class interface DB
 
 \gestiondate{31.07.2018}
-Codage class interface DB
-Modification de la DB (ajout active Competition)
+Codage class interface DB\\
+Modification de la DB (ajout active Competition)\\
 Ecriture requête insertion data point dans DB
 
 \gestiondate{01.08.2018}
-Ecriture + test ecriture des positions GPS dans la database depuis gateway
+Ecriture + test ecriture des positions GPS dans la database depuis gateway\\
 Ajout nouvelle fonction race sensor shell pour changer l’intervalle de temps entre deux messages
 
 \gestiondate{02.08.2018}
-Rédaction du résumé du travail de Bachelor
+Rédaction du résumé du travail de Bachelor\\
 Rédaction chapitre passerelle du mémoire
 
 \gestiondate{03.08.2018}
-Installation et configuration Android studio
-Installation et configuration KVM Virtual Machine
+Installation et configuration Android studio\\
+Installation et configuration KVM Virtual Machine\\
 Test lancement emulateur
 
 \gestiondate{04.08.2018}
-Installation driver JDBC
-Configuration Android studio pour driver JDBC Postgresql
+Installation driver JDBC\\
+Configuration Android studio pour driver JDBC Postgresql\\
 Ecriture de classe interface DB RaceTrackerDb
 
 \gestiondate{05.08.2018}
-Ecriture RaceVieverSelector (Lecture des compétitions depuis la DB, affichage dans UI, séléction course -> Changement d’activité)
+Ecriture RaceVieverSelector (Lecture des compétitions depuis la DB, affichage dans UI, séléction course -> Changement d’activité)\\
 Affichage de la carte et markage de la position de la course
 
 \gestiondate{06.08.2018}
-Ecriture requête last data\_point
-Application mobile: RaceViewer
+Ecriture requête last data\_point\\
+Application mobile: RaceViewer\\
 Retravail de la classe RaceTrackerDB au niveau de l’exécution des requêtes et la récupération des résultats
 
 \gestiondate{07.08.2018}
-Debug exécution de plusieurs requête
-Ecriture RaceTrackerDBAsyncTask
+Debug exécution de plusieurs requête\\
+Ecriture RaceTrackerDBAsyncTask\\
 Gestion exception sur requête SQL
 
 \gestiondate{08.08.2018}
 Gestion affichage de la position depuis la DB dans l’application mobile
 
 \gestiondate{10.08.2018}
-Description classes du serveur d’application dans le mémoire
-Test avec capteur + passerelle + appli mobile
+Description classes du serveur d’application dans le mémoire\\
+Test avec capteur + passerelle + appli mobile\\
 Première version complète du système fonctionnelle avec uniquement position GPS
 
 \gestiondate{11.08.2018}
-Re-écriture de la gestion et l’affichage des positions
+Re-écriture de la gestion et l’affichage des positions\\
 Test nouvelle version avec points GPS obtenu depuis fichier GPX
 
 \gestiondate{15.08.2018}
-Lecture data sheet module rythme cardiaque
-Soudage cable sur le module
+Lecture data sheet module rythme cardiaque\\
+Soudage cable sur le module\\
 Soudage rangée de pins sur le SODAQ One
 
 \gestiondate{16.08.2018}
 Correction de la configuration Wifi de la passerelle (wlan0 = connection normal sur réseau local, wlan1 = Access point)
 
 \gestiondate{17.08.2018}
-Correction du résumé du TB et enregistrement sur le site
-Mail M. Bressy pour relecture et prise rendez-vous
+Correction du résumé du TB et enregistrement sur le site\\
+Mail M. Bressy pour relecture et prise rendez-vous\\
 Ecriture mémoire chapitre Passerelle
 
 \gestiondate{18.08.2018}
-Codage module Rythme Cardiaque sur le SODAQ One
-Debug Hot spot WIFI
+Codage module Rythme Cardiaque sur le SODAQ One\\
+Debug Hot spot WIFI\\
 Driver GPIO Zephyr ne peut pas utiliser les interruptions (Non implémenté)
 
 \gestiondate{19.08.2018}
 Ecriture mémoire, partie Passerelle et Base de données
 
 \gestiondate{20.08.2018}
-Investigation SEGGER J-Link EDU debugger
-Connection debugger -> Ne fonctionne pas (VTRef = 0V)
+Investigation SEGGER J-Link EDU debugger\\
+Connection debugger -> Ne fonctionne pas (VTRef = 0V)\\
 Codage GPIO interrupt pour SAMD21
 
 \gestiondate{22.08.2018}
-Ecriture driver external interrupt controller Zephyr
+Ecriture driver external interrupt controller Zephyr\\
 Modification driver GPIO pour utiliser external interrupt controller
 
 \gestiondate{23.08.2018}
@@ -231,21 +231,21 @@ Debug driver external interrupt controller
 Debug problem AP WiFi ne fonctionne pas
 
 \gestiondate{25.08.2018}
-Update RPi firmware -> AP WiFi fonctionne
-Ecriture script start-up pour la passerelle
+Update RPi firmware -> AP WiFi fonctionne\\
+Ecriture script start-up pour la passerelle\\
 Debug driver External Interrupt Controller
 
 \gestiondate{27.08.2018}
-Interrupt fonctionne ! Réception des premiers battements
+Interrupt fonctionne ! Réception des premiers battements\\
 Fix bug driver GPIO list callback
 
 \gestiondate{28.08.2018}
-Fin écriture module rythme cardiaque et test
-Mise en place module cadence
+Fin écriture module rythme cardiaque et test\\
+Mise en place module cadence\\
 Nettoyage divers modules
 
 \gestiondate{29.08.2018}
-Création affiche
+Création affiche\\
 Ecriture mémoire, chapitre développement
 
 \gestiondate{30.08.2018}
@@ -262,137 +262,138 @@ Essaie de test en extérieur -> Échec pas de connection à la passerelle…
 Reconfiguration de la passerelle pour avoir un AP fonctionnel
 
 \gestiondate{04.09.2018}
-Essaie de test en extérieur -> Echec le réseau de l’AP n’apparaît pas. Après plusieurs essais, avec un hotspot créé depuis un téléphone mobile avec le même nom de réseau que le réseau wlan0, le réseau de l’AP est brièvement apparue mais que pour un cours instant. Problème de configuration au niveau de la passerelle à revoir…
+Essaie de test en extérieur -> Echec le réseau de l’AP n’apparaît pas.\\
+Après plusieurs essais, avec un hotspot créé depuis un téléphone mobile avec le même nom de réseau que le réseau wlan0, le réseau de l’AP est brièvement apparue mais que pour un cours instant. Problème de configuration au niveau de la passerelle à revoir…
 
 \gestiondate{05.09.2018}
 Investigation problème AP
 
 \gestiondate{06.09.2018}
-Décision de laisser tomber les deux wifi en parallèle. Simplement utiliser le wifi du RPI pour créer l’AP et si besoin de connection pour debug utiliser le cable ethernet
-Configure du RPI, test avec et sans cable ethernet, tout fonctionne bien.
+Décision de laisser tomber les deux wifi en parallèle. Simplement utiliser le wifi du RPI pour créer l’AP et si besoin de connection pour debug utiliser le cable ethernet\\
+Configure du RPI, test avec et sans cable ethernet, tout fonctionne bien.\\
 Développement interface graphique application mobile
 
 \gestiondate{07.09.2018}
-Retouche affiche pour finalisation
+Retouche affiche pour finalisation\\
 Ecriture mémoire chapitre Application mobile, driver External Interrupt Controller.
 
 \gestiondate{08.09.2018}
 Développement interface graphique Android
 
 \gestiondate{09.09.2018}
-Refactor interface DB app Android
-Encapsulation des requête pour mieux contrôler la fermeture des connections
+Refactor interface DB app Android\\
+Encapsulation des requête pour mieux contrôler la fermeture des connections\\
 Ajout rythme cardiaque et cadence sur interface
 
 \gestiondate{10.09.2018}
-Fini refonte interface DB + test
+Fini refonte interface DB + test\\
 Nettoyage + commentaires
 
 \gestiondate{11.09.2018}
-Create fonction de gestion dans l’application mobile
-Finalisation activité création de course avec écriture dans DB
+Create fonction de gestion dans l’application mobile\\
+Finalisation activité création de course avec écriture dans DB\\
 Activité création de compétiteur et écriture dans la DB
 
 \gestiondate{12.09.2018}
-Finalisation insertion participant dans DB
-Refactor ViewRaceSelector pour retourner une course sélectionné
-Création nouvelles activités pour inscriptions: RegistrationsActivity et RegistrationEditActivity
+Finalisation insertion participant dans DB\\
+Refactor ViewRaceSelector pour retourner une course sélectionné\\
+Création nouvelles activités pour inscriptions: RegistrationsActivity et RegistrationEditActivity\\
 Quelques tests des différentes fonctions
 
 \gestiondate{13.09.2018}
-Travail sur interface graphique Android partie gestion de course
+Travail sur interface graphique Android partie gestion de course\\
 Gestion début/fin de course
 
 \gestiondate{14.09.2018}
-8h00: Rendez-vous avec le conseiller pour signature affiche plus discussion générale
-Ecriture mémoire, chapitre application mobile, documentation des classes
+8h00: Rendez-vous avec le conseiller pour signature affiche plus discussion générale\\
+Ecriture mémoire, chapitre application mobile, documentation des classes\\
 Finitions chapitre capteur
 
 \gestiondate{15.09.2018}
-Développement du mode Replay
-Test mode replay avec donnée Fyne Tera -> Fonctionne bien
-Test accéléromètre sur le capteur, correction de quelques problèmes
-Récupération de données accéléromètre en marchant avec le capteur
-Configuration interruption sur dépassement de seuil sur un certains axe
+Développement du mode Replay\\
+Test mode replay avec donnée Fyne Tera -> Fonctionne bien\\
+Test accéléromètre sur le capteur, correction de quelques problèmes\\
+Récupération de données accéléromètre en marchant avec le capteur\\
+Configuration interruption sur dépassement de seuil sur un certains axe\\
 Test pas concluant donc replis sur solution sampling en polling
 
 \gestiondate{16.09.2018}
-Encore quelques test cadence interrupt, ne marche toujours pas
-Ajout temps minimum entre deux détection de pas
-Intégration de cadence test dans code capteur
-Debug problème accès concurrent sur i2c -> fixed
-Test envoie de paquet depuis le capteur pendant 2h30 -> OK
-Clean-up debug application mobile
-Test de quelques cas d’erreur sur gateway
-Clean-up fix quelques bug sur gateway
+Encore quelques test cadence interrupt, ne marche toujours pas\\
+Ajout temps minimum entre deux détection de pas\\
+Intégration de cadence test dans code capteur\\
+Debug problème accès concurrent sur i2c -> fixed\\
+Test envoie de paquet depuis le capteur pendant 2h30 -> OK\\
+Clean-up debug application mobile\\
+Test de quelques cas d’erreur sur gateway\\
+Clean-up fix quelques bug sur gateway\\
 Début design boîte sur Fusion 360
 
 \gestiondate{17.09.2018}
-Avancé design boîte. Design fermeture de la boîte
-Réajustement de la taille de la boîte (erreur de taille du SODAQ)
-Ajustement de la position du switch on/off
+Avancé design boîte. Design fermeture de la boîte\\
+Réajustement de la taille de la boîte (erreur de taille du SODAQ)\\
+Ajustement de la position du switch on/off\\
 Ajustement position antenne GPS
 
 \gestiondate{18.09.2018}
-Design boîte. Premier test impression, petit erreur de dimension sur le modèle de la carte SODAQ.
-Corrections apportées suite aux problèmes
-Ajout de support pour la carte
+Design boîte. Premier test impression, petit erreur de dimension sur le modèle de la carte SODAQ.\\
+Corrections apportées suite aux problèmes\\
+Ajout de support pour la carte\\
 Correction et finalisation de la partie pour l’attache élastique
 
 \gestiondate{19.09.2018}
 Fin design boîte. Test dimensions pour interrupteur, batterie etc..
 
 \gestiondate{20.09.2018}
-Ecriture mémoire:
-Chapitre design boîte capteur
+Ecriture mémoire:\\
+Chapitre design boîte capteur\\
 Chapitre description LoRa \& LoRaWAN
 
 \gestiondate{21.09.2018}
-Ecriture mémoire:
-Finaliser LoRa \& LoRaWAN
-Nettoyage bibliographie
-Chapitre environnement de développement
-Chapitre cadence analyse
-Chapitre application mobile, accès à la base de données
-Chapitre problèmes \& solutions
-Début chapitre test phase 2
-Test avec switch pour éteindre le capteur. Après plusieurs essaies impossible de réussir à éteindre le capteur.
-Soudage cable switch
-Soudage module rythme cardiaque avec fil souple
+Ecriture mémoire:\\
+Finaliser LoRa \& LoRaWAN\\
+Nettoyage bibliographie\\
+Chapitre environnement de développement\\
+Chapitre cadence analyse\\
+Chapitre application mobile, accès à la base de données\\
+Chapitre problèmes \& solutions\\
+Début chapitre test phase 2\\
+Test avec switch pour éteindre le capteur. Après plusieurs essaies impossible de réussir à éteindre le capteur.\\
+Soudage cable switch\\
+Soudage module rythme cardiaque avec fil souple\\
 Test assemblage de la boîte
 
 \gestiondate{22.09.2018}
-Finalisation de l’assemblage du capteur
-Création de la bande élastique permettant de fixer le capteur au bras
-Réparation de la soudure du module rythme cardiaque et isolation avec scotch
-Nettoyage des messages de debug du firmware du capteur et version finale
-Fix un bug dans l’application mobile lors de la création d’une course
-Tag de la version 1.0 sur git!
-Test phase \#3 sur piste d’athlétisme -> Succès !
-Test de communication LoRa avec obstacle
+Finalisation de l’assemblage du capteur\\
+Création de la bande élastique permettant de fixer le capteur au bras\\
+Réparation de la soudure du module rythme cardiaque et isolation avec scotch\\
+Nettoyage des messages de debug du firmware du capteur et version finale\\
+Fix un bug dans l’application mobile lors de la création d’une course\\
+Tag de la version 1.0 sur git!\\
+Test phase \#3 sur piste d’athlétisme -> Succès !\\
+Test de communication LoRa avec obstacle\\
 Ecriture mémoire chapitre test phase \#2
 
 \gestiondate{23.09.2018}
-Fin écriture mémoire chapitre test phase \#2
-Ecriture chapitre test phase \#3
-Ecriture chapitre évolution du système
-Début écriture de la conclusion
+Fin écriture mémoire chapitre test phase \#2\\
+Ecriture chapitre test phase \#3\\
+Ecriture chapitre évolution du système\\
+Début écriture de la conclusion\\
 Recherche d’un endroit pour test de distance
 
 \gestiondate{24.09.2018}
-Test de distance vers l’aérodrome de Colombier -> Peut concluant perte de la trace relativement rapidement. Deuxième essai demain avec augmentation de la puissance du signal.
+Test de distance vers l’aérodrome de Colombier -> Peut concluant perte de la trace relativement rapidement. Deuxième essai demain avec augmentation de la\\ puissance du signal.\\
 Ecriture chapitre test de performance
 
 \gestiondate{25.09.2018}
-Fix bug sélection de l’emplacement de la course pendant la création de course
-Test de distance vers l’aérodrome de Colombier, édition numéro 2.
-Fin écriture chapitre test de performance
+Fix bug sélection de l’emplacement de la course pendant la création de course\\
+Test de distance vers l’aérodrome de Colombier, édition numéro 2.\\
+Fin écriture chapitre test de performance\\
 Ecriture de la conclusion
 
 \gestiondate{26.09.2018}
-Fin écriture de la conclusion
-Photo capteur et passerelle
-Modification introduction
+Fin écriture de la conclusion\\
+Photo capteur et passerelle\\
+Modification introduction\\
 Finalisation de l'écriture du rapport
 
 \end{multicols}
