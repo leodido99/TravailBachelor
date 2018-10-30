@@ -3,8 +3,11 @@ package ch.heigvd.bisel.racetracker;
 import java.math.RoundingMode;
 import java.sql.SQLException;
 import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
 import java.text.MessageFormat;
+import java.text.NumberFormat;
 import java.util.ArrayList;
+import java.util.Locale;
 
 public class RaceTrackerCompetitions implements OnQueryResultReady, OnQueryExecuted {
     private RaceTrackerCompetitions.OnCompetitionsReady callback;
@@ -42,7 +45,10 @@ public class RaceTrackerCompetitions implements OnQueryResultReady, OnQueryExecu
      * @param competition New race
      */
     public void insertNewRace(RaceTrackerCompetition competition, OnUpdateDone callback) {
-        DecimalFormat df = new DecimalFormat("#.######");
+        DecimalFormatSymbols otherSymbols = new DecimalFormatSymbols(Locale.getDefault());
+        otherSymbols.setDecimalSeparator('.');
+        otherSymbols.setGroupingSeparator('.');
+        DecimalFormat df = new DecimalFormat("#.######", otherSymbols);
         RaceTrackerQuery query = new RaceTrackerQuery(connection);
         df.setRoundingMode(RoundingMode.CEILING);
         callbackUpdate = callback;
