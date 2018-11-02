@@ -6,6 +6,9 @@ make
 sudo cp bin/bossac_1.7.0 /opt
 echo "Install Android Studios to compile mobile application"
 echo "Compilation of gateway software should be done on gateway itself or investigate for RPI crosscompile (didnt manage to make it work)"
+echo "Gateway back-up image stored on external drive WD (Traktor logo)"
+echo "Otherwise install Raspbian, postgresql and toolchain to compile on RPi"
+echo "Packet forwarder is clone during script execution, need to configure it to call proper server"
 echo "Firmware compilation procedure:"
 echo "- Install arm eabi toolchain in ~/toolchains"
 echo "- Source src/RaceSensor/zephyr_fork"
